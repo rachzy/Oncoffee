@@ -1,0 +1,314 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+
+* {
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-style: initial;
+    box-shadow: 0 0 0 0;
+    border: 0 none;
+    outline: none;
+    
+
+}
+
+body {
+    overflow-x: hidden;
+    background: rgb(20, 20, 20);
+    min-height: 100vh;
+    
+}
+
+.conteudo {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    
+    
+}
+
+.conteudo1 {
+    width: 100%;
+    
+    display: flex;
+    flex-direction: row;
+    
+    
+
+}
+
+.boxleft {
+    width: 50%;
+}
+
+.boxright {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+
+.logincontainer {
+    background: rgb(50, 50, 50);
+    border-radius: 15px;
+    padding: 25px;
+    min-width: 35%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+}
+
+.logincontainer h2 {
+    text-align: center;
+    font-family: Poppins,sans-serif;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 600;
+    font-size: 28px;
+    cursor: default;
+}
+
+
+
+.log-reg {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    width: 100%;
+    border-bottom: 2px solid rgb(60, 60, 60);
+}
+
+
+.login, .register {
+    width: 48%;
+    font-family: Ubuntu,sans-serif;
+    text-align: center;
+    font-size: 18px;
+    color: rgb(223, 223, 223);
+    font-weight: 400;
+    padding: 10px;
+    
+}
+
+.login:hover, .register:hover {
+    cursor: pointer;
+    
+}
+
+
+.underline {
+    width: 50%;
+    display: block;
+    margin-top: -2px;
+    height: 2px;
+    border-radius: 5px;
+    background: rgb(167, 89, 45);
+    animation: underline 10s ease infinite;
+    transition: all 0.4s ease;
+    margin-left: 0%;
+}
+
+#logcheck {
+    display: none;
+}
+
+#logcheck:checked ~ .underline {
+    margin-left: 50%;
+}
+
+#logcheck:checked ~ .loginbox {
+    display: none;
+}
+
+.loginbox {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 25px;
+}
+
+.logmail {
+    width: 93%;
+    padding: 8px;
+    background: rgb(50, 50, 50);
+    border: 1px solid rgba(80, 80, 80, 0);
+    border-bottom: 1px solid rgb(80, 80, 80);
+    color: white;
+    transition: all 0.2s ease;
+}
+
+.logmail:focus {
+    border: 1px solid rgb(80, 80, 80);
+}
+
+.logmail::placeholder {
+    color: rgb(120, 120, 120);
+}
+
+#passwordcheck {
+   display: none;
+}
+
+.inputpassword {
+    width: 100%;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgb(80, 80, 80);
+    
+}
+
+.inputpassword input {
+    width: 90%;
+    padding: 8px;
+    background: rgb(50, 50, 50);
+    color: white;
+    border-top: 1px solid rgba(80, 80, 80, 0);
+    border-left: 1px solid rgba(80, 80, 80, 0);
+    transition: all 0.2s ease;
+    
+}
+
+#passwordcheck:checked ~ .eyepassword {
+    color: rgb(7, 161, 250);
+}
+
+.inputpassword input:focus ~ label {
+    border-top: 1px solid rgb(80, 80, 80);
+    border-right: 1px solid rgb(80, 80, 80);
+}
+
+.inputpassword input:focus  {
+    border-top: 1px solid rgb(80, 80, 80);
+    border-left: 1px solid rgb(80, 80, 80);
+}
+
+
+.inputpassword label {
+    width: 10%;
+    text-align: center;
+    padding: 6px;
+    color: rgb(120, 120, 120);
+    right: 0;
+    border-top: 1px solid rgba(80, 80, 80, 0);
+    border-right: 1px solid rgba(80, 80, 80, 0);
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.ou {
+    text-align: center;
+    font-size: 15px;
+    margin-top: 15px;
+    font-family: Poppins,sans-serif;
+    color: rgba(255, 255, 255, 0.7);
+    cursor: default;
+}
+
+.loginbtts {
+    display: none;
+}
+
+.logininputcolumn2 {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.logininputcolumn2 label {
+    width: 40%;
+    font-size: 18px;
+    font-family: Roboto,sans-serif;
+    font-weight: 500;
+    padding: 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+
+
+.logininputcolumn2 label i {
+    margin-right: 5%
+}
+
+.logininputcolumn2 label:last-child i {
+    margin-right: 8%
+}
+
+.facebookinput {
+    background: #3b5998;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.googleinput {
+    background: rgb(187, 187, 187);
+    color: rgb(53, 53, 53);
+    
+}
+
+.googleinput img {
+    width: 25px;
+}
+
+
+
+
+
+
+
+
+.registerbox {
+    width: 100%;
+    display: none;
+    flex-direction: column;
+    margin-top: 10px;
+}
+
+.registerbox input {
+    margin-top: 5px;
+}
+
+
+.proxbtt {
+    background: linear-gradient(45deg,rgb(197, 107, 54),rgb(167, 89, 45));
+    color: white;
+    font-family: Poppins,sans-serif;
+    padding: 5px;
+    font-size: 18px;
+    border-radius: 4px;
+    margin-top: 10px;
+    letter-spacing: 0.4px;
+    transition: 0.3s all ease;
+}
+
+.proxbtt:hover {
+    letter-spacing: 2px;
+    cursor: pointer;
+}
+
+
+
+.ou2 {
+    text-align: center;
+    font-size: 13px;
+    margin-top: 15px;
+    font-family: Poppins,sans-serif;
+    color: rgba(255, 255, 255, 0.7);
+    cursor: default;
+}
+
+
+.error {
+    font-size: 14px;
+    font-family: Roboto,sans-serif;
+    color: rgb(182, 74, 74);
+    padding: 3px 5px;
+}

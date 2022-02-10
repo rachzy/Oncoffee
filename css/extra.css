@@ -1,0 +1,83 @@
+.skip-to-content-button {
+    font-family: Poppins,sans-serif;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 18px;
+    background: rgb(167, 89, 45);
+    padding: 8px 50px;
+    transform: translateY(-120%);
+    border-radius: 5px;
+    left: 5px;
+    transition: 0.2s ease all;
+    cursor: pointer;
+    position: absolute;
+}
+
+.skip-to-content-button:focus {
+    margin-left: 5px;
+    position: static;
+    transform: translateY(-0%);
+}
+
+.skip-to-content-button:hover {
+    color: white;
+    transform: scale(1.05);
+}
+
+/* ERROR POPUP */
+
+.error-popup {
+    display: none;
+    bottom: -500px;
+    position: fixed;
+    display: inherit;
+    background-color: rgb(168, 6, 6);
+    width: fit-content;
+    max-width: 70%;
+    left: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 4px 4px 4px black;
+    box-sizing: border-box;
+    overflow: hidden;
+    z-index: 9999;
+    transition: 0.4s ease all;
+}
+
+.error-active {
+    bottom: 20px;
+}
+
+.error-popup p {
+    display: inline-block;
+    color: white;
+    font-family: Poppins,sans-serif;
+    text-align: center;
+    text-overflow: ellipsis;
+}
+
+.error-popup i {
+    margin-top: 5px;
+    font-size: 15px;
+    margin-left: 20px;
+    float: right;
+    color: white;
+    cursor: pointer;
+}
+
+.error-popup i:hover {
+    color: red;
+}
+
+/* CONTENT NOT LOADED DIV */
+
+.content-not-loaded {
+    width: 70%;
+    margin: auto;
+    display: block;
+}
+
+.content-not-loaded p {
+    color: white;
+    text-align: center;
+    font-family: 'Poppins';
+}

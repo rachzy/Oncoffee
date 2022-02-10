@@ -1,0 +1,293 @@
+@media screen and (max-width: 1450px) {
+    .mid1box {
+        width: 80%;
+        
+        height: 230px;
+        padding: 5px;
+        margin-bottom: 10px;
+        
+    }
+}
+
+
+@media screen and (max-width: 1350px) {
+    .mid1box {
+        width: 80%;
+        
+        height: 220px;
+        padding: 5px;
+        margin-bottom: 10px;
+        
+    }
+}
+
+@media screen and (max-width: 1250px) {
+    .mid1box {
+        width: 80%;
+        
+        height: 240px;
+        padding: 5px;
+        margin-bottom: 10px;
+        
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .mid1box {
+        width: 80%;
+        
+        height: 230px;
+        padding: 5px;
+        margin-bottom: 10px;
+        
+    }
+}
+
+
+@media screen and (max-width: 1130px) {
+    .mid1box {
+        width: 80%;
+        
+        height: 220px;
+        padding: 5px;
+        margin-bottom: 10px;
+        
+    }
+}
+
+
+
+
+@media screen and (max-width: 1060px) {
+    .mid1box {
+        width: 90%;
+        
+        height: 240px;
+        padding: 5px;
+        margin-bottom: 10px;
+        
+    }
+
+    .line {
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 1025px) {
+    .mid1box {
+        width: 90%;
+        
+        height: 220px;
+        padding: 5px;
+        margin-bottom: 10px;
+        
+    }
+}
+
+@media screen and (max-width: 850px) {
+    .mid1box {
+        width: 90%;
+        
+        height: 240px;
+        padding: 5px;
+        margin-bottom: 10px;
+        
+    }
+
+    .midaddbox {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 760px) {
+    .mid1box {
+        width: 90%;
+        
+        height: 230px;
+        padding: 5px;
+        margin-bottom: 10px;
+        
+    }
+}
+
+@media screen and (max-width: 690px) {
+    .mid1box {
+        width: 90%;
+        
+        height: 480px;
+        padding: 5px;
+        margin-bottom: 30px;
+        
+    }
+}
+
+@media screen and (max-width: 640px) {
+    .mid1box {
+        width: 90%;
+        
+        height: 470px;
+        padding: 5px;
+        margin-bottom: 30px;
+        
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .mid1box {
+        width: 90%;
+        
+        height: 460px;
+        padding: 5px;
+        margin-bottom: 30px;
+        
+    }
+}
+
+@media screen and (max-width: 530px) {
+    .mid1box {
+        width: 90%;
+        
+        height: 430px;
+        padding: 5px;
+        margin-bottom: 30px;
+        
+    }
+}
+
+
+@media screen and (max-width: 500px) {
+    .mid1box {
+        width: 100%;
+        
+        height: 430px;
+        padding: 10px;
+        margin-bottom: 30px;
+        
+    }
+
+    .line {
+        width: 92%;
+    }
+
+    .mid1boxtext {
+        width: 92%;
+        display: inline-block;
+    }
+}
+
+
+
+@media screen and (max-width: 450px) {
+    .mid1box {
+        width: 100%;
+        
+        height: 570px;
+        padding: 10px;
+        margin-bottom: 30px;
+        
+    }
+
+
+    .mid1boxtext h2 {
+        float: left;
+        color: rgba(255, 255, 255, 0.795);
+        font-family: monospace;
+        cursor: default;
+        font-size: 18px;
+    }
+
+    .countdown {
+        margin-left: 10px;
+        cursor: default;
+        float: left;
+    }
+    
+    .countdownbox {
+        display: inline-block;
+        text-align: center;
+        
+        width: 20px;
+        height: 20px;
+        color: rgb(64, 127, 209);
+        font-family: Roboto,sans-serif;
+        font-weight: 500;
+        font-size: 14px;
+        border-radius: 5px;
+        background: rgb(35, 35, 35);
+    }
+    
+    .countdownbox p {
+        margin-top: 2.5px;
+        font-style: normal;
+    }
+    
+}
+
+@media screen and (max-width: 410px) {
+    .mid1box {
+        width: 100%;
+        
+        height: 560px;
+        padding: 10px;
+        margin-bottom: 30px;
+        
+    }
+}
+
+
+
+@media screen and (max-width: 395px) {
+    .mid1box {
+        width: 100%;
+        
+        height: 510px;
+        padding: 10px;
+        margin-bottom: 30px;
+        
+    }
+}
+
+
+@media screen and (max-width: 365px) {
+    .mid1box {
+        width: 100%;
+        
+        height: 490px;
+        padding: 10px;
+        margin-bottom: 30px;
+        
+    }
+}
+
+
+@media screen and (max-width: 345px) {
+    .mid1box {
+        width: 100%;
+        
+        height: 470px;
+        padding: 10px;
+        margin-bottom: 30px;
+        
+    }
+
+
+    .countdown {
+        display: none;
+        margin-left: 10px;
+        cursor: default;
+        float: left;
+    }
+    
+   
+}
+
+@media screen and (max-width: 335px) {
+    .mid1box {
+        width: 100%;
+        
+        height: 460px;
+        padding: 10px;
+        margin-bottom: 30px;
+        
+    }
+}

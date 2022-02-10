@@ -1,0 +1,143 @@
+@media screen and (max-width: 1250px) {
+    .final {
+        width: 100%;
+        margin-bottom: 0px;
+        margin-top: 50px;
+    }
+
+
+    .infofinal {
+        
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        margin-top: 20px;
+        
+    }
+
+    .infox {
+       
+        display: none;
+        
+        
+    }
+
+
+
+    .socialmedia {
+        
+        width: 90%;
+        display: flex;
+        justify-content: center;
+        flex-direction: row;
+        margin-top: 50px;
+        
+    }
+
+    .socialmediabox {
+       
+        width: 100%;
+        display: flex;
+        
+        align-items: center;
+        
+    }
+
+
+
+    .redes h2 {
+        font-size: 20px;
+        font-family: Roboto,sans-serif;
+        font-weight: 300;
+        color: white;
+        margin-bottom: 5px;
+        cursor: default;
+    }
+
+    .redes a {
+        font-size: 20px;
+        color: white;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+
+
+    .redes {
+        margin-left: 0px;
+        text-align: center;
+        
+        width: 100%;
+        
+    }
+
+
+
+    .clientebox {
+        margin-left: 0%;
+        width: 100%;
+        
+        
+    }
+
+    .clientebox ul {
+        display: inline-block;
+        margin-left: 50%;
+        text-align: center;
+        margin-right: 0px;
+        left: 50%;
+    }
+
+    .clientebox ul:first-child {
+        margin-right: 60px;
+    }
+
+    .clientebox h3 {
+        color: white;
+        font-family: Roboto,sans-serif;
+        font-weight: 300;
+        cursor: default;
+        
+    }
+
+    .clientebox a {
+        color: rgb(202, 202, 202);
+        font-family: Roboto,sans-serif;
+        font-weight: 300;
+        font-size: 15px;
+        transition: all 0.1s ease;
+    }
+
+    .clientebox a:hover {
+        color: rgb(90, 130, 206);
+        text-decoration: underline;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media screen and (max-width: 1250px) {
+    .clientebox {
+        display: none;
+    }
+}
+
+
+
+
+
+
+
+
