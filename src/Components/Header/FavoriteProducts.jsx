@@ -22,6 +22,11 @@ const FavoriteProducts = ({favoritedProducts}) => {
         <>
           {favoritedProducts.map((p) => {
             if (!p) return;
+            if(favoritedProducts.length > 6) {
+              for(let i = 6; i <= favoritedProducts.length; i++) {
+                if(p === favoritedProducts[i]) return;
+              }
+            }
             return (
               <Product
                 key={p.productId}

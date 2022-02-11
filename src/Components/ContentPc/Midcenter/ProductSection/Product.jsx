@@ -29,11 +29,10 @@ const Product = ({
 
   const { serverUrl } = require("../../../../connection.json");
 
-  let checkIfProductIsFavorited;
   if (userId) {
     //Simple function that will check if the product is already favorited by the user
     //and display a "favorited heart" icon instead of a default one if it is
-    checkIfProductIsFavorited = async () => {
+    const checkIfProductIsFavorited = async () => {
       if (!favoritedProductsIds) return;
       //Each value of this Array corresponds to a single productId
       const splitProductIds = favoritedProductsIds.toString().split(",");
@@ -63,7 +62,8 @@ const Product = ({
         defaulthearticon.current.classList.remove("active");
       }
     };
-    checkIfProductIsFavorited();
+    //Execute the function after 500ms to avoid loading problems
+    setTimeout(checkIfProductIsFavorited, 500);
   }
 
   //Return a discount div if there's discount

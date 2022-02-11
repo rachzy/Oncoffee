@@ -1,13 +1,19 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 
-import Axios from 'axios';
+import Axios from "axios";
 
 import displayError from "../../../globalFunctions/displayErrors";
 
 import ProductLine from "./ProductSection/ProductLine";
 import Product from "./ProductSection/Product";
 
-const ProductSection = ({ title, category }) => {
+const ProductSection = ({
+  title,
+  category,
+  handleFavoritedProductsChange,
+  favoritedProductsIds,
+  setFavoritedProductsIds,
+}) => {
   const [products, setProducts] = useState([]);
 
   //Get products from the Database by using Axios through GET method
@@ -39,6 +45,9 @@ const ProductSection = ({ title, category }) => {
             productImgAlt={product.productImgAlt}
             productFinalPrice={product.productFinalPrice}
             productDiscount={product.productDiscount}
+            setFavoriteProductsIds={setFavoritedProductsIds}
+            handleFavoritedProductsChange={handleFavoritedProductsChange}
+            favoritedProductsIds={favoritedProductsIds}
           />
         );
       })}
