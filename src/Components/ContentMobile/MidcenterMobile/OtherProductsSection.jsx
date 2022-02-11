@@ -7,7 +7,11 @@ import displayError from "../../../globalFunctions/displayErrors";
 import Product from "./OtherProductsSection/Product";
 import SeeMoreCard from "./SeeMoreCard";
 
-const OtherProductsSection = () => {
+const OtherProductsSection = ({
+  setFavoritedProductsIds,
+  handleFavoritedProductsChange,
+  favoritedProductsIds
+}) => {
   const [products, setProducts] = useState([]);
 
   //Get products from the Database by using Axios through GET method
@@ -78,6 +82,11 @@ const OtherProductsSection = () => {
                     productAbout={product.productDescription}
                     productGrade={product.productGrade}
                     productTotalSales={product.productTotalSales}
+                    setFavoriteProductsIds={setFavoritedProductsIds}
+                    handleFavoritedProductsChange={
+                      handleFavoritedProductsChange
+                    }
+                    favoritedProductsIds={favoritedProductsIds}
                   />
                 );
               }
@@ -107,6 +116,11 @@ const OtherProductsSection = () => {
                     productImgAlt={product.productImgAlt}
                     productFinalPrice={product.productFinalPrice}
                     productDiscount={product.productDiscount}
+                    setFavoriteProductsIds={setFavoritedProductsIds}
+                    handleFavoritedProductsChange={
+                      handleFavoritedProductsChange
+                    }
+                    favoritedProductsIds={favoritedProductsIds}
                   />
                 );
               }
@@ -122,10 +136,16 @@ const OtherProductsSection = () => {
               productImgAlt={product.productImgAlt}
               productFinalPrice={product.productFinalPrice}
               productDiscount={product.productDiscount}
+              setFavoritedProductsIds={setFavoritedProductsIds}
+              handleFavoriteProductsChange={handleFavoritedProductsChange}
+              favoritedProductsIds={favoritedProductsIds}
             />
           );
         })}
-          <SeeMoreCard renderDiv={true} returnMoreProductsFunction={returnMoreProducts} />
+        <SeeMoreCard
+          renderDiv={true}
+          returnMoreProductsFunction={returnMoreProducts}
+        />
       </main>
     </>
   );

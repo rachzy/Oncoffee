@@ -16,32 +16,54 @@ const Product = ({
   productName,
   productFinalPrice,
   productId,
+  setFavoriteProductsIds,
+  favoritedProductsIds,
+  handleFavoritedProductsChange,
 }) => {
   const userId = getCookie("UID");
   const favhearticon = useRef(null);
   const defaulthearticon = useRef(null);
 
-  const {serverUrl} = require('../../../../connection.json');
+  const { serverUrl } = require("../../../../connection.json");
 
-  if(userId) {
-    const checkIfProductIsFavorited = async() => {
-      const { data } = await Axios.get(
-        `${serverUrl}/getfavoriteproductsids/${userId}`
-      );
-      if(data.isError) {
-        displayError(data.errorCode, data.errno);
+  if (userId) {
+    //Simple function that will check if the product is already favorited by the user
+    //and display a "favorited heart" icon instead of a default one if it is
+    const checkIfProductIsFavorited = async () => {
+      if (!favoritedProductsIds) return;
+      //Each value of this Array corresponds to a single productId
+      const splitProductIds = favoritedProductsIds.toString().split(",");
+
+      //If "splitProductIds" is not null, that means that there are more than one product
+      if (splitProductIds) {
+        splitProductIds.map((pId) => {
+          if (!pId || pId === null || pId === "") return;
+          if (pId === productId.toString()) {
+            if (
+              favhearticon.current === null ||
+              defaulthearticon.current === null
+            )
+              return;
+            //If the product is already favorited, display a favorited heart instead of a default one
+            favhearticon.current.classList.add("active");
+            defaulthearticon.current.classList.remove("active");
+          }
+        });
         return;
       }
-      const splitProductIds = data.split(',');
-      splitProductIds.map(pId => {
-        if(pId === productId.toString()) {
-          favhearticon.current.classList.add("active");
-          defaulthearticon.current.classList.remove("active");
-        }
-      })
-    }
-    checkIfProductIsFavorited();
+
+      //If the program did not return, that means that there's just a single product (that will correspond to "data" value)
+      if (favoritedProductsIds === productId.toString()) {
+        //If the product is already favorited, display a favorited heart instead of a default one
+        favhearticon.current.classList.add("active");
+        defaulthearticon.current.classList.remove("active");
+      }
+    };
+    //Execute the function after 500ms to avoid loading problems
+    setTimeout(checkIfProductIsFavorited, 500);
   }
+
+  //Return a discount div if there's discount
   const returnDiscount = () => {
     if (productDiscount) {
       return (
@@ -52,25 +74,39 @@ const Product = ({
       );
     }
   };
+
+  //Return ",00" on product price
   const returnFinalPrice = () => {
     const splitFinalPrice = productFinalPrice.toString().split(".");
     let getProductFinalPrice = productFinalPrice;
     if (splitFinalPrice.length === 1) {
-      getProductFinalPrice = productFinalPrice + ".00";
+      getProductFinalPrice = `${productFinalPrice},00`;
+    } else {
+      if (splitFinalPrice[1].length === 1) {
+        getProductFinalPrice = `${productFinalPrice}0`;
+      }
     }
     const finalPriceWithCommas = getProductFinalPrice
       .toString()
       .replace(".", ",");
     return finalPriceWithCommas;
   };
+
   let lastClick = 0;
 
   const handleHeartIconClick = (currentTime) => {
+    //Redirect the user to login page if he's not logged in
     if (!userId) {
       navigate("/login/");
       window.location.href = "#top";
       return;
     }
+
+    //LOGIC SECTION
+
+    //Cooldown the function
+    //If the user have clicked in the same favorite button twice in an interval that is less
+    //than 2 seconds of difference, stops the execution and display an error
     const currentTimeTimeStamp = currentTime.timeStamp;
     const secondsSinceLastClick = Math.floor(
       (currentTimeTimeStamp - lastClick) / 1000
@@ -83,29 +119,9 @@ const Product = ({
       );
       return;
     }
-    const DefaultHeartClassList = defaulthearticon.current.classList;
-    const defaultHeartIcon = document.querySelectorAll(
-      `#productDefaultHeart${productId}`
-    );
-    const favHeartIcon = document.querySelectorAll(
-      `#productFavHeart${productId}`
-    );
-    if (DefaultHeartClassList[1] === "active") {
-      defaultHeartIcon.forEach((element) => {
-        element.classList.add("active");
-      });
-      favHeartIcon.forEach((element) => {
-        element.classList.remove("active");
-      });
-    } else {
-      defaultHeartIcon.forEach((element) => {
-        element.classList.remove("active");
-      });
-      favHeartIcon.forEach((element) => {
-        element.classList.add("active");
-      });
-    }
+    lastClick = currentTimeTimeStamp;
 
+    //Pos the new product on the database
     const postNewFavoriteProduct = async () => {
       const { data } = Axios.post(`${serverUrl}/postfavoriteproduct/`, {
         userId: userId,
@@ -118,7 +134,54 @@ const Product = ({
     };
     postNewFavoriteProduct();
 
-    lastClick = currentTimeTimeStamp;
+    //Change the FavoriteedProducts state with the new value
+    const addNewProductToFavoriteProductsState = async () => {
+      const newProduct = {
+        productId: productId,
+        productName: productName,
+        productImgSrc: productImgSrc,
+        productImgAlt: productImgAlt,
+        productFinalPrice: productFinalPrice,
+      };
+      handleFavoritedProductsChange(newProduct);
+    };
+    addNewProductToFavoriteProductsState();
+
+    //CLASS SECTION
+
+    const DefaultHeartClassList = defaulthearticon.current.classList;
+    const defaultHeartIcon = document.querySelectorAll(
+      `#productDefaultHeart${productId}`
+    );
+    const favHeartIcon = document.querySelectorAll(
+      `#productFavHeart${productId}`
+    );
+
+    const changeHeartIconClass = () => {
+      if (DefaultHeartClassList[1] === "active") {
+        defaultHeartIcon.forEach((element) => {
+          element.classList.add("active");
+        });
+        favHeartIcon.forEach((element) => {
+          element.classList.remove("active");
+        });
+        const newFavoritedProductsIds = `${favoritedProductsIds},${productId}`;
+        setFavoriteProductsIds(newFavoritedProductsIds);
+      } else {
+        defaultHeartIcon.forEach((element) => {
+          element.classList.remove("active");
+        });
+        favHeartIcon.forEach((element) => {
+          element.classList.add("active");
+        });
+        const newFavoritedProductsIds = favoritedProductsIds.replace(
+          `${productId}`,
+          ""
+        );
+        setFavoriteProductsIds(newFavoritedProductsIds);
+      }
+    };
+    changeHeartIconClass();
   };
 
   const navigate = useNavigate();

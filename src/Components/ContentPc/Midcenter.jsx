@@ -29,6 +29,11 @@ const Midcenter = ({ handleFavoritedProductsChange }) => {
     fetchSlides();
   }, [serverUrl]);
 
+  const returnSliderFeaturedPromotions = () => {
+    if (slideProductsIds.length === 0) return;
+    return <SliderFeaturedPc slidesProductsIds={slideProductsIds} />;
+  };
+
   //Get all favorited products ids
   useEffect(() => {
     const fetchFavoritedProductsIds = async () => {
@@ -45,11 +50,6 @@ const Midcenter = ({ handleFavoritedProductsChange }) => {
     };
     fetchFavoritedProductsIds();
   }, [serverUrl]);
-
-  const returnSliderFeaturedPromotions = () => {
-    if (slideProductsIds.length === 0) return;
-    return <SliderFeaturedPc slidesProductsIds={slideProductsIds} />;
-  };
 
   return (
     <main id="midcenter" className="midcenter">

@@ -101,8 +101,8 @@ const ProductSection = ({
                         productAbout={product.productDescription}
                         productGrade={product.productGrade}
                         productTotalSales={product.productTotalSales}
+                        setFavoriteProductsIds={setFavoritedProductsIds}
                         favoritedProductsIds={favoritedProductsIds}
-                        setFavoritedProductsIds={setFavoritedProductsIds}
                         handleFavoritedProductsChange={handleFavoritedProductsChange}
                       />
                       {/* Load other 4 products */}
@@ -132,8 +132,8 @@ const ProductSection = ({
                                 productTotalSales={
                                   insideProduct.productTotalSales
                                 }
+                                setFavoriteProductsIds={setFavoritedProductsIds}
                                 favoritedProductsIds={favoritedProductsIds}
-                                setFavoritedProductsIds={setFavoritedProductsIds}
                                 handleFavoritedProductsChange={handleFavoritedProductsChange}
                               />
                             );

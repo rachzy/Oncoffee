@@ -21,7 +21,9 @@ const Content = ({ handleFavoritedProductsChange }) => {
       </ContentPc>
       <ContentMobile>
         <SliderMobile />
-        <MidcenterMobile />
+        <MidcenterMobile
+          handleFavoritedProductsChange={handleFavoritedProductsChange}
+        />
       </ContentMobile>
     </>
   );

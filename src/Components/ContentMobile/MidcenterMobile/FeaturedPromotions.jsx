@@ -5,7 +5,6 @@ import Axios from "axios";
 import ProductCard from "./FeaturedPromotions/ProductCard";
 
 import displayError from "../../../globalFunctions/displayErrors";
-import SeeMoreCard from "./SeeMoreCard";
 
 const FeaturedPromotions = () => {
   //Set initial state as a loading state
@@ -54,7 +53,6 @@ const FeaturedPromotions = () => {
             />
           );
         })}
-        <SeeMoreCard />
       </div>
     </main>
   );
