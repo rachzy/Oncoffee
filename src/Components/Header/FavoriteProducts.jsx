@@ -6,7 +6,14 @@ import Axios from "axios";
 
 import Product from "./Product";
 
-const FavoriteProducts = ({favoritedProducts}) => {
+const FavoriteProducts = ({favoritedProducts, handleSetPopupState}) => {
+  const handleButtonClick = () => {
+    const popup = document.querySelector(".popup");
+    popup.classList.add("active");
+    window.scrollTo(0, 0);
+    document.body.style.overflow = 'hidden';
+    handleSetPopupState('favoritedproducts');
+  }
   function returnFavoritedProducts() {
     if (favoritedProducts) {
       if (favoritedProducts.length === 0) {
@@ -37,7 +44,7 @@ const FavoriteProducts = ({favoritedProducts}) => {
               />
             );
           })}
-          <a>Conferir Favoritos</a>
+          <a onClick={handleButtonClick}>Conferir Favoritos</a>
         </>
       );
     }
