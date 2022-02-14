@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta 
+     name='viewport' 
+     content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' />
+    <script src="https://kit.fontawesome.com/3f3417947e.js" crossorigin="anonymous"></script>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    
+    <link rel="shortcut icon" href="/img/favicon-32x32.png" type="image/x-icon">
+    <link rel="stylesheet" href="controle.css">
+    <link rel="stylesheet" href="pedidos.css">
+    <title>OnCoffee - Controle</title>
+</head>
+<body>
+    
+
+<main class="home_control">
+
+    <main class="menu">
+        <img class="logo"  src="/img/OnCoffee.png" alt=""/>
+        <ul>
+            
+            <li><a href="controle_graficos.html"><img src="/img/newhome.png" alt=""/>Gráficos</a></li>
+            <li><a href="controle_pedidos.html"><img src="/img/newhome.png" alt=""/>Pedidos</a></li>
+            <li><a href="controle_produtos.html"><img src="/img/newhome.png" alt=""/>Produtos e Ads</a></li>
+            <li><a href="#"><img src="/img/newhome.png" alt=""/>Ajuda</a></li>
+            <li><a href="/1001index/index.html"><img src="/img/newhome.png" alt=""/>Sair</a></li>
+            
+        </ul>
+    </main>
+    
+
+
+    <main class="pedidosboard">
+        <main class="manager_order">
+            <div class="search_id">
+                <h2>Procure o pedido pelo <span>ID</span>:</h2>
+                <div class="search1_input">
+                    <input type="text" id = "inputsearch" placeholder="Digite o ID">
+                    <input type="button" style="display: none;" id="searchbtt1">
+                    <label for="searchbtt1">
+                        <img src="/img/newsearch.png" alt="">
+                    </label>
+                </div>
+            </div>
+            <div class="organizar">
+                <h2>Organizar Por:</h2>
+                <div class='SelectBox'>
+                    <select>
+                        <option>Mais Recentes</option>
+                        <option>Mais Antigo</option>
+                        <option>Enviados</option>
+                        <option>Em Analise</option>
+                        <option>Cancelados</option>
+                        <option>Aguardando Envio</option>
+                    </select>
+                    <div class="chevron">
+                        <i class="fas fa-sort-down"></i>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+
+
+
+
+
+        <main class="pedidos_name">
+            <div class="pedido_name_color"></div>
+                <div class="pedido_name_data"><h2>Data</h2></div>
+                <div class="pedido_name_loc"><h2>Localização</h2></div>
+                <div class="pedido_name_status">
+                    <h2>Status</h2>
+                    
+                </div>
+                <div class="pedido_name_id">
+                    <h2>ID</h2>
+                </div>
+                <div class="name_detalhes">
+                    
+                </div>
+        </main>
+
+
+
+
+
+
+
+
+
+
+        <main class="pedidos_container">
+            <div class="pedido_box">
+                <div class="pedido_color"></div>
+                <div class="pedido_data"><h2>99/99/9999</h2></div>
+                <div class="pedido_loc"><h2>São Paulo, Campinas, Rua ExemploExemplo Exemplo,Bairro Exemplo, 954</h2></div>
+                <div class="pedido_status">
+                    <h2 id="enviado">Enviado</h2>
+                    <h2 id="analise">Em Analise</h2>
+                    <h2 id="cancelado">Cancelado</h2>
+                    <h2 id="aguardando">Aguardando Envio</h2>
+                </div>
+                <div class="pedido_id">
+                    <h2>000000</h2>
+                </div>
+                <div class="detalhes">
+                    <a href="controle_pedidos_detalhes.html">Detalhes</a>
+                </div>
+            </div>
+            <div class="pedido_box">
+                <div class="pedido_color"></div>
+                <div class="pedido_data"><h2>99/99/9999</h2></div>
+                <div class="pedido_loc"><h2>São Paulo, Campinas, Rua ExemploExemplo Exemplo,Bairro Exemplo, 954</h2></div>
+                <div class="pedido_status">
+                    <h2 id="enviado">Enviado</h2>
+                    <h2 id="analise">Em Analise</h2>
+                    <h2 id="cancelado">Cancelado</h2>
+                    <h2 id="aguardando">Aguardando Envio</h2>
+                </div>
+                <div class="pedido_id">
+                    <h2>000000</h2>
+                </div>
+                <div class="detalhes">
+                    <a href="controle_pedidos_detalhes.html">Detalhes</a>
+                </div>
+            </div>
+            <div class="pedido_box">
+                <div class="pedido_color"></div>
+                <div class="pedido_data"><h2>99/99/9999</h2></div>
+                <div class="pedido_loc"><h2>São Paulo, Campinas, Rua ExemploExemplo Exemplo,Bairro Exemplo, 954</h2></div>
+                <div class="pedido_status">
+                    <h2 id="enviado">Enviado</h2>
+                    <h2 id="analise">Em Analise</h2>
+                    <h2 id="cancelado">Cancelado</h2>
+                    <h2 id="aguardando">Aguardando Envio</h2>
+                </div>
+                <div class="pedido_id">
+                    <h2>000000</h2>
+                </div>
+                <div class="detalhes">
+                    <a href="controle_pedidos_detalhes.html">Detalhes</a>
+                </div>
+            </div>
+            <div class="pedido_box">
+                <div class="pedido_color"></div>
+                <div class="pedido_data"><h2>99/99/9999</h2></div>
+                <div class="pedido_loc"><h2>São Paulo, Campinas, Rua ExemploExemplo Exemplo,Bairro Exemplo, 954</h2></div>
+                <div class="pedido_status">
+                    <h2 id="enviado">Enviado</h2>
+                    <h2 id="analise">Em Analise</h2>
+                    <h2 id="cancelado">Cancelado</h2>
+                    <h2 id="aguardando">Aguardando Envio</h2>
+                </div>
+                <div class="pedido_id">
+                    <h2>000000</h2>
+                </div>
+                <div class="detalhes">
+                    <a href="controle_pedidos_detalhes.html">Detalhes</a>
+                </div>
+            </div>
+            <div class="pedido_box">
+                <div class="pedido_color"></div>
+                <div class="pedido_data"><h2>99/99/9999</h2></div>
+                <div class="pedido_loc"><h2>São Paulo, Campinas, Rua ExemploExemplo Exemplo,Bairro Exemplo, 954</h2></div>
+                <div class="pedido_status">
+                    <h2 id="enviado">Enviado</h2>
+                    <h2 id="analise">Em Analise</h2>
+                    <h2 id="cancelado">Cancelado</h2>
+                    <h2 id="aguardando">Aguardando Envio</h2>
+                </div>
+                <div class="pedido_id">
+                    <h2>000000</h2>
+                </div>
+                <div class="detalhes">
+                    <a href="controle_pedidos_detalhes.html">Detalhes</a>
+                </div>
+            </div>
+            <div class="pedido_box">
+                <div class="pedido_color"></div>
+                <div class="pedido_data"><h2>99/99/9999</h2></div>
+                <div class="pedido_loc"><h2>São Paulo, Campinas, Rua ExemploExemplo Exemplo,Bairro Exemplo, 954</h2></div>
+                <div class="pedido_status">
+                    <h2 id="enviado">Enviado</h2>
+                    <h2 id="analise">Em Analise</h2>
+                    <h2 id="cancelado">Cancelado</h2>
+                    <h2 id="aguardando">Aguardando Envio</h2>
+                </div>
+                <div class="pedido_id">
+                    <h2>000000</h2>
+                </div>
+                <div class="detalhes">
+                    <a href="controle_pedidos_detalhes.html">Detalhes</a>
+                </div>
+            </div>
+            <div class="pedido_box">
+                <div class="pedido_color"></div>
+                <div class="pedido_data"><h2>99/99/9999</h2></div>
+                <div class="pedido_loc"><h2>São Paulo, Campinas, Rua ExemploExemplo Exemplo,Bairro Exemplo, 954</h2></div>
+                <div class="pedido_status">
+                    <h2 id="enviado">Enviado</h2>
+                    <h2 id="analise">Em Analise</h2>
+                    <h2 id="cancelado">Cancelado</h2>
+                    <h2 id="aguardando">Aguardando Envio</h2>
+                </div>
+                <div class="pedido_id">
+                    <h2>000000</h2>
+                </div>
+                <div class="detalhes">
+                    <a href="controle_pedidos_detalhes.html">Detalhes</a>
+                </div>
+            </div>
+            <div class="pedido_box">
+                <div class="pedido_color"></div>
+                <div class="pedido_data"><h2>99/99/9999</h2></div>
+                <div class="pedido_loc"><h2>São Paulo, Campinas, Rua ExemploExemplo Exemplo,Bairro Exemplo, 954</h2></div>
+                <div class="pedido_status">
+                    <h2 id="enviado">Enviado</h2>
+                    <h2 id="analise">Em Analise</h2>
+                    <h2 id="cancelado">Cancelado</h2>
+                    <h2 id="aguardando">Aguardando Envio</h2>
+                </div>
+                <div class="pedido_id">
+                    <h2>000000</h2>
+                </div>
+                <div class="detalhes">
+                    <a href="controle_pedidos_detalhes.html">Detalhes</a>
+                </div>
+            </div>
+            <div class="pedido_box">
+                <div class="pedido_color"></div>
+                <div class="pedido_data"><h2>99/99/9999</h2></div>
+                <div class="pedido_loc"><h2>São Paulo, Campinas, Rua ExemploExemplo Exemplo,Bairro Exemplo, 954</h2></div>
+                <div class="pedido_status">
+                    <h2 id="enviado">Enviado</h2>
+                    <h2 id="analise">Em Analise</h2>
+                    <h2 id="cancelado">Cancelado</h2>
+                    <h2 id="aguardando">Aguardando Envio</h2>
+                </div>
+                <div class="pedido_id">
+                    <h2>000000</h2>
+                </div>
+                <div class="detalhes">
+                    <a href="controle_pedidos_detalhes.html">Detalhes</a>
+                </div>
+            </div>
+
+
+            
+
+
+            
+        </main>
+
+    </main>
+
+
+
+
+
+
+    
+
+
+</main>
+</body>
+</html>

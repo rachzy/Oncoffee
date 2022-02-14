@@ -1,0 +1,802 @@
+.produtos_area {
+    display: flex;
+    
+    width: 95%;
+    flex-direction: column;
+    max-height: 100vh;
+    align-items: center;
+    overflow-y: scroll;
+}
+
+.criar_produto {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    width: 86%;
+    margin-top: 20px;
+    background: rgb(35, 35, 35);
+    border-radius: 15px;
+
+    padding: 35px;
+}
+
+
+.text1 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 92%;
+    margin-top: 60px;
+    
+}
+
+.text1 h2 {
+    font-size: 22px;
+    font-family: Poppins,sans-serif;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 400;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.produto_box {
+    display: flex;
+    flex-direction: column;
+    background: rgb(45, 45, 45);
+    width: 17%;
+    border-radius: 10px;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    height: 290px;
+    transition: 0.3s ease all;
+    position: relative;
+    box-shadow: 0px 20px 20px rgba(0, 0, 0, 0.2);
+    border: none;
+    margin-top: -0px;
+}
+
+
+
+.produto_desconto {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-left: 10px;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    cursor: default;
+}
+
+.produto_desconto h3 {
+    color: rgba(255, 255, 255, 0.7);
+    font-family: Roboto,sans-serif;
+    font-style: italic;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.produto_favorito {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-right: 10px;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.produto_favorito img:hover {
+    cursor: pointer;
+}
+
+.produto_favorito img {
+    width: 25px;
+}
+
+.produto_favorito input {
+    display: none;
+}
+
+
+
+
+.produto_img {
+    width: 180px;
+    height: 180px;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    
+}
+
+
+.produto_img img {
+    width: 180px;
+    position: absolute;
+    transition: 0.3s ease-in-out all;
+}
+
+.produto_text1 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+    margin-top: 5px;
+    width: 100%;
+    height: 90px;
+    
+}
+
+.produto_text1 h2 {
+    font-family: Poppins,sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.8);
+    position: absolute;
+    margin-top: 10px;
+    transition: 0.3s ease-in-out all;
+}
+
+.produto_text1 h3 {
+    font-family: Poppins,sans-serif;
+    font-weight: 400;
+    font-size: 22px;
+    color: rgba(255, 255, 255, 0.8);
+    position: absolute;
+    margin-top: 35px;
+    transition: 0.3s ease-in-out all;
+}
+
+.produto_text2 {
+    display: flex;
+    font-family: Poppins,sans-serif,sans-serif;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 300;
+    text-align: left;
+    height: 00px;
+    max-height: 200px;
+    transform: scale(0);
+    overflow: none;
+    width: 90%;
+    
+    flex-direction: column;
+    transition: 0.3s ease-in-out all;
+    justify-content: space-between;
+    
+}
+
+.avaliacao {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.nota {
+    display: flex;
+    align-items: center;
+}
+
+.nota i {
+    margin-right: 5px;
+    color: rgb(167, 89, 45);
+}
+
+.readmore {
+    font-family: Poppins,sans-serif,sans-serif;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 300;
+    text-decoration: underline;
+}
+
+.produto_box .comprar {
+    font-family: Poppins,sans-serif;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 18px;
+    background: rgb(167, 89, 45);
+    padding: 8px 50px;
+    margin-bottom: 5px;
+    
+    border-radius: 5px;
+    transition: 0.2s ease all;
+}
+
+.produto_box .comprar:hover {
+    color: white;
+    transform: scale(1.05);
+}
+
+.produto_box:hover .produto_img img {
+    margin-top: -130px;
+}
+
+.produto_box:hover .produto_text1 h2 {
+    margin-top: -25px;
+}
+
+.produto_box:hover .produto_text1 h3 {
+    margin-top: 0px;
+}
+
+.produto_box:hover .produto_text2 {
+    transform: scale(1);
+    height: 200px;
+    margin-bottom: 5px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.produto2_box {
+    display: flex;
+    flex-direction: column;
+    background: rgb(45, 45, 45);
+    width: 17%;
+    border-radius: 10px;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    height: 290px;
+    transition: 0.3s ease all;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0px 20px 20px rgba(0, 0, 0, 0.2);
+}
+
+.produto2_box:hover #img2 {
+    margin-left: 0;
+}
+
+.produto2_box:hover #img1 {
+    margin-left: -350px;
+}
+
+#img2 {
+    margin-left: 350px;
+}
+
+.produto2_img {
+    width: 180px;
+    height: 180px;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    
+}
+
+
+.produto2_img img {
+    width: 180px;
+    position: absolute;
+    transition: 0.3s ease-in-out all;
+}
+
+.produto2_text {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+    margin-top: 5px;
+    width: 100%;
+    height: 90px;
+    
+}
+
+.produto2_text h2 {
+    font-family: Poppins,sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.8);
+    position: absolute;
+    margin-top: 10px;
+    transition: 0.3s ease-in-out all;
+}
+
+.produto2_text h3 {
+    font-family: Poppins,sans-serif;
+    font-weight: 400;
+    font-size: 22px;
+    color: rgba(255, 255, 255, 0.8);
+    position: absolute;
+    margin-top: 35px;
+    transition: 0.3s ease-in-out all;
+}
+
+
+.produto2_box a {
+    font-family: Poppins,sans-serif;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 18px;
+    background: rgb(167, 89, 45);
+    padding: 8px 50px;
+    margin-bottom: 5px;
+    max-width: 80px;
+    border-radius: 5px;
+    transition: 0.2s ease all;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.produto2_box a:hover {
+    color: white;
+    letter-spacing: 2px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.toppromo-box {
+    background: rgb(55, 55, 55);
+    padding: 8px;
+    border-radius: 15px;
+    box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.4);
+    display: flex;
+    min-width: 270px;
+    margin-left: 20px;
+    z-index: 800;
+}
+
+.toppromo-box:first-child {
+    margin-left: 25px;
+}
+
+.toppromo-box:last-child {
+    margin-right: 15px;
+}
+
+.toppromo-img  {
+    width: 110px;
+    position: relative;
+    
+}
+
+.toppromo-img img  {
+    width: 180px;
+    position: absolute;
+    margin-top: -20px;
+    margin-left: -40px;
+    z-index: 1;
+    
+}
+
+.toppromo-text  {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 999;
+
+}
+
+.toppromo-text h2 {
+    color: rgba(255, 255, 255, 0.8);
+    font-family: Poppins,sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    
+}
+
+.toppromo-text h3 {
+    color: rgba(255, 255, 255, 0.4);
+    font-family: Roboto,sans-serif;
+    font-weight: 400;
+    font-size: 15px;
+    letter-spacing: 2.0px;
+    text-decoration: line-through;
+    margin-top: 3px;
+    
+}
+
+.toppromo-text h4 {
+    color: rgba(255, 255, 255, 0.8);
+    font-family: Roboto,sans-serif;
+    font-weight: 400;
+    font-size: 24px;
+    margin-top: 3px;
+    
+
+    
+}
+
+.toppromo-text a {
+    text-decoration: none;
+    font-family: Poppins,sans-serif;
+    color: white;
+    background: rgb(168, 86, 39);
+    padding: 8px 15px;
+    margin-top: 5px;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.card-mobile {
+    background: rgb(55, 55, 55);
+    border-radius: 15px;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    position: relative;
+    box-shadow: 0px 20px 20px rgb(0, 0, 0,0.4);
+    margin-left: 20px;
+    max-width: 200px;
+    min-width: 200px;
+    margin-top: 50px;
+    min-height: 200px;
+    
+}
+
+.card-mobile2 {
+    background: rgb(55, 55, 55);
+    border-radius: 15px;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    box-shadow: 0px 20px 20px rgb(0, 0, 0,0.4);
+    margin-left: 20px;
+    max-width: 200px;
+    min-width: 200px;
+    margin-top: 0px;
+    min-height: 200px;
+    
+}
+
+.card-mobile2 i {
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.8);
+    text-align: center;
+    width: 100%;
+}
+
+
+
+
+
+.cardmo-img  {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 150px;
+    height: 75px;
+    
+    border-radius: 15px;
+      
+}
+
+
+.cardmo-img img {
+    width: 170px;
+    border-radius: 15px;
+    position: absolute;
+    margin-top: -90px;
+    z-index: 799;
+    
+}
+
+.cardmo-text {
+    display: flex;
+    flex-direction: column;
+    bottom: 0;
+    align-items: center;
+}
+
+.cardmo-text h2 {
+    font-size: 18px;
+    font-family: Poppins,sans-serif;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 400;
+    margin-left: 0;
+}
+
+
+.cardmo-text h3 {
+    color: rgba(255, 255, 255, 0.8);
+    font-family: Roboto,sans-serif;
+    font-weight: 400;
+    font-size: 24px;
+}
+
+.cardmo-text h4 {
+    color: rgba(255, 255, 255, 0.4);
+    font-family: Roboto,sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    text-decoration: line-through;
+    letter-spacing: 2.0px;
+}
+
+.cardmo-text a {
+    color: rgba(255, 255, 255, 1);
+    font-family: Roboto,sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    margin-top: 5px;
+    background: rgb(168, 86, 39);
+    padding: 10px 15px;
+    border-radius: 4px;
+    margin-bottom: 5px;
+}
+
+
+.countdown3 {
+    position: absolute;
+    top: 0;
+    margin-top: -85px;
+    font-size: 20px;
+    font-family: Roboto,sans-serif;
+    color: rgba(255, 255, 255, 0.4);
+
+}
+
+
+
+.favbtt {
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin-top: -55px;
+    margin-right: 5px;
+    z-index: 800;
+}
+
+#favbtt {
+    display: none;
+}
+
+.favbtt img {
+    width: 28px;
+}
+
+#imgreleased {
+    display: none;
+}
+
+#imgpressed {
+    
+}
+
+#favbtt:checked ~ #imgpressed {
+    display: block;
+}
+
+
+
+.desconto-area {
+    
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-top: -65px;
+    margin-left: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    z-index: 800;
+}
+
+.desconto-area h3 {
+    color: rgba(255, 255, 255, 0.5);
+    font-family: Roboto,sans-serif;
+    font-style: italic;
+    font-weight: 600;
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.criar_btt {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 92%;
+    margin-top: 40px;
+}
+
+.criar_btt a {
+    font-size: 22px;
+    font-family: Poppins,sans-serif;
+    color: rgba(255, 255, 255, 0.8);
+    background: rgb(168, 86, 39);
+    padding: 8px 15px;
+    border-radius: 8px;
+}
+
+
+
+
+
+
+
+
+.add_creator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 92%;
+    margin-top: 60px;
+    
+}
+
+.anuncio_exemplo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgb(35, 35, 35);
+    border-radius: 15px;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    margin-top: 20px;
+
+}
+
+.anuncio_exemplo img {
+    width: 90%;
+    border-radius: 15px;
+    
+}
+
+.add_creator h2 {
+    font-size: 22px;
+    font-family: Poppins,sans-serif;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 400;
+}
+
+.add_creator a {
+    font-size: 22px;
+    font-family: Poppins,sans-serif;
+    color: rgba(255, 255, 255, 0.8);
+    background: rgb(168, 86, 39);
+    padding: 8px 15px;
+    border-radius: 8px;
+    margin-top: 20px;
+    margin-bottom: 50px;
+}
+

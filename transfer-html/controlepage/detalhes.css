@@ -1,0 +1,164 @@
+.detalhes {
+    display: flex;
+    
+    width: 95%;
+    flex-direction: column;
+    max-height: 100vh;
+    align-items: center;
+    overflow-y: scroll;
+}
+
+
+.voltar {
+    width: 92%;
+    display: flex;
+    align-items: center;
+    font-size: 25px;
+    font-family: Poppins,sans-serif;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 500;
+    margin-top: 20px;
+}
+
+.voltar img {
+    width: 60px;
+    margin-right: 10px;
+    opacity: 0.8;
+}
+
+
+.detalhes_area {
+    width: 92%;
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.detalhes_area h2 {
+    font-size: 35px;
+    font-family: Poppins,sans-serif;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.detalhes_area p {
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.7);
+    font-family: Poppins,sans-serif;
+    margin-top: 5px;
+}
+
+.status_area {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    margin-top: 50px;
+}
+
+.confirm_order {
+    background: rgb(172, 159, 47);
+    padding: 20px 50px;
+    font-family: Poppins,sans-serif;
+    font-weight: 600;
+    color: rgba(0, 0, 0, 0.8);
+    font-size: 20px;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+.confirm_deliver {
+    background: green;
+    padding: 20px 50px;
+    font-family: Poppins,sans-serif;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 20px;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+.cancel {
+    background: rgb(156, 0, 0);
+    padding: 10px 30px;
+    font-family: Poppins,sans-serif;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 18px;
+    border-radius: 15px;
+    margin-top: 70px;
+    cursor: pointer;
+}
+
+
+
+
+.motivo {
+    overflow-y: scroll;
+    height: 50px;
+}
+
+.cancelar_motivo {
+    background: rgb(45, 45, 45);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    border-radius: 15px;
+    position: absolute;
+    margin-top: 100px;
+    border: 2px solid rgb(156, 0, 0);
+}
+
+.cancelar_motivo textarea {
+    background: rgb(35, 35, 35);
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 16px;
+    padding: 8px;
+    font-family: Poppins,sans-serif;
+    font-weight: 400;
+}
+
+.cancelar_motivo h2 {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 22px;
+    
+    font-family: Poppins,sans-serif;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.motivo_btt {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    margin-top: 10px;
+    align-items: center;
+}
+
+.motivo_btt input {
+    padding: 5px 15px;
+    font-size: 18px;
+    font-family: Poppins,sans-serif;
+    color: rgba(255, 255, 255, 0.8);
+    background: transparent;
+    border-radius: 6px;
+
+}
+
+.motivo_btt .enviar {
+    background: green;
+}
+
+.motivo_btt .motivo_cancel {
+    background: rgb(156, 0, 0);
+}
