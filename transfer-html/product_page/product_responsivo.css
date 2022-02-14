@@ -1,0 +1,55 @@
+@media screen and (max-width: 1380px) {
+    .card_img img {
+        width: 480px;
+        
+    }
+
+    .card_img {
+        width: 60%;
+        height: 550px;
+        background: rgb(185, 185, 185);
+        
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 15px;
+        background: gray;
+    }
+    .fav_hearth {
+        top: 0;
+        left: 0;
+        position: absolute;
+        margin-left: 20px;
+    }
+    
+    .fav_hearth img {
+        width: 40px;
+        cursor: pointer;
+        
+    }
+    
+    .fav_hearth input {
+        display: none;
+    }
+
+    .card_box_text {
+        width: 40%;
+        max-height: 550px;
+        display: flex;
+        flex-direction: row;
+        overflow: hidden;
+        
+    }
+    
+    .card_box_text h4 {
+        font-family: Poppins,sans-serif;
+        font-style: italic;
+        font-size: 28px;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.1);
+        padding: 0px 5px;
+        cursor: default;
+        
+    }
+}

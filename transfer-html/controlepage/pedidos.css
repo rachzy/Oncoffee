@@ -1,0 +1,435 @@
+.pedidosboard {
+    display: flex;
+    
+    width: 95%;
+    flex-direction: column;
+    max-height: 100vh;
+    align-items: center;
+    overflow-y: scroll;
+}
+
+
+
+
+.manager_order {
+    width: 90%;
+    margin-top: 50px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+.search_id {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.search_id h2 {
+    font-family: Poppins,sans-serif;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 20px;
+    font-weight: 400;
+    
+}
+
+.search1_input {
+    border: 1.5px solid rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2px 10px;
+    width: 300px;
+    margin-top: 10px;
+}
+
+.search1_input #inputsearch {
+    width: 85%;
+    height: 100%;
+    font-size: 16px;
+    font-family: Poppins,sans-serif;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 400;
+
+}
+
+#inputsearch::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+
+.search1_input label:hover {
+    cursor: pointer;
+}
+
+.search1_input img {
+    width: 25px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*input select*/
+
+.organizar h2 {
+    font-family: Poppins,sans-serif;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.SelectBox{
+	position:relative;
+    width: 200px;
+    margin-top: 10px;
+}
+
+.SelectBox select{
+	width: 200px;
+	
+	background: transparent;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+	color:#fff;
+	-webkit-appearance:none;
+	border:none;
+    border: 1.5px solid rgba(255, 255, 255, 0.8);
+	outline:none;
+	padding: 6px 15px;
+	font-size: 15px;
+	cursor:pointer;
+    font-family: Poppins,sans-serif;
+    color: rgba(255, 255, 255, 0.8);
+}
+.SelectBox .chevron{
+	position:absolute;
+	top:0px;
+	right:0px;
+	display: flex;
+    justify-content: center;
+    align-items: center;
+	
+	width:30px;
+	height:100%;
+	background-color:transparent;
+	pointer-events:none;
+	color:#fff;
+}
+
+.chevron i {
+    margin-top: -5px;
+}
+.SelectBox select option{
+	background-color:rgb(25, 25, 25);
+    box-shadow: none;
+    border: none;
+    -webkit-appearance:none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.pedidos_name {
+    width: 92%;
+    display: flex;
+    margin-top: 30px;
+    align-items: center;
+}
+
+.pedido_name_color {
+    width: 1%;
+}
+
+.pedido_name_data {
+    width: 15%;
+    
+}
+
+.pedido_name_data h2 {
+    font-family: Poppins,sans-serif;
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 400;
+    margin-left: 20px;
+}
+
+.pedido_name_loc {
+    width: 50%;
+    
+}
+
+.pedido_name_loc h2 {
+    font-family: Poppins,sans-serif;
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 400;
+    margin-left: 0px;
+}
+
+.pedido_name_status {
+    width: 21%;
+    
+}
+
+.pedido_name_status h2 {
+    font-family: Poppins,sans-serif;
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 400;
+    margin-left: 5px;
+}
+
+
+
+.pedido_name_id {
+    width: 14%;
+   
+}
+
+.pedido_name_id h2 {
+    font-family: Poppins,sans-serif;
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 400;
+    margin-left: 30px;
+}
+
+.name_detalhes {
+    width: 14%;
+    
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*Pedidos Container*/
+
+
+
+.pedidos_container {
+    background: transparent;
+    
+    width: 92%;
+    display: flex;
+    margin-top: 5px;
+    border-radius: 15px;
+    background: rgb(20, 20, 20);
+    height: 75%;
+    max-height: 75%;
+    flex-direction: column;
+    position: relative;
+    overflow-y: scroll;
+
+}
+
+
+.pedidos_container::-webkit-scrollbar {
+    
+    width: 5px;
+    
+    
+}
+
+.pedidos_container::-webkit-scrollbar-thumb {
+    background-color: rgb(45, 45, 45);
+    
+    
+    
+}
+
+
+.pedido_box {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    margin-bottom: 10px;
+    max-height: 60px;
+    min-height: 60px;
+    background: rgb(30, 30, 30);
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.pedido_color {
+    width: 1%;
+    height: 100%;
+    /*background: rgb(156, 0, 0); Cancelado*/
+    /*background: green; Enviado*/
+    /*background: rgb(172, 159, 47); Em Analise*/
+    /*background: rgb(141, 135, 135); Aguardando envio*/
+    background: rgb(156, 0, 0);
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+}
+
+.pedido_data {
+    width: 15%;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.pedido_data h2 {
+    font-family: Poppins,sans-serif;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 18px;
+}
+
+.pedido_loc {
+    max-width: 50%;
+    
+    display: flex;
+    
+    justify-content: center;
+    flex-direction: row;
+    text-overflow: ellipsis;
+    max-height: 25px;
+    word-break: break-all;
+    overflow: hidden;
+
+}
+
+.pedido_loc h2 {
+    font-family: Poppins,sans-serif;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 15px;
+}
+
+
+.pedido_status {
+    width: 21%;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#enviado {
+    background: green;
+    width: 75%;
+    text-align: center;
+    font-family: Poppins,sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.8);
+    letter-spacing: 0.5px;
+    border-radius: 15px;
+    /*display: block;*/
+    display: none;
+}
+#analise {
+    background: rgb(172, 159, 47);
+    width: 75%;
+    text-align: center;
+    font-family: Poppins,sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.8);
+    letter-spacing: 0.5px;
+    border-radius: 15px;
+    /*display: block;*/
+    display: none;
+}
+#cancelado {
+    background: rgb(156, 0, 0);
+    width: 75%;
+    text-align: center;
+    font-family: Poppins,sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.8);
+    letter-spacing: 0.5px;
+    border-radius: 15px;
+    /*display: block;*/
+    
+}
+#aguardando {
+    background: rgb(141, 135, 135);
+    width: 75%;
+    text-align: center;
+    font-family: Poppins,sans-serif;
+    font-weight: 500;
+    font-size: 15px;
+    padding: 2px;
+    color: rgba(255, 255, 255, 0.8);
+    letter-spacing: 0.5px;
+    border-radius: 15px;
+    /*display: block;*/
+    display: none;
+}
+
+
+.pedido_id {
+    width: 14%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+
+
+.pedido_id h2 {
+    font-family: Poppins,sans-serif;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 15px;
+}
+
+.detalhes {
+    width: 14%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.detalhes a {
+    font-family: Poppins,sans-serif;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 15px;
+    background: transparent;
+    padding: 5px 10px;
+    border-radius: 8px;
+    border: 1px solid rgb(55, 55, 55);
+}

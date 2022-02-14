@@ -1,0 +1,166 @@
+@media screen and (max-width: 1400px) {
+    .container {
+        background: rgb(50, 50, 50);
+        width: 23%;
+        border-radius: 15px;
+        padding: 20px;
+        
+    }
+}
+
+
+
+@media screen and (max-width: 1200px) {
+    .container {
+        background: rgb(50, 50, 50);
+        width: 25%;
+        border-radius: 15px;
+        padding: 20px;
+        
+    }
+}
+
+
+@media screen and (max-width: 1100px) {
+    .container {
+        background: rgb(50, 50, 50);
+        width: 28%;
+        border-radius: 15px;
+        padding: 20px;
+        
+    }
+}
+
+
+@media screen and (max-width: 990px) {
+    .container {
+        background: rgb(50, 50, 50);
+        width: 32%;
+        border-radius: 15px;
+        padding: 20px;
+        
+    }
+
+    .textarea {
+        
+        font-size: 40px;
+        
+        letter-spacing: 6px;
+        
+        
+    }
+}
+
+
+
+@media screen and (max-width: 850px) {
+    .container {
+        background: rgb(50, 50, 50);
+        width: 35%;
+        border-radius: 15px;
+        padding: 20px;
+        
+    }
+}
+
+
+@media screen and (max-width: 790px) {
+    .container {
+        background: rgb(50, 50, 50);
+        width: 40%;
+        border-radius: 15px;
+        padding: 20px;
+        
+    }
+}
+
+
+@media screen and (max-width: 700px) {
+    .container {
+        background: rgb(50, 50, 50);
+        width: 45%;
+        border-radius: 15px;
+        padding: 20px;
+        
+    }
+}
+
+
+@media screen and (max-width: 620px) {
+    .container {
+        background: rgb(50, 50, 50);
+        width: 50%;
+        border-radius: 15px;
+        padding: 20px;
+        
+    }
+    .textarea {
+        
+        font-size: 30px;
+        
+        letter-spacing: 6px;
+        
+        
+    }
+}
+
+
+@media screen and (max-width: 560px) {
+    .container {
+        background: rgb(50, 50, 50);
+        width: 55%;
+        border-radius: 15px;
+        padding: 20px;
+        
+    }
+}
+
+
+@media screen and (max-width: 510px) {
+    .container {
+        background: rgb(50, 50, 50);
+        width: 65%;
+        border-radius: 15px;
+        padding: 20px;
+        
+    }
+}
+
+@media screen and (max-width: 420px) {
+    .container {
+        background: rgb(50, 50, 50);
+        width: 70%;
+        border-radius: 15px;
+        padding: 20px;
+        
+    }
+
+    .textarea {
+        
+        font-size: 35px;
+        
+        letter-spacing: 6px;
+        
+        
+    }
+}
+
+@media screen and (max-width: 380px) {
+    .container {
+        background: rgb(50, 50, 50);
+        width: 80%;
+        border-radius: 15px;
+        padding: 20px;
+        
+    }
+}
+
+@media screen and (max-width: 350px) {
+    .container {
+        background: rgb(50, 50, 50);
+        width: 88%;
+        border-radius: 15px;
+        padding: 10px;
+        
+    }
+}

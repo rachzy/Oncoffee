@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta 
+     name='viewport' 
+     content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' />
+    <script src="https://kit.fontawesome.com/3f3417947e.js" crossorigin="anonymous"></script>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    
+    <link rel="shortcut icon" href="/img/favicon-32x32.png" type="image/x-icon">
+    <link rel="stylesheet" href="controle.css">
+    <link rel="stylesheet" href="criar_produto.css">
+    <title>OnCoffee - Controle</title>
+</head>
+<body>
+    
+
+<main class="home_control">
+
+    <main class="menu">
+        <img class="logo"  src="/img/OnCoffee.png" alt=""/>
+        <ul>
+            
+            <li><a href="controle_graficos.html"><img src="/img/newhome.png" alt=""/>Gráficos</a></li>
+            <li><a href="controle_pedidos.html"><img src="/img/newhome.png" alt=""/>Pedidos</a></li>
+            <li><a href="controle_produtos.html"><img src="/img/newhome.png" alt=""/>Produtos e Ads</a></li>
+            <li><a href="#"><img src="/img/newhome.png" alt=""/>Ajuda</a></li>
+            <li><a href="/1001index/index.html"><img src="/img/newhome.png" alt=""/>Sair</a></li>
+            
+        </ul>
+    </main>
+
+
+
+    <main class="criar_produto">
+        <div class="nome_produto">
+            <p>Primeiramente, Dê um Nome ao seu <span>Produto</span>, O nome de exibição é curto, é exibido apenas 20-30 caracteres, mas o maximo de caracteres é 200. <!--pedro coloca os caracteres maximos certo ai, eu coloquei exemplo :)--></p>
+            <h2>Dê um Nome ao Produto</h2>
+            <input type="text" placeholder="Digite O Nome Do Produto:">
+        </div>
+
+
+
+
+        <div class="select_img">
+            <p>Imagens atraentes chamam mais atenção, recomendamos fotos de alta qualidade, com boa iluminação e que se encaixam nas cores do site.</p>
+            <h2>Adicione Imagens do tipo ".Png" e Quadrada " 1:1 " (A primeira Imagem é a Principal)</h2>
+            <p>Máximo de 8 imagens (caso escolha o segundo tipo de card, a 2 imagem será a posterior a primeira).</p>
+            <div class="imgs_line">
+                <input type="file" accept=".png" id="input_file">
+                <label for="input_file">
+                    <i class="fas fa-plus"></i>
+                    <h3>Adicionar Imagem</h3>
+                </label>
+
+                <img src="/img/cafegourmet.png" alt="">
+                <img src="/img/cafegourmet.png" alt="">
+                <img src="/img/cafegourmet.png" alt="">
+                <img src="/img/cafegourmet.png" alt="">
+                <img src="/img/cafegourmet.png" alt="">
+                <img src="/img/cafegourmet.png" alt="">
+            </div>
+        </div>
+
+        <div class="card_select">
+            <p class="cardp">Caso queira chamar a atenção mostrando detalhes visuais do produto, recomendamos o segundo card, mas o primeiro card é uma boa opção para passar mais confiança do produto.</p>
+            <h2>Selecione o Card Desejado</h2>
+            <div class='SelectBox'>
+                <select>
+                    <option>Card 1</option>
+                    <option>Card 2</option>
+                    
+                </select>
+                <div class="chevron">
+                    <i class="fas fa-sort-down"></i>
+                </div>
+            </div>
+        
+            <div class="card_exemplo">
+                <div class="produto_box">
+
+                    <div class="produto_desconto">
+                        <h3>55%</h3>
+                        <h3>OFF</h3>
+                    </div>
+                    <div class="produto_favorito">
+                        <input type="checkbox" id="favproduct">
+                        <label for="favproduct">
+                            <img src="/img/newhearth.png" alt="">
+                        </label>
+                    </div>
+                    <div class="produto_img">
+                        <img src="/img/cafegourmet.png" alt="">
+                    </div>
+                    <div class="produto_text1">
+                        <h2 class="nome">Card 1</h2>
+                        <h3 class="preco">R$999,99</h3>
+                    </div>
+                    <div class="produto_text2">
+                    <p>a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a <a class="readmore" href="#">Ler Mais...</a></p>
+                        <div class="avaliacao">
+                            <div class="nota">
+                                <i class="far fa-star"></i>
+                                <p>4,9</p>
+                            </div>
+                            <div class="quant_venda">
+                                <p>900 Vendidos</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+
+                    <a href="#" class="comprar">Comprar</a>
+            </div>
+            <div class="produto2_box">
+                <div class="produto_desconto">
+                    <h3>55%</h3>
+                    <h3>OFF</h3>
+                </div>
+                <div class="produto_favorito">
+                    <input type="checkbox" id="favproduct">
+                    <label for="favproduct">
+                        <img src="/img/newhearth.png" alt="">
+                    </label>
+                </div>
+                <div class="produto2_img">
+                    <img id="img1" src="/img/capsula-de-cafe-espresso-pimpinela-gourmet-tres-01.png" alt="">
+                    <img id="img2" src="/img/cafegourmet.png" alt="">
+                </div>
+                <div class="produto2_text">
+                    <h2>Card 2</h2>
+                    <h3>R$400,99</h3>
+                </div>
+                <a href="#">Comprar</a>
+            </div>
+        </div>
+    </div>   
+        <div class="mini_desc">
+            <p>Um bom resumo atrai mais clientes, capriche bastante.</p>
+            <h2>Escreva Aqui Um Resumo do Produto (Escreva Apenas se tiver utilizando o "Card 1")</h2>
+            <textarea name="" id="" placeholder="Maximo 180 caracteres" maxlength="180" style="resize: none;" cols="55" rows="10"></textarea>
+        </div>
+
+
+        <div class="desc">
+            <p>Fique atento as taxas cobradas pelo site, confira os termos clicando <a href="#">Aqui!</a></p>
+            <h2>Dê um Preço ao Seu Produto</h2>
+            <input type="text" placeholder="R$999,99">
+        </div>
+
+
+
+        <div class="desc">
+            <p>As Tags, servem para o cliente achar o produto ao qual ele pesquisa, marque as tags corretas, caso contrario, solicitaremos que refaça a marcação correta</p>
+            <h2>Adicione Tags Seu Produto</h2>
+            <section class="tag_area">
+                <div class="input_tag">
+                    <input type="text" placeholder="Pesquise pela Tag desejada Aqui">
+                </div>
+                <section class="tags_area">
+                    <div class="tag_box">
+                        <h2>exemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemploexemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemploexemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemploexemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemploexemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemploexemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemploexemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemploexemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemploexemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemploexemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemploexemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    <div class="tag_box">
+                        <h2>exemplo</h2>
+                        <div class="tag_check">
+                            <input type="checkbox" id="tagcheck1">
+                            <label for="tagcheck1"></label> 
+                        </div>
+                    </div>
+                    
+                </section>
+            </section>
+        </div>
+
+        
+
+        <div class="desc">
+            <p>Descrições bem escritas conquistam e passam confiança aos clientes! Conte historias do produto, processo de criação, etc</p>
+            <h2>Escreva A Descrição Aqui </h2>
+            <textarea name="" id="" placeholder="(1500 caracteres)" maxlength="1500"  style="resize: none;" cols="70" rows="15"></textarea>
+        </div>
+        
+        <div class="desc">
+            <h2>Nome da Fazenda (Opcional)</h2>
+            <input type="text" placeholder="Escreva Aqui:">
+        </div>
+
+        <div class="desc">
+            <h2>Nome do Produtor (Opcional)</h2>
+            <input type="text" placeholder="Escreva Aqui:">
+        </div>
+
+        <div class="desc">
+            <h2>Data da Torra (Opcional)</h2>
+            <input type="date">
+        </div>
+        <div class="acordos">
+            <div class="input_check">
+                <input type="checkbox" id="box-1">
+                <label for="box-1"></label
+                    ><h2>Concordar com os <a href="#">Termos de Venda</a></h2>
+            </div>
+            <div class="input_check">
+                <input type="checkbox" id="box-2">
+                <label for="box-2"></label
+                    ><h2>Concordar com os <a href="#">Termos de Venda</a></h2>
+            </div>
+        </div>
+        
+
+        <div class="enviar">
+            <p>Ao enviar, o produto pássara por uma analise, para conferirmos se o produto está de acordo com os nossos padrões OnCoffee.</p>
+            <input type="button" value="Enviar">
+        </div>
+
+        
+    </main>
+        
+
+
+    </main>
+
+
+    
+
+
+</main>
+</body>
+</html>

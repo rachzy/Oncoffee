@@ -20,7 +20,7 @@ import ConteudoSearch from "./Header/ConteudoSearch";
 import ButtonNavbar from "./Header/ButtonNavbar";
 import FavoriteProducts from "./Header/FavoriteProducts";
 
-const Header = ({ children, setFavoritedProducts, favoritedProductsState }) => {
+const Header = ({ children, setFavoritedProducts, favoritedProductsState, handleSetPopupState }) => {
   const {serverUrl} = require('../connection.json');
   const setExampleCookie = async() => {
     const userId = 25022006;
@@ -90,7 +90,7 @@ const Header = ({ children, setFavoritedProducts, favoritedProductsState }) => {
           </div>
         </MenuItem>
         <MenuItem id="favorited-products-icon" icon={newHeart_logo} alt="newhearth-oncoffee-icon">
-          <FavoriteProducts setFavoritedProducts={setFavoritedProducts} favoritedProducts={favoritedProductsState} />
+          <FavoriteProducts handleSetPopupState={handleSetPopupState} setFavoritedProducts={setFavoritedProducts} favoritedProducts={favoritedProductsState} />
         </MenuItem>
         <MenuItem icon={newKart_logo} alt="newkart-oncoffee-icon">
           <div className="fav_quant">

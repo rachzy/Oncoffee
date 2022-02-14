@@ -1,0 +1,146 @@
+.criar_anuncio {
+    display: flex;
+    
+    width: 95%;
+    flex-direction: column;
+    max-height: 100vh;
+    align-items: center;
+    overflow-y: scroll;
+    
+}
+
+
+
+
+
+
+.select_img {
+    display: flex;
+    flex-direction: column;
+    width: 92%;
+    margin-top: 30px;
+    align-items: flex-start;
+    background: rgb(35, 35, 35);
+    padding: 10px 25px;
+    border-radius: 15px;
+}
+
+.select_img h2 {
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 400;
+    font-family: Poppins,sans-serif;
+}
+
+.select_img p {
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: 300;
+    font-family: Poppins,sans-serif;
+}
+
+
+.imgs_line {
+    display: flex;
+    flex-direction: row;
+    width: min-content;
+    max-width: 100%;
+    overflow-x: auto;
+    margin-top: 20px;
+    align-items: center;
+    padding-bottom: 20px;
+}
+
+
+.imgs_line::-webkit-scrollbar {
+    
+    height: 5px;
+    
+}
+
+.imgs_line::-webkit-scrollbar-track {
+    background: rgba(25, 25, 25 );
+    
+    
+}
+.imgs_line::-webkit-scrollbar-thumb {
+    background-color: rgb(167, 89, 45);
+    border-radius: 5px;
+    
+    
+    
+}
+
+.imgs_line img {
+    max-width: 350px;
+    margin-left: 25px;
+    
+}
+
+
+
+#input_file {
+    display: none;
+}
+
+.select_img label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background: rgb(45, 45, 45);
+    border-radius: 15px;
+    min-height: 150px;
+    min-width: 150px;
+    padding: 5px;
+    
+}
+
+.select_img label h3 {
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 400;
+    font-family: Poppins,sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.select_img label i {
+    font-size: 25px;
+    color: rgba(255, 255, 255, 0.8);
+   
+    
+}
+
+
+
+
+.enviar {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-bottom: 50px;
+    margin-top: 50px;
+}
+
+.enviar p {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 15px;
+    font-family: Poppins,sans-serif;
+    font-weight: 400;
+}
+
+.enviar input {
+    background: rgb(167, 89, 45);
+    color: rgba(255, 255, 255, 0.8);
+    padding: 5px 18px;
+    font-size: 20px;
+    font-family: Poppins,sans-serif;
+    font-weight: 400;
+    border-radius: 5px;
+    margin-top: 20px;
+}
