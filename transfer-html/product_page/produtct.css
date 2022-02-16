@@ -1553,3 +1553,26 @@ button[class*=btn] {
     font-weight: 400;
 }
 
+.back-next {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+
+.back-next button {
+    background: transparent;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 25px;
+    width: 5%;
+    text-align: center;
+}
+
+.back-next h2 {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 22px;
+    font-family: Poppins,sans-serif;
+    font-weight: 400;
+
+}
