@@ -262,32 +262,62 @@ body {
 }
 
 
-
-.fav_product img {
-    width: 20%;
-   
+.fav_img_line  {
+    width: 25%;
+    
 }
 
-.fav_product_text {
-    width: 68%;
-    margin-left: 4%;
+.fav_img_line img {
+    width: 100%;
+
 }
 
-.fav_product_text h2 {
-    font-size: 18px;
-    font-family: Poppins,sans-serif;
-    color: rgb(255, 255, 255,0.8);
-    font-weight: 400;
+.fav_text_line {
+    width: 60%;
+    padding: 5px;
 }
 
-.fav_product_text h3 {
+.fav_text_line h2 {
     font-size: 16px;
-    font-family: Poppins,sans-serif;
     font-weight: 400;
-    color: rgb(255, 255, 255,0.8);
+    color: rgba(255, 255, 255, 0.8);
+    font-family: Poppins,sans-serif;
 }
 
+.fav_text_line h3 {
+    font-size: 20px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.8);
+    font-family: Poppins,sans-serif;
+}
 
+.fav_remove_line {
+    
+    width: 15%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fav_remove_line button {
+    background: transparent;
+    font-size: 20px;
+    padding: 8px;
+    color: rgb(235, 76, 76);
+    border: 1px solid rgb(235, 76, 76);
+    border-radius: 5px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s ease all;
+}
+
+.fav_remove_line button:hover {
+    background: rgb(235, 76, 76);
+    color: rgba(255, 255, 255, 0.8);
+    cursor: pointer;
+}
 
 .fav_quant {
     position: absolute;
@@ -1557,7 +1587,7 @@ button[class*=btn] {
     width: 100%;
     display: flex;
     justify-content: center;
-    margin-top: 20px;
+    margin-top: 25px;
 }
 
 
@@ -1567,6 +1597,14 @@ button[class*=btn] {
     font-size: 25px;
     width: 5%;
     text-align: center;
+    transition: 0.2s ease all;
+    
+}
+
+.back-next button:hover {
+    transform: scale(1.2);
+    cursor: pointer;
+    color: rgb(202, 106, 51);
 }
 
 .back-next h2 {
