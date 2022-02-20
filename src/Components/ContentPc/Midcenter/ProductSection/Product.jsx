@@ -1,7 +1,5 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
-
-import Axios from "axios";
 
 import displayError from "../../../.././globalFunctions/displayErrors";
 
@@ -16,23 +14,24 @@ const Product = ({
   productImgSrc,
   productImgAlt,
   productFinalPrice,
-  productAbout,
+  productDescription,
   productGrade,
   productTotalSales,
   setFavoriteProductsIds,
   favoritedProductsIds,
+  handleAddCartProduct,
   handleFavoritedProductsChange,
+  handleSetPopupState,
 }) => {
   const userId = getCookie("UID");
   const favhearticon = useRef(null);
   const defaulthearticon = useRef(null);
 
-  const { serverUrl } = require("../../../../connection.json");
-
   if (userId) {
     //Simple function that will check if the product is already favorited by the user
     //and display a "favorited heart" icon instead of a default one if it is
     const checkIfProductIsFavorited = async () => {
+      
       if (!favoritedProductsIds) return;
       //Each value of this Array corresponds to a single productId
       const splitProductIds = favoritedProductsIds.toString().split(",");
@@ -40,7 +39,7 @@ const Product = ({
       //If "splitProductIds" is not null, that means that there are more than one product
       if (splitProductIds) {
         splitProductIds.map((pId) => {
-          if(!pId || pId === null || pId === "") return;
+          if (!pId || pId === null || pId === "") return;
           if (pId === productId.toString()) {
             if (
               favhearticon.current === null ||
@@ -78,6 +77,19 @@ const Product = ({
     }
   };
 
+  const returnDescriptionWithDots = (lengthType) => {
+    if (lengthType === "short") {
+      if (productDescription.length > 70)
+        return `${productDescription.slice(0, 70)}...`;
+      return productDescription;
+    }
+    if (lengthType === "long") {
+      if (productDescription.length > 300)
+        return `${productDescription.slice(0, 300)}...`;
+      return productDescription;
+    }
+  };
+
   //Return ",00" on product price
   const returnFinalPrice = () => {
     const splitFinalPrice = productFinalPrice.toString().split(".");
@@ -101,55 +113,42 @@ const Product = ({
     //Redirect the user to login page if he's not logged in
     if (!userId) {
       navigate("/login/");
-      window.location.href = "#top";
+      window.scrollTo(0, 0);
       return;
     }
 
     //LOGIC SECTION
 
-      //Cooldown the function
-      //If the user have clicked in the same favorite button twice in an interval that is less
-      //than 2 seconds of difference, stops the execution and display an error
-      const currentTimeTimeStamp = currentTime.timeStamp;
-      const secondsSinceLastClick = Math.floor(
-        (currentTimeTimeStamp - lastClick) / 1000
+    //Cooldown the function
+    //If the user have clicked in the same favorite button twice in an interval that is less
+    //than 2 seconds of difference, stops the execution and display an error
+    const currentTimeTimeStamp = currentTime.timeStamp;
+    const secondsSinceLastClick = Math.floor(
+      (currentTimeTimeStamp - lastClick) / 1000
+    );
+    if (secondsSinceLastClick < 1) {
+      displayError(
+        "",
+        "",
+        "Espere pelo menos 2 segundos até a próxima interação!"
       );
-      if (secondsSinceLastClick < 1) {
-        displayError(
-          "",
-          "",
-          "Espere pelo menos 2 segundos até a próxima interação!"
-        );
-        return;
-      }
-      lastClick = currentTimeTimeStamp;
+      return;
+    }
+    lastClick = currentTimeTimeStamp;
 
-      //Pos the new product on the database
-      const postNewFavoriteProduct = async () => {
-        const { data } = Axios.post(`${serverUrl}/postfavoriteproduct/`, {
-          userId: userId,
-          productId: productId,
-        });
-        if (!data) return;
-        if (data.isError) {
-          displayError(data.errorCode, data.errno);
-        }
+    //Change the FavoriteedProducts state with the new value
+    const addNewProductToFavoriteProductsState = async () => {
+      const newProduct = {
+        productId: productId,
+        productName: productName,
+        productDescription: productDescription,
+        productImgSrc: productImgSrc,
+        productImgAlt: productImgAlt,
+        productFinalPrice: productFinalPrice,
       };
-      postNewFavoriteProduct();
-
-      //Change the FavoriteedProducts state with the new value
-      const addNewProductToFavoriteProductsState = async () => {
-        const newProduct = {
-          productId: productId,
-          productName: productName,
-          productImgSrc: productImgSrc,
-          productImgAlt: productImgAlt,
-          productFinalPrice: productFinalPrice,
-        };
-        handleFavoritedProductsChange(newProduct);
-      };
-      addNewProductToFavoriteProductsState();
-
+      handleFavoritedProductsChange(newProduct);
+    };
+    addNewProductToFavoriteProductsState();
 
     //CLASS SECTION
 
@@ -178,17 +177,48 @@ const Product = ({
         favHeartIcon.forEach((element) => {
           element.classList.add("active");
         });
-        const newFavoritedProductsIds = favoritedProductsIds.replace(`${productId}`, '');
+        const newFavoritedProductsIds = favoritedProductsIds.replace(
+          `${productId}`,
+          ""
+        );
         setFavoriteProductsIds(newFavoritedProductsIds);
       }
-    }
+    };
     changeHeartIconClass();
   };
 
   const navigate = useNavigate();
-  const handleProductClick = () => {
-    navigate(`/product/${productId}`);
-    window.location.href = "#top";
+  const handleBuyClick = () => {
+    // navigate(`/product/${productId}`);
+    // window.scrollTo(0, 0);
+    const newCartProduct = {
+      productId: productId,
+      productName: productName,
+      productDescription: productDescription,
+      productImgSrc: productImgSrc,
+      productImgAlt: productImgAlt,
+      productFinalPrice: productFinalPrice
+    }
+    handleAddCartProduct(newCartProduct);
+  };
+
+  //Function that would be triggered when the user clicked on "read more", but it's not being
+  //Used for marketing reasons
+  const handleReadMoreClick = () => {
+    const PopupProduct = {
+      productId: productId,
+      productName: productName,
+      productDescription: returnDescriptionWithDots("long"),
+      productImgSrc: productImgSrc,
+      productImgAlt: productImgAlt,
+      productFinalPrice: returnFinalPrice(),
+    };
+    handleSetPopupState("singleproduct", PopupProduct);
+    const popup = document.querySelector(".popup");
+    const popupBox = document.querySelector(".popup-box");
+    popup.classList.add("active");
+    popupBox.classList.add("active");
+    document.body.style.overflow = "hidden";
   };
   return (
     <div className="produto_box">
@@ -227,10 +257,8 @@ const Product = ({
       </div>
       <div className="produto_text2">
         <p>
-          {" "}
-          {productAbout}
-          <a className="readmore" onClick={handleProductClick}>
-            {" "}
+          {returnDescriptionWithDots("short")}
+          <a className="readmore" onClick={handleBuyClick}>
             Ler Mais...
           </a>
         </p>
@@ -245,7 +273,7 @@ const Product = ({
         </div>
       </div>
 
-      <a onClick={handleProductClick} className="comprar">
+      <a onClick={handleBuyClick} className="comprar">
         Comprar
       </a>
     </div>

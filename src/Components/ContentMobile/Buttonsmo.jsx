@@ -25,8 +25,8 @@ const Buttonsmo = () => {
     const handleSearchButtonClick = () => {
         conteudoSearch = document.querySelector("#content-search");
         conteudoSearch.classList.add("active");
-        window.location.href="#top";
         swichline.current.style.marginLeft = '40%';
+        window.scrollTo(0, 0);
     }
 
     const handleUserButtonClick = () => {
@@ -44,7 +44,7 @@ const Buttonsmo = () => {
                     <label onClick={handleUserButtonClick} className="sbtt" htmlFor="perfilbtt"><img src={NewUsericon} alt="new-user-icon" /></label>
                 </div>
                 <div className="linearea">
-                    <div ref={swichline} style={{"marginLeft": "30px"}} className="swichline"></div>
+                    <div ref={swichline} className="swichline"></div>
                 </div>
             </main>
         </main>

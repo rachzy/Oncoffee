@@ -6,39 +6,12 @@ import ProductCard from "./FeaturedPromotions/ProductCard";
 
 import displayError from "../../../globalFunctions/displayErrors";
 
-const FeaturedPromotions = () => {
-  //Set initial state as a loading state
-  function initialState() {
-    return { isLoading: true };
-  }
-
-  //Get server Url (Ex: "http://localhost:3001")
-  const { serverUrl } = require("../../../connection.json");
-
-  //State to store all the slide images
-  const [products, setProducts] = useState([initialState()]);
-
-  //useEffect function to set the state of the slides
-  useEffect(() => {
-    const fetchProducts = async () => {
-      const { data } = await Axios.get(
-        `${serverUrl}/getslides/featuredpromotions`
-      );
-      if (!data || data.length === 0) return;
-      if (data.isError) {
-        displayError(data.errorCode, data.errno);
-        return;
-      }
-      setProducts(data);
-    };
-    fetchProducts();
-  }, [serverUrl]);
-
+const FeaturedPromotions = ({slideProductsIds}) => {
   return (
     <main className="midmobile">
       <h2>Promoções Relampago</h2>
       <div className="midmobile-overflow">
-        {products.map((product) => {
+        {slideProductsIds.map((product) => {
           if (product.isLoading) return;
           return (
             <ProductCard

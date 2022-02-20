@@ -10,7 +10,7 @@ const NormalSearch = ({ setInputValue, value, postInputSearchProductValue }) => 
     navigate(`/search/${value}`);
     document.querySelector("#content-search").classList.remove("active");
     document.querySelector(".swichline").style.marginLeft = '3%'
-    window.location.href = "#top";
+    window.scrollTo(0, 0);
     postInputSearchProductValue(value);
   }
   return (

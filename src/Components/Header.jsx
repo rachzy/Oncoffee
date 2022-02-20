@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import Axios from 'axios';
+import Axios from "axios";
 
 import displayError from "../globalFunctions/displayErrors";
 
@@ -19,26 +19,66 @@ import "../css/Header.css";
 import ConteudoSearch from "./Header/ConteudoSearch";
 import ButtonNavbar from "./Header/ButtonNavbar";
 import FavoriteProducts from "./Header/FavoriteProducts";
+import ShoppingCartProducts from "./Header/ShoppingCartProdcuts";
 
-const Header = ({ children, setFavoritedProducts, favoritedProductsState, handleSetPopupState }) => {
-  const {serverUrl} = require('../connection.json');
-  const setExampleCookie = async() => {
+const Header = ({
+  children,
+  favoritedProductsState,
+  cartProductsState,
+  handleSetPopupState,
+  handleRemoveCartProduct,
+  handleFavoritedProductsChange,
+  serverStatus,
+}) => {
+  const { serverUrl } = require("../connection.json");
+  const setExampleCookie = async () => {
     const userId = 25022006;
 
     const { data } = await Axios.get(
       `${serverUrl}/getusersecuritytokens/${userId}`
-    )
-    if(data.isError) {
+    );
+    if (data.isError) {
       displayError(data.errorCode, data.errno);
       return;
     }
-    
-    if(!data && data.length === 0) return;
+
+    if (!data && data.length === 0) return;
 
     document.cookie = `STOKEN1 = ${data.accountSecurityToken1};secure`;
     document.cookie = `STOKEN2 = ${data.accountSecurityToken2};secure`;
     document.cookie = `UID = ${userId};secure`;
   };
+
+  const handleMobileHeartIconClick = () => {
+    const popup = document.querySelector(".popup");
+    const popupBox = document.querySelector(".popup-box");
+    popup.classList.add("active");
+    popupBox.classList.add("active");
+    window.scrollTo(0, 0);
+    document.body.style.overflow = "hidden";
+    handleSetPopupState("favoritedproducts");
+  };
+
+  const handleMobileKartIconClick = () => {
+    const popup = document.querySelector(".popup");
+    const popupBox = document.querySelector(".popup-box");
+    popup.classList.add("active");
+    popupBox.classList.add("active");
+    window.scrollTo(0, 0);
+    document.body.style.overflow = "hidden";
+    handleSetPopupState("shoppingcart");
+  };
+
+  function renderFavoritedProductsIfServerStatusIs200() {
+    if (serverStatus !== 200) return null;
+    return (
+      <FavoriteProducts
+        handleSetPopupState={handleSetPopupState}
+        favoritedProducts={favoritedProductsState}
+        handleFavoritedProductsChange={handleFavoritedProductsChange}
+      />
+    );
+  }
 
   return (
     <header>
@@ -47,14 +87,12 @@ const Header = ({ children, setFavoritedProducts, favoritedProductsState, handle
           {children}
         </Title>
         <Logo className="navlogo3" logo={onCoffee_logo} />
+
         <MenuItem icon={newUser_logo} alt="newuser-oncoffee-icon">
           <div className="user_box">
             <ul>
               <li>
-                <ButtonNavbar
-                  className="login"
-                  onClick={setExampleCookie}
-                >
+                <ButtonNavbar className="login" onClick={setExampleCookie}>
                   Login
                 </ButtonNavbar>
                 <ButtonNavbar className="register" href="/">
@@ -89,19 +127,21 @@ const Header = ({ children, setFavoritedProducts, favoritedProductsState, handle
             </ul>
           </div>
         </MenuItem>
-        <MenuItem id="favorited-products-icon" icon={newHeart_logo} alt="newhearth-oncoffee-icon">
-          <FavoriteProducts handleSetPopupState={handleSetPopupState} setFavoritedProducts={setFavoritedProducts} favoritedProducts={favoritedProductsState} />
+
+        <MenuItem
+          id="favorited-products-icon"
+          icon={newHeart_logo}
+          alt="newhearth-oncoffee-icon"
+        >
+          {renderFavoritedProductsIfServerStatusIs200()}
         </MenuItem>
+
         <MenuItem icon={newKart_logo} alt="newkart-oncoffee-icon">
-          <div className="fav_quant">
-            <p>0</p>
-          </div>
-          <div className="shop_box">
-            <div className="shop_box_overflow">
-              <Product productLogo={cafeGourmet_logo} />
-            </div>
-            <a href="/">Conferir Carrinho</a>
-          </div>
+          <ShoppingCartProducts
+            handleSetPopupState={handleSetPopupState}
+            cartProducts={cartProductsState}
+            handleRemoveCartProduct={handleRemoveCartProduct}
+          />
         </MenuItem>
       </nav>
       <nav id="#top" className="navbar2">
@@ -113,11 +153,13 @@ const Header = ({ children, setFavoritedProducts, favoritedProductsState, handle
           icon={newHeart_logo}
           id="trigger-box-2"
           alt="newhearth-oncoffee-icon"
+          onClick={handleMobileHeartIconClick}
         />
         <MenuItem
           icon={newKart_logo}
           id="trigger-box-3"
           alt="newkart-oncoffee-icon"
+          onClick={handleMobileKartIconClick}
         />
       </nav>
       <ConteudoSearch />
