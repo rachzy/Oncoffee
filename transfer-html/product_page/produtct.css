@@ -1189,7 +1189,7 @@ button[class*=btn] {
 .more_products::-webkit-scrollbar {
     
     width: 5px;
-    
+    height: 5px;
 }
 
 .more_products::-webkit-scrollbar-thumb {
