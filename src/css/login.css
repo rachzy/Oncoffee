@@ -23,34 +23,16 @@ body {
     
 }
 
-.conteudo {
+.conteudo-login {
     width: 100%;
     display: flex;
     justify-content: center;
     min-height: 100vh;
-    
-    
 }
 
-.conteudo1 {
-    width: 100%;
-    
-    display: flex;
-    flex-direction: row;
-    
-    
-
-}
-
-.boxleft {
-    width: 50%;
-}
-
-.boxright {
-    width: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.conteudo1-login {
+    width: 60vh;
+    display: block;
     
 }
 
@@ -60,10 +42,18 @@ body {
     border-radius: 15px;
     padding: 25px;
     min-width: 35%;
-    display: flex;
-    flex-direction: column;
+    height: 370px;
+    display: block;
+    margin: auto;
     justify-content: center;
-    
+    overflow: hidden;
+	transition-property: all;
+	transition-duration: 0.2s;
+	transition-timing-function: cubic-bezier(1, 1, 1, 1);
+}
+
+.logincontainer.grow {
+    height: fit-content;
 }
 
 .logincontainer h2 {
@@ -86,7 +76,7 @@ body {
 }
 
 
-.login, .register {
+.login-button, .register-button {
     width: 48%;
     font-family: Ubuntu,sans-serif;
     text-align: center;
@@ -97,7 +87,7 @@ body {
     
 }
 
-.login:hover, .register:hover {
+.login-button:hover, .register-button:hover {
     cursor: pointer;
     
 }
@@ -132,6 +122,12 @@ body {
     display: flex;
     flex-direction: column;
     margin-top: 25px;
+    margin-left: -150%;
+    transition: 0.2s ease-in-out all;
+}
+
+.loginbox.active {
+    margin-left: 0%;
 }
 
 .logmail {
@@ -267,9 +263,15 @@ body {
 
 .registerbox {
     width: 100%;
-    display: none;
+    display: flex;
     flex-direction: column;
-    margin-top: 10px;
+    margin-top: -270px;
+    margin-left: 150%;
+    transition: 0.2s ease-in-out all;
+}
+
+.registerbox.active {
+    margin-left: 0px;
 }
 
 .registerbox input {
@@ -311,4 +313,6 @@ body {
     font-family: Roboto,sans-serif;
     color: rgb(182, 74, 74);
     padding: 3px 5px;
+    margin-bottom: 5px;
+    height: 5px;
 }

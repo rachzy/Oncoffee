@@ -2,8 +2,14 @@ import React, { useState, useEffect } from "react";
 
 import Axios from "axios";
 
+import "../css/Cards.css";
+import "../css/Mid.css";
+import "../css/Mobile.css";
+import "../css/Top.css";
+
 import getCookie from "../globalFunctions/getCookie";
 import displayError from "../globalFunctions/displayErrors";
+import setPageTitle from "../globalFunctions/setPageTitle";
 
 import ContentPc from "./ContentPc";
 import TopBar from "./ContentPc/TopBar";
@@ -15,11 +21,18 @@ import SliderMobile from "./ContentMobile/SliderMobile";
 import MidcenterMobile from "./ContentMobile/MidcenterMobile";
 
 const Content = ({
+  pageTitle,
+  setHeaderPageTitle,
   handleAddCartProduct,
   handleFavoritedProductsChange,
   handleSetPopupState,
   serverStatus,
 }) => {
+  useEffect(() => {
+    setPageTitle(pageTitle);
+    setHeaderPageTitle(pageTitle);
+  }, [pageTitle]);
+
   const userId = getCookie("UID");
   const [slideProductsIds, setSlideProductsIds] = useState([]);
   const [favoritedProductsIds, setFavoritedProductsIds] = useState();
@@ -63,7 +76,7 @@ const Content = ({
       fetchFavoritedProductsIds();
       fetchSlides();
     }, 1000);
-  }, [serverUrl]);
+  }, [userId, serverUrl]);
   return (
     <>
       <ContentPc serverStatus={serverStatus}>

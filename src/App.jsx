@@ -1,18 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
+import './css/Content.css';
+
 import Axios from "axios";
 import getCookie from "./globalFunctions/getCookie";
 import deleteCookie from "./globalFunctions/deleteCookie";
 import displayError from "./globalFunctions/displayErrors";
-
-import "./css/App.css";
-import "./css/Bottom.css";
-import "./css/Cards.css";
-import "./css/Mid.css";
-import "./css/Mobile.css";
-import "./css/Search.css";
-import "./css/Top.css";
 
 import SkipToContentButton from "./Components/SkipToContentButton";
 import Popup from "./Components/Popup";
@@ -20,6 +14,8 @@ import Header from "./Components/Header";
 import Buttonsmo from "./Components/ContentMobile/Buttonsmo";
 import Content from "./Components/Content";
 import Error from "./Components/Error";
+
+import Login from "./Components/Login";
 
 const App = () => {
   const userId = getCookie("UID");
@@ -191,16 +187,30 @@ const App = () => {
   //If setted as "false", the button won't exist and the div will take up all the empty space
   //Options: {title: 'The title of the button', href: 'The page the user will be redirected when the button gets triggered'}
   const handleSetPopupState = (popupType, productObject) => {
+
+    //Remove the "disabled" class from every product
+    const popupProductsDiv = document.querySelectorAll(".popup-product");
+    popupProductsDiv.forEach((productDiv) => {
+      productDiv.classList.remove("disabled");
+      productDiv.style.display = 'flex';
+    });
     if (!popupType) return;
+
+
     if (popupType === "favoritedproducts") {
       const PopupContentObject = {
         title: "Seus favoritos",
         type: "favoritedproducts",
         products: favoritedProducts,
         button: false,
+        removeProduct: function(productId) {
+          handleFavoritedProductsChange(productId);
+        }
       };
       setPopupContent(PopupContentObject);
     }
+
+
     if (popupType === "shoppingcart") {
       if (!cartProducts || cartProducts.length === 0) return;
       const allProductsIds = cartProducts.map((product) => {
@@ -213,11 +223,15 @@ const App = () => {
         products: cartProducts,
         button: {
           title: "Fazer checkout",
-          href: `checkout/products=${allProductsIds}`,
         },
+        removeProduct: function() {
+          handleRemoveCartProduct();
+        }
       };
       setPopupContent(PopupContentObject);
     }
+
+
     if (popupType === "singleproduct") {
       if (!productObject) return;
       const PopupContentObject = {
@@ -226,12 +240,14 @@ const App = () => {
         product: productObject,
         button: {
           title: "Comprar",
-          href: `product/${productObject.productId}`,
         },
+        removeProduct: false
       };
       setPopupContent(PopupContentObject);
     }
   };
+
+  const [headerPageTitle, setHeaderPageTitle] = useState();
 
   return (
     <Router>
@@ -246,7 +262,7 @@ const App = () => {
         handleRemoveCartProduct={handleRemoveCartProduct}
         handleFavoritedProductsChange={handleFavoritedProductsChange}
       >
-        Home
+        {headerPageTitle}
       </Header>
       <Buttonsmo />
       <Routes>
@@ -255,10 +271,22 @@ const App = () => {
           exact
           element={
             <Content
+              pageTitle="Home"
+              setHeaderPageTitle={setHeaderPageTitle}
               serverStatus={serverStatus}
               handleFavoritedProductsChange={handleFavoritedProductsChange}
               handleSetPopupState={handleSetPopupState}
               handleAddCartProduct={handleAddCartProduct}
+            />
+          }
+        />
+        <Route
+          path="/login"
+          exact
+          element={
+            <Login 
+            pageTitle="Login"
+            setHeaderPageTitle={setHeaderPageTitle}
             />
           }
         />

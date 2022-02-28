@@ -117,12 +117,14 @@ body {
 
 .navlogo3 img {
   width: 100px;
+  display: block;
+  margin: auto;
 }
 
 .navbar3 .navlogo3 {
   width: 100%;
-
-  display: flex;
+  display: block;
+  margin: auto;
   align-items: center;
   justify-content: center;
 }
@@ -1081,9 +1083,13 @@ body {
 
 #loader-mobile {
   display: none;
+  width: 100%;
+  margin: auto;
 }
 #loader-pc {
   display: block;
+  width: 90%;
+  margin: auto 40px;
 }
 
 @media screen and (max-width: 850px) {

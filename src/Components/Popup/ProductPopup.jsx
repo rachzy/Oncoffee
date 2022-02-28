@@ -11,18 +11,15 @@ const ProductPopup = ({
   productImgSrc,
   productImgAlt,
   productFinalPrice,
-  hrefButtonState,
-  setHrefButtonState,
-  popupHref
+  removeProduct,
+  closePopupBox,
 }) => {
   const productDiv = useRef(null);
   const navigate = useNavigate();
 
   const handleButtonClick = () => {
     navigate(`/product/${productId}`);
-    const popup = document.querySelector(".popup");
-    popup.classList.remove("active");
-    document.body.style.overflowY = "visible";
+    closePopupBox();
   };
 
   const handleXClick = async () => {
@@ -40,19 +37,11 @@ const ProductPopup = ({
         `#removeProductBtnfav${productId}`
       );
 
-    if (!removeProductBtn || removeProductBtn === null) return;
-    removeProductBtn.click();
-
-    let newHrefStateValue;
-    if(hrefButtonState) {
-      newHrefStateValue = hrefButtonState.href.replace(productId, '');
+    if (!removeProductBtn || removeProductBtn === null) {
+      removeProduct({ productId });
     } else {
-      const replaceHref = popupHref.replace(productId, '');
-      newHrefStateValue = {
-        href: replaceHref
-      }
+      removeProductBtn.click();
     }
-    setHrefButtonState(newHrefStateValue);
 
     productDiv.current.classList.add("disabled");
     setTimeout(() => {
@@ -75,8 +64,10 @@ const ProductPopup = ({
       .replace(".", ",");
     return finalPriceWithCommas;
   };
+
+
   return (
-    <div ref={productDiv} className="popup-product">
+    <div ref={productDiv} id={`${productId}`} className="popup-product">
       <img
         onClick={handleButtonClick}
         src={require(`../../imgs/${productImgSrc}`)}

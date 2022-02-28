@@ -1,7 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
 
-import Axios from "axios";
-
 import Loading from "./Loading";
 
 const ContentMobile = ({ serverStatus, children }) => {
@@ -27,11 +25,11 @@ const ContentMobile = ({ serverStatus, children }) => {
 
     //If the state is not null, that means that "conteudoMobile" is completely loaded
     const getContentStyle = getComputedStyle(contentMobile.current); //get all the CSS from the class "conteudo"
-
+  
     //If it's display is "none", it means that the user is accessing the website through a dispositive
     //that doesn't need to show the content for mobile, so, keep the function as default
     if (getContentStyle.display === "none") return;
-
+    
     //If it's display is not none, it means that the dispositive that the user is using to access the
     // website needs to render the "conteudomobile"
     returnElementsIfContentIsLoaded = () => {
@@ -39,7 +37,7 @@ const ContentMobile = ({ serverStatus, children }) => {
         const mainSlideMobile = document.querySelector(".slide3");
         const loader = document.querySelector("#loader-mobile");
 
-        if (!mainSlideMobile || mainSlideMobile === undefined) return;
+        if (!mainSlideMobile) return;
         contentMobile.current.classList.add("active");
         loader.style.display = "none";
         clearInterval(checkIfSlideIsLoaded);
@@ -51,7 +49,7 @@ const ContentMobile = ({ serverStatus, children }) => {
   return (
     <>
       <Loading id="loader-mobile" />
-      <main ref={contentMobile} className="conteudomobile">
+      <main ref={contentMobile} className="conteudomobile active">
         {returnElementsIfContentIsLoaded()}
       </main>
     </>

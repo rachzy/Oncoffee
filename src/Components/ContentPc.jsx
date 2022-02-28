@@ -1,7 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 
-import Axios from "axios";
-
 import Loading from "./Loading";
 
 const ContentPc = ({ serverStatus, children }) => {

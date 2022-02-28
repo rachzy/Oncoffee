@@ -1,6 +1,8 @@
 import React, { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import "../../css/Bottom.css";
+
 import NewHomeIcon from '../../imgs/newhome.png';
 import NewSearchIcon from '../../imgs/newsearch.png';
 import NewUsericon from '../../imgs/newuser.png';

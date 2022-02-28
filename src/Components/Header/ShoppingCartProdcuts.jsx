@@ -12,7 +12,6 @@ const ShoppingCartProducts = ({
     const popupBox = document.querySelector(".popup-box");
     popup.classList.add("active");
     popupBox.classList.add("active");
-    window.scrollTo(0, 0);
     document.body.style.overflow = "hidden";
     handleSetPopupState("shoppingcart");
   };
