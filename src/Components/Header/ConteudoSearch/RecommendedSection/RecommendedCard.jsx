@@ -5,6 +5,9 @@ const RecommendedCard = ({ name, category, imgSrc, imgAlt }) => {
   const navigate = useNavigate();
   const handleBuyClick = () => {
     navigate(`/search/0/${category}`);
+    document.querySelector(".swichline").style.marginLeft = '3%'
+    document.querySelector("#content-search").classList.remove("active");
+    window.scrollTo(0, 0);
   };
   return (
     <div className="recomendado-box">
@@ -15,7 +18,7 @@ const RecommendedCard = ({ name, category, imgSrc, imgAlt }) => {
         <h2>
           Veja nossos <br /> {name}
         </h2>
-        <a onClick={handleBuyClick} href="#top">
+        <a onClick={handleBuyClick}>
           Conferir
         </a>
       </div>

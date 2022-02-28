@@ -17,7 +17,9 @@ const ProductSection = ({
   bottomBtn,
   favoritedProductsIds,
   setFavoritedProductsIds,
-  handleFavoritedProductsChange
+  handleAddCartProduct,
+  handleFavoritedProductsChange,
+  handleSetPopupState
 }) => {
   const [products, setProducts] = useState([]);
 
@@ -98,11 +100,13 @@ const ProductSection = ({
                         productCategory={product.productCategory}
                         productFinalPrice={product.productFinalPrice}
                         productDiscount={product.productDiscount}
-                        productAbout={product.productDescription}
+                        productDescription={product.productDescription}
                         productGrade={product.productGrade}
                         productTotalSales={product.productTotalSales}
                         setFavoriteProductsIds={setFavoritedProductsIds}
                         favoritedProductsIds={favoritedProductsIds}
+                        handleAddCartProduct={handleAddCartProduct}
+                        handleSetPopupState={handleSetPopupState}
                         handleFavoritedProductsChange={handleFavoritedProductsChange}
                       />
                       {/* Load other 4 products */}
@@ -127,13 +131,15 @@ const ProductSection = ({
                                   insideProduct.productFinalPrice
                                 }
                                 productDiscount={insideProduct.productDiscount}
-                                productAbout={insideProduct.productDescription}
+                                productDescription={insideProduct.productDescription}
                                 productGrade={insideProduct.productGrade}
                                 productTotalSales={
                                   insideProduct.productTotalSales
                                 }
                                 setFavoriteProductsIds={setFavoritedProductsIds}
                                 favoritedProductsIds={favoritedProductsIds}
+                                handleAddCartProduct={handleAddCartProduct}
+                                handleSetPopupState={handleSetPopupState}
                                 handleFavoritedProductsChange={handleFavoritedProductsChange}
                               />
                             );
@@ -189,11 +195,13 @@ const ProductSection = ({
               productCategory={product.productCategory}
               productFinalPrice={product.productFinalPrice}
               productDiscount={product.productDiscount}
-              productAbout={product.productDescription}
+              productDescription={product.productDescription}
               productGrade={product.productGrade}
               productTotalSales={product.productTotalSales}
               setFavoriteProductsIds={setFavoritedProductsIds}
               favoritedProductsIds={favoritedProductsIds}
+              handleAddCartProduct={handleAddCartProduct}
+              handleSetPopupState={handleSetPopupState}
               handleFavoritedProductsChange={handleFavoritedProductsChange}
             />
           );

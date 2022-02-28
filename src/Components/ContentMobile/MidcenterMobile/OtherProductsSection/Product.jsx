@@ -98,7 +98,7 @@ const Product = ({
     //Redirect the user to login page if he's not logged in
     if (!userId) {
       navigate("/login/");
-      window.location.href = "#top";
+      window.scrollTo(0, 0);
       return;
     }
 
@@ -187,7 +187,7 @@ const Product = ({
   const navigate = useNavigate();
   const handleProductClick = () => {
     navigate(`/product/${productId}`);
-    window.location.href = "#top";
+    window.scrollTo(0, 0);
   };
   return (
     <div className="outros-card">

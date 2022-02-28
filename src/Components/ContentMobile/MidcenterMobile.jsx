@@ -10,27 +10,12 @@ import OtherProductsSection from "./MidcenterMobile/OtherProductsSection";
 
 import TopPromo from "./MidcenterMobile/TopPromo";
 
-const MidcenterMobile = ({ handleFavoritedProductsChange }) => {
-  const userId = getCookie("UID");
-  const [favoritedProductsIds, setFavoritedProductsIds] = useState();
-
-  const { serverUrl } = require("../../connection.json");
-
-  useEffect(() => {
-    const fetchFavoritedProductsIds = async () => {
-      if (!userId) return;
-      const { data } = await Axios.get(
-        `${serverUrl}/getfavoriteproductsids/${userId}`
-      );
-      if (data.isError) {
-        displayError(data.errorCode, data.errno);
-        return;
-      }
-      if (!data) return;
-      setFavoritedProductsIds(data);
-    };
-    fetchFavoritedProductsIds();
-  }, [serverUrl]);
+const MidcenterMobile = ({
+  slideProductsIds,
+  favoritedProductsIds,
+  setFavoritedProductsIds,
+  handleFavoritedProductsChange
+}) => {
   return (
     <>
       <TopPromo />
@@ -50,7 +35,7 @@ const MidcenterMobile = ({ handleFavoritedProductsChange }) => {
         handleFavoritedProductsChange={handleFavoritedProductsChange}
       />
 
-      <FeaturedPromotions />
+      <FeaturedPromotions slideProductsIds={slideProductsIds} />
 
       <OtherProductsSection
         favoritedProductsIds={favoritedProductsIds}

@@ -9,6 +9,7 @@ const AutocompleteSectionMobile = ({ autocompleteShow, setInputValue, postInputS
       <ul>
         <div name="recent-search">
           {autocompleteShow.map((search) => {
+            if(!search.searchValue || search.searchValue === "")  return;
             if (search.notRecent) {
               return (
                 <NormalSearch

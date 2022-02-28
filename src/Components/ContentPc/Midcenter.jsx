@@ -12,44 +12,18 @@ import Warranty from "./Midcenter/Warranty";
 import SocialMedias from "./Midcenter/SocialMedias";
 import Finalinfo from "./Midcenter/FinalInfo";
 
-const Midcenter = ({ handleFavoritedProductsChange }) => {
-  const userId = getCookie("UID");
-  const [slideProductsIds, setSlideProductsIds] = useState([]);
-  const [favoritedProductsIds, setFavoritedProductsIds] = useState();
-
-  const { serverUrl } = require("../../connection.json");
-
-  useEffect(() => {
-    const fetchSlides = async () => {
-      const { data } = await Axios.get(
-        `${serverUrl}/getslides/featuredpromotions`
-      );
-      setSlideProductsIds(data);
-    };
-    fetchSlides();
-  }, [serverUrl]);
-
+const Midcenter = ({
+  slideProductsIds,
+  favoritedProductsIds,
+  setFavoritedProductsIds,
+  handleFavoritedProductsChange,
+  handleAddCartProduct,
+  handleSetPopupState,
+}) => {
   const returnSliderFeaturedPromotions = () => {
     if (slideProductsIds.length === 0) return;
     return <SliderFeaturedPc slidesProductsIds={slideProductsIds} />;
   };
-
-  //Get all favorited products ids
-  useEffect(() => {
-    const fetchFavoritedProductsIds = async () => {
-      if (!userId) return;
-      const { data } = await Axios.get(
-        `${serverUrl}/getfavoriteproductsids/${userId}`
-      );
-      if (data.isError) {
-        displayError(data.errorCode, data.errno);
-        return;
-      }
-      if (!data) return;
-      setFavoritedProductsIds(data);
-    };
-    fetchFavoritedProductsIds();
-  }, [serverUrl]);
 
   return (
     <main id="midcenter" className="midcenter">
@@ -60,6 +34,8 @@ const Midcenter = ({ handleFavoritedProductsChange }) => {
         favoritedProductsIds={favoritedProductsIds}
         setFavoritedProductsIds={setFavoritedProductsIds}
         handleFavoritedProductsChange={handleFavoritedProductsChange}
+        handleSetPopupState={handleSetPopupState}
+        handleAddCartProduct={handleAddCartProduct}
       />
       <main className="midcenter">
         <ProductSection
@@ -69,6 +45,7 @@ const Midcenter = ({ handleFavoritedProductsChange }) => {
           favoritedProductsIds={favoritedProductsIds}
           setFavoritedProductsIds={setFavoritedProductsIds}
           handleFavoritedProductsChange={handleFavoritedProductsChange}
+          handleSetPopupState={handleSetPopupState}
         />
 
         {returnSliderFeaturedPromotions()}
@@ -80,6 +57,7 @@ const Midcenter = ({ handleFavoritedProductsChange }) => {
             favoritedProductsIds={favoritedProductsIds}
             setFavoritedProductsIds={setFavoritedProductsIds}
             handleFavoritedProductsChange={handleFavoritedProductsChange}
+            handleSetPopupState={handleSetPopupState}
           />
 
           <main className="midcenter">
@@ -91,6 +69,7 @@ const Midcenter = ({ handleFavoritedProductsChange }) => {
               favoritedProductsIds={favoritedProductsIds}
               setFavoritedProductsIds={setFavoritedProductsIds}
               handleFavoritedProductsChange={handleFavoritedProductsChange}
+              handleSetPopupState={handleSetPopupState}
             />
 
             <main className="infos">

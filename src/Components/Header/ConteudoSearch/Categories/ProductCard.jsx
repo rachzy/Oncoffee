@@ -7,7 +7,7 @@ const ProductCard = ({categoryId, categoryName, categoryImgSrc, categoryImgAlt})
     navigate(`/search/0/${categoryId}`);
     document.querySelector(".swichline").style.marginLeft = '3%'
     document.querySelector("#content-search").classList.remove("active");
-    window.location.href = "#top";
+    window.scrollTo(0, 0);
   }
   return (
     <label onClick={handleCardClick} className="categobox">

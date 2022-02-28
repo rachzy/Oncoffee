@@ -77,7 +77,7 @@ const ProductCard = ({
   const navigate = useNavigate();
   const handleProductClick = () => {
     navigate(`${hrefPage}`);
-    window.location.href = "#top";
+    window.scrollTo(0, 0);
   }
 
   const returnIfItsLoaded = () => {

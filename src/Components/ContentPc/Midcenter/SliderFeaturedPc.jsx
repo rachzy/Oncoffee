@@ -2,10 +2,10 @@ import React, { useEffect, useState, useRef } from "react";
 
 import Axios from "axios";
 
+import displayError from "../../../globalFunctions/displayErrors";
+
 import SlideFeaturedPc from "./SliderFeaturedPc/SlideFeaturedPc";
 import SlideIconFeaturedPc from "./SliderFeaturedPc/SlideIconFeaturedPc";
-
-import displayError from "../../../globalFunctions/displayErrors";
 
 //Slider 1.0 for OnCoffee
 //Developed by r4ch

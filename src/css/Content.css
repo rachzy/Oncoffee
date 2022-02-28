@@ -87,6 +87,19 @@ body {
   min-height: 100vh;
 }
 
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #333;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #a0a0a0;
+  border-radius: 30px;
+}
+
 .navbar3 {
   width: 100%;
 
@@ -104,12 +117,14 @@ body {
 
 .navlogo3 img {
   width: 100px;
+  display: block;
+  margin: auto;
 }
 
 .navbar3 .navlogo3 {
   width: 100%;
-
-  display: flex;
+  display: block;
+  margin: auto;
   align-items: center;
   justify-content: center;
 }
@@ -244,18 +259,14 @@ body {
   padding: 5px 8px;
   color: rgba(255, 255, 255, 0.8);
   font-size: 16px;
-  font-family: Poppins, sans-serif;
+  font-family: Poppins,sans-serif;
   font-weight: 400;
   border-radius: 3px;
   cursor: pointer;
-  transition: 0.2s ease all;
-}
-
-.fav_box a:hover {
-  transform: scale(1.05);
 }
 
 .fav_box_overflow {
+  
   height: max-content;
   max-height: 150px;
   display: flex;
@@ -267,15 +278,25 @@ body {
 }
 
 .fav_box_overflow::-webkit-scrollbar {
+  
   width: 5px;
+  
 }
 
 .fav_box_overflow::-webkit-scrollbar-track {
   background: rgba(35, 35, 35, 1);
+  
+  
 }
 .fav_box_overflow::-webkit-scrollbar-thumb {
   background-color: rgb(167, 89, 45);
+  
+  
+  
+  
 }
+
+
 
 .shopkartmo3:hover .fav_box {
   display: flex;
@@ -286,34 +307,69 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-
+  
   margin-bottom: 8px;
 }
 
-.fav_product img {
-  width: 20%;
+
+.fav_img_line  {
+  width: 25%;
+  
 }
 
-.fav_product_text {
-  width: 68%;
-  margin-left: 4%;
+.fav_img_line img {
+  width: 100%;
+
 }
 
-.fav_product_text h2 {
-  font-size: 18px;
-  font-family: Poppins, sans-serif;
-  color: rgb(255, 255, 255, 0.8);
+.fav_text_line {
+  width: 60%;
+  padding: 5px;
+}
+
+.fav_text_line h2 {
+  font-size: 16px;
   font-weight: 400;
-  text-overflow: ellipsis;
+  color: rgba(255, 255, 255, 0.8);
+  font-family: Poppins,sans-serif;
   overflow: hidden;
+  text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.fav_product_text h3 {
-  font-size: 16px;
-  font-family: Poppins, sans-serif;
+.fav_text_line h3 {
+  font-size: 20px;
   font-weight: 400;
-  color: rgb(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.8);
+  font-family: Poppins,sans-serif;
+}
+
+.fav_remove_line {
+  
+  width: 15%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fav_remove_line button {
+  background: transparent;
+  font-size: 20px;
+  padding: 8px;
+  color: rgb(235, 76, 76);
+  border: 1px solid rgb(235, 76, 76);
+  border-radius: 5px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s ease all;
+}
+
+.fav_remove_line button:hover {
+  background: rgb(235, 76, 76);
+  color: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
 }
 
 .fav_quant {
@@ -332,10 +388,11 @@ body {
 
 .fav_quant p {
   color: rgba(255, 255, 255, 0.7);
-  font-family: Poppins, sans-serif;
+  font-family: Poppins,sans-serif;
   font-size: 15px;
   transition: 0.2s ease all;
 }
+
 
 .shop_box {
   position: absolute;
@@ -356,14 +413,21 @@ body {
   padding: 5px 8px;
   color: rgba(255, 255, 255, 0.8);
   font-size: 16px;
-  font-family: Poppins, sans-serif;
+  font-family: Poppins,sans-serif;
   font-weight: 400;
   border-radius: 3px;
+  transition: 0.2s ease-in-out all;
+  cursor: pointer;
+}
+
+.shop_box a:hover {
+  transform: scale(1.05);
 }
 
 .shop_box_overflow {
+  
   height: max-content;
-  max-height: 150px;
+  max-height: 250px;
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
@@ -373,15 +437,25 @@ body {
 }
 
 .shop_box_overflow::-webkit-scrollbar {
+  
   width: 5px;
+  
 }
 
 .shop_box_overflow::-webkit-scrollbar-track {
   background: rgba(35, 35, 35, 1);
+  
+  
 }
 .shop_box_overflow::-webkit-scrollbar-thumb {
   background-color: rgb(167, 89, 45);
+  
+  
+  
+  
 }
+
+
 
 .shopkartmo3:hover .shop_box {
   display: flex;
@@ -392,31 +466,91 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-
+  
   margin-bottom: 8px;
 }
 
-.shop_product img {
-  width: 20%;
+
+
+.shop_img_line  {
+  width: 25%;
+  
 }
 
-.shop_product_text {
-  width: 68%;
-  margin-left: 4%;
+.shop_img_line img {
+  width: 100%;
+
 }
 
-.shop_product_text h2 {
-  font-size: 18px;
-  font-family: Poppins, sans-serif;
-  color: rgb(255, 255, 255, 0.8);
-  font-weight: 400;
+.shop_text_line {
+  width: 60%;
+  padding: 5px;
 }
 
-.shop_product_text h3 {
+.shop_text_line h2 {
   font-size: 16px;
-  font-family: Poppins, sans-serif;
   font-weight: 400;
-  color: rgb(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.8);
+  font-family: Poppins,sans-serif;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.shop_text_line h3 {
+  font-size: 20px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.8);
+  font-family: Poppins,sans-serif;
+}
+
+.shop_remove_line {
+  
+  width: 15%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.shop_remove_line button {
+  background: transparent;
+  font-size: 20px;
+  padding: 8px;
+  color: rgb(235, 76, 76);
+  border: 1px solid rgb(235, 76, 76);
+  border-radius: 5px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 0.3s ease all;
+}
+
+.shop_remove_line button:hover {
+  background: rgb(235, 76, 76);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.shop_quant {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px;
+  margin-top: -28px;
+  margin-left: 25px;
+  transition: 0.2s ease all;
+}
+
+.shop_quant p {
+  color: rgba(255, 255, 255, 0.7);
+  font-family: Poppins,sans-serif;
+  font-size: 15px;
+  transition: 0.2s ease all;
 }
 
 .navbar2 {
@@ -949,9 +1083,13 @@ body {
 
 #loader-mobile {
   display: none;
+  width: 100%;
+  margin: auto;
 }
 #loader-pc {
   display: block;
+  width: 90%;
+  margin: auto 40px;
 }
 
 @media screen and (max-width: 850px) {
@@ -1307,6 +1445,7 @@ body {
   color: rgba(255, 255, 255, 0.8);
   font-weight: 400;
   margin-left: 0;
+  text-align: center;
 }
 
 .cardmo-text h3 {
@@ -2306,6 +2445,7 @@ body {
 
 .produto_text2 p {
   text-overflow: ellipsis;
+  text-align: center;
   overflow: hidden;
 }
 
@@ -2333,6 +2473,7 @@ body {
   text-decoration: underline;
   display: block;
   text-align: center;
+  cursor: pointer;
 }
 
 .produto_box .comprar {
