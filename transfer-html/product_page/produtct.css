@@ -1231,7 +1231,7 @@ button[class*=btn] {
 .more_products::-webkit-scrollbar {
     
     width: 5px;
-    
+    height: 5px;
 }
 
 .more_products::-webkit-scrollbar-thumb {
@@ -1565,46 +1565,55 @@ button[class*=btn] {
 .coment_box {
     width: 100%;
     display: flex;
-    flex-direction: column;
+    flex-direction: flex;
+    justify-content: center;
+    align-items: center;
     background: rgb(45, 45, 45);
     border-radius: 15px;
     padding: 15px;
     margin-top: 15px;
 }
 
-.perfil_line {
+.coment_perfil {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
+    
+    width: 10%;
 }
 
-.perfil_line img {
+.perfil_img img {
     width: 60px;
     height: 60px;
     border-radius: 100px;
 }
 
-.perfil_line h2 {
-
+.lvl h2 {
+    text-align: center;
     font-size: 20px;
     font-family: Poppins,sans-serif;
     color: rgba(255, 255, 255, 0.8);
     font-weight: 400;
 }
 
-.user_name {
-    margin-left: 15px;
-    margin-top: 5px;
+.lvl h3 {
+    text-align: center;
+    font-size: 14px;
+    font-family: Poppins,sans-serif;
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 400;
+    margin-top: -8px;
 }
 
-.perfil_line i {
+.coment_text i {
     margin-left: 5px;
-    font-size: 20px;
+    font-size: 15px;
     color: rgb(167, 89, 45);
     
 }
 
-.perfil_line i:first-child {
+.coment_text i:first-child {
     margin-left: 0px;
 }
 
@@ -1612,13 +1621,22 @@ button[class*=btn] {
 .coment_text {
     width: 90%;
     display: flex;
-    margin-left: 6%;
+    flex-direction: column;
+    
     margin-top: 10px;
+    
 }
 
+.coment_text h2 {
+
+    font-size: 22px;
+    font-family: Poppins,sans-serif;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 400;
+}
 
 .coment_text p {
-
+    margin-top: 10px;
     font-size: 15px;
     font-family: Poppins,sans-serif;
     color: rgba(255, 255, 255, 0.7);
