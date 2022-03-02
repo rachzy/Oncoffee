@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 
-import Loading from "./Loading";
+import Loading from "../PageComponents/Loading";
 
 const ContentPc = ({ serverStatus, children }) => {
   //State to define if the page is completely loaded or not. If it's empty, that means that it's still loading

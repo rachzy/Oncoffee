@@ -1,12 +1,13 @@
 import React from "react";
 
-import Product from "./Product";
+import TabProduct from "./TabProduct";
 
 const ShoppingCartProducts = ({
   cartProducts,
   handleSetPopupState,
-  handleRemoveCartProduct
+  handleRemoveCartProduct,
 }) => {
+  //Open the "Popup" when the main button get clicked
   const handleButtonClick = () => {
     const popup = document.querySelector(".popup");
     const popupBox = document.querySelector(".popup-box");
@@ -15,8 +16,11 @@ const ShoppingCartProducts = ({
     document.body.style.overflow = "hidden";
     handleSetPopupState("shoppingcart");
   };
+
   function returnCartProducts() {
+    //If "CartProducts" is not undefined, that means that the user is at least logged in
     if (cartProducts) {
+      //If the length of "CartProducts" is "0", that means that the user still didn't add any product to their cart
       if (cartProducts.length === 0) {
         return (
           <div className="shop_text_line" style={{ width: "100%" }}>
@@ -26,13 +30,15 @@ const ShoppingCartProducts = ({
           </div>
         );
       }
+
+      //If its length is not "0", there are products to be loaded
       return (
         <>
           <div className="shop_box_overflow">
             {cartProducts.map((p) => {
               if (!p) return;
               return (
-                <Product
+                <TabProduct
                   key={p.productId}
                   classPrefix="shop"
                   productId={p.productId}
@@ -45,10 +51,14 @@ const ShoppingCartProducts = ({
               );
             })}
           </div>
-          <a className="default-btn" onClick={handleButtonClick}>Conferir Carrinho</a>
+          <a className="default-btn" onClick={handleButtonClick}>
+            Conferir Carrinho
+          </a>
         </>
       );
     }
+
+    //If "CartProducts" is not defined, that means that the user is not even logged in
     return (
       <div className="shop_text_line" style={{ width: "100%" }}>
         <h3 style={{ textAlign: "center", fontSize: "17px" }}>
@@ -57,6 +67,7 @@ const ShoppingCartProducts = ({
       </div>
     );
   }
+
   return <div className="shop_box">{returnCartProducts()}</div>;
 };
 

@@ -1,6 +1,6 @@
 import React from "react";
 
-const Product = ({
+const TabProduct = ({
   classPrefix,
   productId,
   productName,
@@ -10,6 +10,7 @@ const Product = ({
   handleRemoveCartProduct,
   handleFavoritedProductsChange
 }) => {
+  //Return the price with ",00";
   const returnFinalPrice = () => {
     const splitFinalPrice = productFinalPrice.toString().split(".");
     let getproductFinalPrice = productFinalPrice;
@@ -26,6 +27,7 @@ const Product = ({
     return finalPriceWithCommas;
   };
 
+  //Return the name with dots if its length is higher than 20 characters
   const returnNameWithDots = () => {
     const productNameLength = productName.length;
     if (productNameLength > 20) {
@@ -36,9 +38,12 @@ const Product = ({
   };
 
   const removeProduct = () => {
+    //For "Cart" Tab
     if(handleRemoveCartProduct) {
       handleRemoveCartProduct(productId);
     }
+
+    //For "Favorited Products" Tab
     if(handleFavoritedProductsChange) {
       const productCardHeartIcon = document.querySelector(`#productFavHeart${productId}`);
       if(productCardHeartIcon) return productCardHeartIcon.click();
@@ -55,7 +60,7 @@ const Product = ({
       <div className={`${classPrefix}_product`}>
         <div className={`${classPrefix}_img_line`}>
           <img
-            src={require(`../../imgs/${productImgSrc}`)}
+            src={require(`../../../imgs/${productImgSrc}`)}
             alt={productImgAlt}
           />
         </div>
@@ -74,4 +79,4 @@ const Product = ({
   return <>{returnProductIfNotUndefined()}</>;
 };
 
-export default Product;
+export default TabProduct;

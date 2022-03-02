@@ -1,6 +1,6 @@
 import React from "react";
 
-import '../css/LoadingAnimation.css';
+import '../../css/LoadingAnimation.css';
 
 const Loading = ({id}) => {
   return (

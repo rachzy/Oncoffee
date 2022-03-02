@@ -262,12 +262,12 @@
 
 .error-popup {
   display: none;
+  max-width: 90%;
   bottom: -500px;
   position: fixed;
   display: inherit;
   background-color: rgb(168, 6, 6);
   width: fit-content;
-  max-width: 70%;
   left: 20px;
   padding: 10px;
   border-radius: 5px;

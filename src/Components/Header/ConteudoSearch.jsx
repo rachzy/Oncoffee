@@ -59,9 +59,12 @@ const ConteudoSearch = () => {
     //Get all the search results according to what the user typed from the database
     const { data } = await Axios.get(
       `${serverUrl}/getproductsforsearches/${InputSearchProductValue.searchValue}`
-    );
+    ).catch(() => {
+      return displayError("0", "SERVER_CONN_FAILED");
+    });
+
     if (data.isError) return displayError(data.errorCode, data.errno);
-    
+
     let finalProductsReturn;
     if (data.length === 0) {
       setAutocompleteShow([
@@ -121,7 +124,9 @@ const ConteudoSearch = () => {
       if (!userId) return;
       const { data } = await Axios.get(
         `${serverUrl}/getusersearches/${userId}`
-      );
+      ).catch(() => {
+        return displayError("0", "SERVER_CONN_FAILED");
+      });
       if (data.isError) {
         displayError(data.errorCode, data.errno);
         return;
@@ -154,7 +159,9 @@ const ConteudoSearch = () => {
       if (!userId) return;
       const { data } = await Axios.get(
         `http://localhost:3001/getusersearches/${userId}`
-      );
+      ).catch(() => {
+        return displayError("0", "SERVER_CONN_FAILED");
+      });
       if (data.isError) {
         displayError(data.errorCode, data.errno);
         return;
@@ -208,7 +215,11 @@ const ConteudoSearch = () => {
 
   useEffect(() => {
     const fetchCategories = async () => {
-      const { data } = await Axios.get(`${serverUrl}/getcategories/`);
+      const { data } = await Axios.get(`${serverUrl}/getcategories/`).catch(
+        () => {
+          return displayError("0", "SERVER_CONN_FAILED");
+        }
+      );
       if (data.isError) {
         displayError(data.errorCode, data.errno);
         return;

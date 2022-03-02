@@ -17,17 +17,22 @@ const ProductPopup = ({
   const productDiv = useRef(null);
   const navigate = useNavigate();
 
+  //When the user clicks in the main button
   const handleButtonClick = () => {
+    //Take the user to that product page
     navigate(`/product/${productId}`);
+    //Close the Popup Box
     closePopupBox();
   };
 
+  //When the user clicks in the X Button in front of the product
   const handleXClick = async () => {
     const userId = getCookie("UID");
     if (!userId) return;
 
     let removeProductBtn;
 
+    //Check if there's a button of "Remove Favorite" (Default Heart Icon) for that product loaded in the page
     if (popupType === "cartproducts")
       removeProductBtn = document.querySelector(
         `#removeProductBtnshop${productId}`
@@ -38,17 +43,22 @@ const ProductPopup = ({
       );
 
     if (!removeProductBtn || removeProductBtn === null) {
+      //If there's no "Remove Favorite" button loaded for that product
       removeProduct({ productId });
     } else {
+      //If there is, click it
       removeProductBtn.click();
     }
 
+    //Add the class "disabled" to trigger the product "disappearing" transition
     productDiv.current.classList.add("disabled");
     setTimeout(() => {
+      //When the animation is over, set the product display as none
       productDiv.current.style.display = "none";
     }, 300);
   };
 
+  //Return price with ",00" if necessary
   const returnFinalPrice = () => {
     const splitFinalPrice = productFinalPrice.toString().split(".");
     let getProductFinalPrice = productFinalPrice;
@@ -64,7 +74,6 @@ const ProductPopup = ({
       .replace(".", ",");
     return finalPriceWithCommas;
   };
-
 
   return (
     <div ref={productDiv} id={`${productId}`} className="popup-product">

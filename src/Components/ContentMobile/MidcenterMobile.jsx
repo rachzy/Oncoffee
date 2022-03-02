@@ -11,11 +11,52 @@ import OtherProductsSection from "./MidcenterMobile/OtherProductsSection";
 import TopPromo from "./MidcenterMobile/TopPromo";
 
 const MidcenterMobile = ({
-  slideProductsIds,
-  favoritedProductsIds,
-  setFavoritedProductsIds,
   handleFavoritedProductsChange
 }) => {
+
+  const { serverUrl } = require("../../connection.json");
+
+  const userId = getCookie("UID");
+
+  const [slideProductsIds, setSlideProductsIds] = useState([]);
+  const [favoritedProductsIds, setFavoritedProductsIds] = useState();
+
+  useEffect(() => {
+    const fetchSlides = async () => {
+      const { data } = await Axios.get(
+        `${serverUrl}/getslides/featuredpromotions`
+      ).catch(() => {
+        return displayError("0", "SERVER_CONN_FAILED");
+      });
+
+      if (data.isError) {
+        displayError(data.errorCode, data.errno);
+        return;
+      }
+
+      setSlideProductsIds(data);
+    };
+    fetchSlides();
+
+    const fetchFavoritedProductsIds = async () => {
+      if (!userId) return;
+      const { data } = await Axios.get(
+        `${serverUrl}/getfavoriteproductsids/${userId}`
+      ).catch((error) => {
+        return displayError("0", "SERVER_CONN_FAILED");
+      });
+
+      if (data.isError) {
+        displayError(data.errorCode, data.errno);
+        return;
+      }
+
+      if (!data) return;
+      setFavoritedProductsIds(data);
+    };
+    fetchFavoritedProductsIds();
+  }, [userId, serverUrl]);
+
   return (
     <>
       <TopPromo />

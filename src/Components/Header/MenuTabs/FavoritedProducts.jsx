@@ -1,12 +1,13 @@
 import React from "react";
 
-import Product from "./Product";
+import TabProduct from "./TabProduct";
 
-const FavoriteProducts = ({
+const FavoritedProducts = ({
   favoritedProducts,
   handleSetPopupState,
   handleFavoritedProductsChange,
 }) => {
+    //Open the "Popup" when the main button get clicked
   const handleButtonClick = () => {
     const popup = document.querySelector(".popup");
     const popupBox = document.querySelector(".popup-box");
@@ -15,7 +16,10 @@ const FavoriteProducts = ({
     document.body.style.overflow = "hidden";
     handleSetPopupState("favoritedproducts");
   };
+
   function returnFavoritedProducts() {
+    console.log(favoritedProducts);
+    //If "FavoritedProducts" is not undefined, that means that the user is at least logged in
     if (favoritedProducts) {
       if (favoritedProducts.length === 0) {
         return (
@@ -36,7 +40,7 @@ const FavoriteProducts = ({
               }
             }
             return (
-              <Product
+              <TabProduct
                 key={p.productId}
                 classPrefix="fav"
                 productId={p.productId}
@@ -63,4 +67,4 @@ const FavoriteProducts = ({
   return <div className="fav_box">{returnFavoritedProducts()}</div>;
 };
 
-export default FavoriteProducts;
+export default FavoritedProducts;

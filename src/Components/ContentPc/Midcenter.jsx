@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import Axios from "axios";
 import getCookie from "../../globalFunctions/getCookie";
@@ -13,9 +13,6 @@ import SocialMedias from "./Midcenter/SocialMedias";
 import Finalinfo from "./Midcenter/FinalInfo";
 
 const Midcenter = ({
-  slideProductsIds,
-  favoritedProductsIds,
-  setFavoritedProductsIds,
   handleFavoritedProductsChange,
   handleAddCartProduct,
   handleSetPopupState,
@@ -24,6 +21,49 @@ const Midcenter = ({
     if (slideProductsIds.length === 0) return;
     return <SliderFeaturedPc slidesProductsIds={slideProductsIds} />;
   };
+
+  const { serverUrl } = require("../../connection.json");
+
+  const userId = getCookie("UID");
+
+  const [slideProductsIds, setSlideProductsIds] = useState([]);
+  const [favoritedProductsIds, setFavoritedProductsIds] = useState();
+
+  useEffect(() => {
+    const fetchSlides = async () => {
+      const { data } = await Axios.get(
+        `${serverUrl}/getslides/featuredpromotions`
+      ).catch(() => {
+        return displayError("0", "SERVER_CONN_FAILED");
+      });
+
+      if (data.isError) {
+        displayError(data.errorCode, data.errno);
+        return;
+      }
+
+      setSlideProductsIds(data);
+    };
+    fetchSlides();
+
+    const fetchFavoritedProductsIds = async () => {
+      if (!userId) return;
+      const { data } = await Axios.get(
+        `${serverUrl}/getfavoriteproductsids/${userId}`
+      ).catch((error) => {
+        return displayError("0", "SERVER_CONN_FAILED");
+      });
+
+      if (data.isError) {
+        displayError(data.errorCode, data.errno);
+        return;
+      }
+
+      if (!data) return;
+      setFavoritedProductsIds(data);
+    };
+    fetchFavoritedProductsIds();
+  }, [userId, serverUrl]);
 
   return (
     <main id="midcenter" className="midcenter">
