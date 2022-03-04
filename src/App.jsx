@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import './css/Content.css';
+import "./css/Content.css";
 
 import Axios from "axios";
 import getCookie from "./globalFunctions/getCookie";
 import deleteCookie from "./globalFunctions/deleteCookie";
 import displayError from "./globalFunctions/displayErrors";
 
-import SkipToContentButton from "./Components/SkipToContentButton";
-import Popup from "./Components/Popup";
-import Header from "./Components/Header";
+import SkipToContentButton from "./Components/PageComponents/SkipToContentButton";
+import Popup from "./Components/PageComponents/Popup";
+import Header from "./Components/PageComponents/Header";
 import Buttonsmo from "./Components/ContentMobile/Buttonsmo";
-import Content from "./Components/Content";
-import Error from "./Components/Error";
+import Index from "./Components/Index";
+import Error from "./Components/PageComponents/Error";
 
 import Login from "./Components/Login";
 
@@ -30,7 +30,14 @@ const App = () => {
   useEffect(() => {
     const checkServerConnection = async () => {
       //The main page of the server will always return a status
-      const { status } = await Axios.get(`${serverUrl}`);
+      const checkServerConnection = await Axios.get(`${serverUrl}`).catch(
+        () => {
+          return displayError("0", "ERR_CONNECTION_REFUSED");
+        }
+      );
+
+      if (!checkServerConnection) return;
+      const { status } = checkServerConnection;
 
       //If the status received was "200" (that means OK)
       if (status === 200) {
@@ -51,7 +58,9 @@ const App = () => {
     const getSecurityTokens = async () => {
       const { data } = await Axios.get(
         `${serverUrl}/verifysecuritytokens/${userId}/${securityToken1}/${securityToken2}`
-      );
+      ).catch(() => {
+        return displayError("0", "SERVER_CONN_FAILED");
+      });
 
       if (data.isError) {
         displayError(data.errorCode, data.errno);
@@ -73,7 +82,6 @@ const App = () => {
   }
 
   const [favoritedProducts, setFavoritedProducts] = useState([]);
-
   useEffect(() => {
     const fetchFavoritedProducts = async () => {
       const userId = getCookie("UID");
@@ -81,7 +89,9 @@ const App = () => {
 
       const { data } = await Axios.get(
         `${serverUrl}/getfavoriteproducts/${userId}`
-      );
+      ).catch(() => {
+        return displayError("0", "SERVER_CONN_FAILED");
+      });
 
       if (data) clearInterval(refreshFunctionAndCheckServerStatus);
 
@@ -173,7 +183,6 @@ const App = () => {
   const [popupContent, setPopupContent] = useState();
 
   //Function responsible for changing the popup content according to the passed parameter
-
   //OPTIONS
 
   //Title: defines the title of the popup
@@ -187,15 +196,13 @@ const App = () => {
   //If setted as "false", the button won't exist and the div will take up all the empty space
   //Options: {title: 'The title of the button', href: 'The page the user will be redirected when the button gets triggered'}
   const handleSetPopupState = (popupType, productObject) => {
-
     //Remove the "disabled" class from every product
     const popupProductsDiv = document.querySelectorAll(".popup-product");
     popupProductsDiv.forEach((productDiv) => {
       productDiv.classList.remove("disabled");
-      productDiv.style.display = 'flex';
+      productDiv.style.display = "flex";
     });
     if (!popupType) return;
-
 
     if (popupType === "favoritedproducts") {
       const PopupContentObject = {
@@ -203,13 +210,12 @@ const App = () => {
         type: "favoritedproducts",
         products: favoritedProducts,
         button: false,
-        removeProduct: function(productId) {
+        removeProduct: function (productId) {
           handleFavoritedProductsChange(productId);
-        }
+        },
       };
       setPopupContent(PopupContentObject);
     }
-
 
     if (popupType === "shoppingcart") {
       if (!cartProducts || cartProducts.length === 0) return;
@@ -224,13 +230,12 @@ const App = () => {
         button: {
           title: "Fazer checkout",
         },
-        removeProduct: function() {
+        removeProduct: function () {
           handleRemoveCartProduct();
-        }
+        },
       };
       setPopupContent(PopupContentObject);
     }
-
 
     if (popupType === "singleproduct") {
       if (!productObject) return;
@@ -241,7 +246,7 @@ const App = () => {
         button: {
           title: "Comprar",
         },
-        removeProduct: false
+        removeProduct: false,
       };
       setPopupContent(PopupContentObject);
     }
@@ -270,7 +275,7 @@ const App = () => {
           path="/"
           exact
           element={
-            <Content
+            <Index
               pageTitle="Home"
               setHeaderPageTitle={setHeaderPageTitle}
               serverStatus={serverStatus}
@@ -284,10 +289,7 @@ const App = () => {
           path="/login"
           exact
           element={
-            <Login 
-            pageTitle="Login"
-            setHeaderPageTitle={setHeaderPageTitle}
-            />
+            <Login pageTitle="Login" setHeaderPageTitle={setHeaderPageTitle} />
           }
         />
       </Routes>

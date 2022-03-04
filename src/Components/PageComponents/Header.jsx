@@ -1,24 +1,23 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-import "../css/Search.css";
-import "../css/Top.css";
+import "../../css/Header.css";
+import '../../css/Extra.css';
+import '../../css/Top.css';
 
-import Title from "./Header/Title";
-import Logo from "./Header/Logo";
-import MenuItem from "./Header/MenuItem";
+import Title from "../Header/Title";
+import Logo from "../Header/Logo";
+import MenuItem from "../Header/MenuItem";
 
-import onCoffee_logo from "../imgs/OnCoffee.png";
-import newUser_logo from "../imgs/newuser.png";
-import newHeart_logo from "../imgs/newhearth.png";
-import newKart_logo from "../imgs/newkart.png";
+import onCoffee_logo from "../../imgs/OnCoffee.png";
+import newUser_logo from "../../imgs/newuser.png";
+import newHeart_logo from "../../imgs/newhearth.png";
+import newKart_logo from "../../imgs/newkart.png";
 
-import ConteudoSearch from "./Header/ConteudoSearch";
-import ButtonNavbar from "./Header/ButtonNavbar";
-import FavoriteProducts from "./Header/FavoriteProducts";
-import ShoppingCartProducts from "./Header/ShoppingCartProdcuts";
-
-import "../css/Header.css";
+import ConteudoSearch from "../Header/ConteudoSearch";
+import ButtonNavbar from "../Header/ButtonNavbar";
+import FavoritedProducts from "../Header/MenuTabs/FavoritedProducts";
+import ShoppingCartProducts from "../Header/MenuTabs/ShoppingCartProdcuts";
 
 const Header = ({
   children,
@@ -72,7 +71,7 @@ const Header = ({
   function renderFavoritedProductsIfServerStatusIs200() {
     if (serverStatus !== 200) return null;
     return (
-      <FavoriteProducts
+      <FavoritedProducts
         handleSetPopupState={handleSetPopupState}
         favoritedProducts={favoritedProductsState}
         handleFavoritedProductsChange={handleFavoritedProductsChange}

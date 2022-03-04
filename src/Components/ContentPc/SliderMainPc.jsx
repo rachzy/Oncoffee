@@ -10,11 +10,16 @@ import displayError from "../../globalFunctions/displayErrors";
 //Slider 1.0 for OnCoffee
 //Developed by r4ch
 const SliderMainPc = () => {
-  function intialState() {
+  //Set elements constants through refs
+  const slider = useRef(null);
+  const nextBtn = useRef(null);
+  const prevBtn = useRef(null);
+
+  function initialState() {
     return { isLoading: true };
   }
   //State to store all the slide images
-  const [adSlides, setAdSlides] = useState([intialState()]);
+  const [adSlides, setAdSlides] = useState([initialState()]);
 
   //Get server Url (Ex: "http://localhost:3001")
   const { serverUrl } = require("../../connection.json");
@@ -28,15 +33,10 @@ const SliderMainPc = () => {
         return;
       }
       setAdSlides(data);
-      startSlider(); //After the adSlides state have been setted, starts the slider
+      startSlider(); //After the adSlides state have been set, starts the slider
     };
     fetchImgs();
   }, [serverUrl]);
-
-  //Set elements consts through refs
-  const slider = useRef(null);
-  const nextBtn = useRef(null);
-  const prevBtn = useRef(null);
 
   //Function to make the slider starts running
   function startSlider() {
@@ -166,7 +166,9 @@ const SliderMainPc = () => {
           {adSlides.map((slide) => {
             if (slide.isLoading) return null;
             if (adSlides[0] === slide) {
-              return <SlideIconMainPc key={slide.id} className="slide-icon active" />;
+              return (
+                <SlideIconMainPc key={slide.id} className="slide-icon active" />
+              );
             }
             return <SlideIconMainPc key={slide.id} className="slide-icon" />;
           })}
