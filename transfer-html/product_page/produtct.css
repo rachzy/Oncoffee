@@ -1231,7 +1231,8 @@ button[class*=btn] {
 .more_products::-webkit-scrollbar {
     
     width: 5px;
-    height: 5px;
+    height: 8px;
+    cursor: pointer;
 }
 
 .more_products::-webkit-scrollbar-thumb {
