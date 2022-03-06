@@ -1675,3 +1675,94 @@ button[class*=btn] {
     font-weight: 400;
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*Conteudo Mobile*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.botoes_buy {
+   display: flex;
+   justify-content: center;
+   align-items: flex-start;
+   width: 100%;
+   height: 140px;
+   background: transparent;
+   position: fixed;
+   bottom: 0;
+   margin-bottom: 5px;
+   background: rgba(30,30,30);
+   border-radius: 45px;
+
+}
+
+.buttons_area {
+    width: 90%;
+    
+    margin-top: 15px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.botoes_buy button {
+    width: 45%;
+    height: 40px;
+    border-radius: 8px;
+    background: rgb(167, 89, 45);
+    font-family: Poppins,sans-serif;
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 500;
+    border: 1px solid transparent;
+    
+}
+
+.botoes_buy button:last-child {
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.6);
+}
