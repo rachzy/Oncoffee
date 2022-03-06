@@ -1705,27 +1705,18 @@ button[class*=btn] {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.conteudo_mobile {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 10px;
+    flex-direction: column;
+}
 
 
 .botoes_buy {
-   display: flex;
+   display: none;
    justify-content: center;
    align-items: flex-start;
    width: 100%;
@@ -1736,7 +1727,8 @@ button[class*=btn] {
    margin-bottom: 5px;
    background: rgba(30,30,30);
    border-radius: 45px;
-
+   z-index: 899;
+    
 }
 
 .buttons_area {
@@ -1766,3 +1758,115 @@ button[class*=btn] {
     background: transparent;
     border: 2px solid rgba(255, 255, 255, 0.6);
 }
+
+
+
+
+
+
+
+.btt_back {
+    width: 92%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.btt_back button {
+    background: transparent;
+    font-family: Poppins,sans-serif;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 15px;
+}
+
+
+
+
+
+
+.top_mobile {
+    margin-top: 10px;
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 500px;
+}
+
+.card_box2 {
+    width: 100%;
+    
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+.card_box_text2 {
+    width: 50%;
+    max-height: 400px;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+    
+}
+
+.card_box_text2 h4 {
+    font-family: Poppins,sans-serif;
+    font-style: italic;
+    font-size: 22px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.1);
+    padding: 0px 5px;
+    cursor: default;
+    
+}
+
+.card_img2 {
+    width: 50%;
+    height: 400px;
+    background: rgb(185, 185, 185);
+    
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+}
+
+.card_img2 img {
+    width: 350px;
+    position: absolute;
+    margin-left: -280px;
+    
+}
+
+
+
+
+
+
+
+
+
+.fav_hearth2 {
+    top: 0;
+    left: 0;
+    position: absolute;
+    margin-left: -20px;
+    margin-top: 20px;
+}
+
+.fav_hearth2 img {
+    width: 30px;
+    cursor: pointer;
+}
+
+.fav_hearth2 input {
+    display: none;
+}
+
+#checkhearth2 {
+    display: none;
+}
+
+

@@ -845,4 +845,8 @@
     .conteudo_pc {
         display: none;
     }
+
+    .conteudo_mobile {
+        display: flex;
+    }
 }
