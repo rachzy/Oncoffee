@@ -1893,11 +1893,18 @@ button[class*=btn] {
     font-size: 18px;
 }
 
+.preco_area {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+}
 
 .preco {
     display: flex;
     align-items: flex-end;
     margin-top: 15px;
+    
 }
 
 .descontopreco h2 {
@@ -1974,4 +1981,27 @@ button[class*=btn] {
 }
 .plus-btn img {
     margin-top: 2px;
+}
+
+
+.quant_mobile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.quant_mobile h2 {
+    font-family: Poppins,sans-serif;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 500;
+    font-size: 18px;
+}
+
+
+.quant_mobile h3 {
+    font-family: Poppins,sans-serif;
+    color: rgba(255, 255, 255, 0.4);
+    font-weight: 400;
+    font-size: 12px;
 }
