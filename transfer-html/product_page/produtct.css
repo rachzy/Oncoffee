@@ -1712,6 +1712,7 @@ button[class*=btn] {
     width: 100%;
     margin-top: 10px;
     flex-direction: column;
+    
 }
 
 
@@ -1790,7 +1791,7 @@ button[class*=btn] {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 500px;
+    
 }
 
 .card_box2 {
@@ -1836,7 +1837,7 @@ button[class*=btn] {
 .card_img2 img {
     width: 350px;
     position: absolute;
-    margin-left: -280px;
+    margin-left: -320px;
     
 }
 
@@ -1870,3 +1871,107 @@ button[class*=btn] {
 }
 
 
+
+
+
+
+.product_info {
+    display: flex;
+    flex-direction: column;
+    
+    justify-content: center;
+    width: 92%;
+    margin-top: 20px;
+    margin-bottom: 500px;
+}
+
+
+.titulo h2 {
+    font-family: Poppins,sans-serif;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 400;
+    font-size: 18px;
+}
+
+
+.preco {
+    display: flex;
+    align-items: flex-end;
+    margin-top: 15px;
+}
+
+.descontopreco h2 {
+    font-family: Poppins,sans-serif;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 500;
+    font-size: 28px;
+}
+
+.descontopreco h3 {
+    font-family: Poppins,sans-serif;
+    color: rgba(255, 255, 255, 0.4);
+    font-weight: 400;
+    font-size: 15px;
+    margin-bottom: -10px;
+    text-decoration: line-through;
+    letter-spacing: 8px;
+    
+}
+
+.preco h4 {
+    font-family: Poppins,sans-serif;
+    color: rgba(255, 255, 255, 0.4);
+    font-weight: 500;
+    font-size: 28px;
+    margin-left: 10px;
+    font-style: italic;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.quantity {
+    margin-top: 5px;
+    background: rgb(45, 45, 45);
+    width: max-content;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    border-radius: 8px;
+}
+.quantity input {
+    -webkit-appearance: none;
+    border: none;
+    text-align: center;
+    width: 32px;
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 300;
+    background: rgb(45, 45, 45);
+    cursor: default;
+}
+
+button[class*=btn] {
+    width: 30px;
+    height: 30px;
+    background: rgb(45, 45, 45);
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+}
+.minus-btn img {
+    margin-bottom: 3px;
+}
+.plus-btn img {
+    margin-top: 2px;
+}
