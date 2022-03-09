@@ -2,54 +2,49 @@ import React, { useEffect, useState, useRef } from "react";
 
 import Axios from "axios";
 
+import displayError from "../../../globalFunctions/displayErrors";
+
 import SlideFeaturedPc from "./SliderFeaturedPc/SlideFeaturedPc";
 import SlideIconFeaturedPc from "./SliderFeaturedPc/SlideIconFeaturedPc";
-
-import displayError from "../../../globalFunctions/displayErrors";
 
 //Slider 1.0 for OnCoffee
 //Developed by r4ch
 const SliderFeaturedPc = () => {
-  //Set initial state as a loading state
+  //Set elements constants through refs
+  const slider = useRef(null);
+  const nextBtn = useRef(null);
+  const prevBtn = useRef(null);
+
   function initialState() {
     return { isLoading: true };
   }
+  //State to store all the slide images
+  const [adSlides, setAdSlides] = useState([initialState()]);
 
   //Get server Url (Ex: "http://localhost:3001")
   const { serverUrl } = require("../../../connection.json");
 
-  //State to store all the slide images
-  const [adSlides, setAdSlides] = useState([initialState()]);
-
   //useEffect function to set the state of the slides
   useEffect(() => {
-    const fetchSlides = async () => {
-      const { data } = await Axios.get(
-        `${serverUrl}/getslides/featuredpromotions`
-      );
-      if (!data || data.length === 0) return;
+    const fetchImgs = async () => {
+      const { data } = await Axios.get(`${serverUrl}/getslides/featuredpromotions`);
       if (data.isError) {
         displayError(data.errorCode, data.errno);
         return;
       }
       setAdSlides(data);
-      setTimeout(startSlider, 1000);
+      startSlider(); //After the adSlides state have been set, starts the slider
     };
-    fetchSlides();
+    fetchImgs();
   }, [serverUrl]);
-
-  //Set elements consts through refs
-  const slider = useRef(null);
-  const nextBtn = useRef(null);
-  const prevBtn = useRef(null);
 
   //Function to make the slider starts running
   function startSlider() {
-    const slides = document.querySelectorAll(".slide2");
-    const slideIcons = document.querySelectorAll(".slide-icon2");
+    const slides = document.querySelectorAll(".slide");
+    const slideIcons = document.querySelectorAll(".slide-icon");
     let slideNumber = 0; //String that will determine which slide will be the active one through it's number
 
-    //When setted as true, the slides won't be allowed to change
+    //When set as true, the slides won't be allowed to change
     let blockSlideChange = false;
 
     //Function that will display the next slide

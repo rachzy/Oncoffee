@@ -59,47 +59,50 @@ const ConteudoSearch = () => {
     //Get all the search results according to what the user typed from the database
     const { data } = await Axios.get(
       `${serverUrl}/getproductsforsearches/${InputSearchProductValue.searchValue}`
-    );
-    if (data.isError) {
-      displayError(data.errorCode, data.errno);
-    } else {
-      let finalProductsReturn;
-      if (data.length === 0) {
-        setAutocompleteShow([
+    ).catch(() => {
+      return displayError("0", "SERVER_CONN_FAILED");
+    });
+
+    if (data.isError) return displayError(data.errorCode, data.errno);
+
+    let finalProductsReturn;
+    if (data.length === 0) {
+      setAutocompleteShow([
+        {
+          searchId: InputSearchProductValue.searchValue,
+          searchValue: InputSearchProductValue.searchValue,
+          notRecent: true,
+        },
+      ]);
+      return;
+    }
+    data.map((d) => {
+      if (!d || d.productName === "") return;
+      if (finalProductsReturn) {
+        finalProductsReturn = [
+          ...finalProductsReturn,
           {
-            searchId: InputSearchProductValue.searchValue,
-            searchValue: InputSearchProductValue.searchValue,
+            searchId: d.productId,
+            searchValue: d.productName,
             notRecent: true,
           },
-        ]);
+        ];
+      } else {
+        finalProductsReturn = [
+          {
+            searchId: d.productId,
+            searchValue: d.productName,
+            notRecent: true,
+          },
+        ];
       }
-      data.map((d) => {
-        if (finalProductsReturn) {
-          finalProductsReturn = [
-            ...finalProductsReturn,
-            {
-              searchId: d.productId,
-              searchValue: d.productName,
-              notRecent: true,
-            },
-          ];
-        } else {
-          finalProductsReturn = [
-            {
-              searchId: d.productId,
-              searchValue: d.productName,
-              notRecent: true,
-            },
-          ];
-        }
-        return finalProductsReturn;
-      });
+      return finalProductsReturn;
+    });
 
-      if (!finalProductsReturn || finalProductsReturn === "") return;
+    if (!finalProductsReturn || finalProductsReturn === "") return;
 
-      //Set the final state value
-      setAutocompleteShow(finalProductsReturn);
-    }
+    //Set the final state value
+    setAutocompleteShow(finalProductsReturn);
   };
 
   //Post user search on the database
@@ -121,7 +124,9 @@ const ConteudoSearch = () => {
       if (!userId) return;
       const { data } = await Axios.get(
         `${serverUrl}/getusersearches/${userId}`
-      );
+      ).catch(() => {
+        return displayError("0", "SERVER_CONN_FAILED");
+      });
       if (data.isError) {
         displayError(data.errorCode, data.errno);
         return;
@@ -154,7 +159,9 @@ const ConteudoSearch = () => {
       if (!userId) return;
       const { data } = await Axios.get(
         `http://localhost:3001/getusersearches/${userId}`
-      );
+      ).catch(() => {
+        return displayError("0", "SERVER_CONN_FAILED");
+      });
       if (data.isError) {
         displayError(data.errorCode, data.errno);
         return;
@@ -208,7 +215,11 @@ const ConteudoSearch = () => {
 
   useEffect(() => {
     const fetchCategories = async () => {
-      const { data } = await Axios.get(`${serverUrl}/getcategories/`);
+      const { data } = await Axios.get(`${serverUrl}/getcategories/`).catch(
+        () => {
+          return displayError("0", "SERVER_CONN_FAILED");
+        }
+      );
       if (data.isError) {
         displayError(data.errorCode, data.errno);
         return;

@@ -28,7 +28,11 @@ const TopBar = () => {
 
   useEffect(() => {
     const fetchCategories = async () => {
-      const { data } = await Axios.get(`${serverUrl}/getcategories`);
+      const { data } = await Axios.get(`${serverUrl}/getcategories`).catch(
+        () => {
+          return displayError("0", "SERVER_CONN_FAILED");
+        }
+      );
       if (data.isError) {
         displayError(data.errorCode, data.errno);
         return;

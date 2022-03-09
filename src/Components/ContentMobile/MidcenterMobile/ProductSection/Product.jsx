@@ -187,7 +187,7 @@ const Product = ({
   const navigate = useNavigate();
   const handleProductClick = () => {
     navigate(`/product/${productId}`);
-    window.location.href = "#top";
+    window.scrollTo(0, 0);
   };
   return (
     <div className="card-mobile">

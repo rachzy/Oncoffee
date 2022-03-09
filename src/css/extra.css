@@ -1,5 +1,28 @@
 @charset "utf-8";
 
+/* DEAFULT BTN */
+.default-btn {
+  background: rgb(167, 89, 45);
+  color: rgba(255, 255, 255, 0.8);
+  margin: 10px auto;
+  display: block;
+  min-width: 15%;
+  max-width: fit-content;
+  padding: 5px 8px;
+  font-size: 16px;
+  font-family: Poppins, sans-serif;
+  font-weight: 400;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: 0.2s ease-in-out all;
+}
+
+.default-btn:hover {
+  transform: scale(1.05);
+}
+
+/* SKIP TO CONTENT */
+
 .skip-to-content-button {
   font-family: Poppins, sans-serif;
   color: rgba(255, 255, 255, 0.8);
@@ -32,7 +55,7 @@
   opacity: 0%;
   width: 0;
   height: 0;
-  position: absolute;
+  position: fixed;
   z-index: 99999999999;
   transition: 0.2s ease-in-out opacity;
 }
@@ -48,23 +71,32 @@
   text-align: center;
   font-family: Poppins, sans-serif;
   font-weight: 200;
-  padding-bottom: 5px;
-  margin-top: -20px;
+  padding: 5px;
+  margin-top: -10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .popup-box {
   background-color: rgb(55, 55, 55);
   margin: 50px auto auto auto;
   display: block;
-  width: 40vmax;
-  height: 80%;
+  width: 50vmax;
+  height: 0%;
   padding: 10px;
-  border-radius: 10px;
-  box-sizing: border-box;
   overflow: hidden;
+  border-bottom: 3px solid rgb(85, 85, 85);
+  border-radius: 10px;
+  box-shadow: 1px 1px 4px black;
+  transition: 0.5s all ease-in-out;
 }
 
-.popup-box i {
+.popup-box.active {
+  height: 80%;
+}
+
+.popup-box-close-icon i {
   margin-left: 97%;
   display: inline-block;
   transition: 0.1s ease-in-out all;
@@ -72,52 +104,74 @@
   color: white;
 }
 
-.popup-box i:hover {
+.popup-box-close-icon i:hover {
   color: rgb(223, 103, 35);
 }
 
-.popup-box button {
-  background: rgb(167, 89, 45);
-  color: rgba(255, 255, 255, 0.8);
-  margin: 10px auto;
-  display: block;
-  padding: 5px 8px;
-  font-size: 16px;
-  font-family: Poppins, sans-serif;
-  font-weight: 400;
-  border-radius: 3px;
-  cursor: pointer;
-  transition: 0.2s ease-in-out all;
-}
-
-.popup-box button:hover {
-  transform: scale(110%);
-}
-
 .popup-scroll-box {
+  overflow-x: hidden;
   overflow-y: scroll;
-  height: 80%;
+  height: 77%;
 }
 
 .popup-scroll-box.no-button {
-  height: 95%;
+  height: 90%;
 }
 
-::-webkit-scrollbar {
+.popup-scroll-box::-webkit-scrollbar {
   width: 10px;
 }
 
-::-webkit-scrollbar-track {
+.popup-scroll-box::-webkit-scrollbar-track {
   background: #333;
 }
 
-::-webkit-scrollbar-thumb {
+.popup-scroll-box::-webkit-scrollbar-thumb {
   background: #a0a0a0;
   border-radius: 30px;
 }
 
-.popup-product {
+.single-product-box {
+  margin: auto;
+  display: block;
+  margin-top: 30px;
+}
+
+.single-product-box img {
+  width: 40%;
+  display: block;
+  margin: auto;
+}
+
+.single-product-title {
+  margin: auto;
+  display: block;
+  text-align: center;
+}
+
+.single-product-title h2 {
+  color: white;
+  font-family: Poppins, sans-serif;
+  font-size: 30px;
+  font-weight: 400;
+}
+
+.single-product-about {
+  display: block;
+  margin: auto;
+  padding: 5px;
+  text-align: center;
   width: 90%;
+}
+
+.single-product-about p {
+  color: rgba(255, 255, 255, 0.8);
+  font-family: Poppins, sans-serif;
+  font-weight: 200;
+}
+
+.popup-product {
+  width: 95%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -125,37 +179,54 @@
   padding: 5px;
   margin-top: 10px;
   margin: auto;
+  opacity: 100%;
+  transition: 0.2s ease-in-out all;
+}
+
+.popup-product.disabled {
+  opacity: 0%;
 }
 
 .popup-product img {
   width: 20%;
-}
-
-.popup-product button {
-  background: rgb(167, 89, 45);
-  padding: 5px 8px;
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 16px;
-  font-family: Poppins, sans-serif;
-  font-weight: 400;
-  border-radius: 3px;
   cursor: pointer;
-  transition: 0.2s ease all;
-  min-width: 50px;
-  max-width: 120px;
 }
 
-.popup-product button:hover {
-  transform: scale(1.05);
+.popup-remove-btn {
+  background: transparent;
+  font-size: 20px;
+  padding: 8px;
+  color: rgb(235, 76, 76);
+  border: 1px solid rgb(235, 76, 76);
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 0.3s ease all;
+}
+
+.popup-remove-btn:hover {
+  background: rgb(235, 76, 76);
+  color: rgba(255, 255, 255, 0.8);
 }
 
 .popup-product-text {
   width: 50%;
-  margin-left: 4%;
+  margin-left: 1%;
+}
+
+.popup-product-text p {
+  color: white;
+  font-family: Poppins, sans-serif;
+  font-size: 10px;
+  font-weight: 300;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .popup-product-text h2 {
-  width: 80%;
   font-size: 18px;
   font-family: Poppins, sans-serif;
   color: rgb(255, 255, 255, 0.8);
@@ -163,6 +234,11 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  cursor: pointer;
+}
+
+.popup-product-text h2:hover {
+  text-decoration: underline;
 }
 
 .popup-product-text h3 {
@@ -172,16 +248,26 @@
   color: rgb(255, 255, 255, 0.8);
 }
 
+.popup-bottom-btn {
+  margin-top: 5px;
+}
+
+.popup-bottom-btn button {
+  margin-top: 5px;
+  padding: 8px 50px;
+  font-size: 18px;
+}
+
 /* ERROR POPUP */
 
 .error-popup {
   display: none;
+  max-width: 90%;
   bottom: -500px;
   position: fixed;
   display: inherit;
   background-color: rgb(168, 6, 6);
   width: fit-content;
-  max-width: 70%;
   left: 20px;
   padding: 10px;
   border-radius: 5px;

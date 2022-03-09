@@ -10,27 +10,53 @@ import OtherProductsSection from "./MidcenterMobile/OtherProductsSection";
 
 import TopPromo from "./MidcenterMobile/TopPromo";
 
-const MidcenterMobile = ({ handleFavoritedProductsChange }) => {
-  const userId = getCookie("UID");
-  const [favoritedProductsIds, setFavoritedProductsIds] = useState();
+const MidcenterMobile = ({
+  handleFavoritedProductsChange
+}) => {
 
   const { serverUrl } = require("../../connection.json");
 
+  const userId = getCookie("UID");
+
+  const [slideProductsIds, setSlideProductsIds] = useState([]);
+  const [favoritedProductsIds, setFavoritedProductsIds] = useState();
+
   useEffect(() => {
-    const fetchFavoritedProductsIds = async () => {
-      if (!userId) return;
+    const fetchSlides = async () => {
       const { data } = await Axios.get(
-        `${serverUrl}/getfavoriteproductsids/${userId}`
-      );
+        `${serverUrl}/getslides/featuredpromotions`
+      ).catch(() => {
+        return displayError("0", "SERVER_CONN_FAILED");
+      });
+
       if (data.isError) {
         displayError(data.errorCode, data.errno);
         return;
       }
+
+      setSlideProductsIds(data);
+    };
+    fetchSlides();
+
+    const fetchFavoritedProductsIds = async () => {
+      if (!userId) return;
+      const { data } = await Axios.get(
+        `${serverUrl}/getfavoriteproductsids/${userId}`
+      ).catch((error) => {
+        return displayError("0", "SERVER_CONN_FAILED");
+      });
+
+      if (data.isError) {
+        displayError(data.errorCode, data.errno);
+        return;
+      }
+
       if (!data) return;
       setFavoritedProductsIds(data);
     };
     fetchFavoritedProductsIds();
-  }, [serverUrl]);
+  }, [userId, serverUrl]);
+
   return (
     <>
       <TopPromo />
@@ -50,7 +76,7 @@ const MidcenterMobile = ({ handleFavoritedProductsChange }) => {
         handleFavoritedProductsChange={handleFavoritedProductsChange}
       />
 
-      <FeaturedPromotions />
+      <FeaturedPromotions slideProductsIds={slideProductsIds} />
 
       <OtherProductsSection
         favoritedProductsIds={favoritedProductsIds}

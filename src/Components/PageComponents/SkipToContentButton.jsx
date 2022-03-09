@@ -1,6 +1,6 @@
 import React from 'react';
 
-import '../css/extra.css';
+import '../../css/Extra.css';
 
 const SkipToContentButton = () => {
     let anchorRedirect = document.querySelector("#redirect-to-midcenter");

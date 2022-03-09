@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import Axios from "axios";
 import getCookie from "../../globalFunctions/getCookie";
@@ -12,44 +12,58 @@ import Warranty from "./Midcenter/Warranty";
 import SocialMedias from "./Midcenter/SocialMedias";
 import Finalinfo from "./Midcenter/FinalInfo";
 
-const Midcenter = ({ handleFavoritedProductsChange }) => {
-  const userId = getCookie("UID");
-  const [slideProductsIds, setSlideProductsIds] = useState([]);
-  const [favoritedProductsIds, setFavoritedProductsIds] = useState();
-
-  const { serverUrl } = require("../../connection.json");
-
-  useEffect(() => {
-    const fetchSlides = async () => {
-      const { data } = await Axios.get(
-        `${serverUrl}/getslides/featuredpromotions`
-      );
-      setSlideProductsIds(data);
-    };
-    fetchSlides();
-  }, [serverUrl]);
-
+const Midcenter = ({
+  handleFavoritedProductsChange,
+  handleAddCartProduct,
+  handleSetPopupState,
+}) => {
   const returnSliderFeaturedPromotions = () => {
     if (slideProductsIds.length === 0) return;
     return <SliderFeaturedPc slidesProductsIds={slideProductsIds} />;
   };
 
-  //Get all favorited products ids
+  const { serverUrl } = require("../../connection.json");
+
+  const userId = getCookie("UID");
+
+  const [slideProductsIds, setSlideProductsIds] = useState([]);
+  const [favoritedProductsIds, setFavoritedProductsIds] = useState();
+
   useEffect(() => {
-    const fetchFavoritedProductsIds = async () => {
-      if (!userId) return;
+    const fetchSlides = async () => {
       const { data } = await Axios.get(
-        `${serverUrl}/getfavoriteproductsids/${userId}`
-      );
+        `${serverUrl}/getslides/featuredpromotions`
+      ).catch(() => {
+        return displayError("0", "SERVER_CONN_FAILED");
+      });
+
       if (data.isError) {
         displayError(data.errorCode, data.errno);
         return;
       }
+
+      setSlideProductsIds(data);
+    };
+    fetchSlides();
+
+    const fetchFavoritedProductsIds = async () => {
+      if (!userId) return;
+      const { data } = await Axios.get(
+        `${serverUrl}/getfavoriteproductsids/${userId}`
+      ).catch((error) => {
+        return displayError("0", "SERVER_CONN_FAILED");
+      });
+
+      if (data.isError) {
+        displayError(data.errorCode, data.errno);
+        return;
+      }
+
       if (!data) return;
       setFavoritedProductsIds(data);
     };
     fetchFavoritedProductsIds();
-  }, [serverUrl]);
+  }, [userId, serverUrl]);
 
   return (
     <main id="midcenter" className="midcenter">
@@ -60,6 +74,8 @@ const Midcenter = ({ handleFavoritedProductsChange }) => {
         favoritedProductsIds={favoritedProductsIds}
         setFavoritedProductsIds={setFavoritedProductsIds}
         handleFavoritedProductsChange={handleFavoritedProductsChange}
+        handleSetPopupState={handleSetPopupState}
+        handleAddCartProduct={handleAddCartProduct}
       />
       <main className="midcenter">
         <ProductSection
@@ -69,6 +85,7 @@ const Midcenter = ({ handleFavoritedProductsChange }) => {
           favoritedProductsIds={favoritedProductsIds}
           setFavoritedProductsIds={setFavoritedProductsIds}
           handleFavoritedProductsChange={handleFavoritedProductsChange}
+          handleSetPopupState={handleSetPopupState}
         />
 
         {returnSliderFeaturedPromotions()}
@@ -80,6 +97,7 @@ const Midcenter = ({ handleFavoritedProductsChange }) => {
             favoritedProductsIds={favoritedProductsIds}
             setFavoritedProductsIds={setFavoritedProductsIds}
             handleFavoritedProductsChange={handleFavoritedProductsChange}
+            handleSetPopupState={handleSetPopupState}
           />
 
           <main className="midcenter">
@@ -91,6 +109,7 @@ const Midcenter = ({ handleFavoritedProductsChange }) => {
               favoritedProductsIds={favoritedProductsIds}
               setFavoritedProductsIds={setFavoritedProductsIds}
               handleFavoritedProductsChange={handleFavoritedProductsChange}
+              handleSetPopupState={handleSetPopupState}
             />
 
             <main className="infos">
