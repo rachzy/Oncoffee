@@ -1911,14 +1911,14 @@ button[class*=btn] {
     font-family: Poppins,sans-serif;
     color: rgba(255, 255, 255, 0.8);
     font-weight: 500;
-    font-size: 28px;
+    font-size: 34px;
 }
 
 .descontopreco h3 {
     font-family: Poppins,sans-serif;
     color: rgba(255, 255, 255, 0.4);
     font-weight: 400;
-    font-size: 15px;
+    font-size: 18px;
     margin-bottom: -10px;
     text-decoration: line-through;
     letter-spacing: 8px;
@@ -1929,7 +1929,7 @@ button[class*=btn] {
     font-family: Poppins,sans-serif;
     color: rgba(255, 255, 255, 0.4);
     font-weight: 500;
-    font-size: 28px;
+    font-size: 34px;
     margin-left: 10px;
     font-style: italic;
 }
@@ -1996,6 +1996,7 @@ button[class*=btn] {
     color: rgba(255, 255, 255, 0.8);
     font-weight: 500;
     font-size: 18px;
+    margin-top: 20px;
 }
 
 
@@ -2004,4 +2005,86 @@ button[class*=btn] {
     color: rgba(255, 255, 255, 0.4);
     font-weight: 400;
     font-size: 12px;
+}
+
+
+
+.calc_frete {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.calc_frete h2 {
+    font-family: Poppins,sans-serif;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 500;
+    font-size: 18px;
+}
+
+.calc_frete h3 {
+    font-family: Poppins,sans-serif;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 500;
+    font-size: 18px;
+    margin-top: 8px;
+}
+
+.calc_frete input {
+    background: transparent;
+    border: 2px solid rgb(65, 65, 65);
+    font-size: 15px;
+    font-family: Poppins,sans-serif;
+    padding: 5px;
+    border-radius: 8px;
+    margin-top: 8px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.calc_frete button {
+    background: rgb(167, 89, 45);
+    color: rgba(255, 255, 255, 0.8);
+    font-family: Poppins,sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    padding: 4px 10px;
+    border-radius: 8px;
+    margin-left: 10px;
+}
+
+
+
+
+.mobile_desc {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.mobile_desc_box {
+    max-width: max-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 10px;
+    background: rgb(40, 40, 40);
+    padding: 5px 8px;
+    border-radius: 8px;
+}
+
+.mobile_desc_box h2 {
+    font-family: Poppins,sans-serif;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.mobile_desc_box h3 {
+    font-family: Poppins,sans-serif;
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 300;
+    font-size: 13px;
 }
