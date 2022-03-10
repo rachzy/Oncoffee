@@ -42,7 +42,7 @@ const MidcenterMobile = ({
       if (!userId) return;
       const { data } = await Axios.get(
         `${serverUrl}/getfavoriteproductsids/${userId}`
-      ).catch((error) => {
+      ).catch(() => {
         return displayError("0", "SERVER_CONN_FAILED");
       });
 

@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 import "../../css/Header.css";
-import '../../css/Extra.css';
+import '../../css/extra.css';
 import '../../css/Top.css';
 
 import Title from "../Header/Title";

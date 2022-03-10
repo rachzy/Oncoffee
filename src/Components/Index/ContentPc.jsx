@@ -2,7 +2,12 @@ import React, { useEffect, useRef, useState } from "react";
 
 import Loading from "../PageComponents/Loading";
 
-const ContentPc = ({ serverStatus, children }) => {
+const ContentPc = ({
+  serverStatus,
+  isIndexAlreadyLoaded,
+  setIndexAlreadyLoaded,
+  children,
+}) => {
   //State to define if the page is completely loaded or not. If it's empty, that means that it's still loading
   const [loadingState, setLoadingState] = useState();
   const contentPc = useRef(null); //Get the ContentPc element
@@ -18,6 +23,9 @@ const ContentPc = ({ serverStatus, children }) => {
     return null;
   };
 
+  useEffect(() => {
+    setIndexAlreadyLoaded(true);
+  }, []);
   //Function that will define the value of "returnElementIfContentIsLoaded"
   function defineFinalReturn() {
     //If the server status is not "OK" or if the loadingState is undefined, don't execute anything
@@ -29,6 +37,15 @@ const ContentPc = ({ serverStatus, children }) => {
     //If it's display is "none", it means that the user is accessing the website through a dispositive
     //that doesn't need to show the content for PC, so, keep the function as default
     if (getContentStyle.display === "none") return;
+
+    if (isIndexAlreadyLoaded)
+      return (returnElementsIfContentIsLoaded = () => {
+        const loader = document.querySelector("#loader-pc");
+
+        contentPc.current.classList.add("active");
+        loader.style.display = "none";
+        return <>{children}</>;
+      });
 
     //If it's display is not none, it means that the dispositive that the user is using to access the
     // website needs to render the "contentPC"

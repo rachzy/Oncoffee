@@ -1,6 +1,6 @@
 import React from "react";
 
-import "../../css/Extra.css";
+import "../../css/extra.css";
 
 const Error = () => {
   let errorDiv = document.querySelector(".error-popup");
