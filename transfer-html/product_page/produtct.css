@@ -1231,7 +1231,8 @@ button[class*=btn] {
 .more_products::-webkit-scrollbar {
     
     width: 5px;
-    height: 5px;
+    height: 8px;
+    cursor: pointer;
 }
 
 .more_products::-webkit-scrollbar-thumb {
@@ -1673,4 +1674,417 @@ button[class*=btn] {
     font-family: Poppins,sans-serif;
     font-weight: 400;
 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*Conteudo Mobile*/
+
+
+
+
+
+
+.conteudo_mobile {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 10px;
+    flex-direction: column;
+    
+}
+
+
+.botoes_buy {
+   display: none;
+   justify-content: center;
+   align-items: flex-start;
+   width: 100%;
+   height: 140px;
+   background: transparent;
+   position: fixed;
+   bottom: 0;
+   margin-bottom: 5px;
+   background: rgba(30,30,30);
+   border-radius: 45px;
+   z-index: 899;
+    
+}
+
+.buttons_area {
+    width: 90%;
+    
+    margin-top: 15px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.botoes_buy button {
+    width: 45%;
+    height: 40px;
+    border-radius: 8px;
+    background: rgb(167, 89, 45);
+    font-family: Poppins,sans-serif;
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 500;
+    border: 1px solid transparent;
+    
+}
+
+.botoes_buy button:last-child {
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.6);
+}
+
+
+
+
+
+
+
+.btt_back {
+    width: 92%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.btt_back button {
+    background: transparent;
+    font-family: Poppins,sans-serif;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 15px;
+}
+
+
+
+
+
+
+.top_mobile {
+    margin-top: 10px;
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.card_box2 {
+    width: 100%;
+    
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+.card_box_text2 {
+    width: 50%;
+    max-height: 400px;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+    
+}
+
+.card_box_text2 h4 {
+    font-family: Poppins,sans-serif;
+    font-style: italic;
+    font-size: 22px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.1);
+    padding: 0px 5px;
+    cursor: default;
+    
+}
+
+.card_img2 {
+    width: 50%;
+    height: 400px;
+    background: rgb(185, 185, 185);
+    
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+}
+
+.card_img2 img {
+    width: 350px;
+    position: absolute;
+    margin-left: -320px;
+    
+}
+
+
+
+
+
+
+
+
+
+.fav_hearth2 {
+    top: 0;
+    left: 0;
+    position: absolute;
+    margin-left: -20px;
+    margin-top: 20px;
+}
+
+.fav_hearth2 img {
+    width: 30px;
+    cursor: pointer;
+}
+
+.fav_hearth2 input {
+    display: none;
+}
+
+#checkhearth2 {
+    display: none;
+}
+
+
+
+
+
+
+.product_info {
+    display: flex;
+    flex-direction: column;
+    
+    justify-content: center;
+    width: 92%;
+    margin-top: 20px;
+    margin-bottom: 500px;
+}
+
+
+.titulo h2 {
+    font-family: Poppins,sans-serif;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 400;
+    font-size: 18px;
+}
+
+.preco_area {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+}
+
+.preco {
+    display: flex;
+    align-items: flex-end;
+    margin-top: 15px;
+    
+}
+
+.descontopreco h2 {
+    font-family: Poppins,sans-serif;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 500;
+    font-size: 34px;
+}
+
+.descontopreco h3 {
+    font-family: Poppins,sans-serif;
+    color: rgba(255, 255, 255, 0.4);
+    font-weight: 400;
+    font-size: 18px;
+    margin-bottom: -10px;
+    text-decoration: line-through;
+    letter-spacing: 8px;
+    
+}
+
+.preco h4 {
+    font-family: Poppins,sans-serif;
+    color: rgba(255, 255, 255, 0.4);
+    font-weight: 500;
+    font-size: 34px;
+    margin-left: 10px;
+    font-style: italic;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.quantity {
+    margin-top: 5px;
+    background: rgb(45, 45, 45);
+    width: max-content;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    border-radius: 8px;
+}
+.quantity input {
+    -webkit-appearance: none;
+    border: none;
+    text-align: center;
+    width: 32px;
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 300;
+    background: rgb(45, 45, 45);
+    cursor: default;
+}
+
+button[class*=btn] {
+    width: 30px;
+    height: 30px;
+    background: rgb(45, 45, 45);
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+}
+.minus-btn img {
+    margin-bottom: 3px;
+}
+.plus-btn img {
+    margin-top: 2px;
+}
+
+
+.quant_mobile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.quant_mobile h2 {
+    font-family: Poppins,sans-serif;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 500;
+    font-size: 18px;
+    margin-top: 20px;
+}
+
+
+.quant_mobile h3 {
+    font-family: Poppins,sans-serif;
+    color: rgba(255, 255, 255, 0.4);
+    font-weight: 400;
+    font-size: 12px;
+}
+
+
+
+.calc_frete {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.calc_frete h2 {
+    font-family: Poppins,sans-serif;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 500;
+    font-size: 18px;
+}
+
+.calc_frete h3 {
+    font-family: Poppins,sans-serif;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 500;
+    font-size: 18px;
+    margin-top: 8px;
+}
+
+.calc_frete input {
+    background: transparent;
+    border: 2px solid rgb(65, 65, 65);
+    font-size: 15px;
+    font-family: Poppins,sans-serif;
+    padding: 5px;
+    border-radius: 8px;
+    margin-top: 8px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.calc_frete button {
+    background: rgb(167, 89, 45);
+    color: rgba(255, 255, 255, 0.8);
+    font-family: Poppins,sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    padding: 4px 10px;
+    border-radius: 8px;
+    margin-left: 10px;
+}
+
+
+
+
+.mobile_desc {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.mobile_desc_box {
+    max-width: max-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 10px;
+    background: rgb(40, 40, 40);
+    padding: 5px 8px;
+    border-radius: 8px;
+}
+
+.mobile_desc_box h2 {
+    font-family: Poppins,sans-serif;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.mobile_desc_box h3 {
+    font-family: Poppins,sans-serif;
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 300;
+    font-size: 13px;
 }

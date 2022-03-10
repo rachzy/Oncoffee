@@ -3,6 +3,10 @@
     .buttonsmo {
         display: block;
     }
+
+    .botoes_buy {
+        display: flex;
+    }
     .navbar3 {
         display: none;
     }
