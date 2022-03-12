@@ -2070,10 +2070,27 @@ button[class*=btn] {
     justify-content: center;
     flex-direction: column;
     margin-top: 10px;
-    background: rgb(40, 40, 40);
+    background: rgb(35, 35, 35);
     padding: 5px 8px;
     border-radius: 8px;
 }
+
+.mobile_desc_button {
+    min-width: 48%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 10px;
+    background: rgb(167, 89, 45);
+    padding: 5px 8px;
+    border-radius: 8px;
+    font-size: 18px;
+    font-family: Poppins,sans-serif;
+    color: rgba(255, 255, 255, 0.8);
+}
+
 
 .mobile_desc_box h2 {
     font-family: Poppins,sans-serif;
