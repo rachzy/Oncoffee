@@ -1,8 +1,8 @@
 import React from 'react';
 
-const Error = ({id, text}) => {
+const Error = ({id, style, text}) => {
     return (
-        <p id={`error-${id}`} className="error">{text}</p>
+        <p id={`error-${id}`} style={style} className="error">{text}</p>
     );
 }
  

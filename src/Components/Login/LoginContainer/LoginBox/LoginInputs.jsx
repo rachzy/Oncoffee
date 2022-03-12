@@ -11,18 +11,18 @@ const LoginInputs = () => {
   const [inputValues, setInputValues] = useState(initialState());
   const [errorValues, setErrorValues] = useState([
     {
-      id: "user",
+      name: "user",
       text: "",
     },
     {
-      id: "password",
+      name: "password",
       text: "",
     },
   ]);
 
   const loginInputColumn = useRef(null);
 
-  const handleInputChange = (e) => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
 
     setInputValues({
@@ -34,10 +34,10 @@ const LoginInputs = () => {
   const handleButtonClick = () => {
     const newErrorValues = errorValues.map((error) => {
       let errorMessage;
-      if (error.id === "user") errorMessage = "Email ou CPF incorreto";
-      if (error.id === "password") errorMessage = "Senha incorreta";
+      if (error.name === "user") errorMessage = "Email ou CPF inválido";
+      if (error.name === "password") errorMessage = "Senha inválida";
       return {
-        id: error.id,
+        name: error.name,
         text: errorMessage,
       };
     });
@@ -45,16 +45,11 @@ const LoginInputs = () => {
   };
 
   const inputLoginPassword = document.querySelector("#input-login-password");
-  let showPassword = false;
   const handleShowPasswordClick = () => {
-    
-    if (showPassword) {
-      inputLoginPassword.type = "text";
-      return showPassword = true;
-    }
-    inputLoginPassword.type = "password";
-    return showPassword = false;
+    const newType = inputLoginPassword.getAttribute("type") === "password" ? "text" : "password";
+    inputLoginPassword.setAttribute("type", newType);
   };
+
   return (
     <>
       <div ref={loginInputColumn} className="loginputcolumn1">
@@ -64,10 +59,14 @@ const LoginInputs = () => {
           type="text"
           className="logmail"
           placeholder="E-mail ou Cpf"
-          onChange={handleInputChange}
+          onChange={handleChange}
           value={inputValues.user}
         />
-        <Error id={errorValues[0].id} text={errorValues[0].text} />
+        <Error
+          id={errorValues[0].id}
+          text={errorValues[0].text}
+          style={{ height: "20px" }}
+        />
         <div className="inputpassword">
           <Input
             name="password"
@@ -75,7 +74,7 @@ const LoginInputs = () => {
             type="password"
             className="logpassword"
             placeholder="Senha"
-            onChange={handleInputChange}
+            onChange={handleChange}
             value={inputValues.password}
           />
           <input type="checkbox" id="passwordcheck" />
@@ -87,7 +86,11 @@ const LoginInputs = () => {
             <i className="far fa-eye"></i>
           </label>
         </div>
-        <Error id={errorValues[1].id} text={errorValues[1].text} />
+        <Error
+          id={errorValues[1].id}
+          text={errorValues[1].text}
+          style={{ height: "20px" }}
+        />
       </div>
       <Input
         type="button"

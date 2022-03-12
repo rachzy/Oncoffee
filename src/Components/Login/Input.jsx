@@ -6,10 +6,14 @@ const Input = ({
   name,
   type,
   placeholder,
+  minLength,
+  maxLength,
   onClick,
+  onBlur,
   onChange,
   onKeyPress,
   value,
+  method
 }) => {
   return (
     <input
@@ -19,10 +23,15 @@ const Input = ({
       name={name}
       type={type}
       placeholder={placeholder}
+      minLength={minLength}
+      maxLength={maxLength}
+      required
       onClick={onClick}
       onChange={onChange}
+      onBlur={onBlur}
       onKeyPress={onKeyPress}
       value={value}
+      formMethod={method}
     />
   );
 };
