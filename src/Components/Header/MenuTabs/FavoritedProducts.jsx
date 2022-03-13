@@ -18,7 +18,6 @@ const FavoritedProducts = ({
   };
 
   function returnFavoritedProducts() {
-    console.log(favoritedProducts);
     //If "FavoritedProducts" is not undefined, that means that the user is at least logged in
     if (favoritedProducts) {
       if (favoritedProducts.length === 0) {

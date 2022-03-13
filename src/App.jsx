@@ -54,6 +54,13 @@ const App = () => {
   }, [serverUrl]);
 
   if (userId && serverStatus === 200) {
+    //If there are no security tokens, stop the execution, delete the cookies and reload the page
+    if(!securityToken1 || !securityToken2) {
+      deleteCookie("UID");
+      deleteCookie("STOKEN1");
+      deleteCookie("STOKEN2");
+      window.location.reload();
+    }
     //Check if the security tokens cookies are valid, if they're not, unset all of them and reload the page
     const getSecurityTokens = async () => {
       const { data } = await Axios.get(
@@ -252,7 +259,11 @@ const App = () => {
     }
   };
 
+  //State that controls the Header title
   const [headerPageTitle, setHeaderPageTitle] = useState();
+
+  //State that controls if the user had already loaded the index page once to avoid unnecessary loading
+  const [isIndexAlreadyLoaded, setIndexAlreadyLoaded] = useState(false);
 
   return (
     <Router>
@@ -279,6 +290,8 @@ const App = () => {
               pageTitle="Home"
               setHeaderPageTitle={setHeaderPageTitle}
               serverStatus={serverStatus}
+              isIndexAlreadyLoaded={isIndexAlreadyLoaded}
+              setIndexAlreadyLoaded={setIndexAlreadyLoaded}
               handleFavoritedProductsChange={handleFavoritedProductsChange}
               handleSetPopupState={handleSetPopupState}
               handleAddCartProduct={handleAddCartProduct}

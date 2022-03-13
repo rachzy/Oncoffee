@@ -2,7 +2,7 @@ import React from 'react';
 
 const InputSearchMobile = ({type, name, placeholder, value, onChange, onKeyPress}) => {
     return (
-        <input autoComplete="off" type={type} name={name} placeholder={placeholder} value={value} onChange={onChange} onKeyPress={onKeyPress} />
+        <input type={type} name={name} placeholder={placeholder}  autoComplete="off" maxLength="300" value={value} onChange={onChange} onKeyPress={onKeyPress} />
     );
 }
  

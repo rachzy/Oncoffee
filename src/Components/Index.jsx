@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from "react";
 
-import Axios from "axios";
-
 import "../css/Cards.css";
 import "../css/Mid.css";
 import "../css/Mobile.css";
 import "../css/Top.css";
 
-import getCookie from "../globalFunctions/getCookie";
-import displayError from "../globalFunctions/displayErrors";
 import setPageTitle from "../globalFunctions/setPageTitle";
 
 import ContentPc from "./Index/ContentPc";
@@ -23,6 +19,8 @@ import MidcenterMobile from "./ContentMobile/MidcenterMobile";
 const Index = ({
   pageTitle,
   setHeaderPageTitle,
+  isIndexAlreadyLoaded,
+  setIndexAlreadyLoaded,
   handleAddCartProduct,
   handleFavoritedProductsChange,
   handleSetPopupState,
@@ -35,7 +33,11 @@ const Index = ({
 
   return (
     <>
-      <ContentPc serverStatus={serverStatus}>
+      <ContentPc
+        serverStatus={serverStatus}
+        isIndexAlreadyLoaded={isIndexAlreadyLoaded}
+        setIndexAlreadyLoaded={setIndexAlreadyLoaded}
+      >
         <TopBar />
         <SliderMainPc />
         <Midcenter
@@ -45,10 +47,16 @@ const Index = ({
           handleSetPopupState={handleSetPopupState}
         />
       </ContentPc>
-      <ContentMobile serverStatus={serverStatus}>
+      <ContentMobile
+        serverStatus={serverStatus}
+        isIndexAlreadyLoaded={isIndexAlreadyLoaded}
+        setIndexAlreadyLoaded={setIndexAlreadyLoaded}
+      >
         <SliderMobile />
         <MidcenterMobile
           serverStatus={serverStatus}
+          isIndexAlreadyLoaded={isIndexAlreadyLoaded}
+          setIndexAlreadyLoaded={setIndexAlreadyLoaded}
           handleFavoritedProductsChange={handleFavoritedProductsChange}
           handleAddCartProduct={handleAddCartProduct}
         />
