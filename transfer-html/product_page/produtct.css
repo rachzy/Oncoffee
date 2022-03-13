@@ -2105,3 +2105,260 @@ button[class*=btn] {
     font-weight: 300;
     font-size: 13px;
 }
+
+
+
+
+
+.complete_desc {
+    margin-top: 20px;
+    background: rgb(35, 35, 35);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.complete_desc p {
+    width: 95%;
+    font-family: Poppins,sans-serif;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 300;
+    font-size: 14px;
+}
+
+.mostrar_menos {
+    background: transparent;
+    margin-top: 15px;
+    font-family: Poppins,sans-serif;
+    font-size: 17px;
+    color: rgba(255, 255, 255, 0.4);
+    font-weight: 300;
+    text-decoration: underline;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.SelectBox{
+	position:relative;
+    width: 200px;
+    margin-top: 10px;
+}
+
+.SelectBox select{
+	width: 130px;
+	right: 0;
+    top: 0;
+    margin-top: -20px;
+	background: transparent;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+	color:#fff;
+	-webkit-appearance:none;
+	border:none;
+    border: 1.5px solid rgba(255, 255, 255, 0.8);
+	outline:none;
+	padding: 6px 15px;
+	font-size: 15px;
+	cursor:pointer;
+    font-family: Poppins,sans-serif;
+    color: rgba(255, 255, 255, 0.8);
+    position: absolute;
+}
+.SelectBox .chevron{
+	position:absolute;
+	top:0px;
+	right: 0;
+	display: flex;
+    justify-content: center;
+    align-items: center;
+	
+	height:100%;
+	background-color:transparent;
+	pointer-events:none;
+	color:#fff;
+}
+
+.chevron i {
+    margin-top: -10px;
+    margin-left: -40px;
+    
+}
+.SelectBox select option{
+	background-color:rgb(25, 25, 25);
+    box-shadow: none;
+    border: none;
+    -webkit-appearance:none;
+}
+
+
+
+.comentarios {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 35px;
+}
+
+.stars_mobile {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.stars_mobile h2 {
+    font-family: Poppins,sans-serif;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 400;
+    font-size: 22px;
+}
+
+
+
+.comments_overlflow {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 30px;
+}
+
+.comments_overlflow button {
+    background: transparent;
+    margin-top: 15px;
+    font-family: Poppins,sans-serif;
+    font-size: 17px;
+    color: rgba(255, 255, 255, 0.4);
+    font-weight: 300;
+    text-decoration: underline;
+}
+
+
+.back-next_mobile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.back-next_mobile h2 {
+    font-family: Poppins,sans-serif;
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 400;
+    font-size: 28px;
+}
+
+.back-next_mobile button {
+    
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 400;
+    font-size: 25px;
+    margin-top: 0px;
+}
+
+.back-next_mobile button:first-child {
+    margin-right: 20px;
+}
+
+.back-next_mobile button:last-child {
+    margin-left: 20px;
+}
+
+.best_comment {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgb(35, 35, 35);
+    padding: 15px 0px;
+    border-radius: 15px;
+}
+
+.comment_left {
+    min-width: 13%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    
+}
+
+.comment_left img {
+    width: 70px;
+    height: 70px;
+    border-radius: 100%;
+}
+
+.comment_left h3 {
+    font-family: Poppins,sans-serif;
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 400;
+    font-size: 20px;
+    margin-top: 10px;
+}
+
+.comment_left h4 {
+    font-family: Poppins,sans-serif;
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 400;
+    font-size: 17px;
+    margin-top: -8px;
+}
+
+.comment_right {
+    max-width: 81%;
+    display: flex;
+    flex-direction: column;
+    margin-left: 2%;
+    
+}
+
+.comment_right i {
+    font-size: 18px;
+    color: rgb(167, 89, 45);
+    padding: 2px;
+}
+
+.comment_right h2 {
+    font-family: Poppins,sans-serif;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 400;
+    font-size: 20px;
+    margin-top: 8px;
+}
+
+.comment_right p {
+    font-family: Poppins,sans-serif;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 400;
+    font-size: 14px;
+    margin-top: 8px;
+    font-weight: 300;
+}
+
+
+
+
