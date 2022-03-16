@@ -1726,7 +1726,7 @@ button[class*=btn] {
    position: fixed;
    bottom: 0;
    margin-bottom: 5px;
-   background: rgba(30,30,30);
+   background: rgba(32,32,32);
    border-radius: 45px;
    z-index: 899;
     
@@ -1742,6 +1742,12 @@ button[class*=btn] {
     justify-content: space-around;
 }
 
+@media screen and (max-width: 460px) {
+    .botoes_buy {
+        height: 125px;
+    }
+}
+
 .botoes_buy button {
     width: 45%;
     height: 40px;
@@ -1753,6 +1759,19 @@ button[class*=btn] {
     font-weight: 500;
     border: 1px solid transparent;
     
+}
+
+@media screen and (max-width: 530px) {
+    .botoes_buy button {
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 415px) {
+    .botoes_buy button {
+        font-size: 12px;
+        letter-spacing: -0.5px;
+    }
 }
 
 .botoes_buy button:last-child {
@@ -1871,6 +1890,37 @@ button[class*=btn] {
 }
 
 
+@media  screen and (max-width: 830px) {
+    .fav_hearth2 {   
+        margin-left: 30px; 
+    }
+}
+
+@media  screen and (max-width: 720px) {
+    .fav_hearth2 {   
+        margin-left: 80px; 
+    }
+}
+
+
+@media  screen and (max-width: 610px) {
+    .fav_hearth2 {   
+        margin-left: 120px; 
+    }
+}
+
+@media  screen and (max-width: 480px) {
+    .fav_hearth2 {   
+        margin-left: 150px; 
+    }
+}
+
+
+@media  screen and (max-width: 430px) {
+    .fav_hearth2 {   
+        margin-left: 190px; 
+    }
+}
 
 
 
@@ -2387,6 +2437,7 @@ button[class*=btn] {
 
 .mobile_pcard {
     width: 23%;
+    min-width: 130px;
     background: rgb(35, 35, 35);
     display: flex;
     flex-direction: column;
@@ -2445,6 +2496,7 @@ button[class*=btn] {
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-top: 20px;
 }
 
 
@@ -2454,7 +2506,7 @@ button[class*=btn] {
     border: 2px solid rgb(202, 106, 51);
     border-radius: 30px;
     border-left: 2px solid transparent;
-    animation: load 0.4s infinite;
+    animation: load 0.8s linear infinite;
 } 
 
 
