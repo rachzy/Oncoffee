@@ -1877,7 +1877,7 @@ button[class*=btn] {
 }
 
 .fav_hearth2 img {
-    width: 30px;
+    max-width: 30px;
     cursor: pointer;
 }
 
@@ -1896,31 +1896,7 @@ button[class*=btn] {
     }
 }
 
-@media  screen and (max-width: 720px) {
-    .fav_hearth2 {   
-        margin-left: 80px; 
-    }
-}
 
-
-@media  screen and (max-width: 610px) {
-    .fav_hearth2 {   
-        margin-left: 120px; 
-    }
-}
-
-@media  screen and (max-width: 480px) {
-    .fav_hearth2 {   
-        margin-left: 150px; 
-    }
-}
-
-
-@media  screen and (max-width: 430px) {
-    .fav_hearth2 {   
-        margin-left: 190px; 
-    }
-}
 
 
 
@@ -2154,6 +2130,7 @@ button[class*=btn] {
     color: rgba(255, 255, 255, 0.6);
     font-weight: 300;
     font-size: 13px;
+    text-align: center;
 }
 
 
@@ -2351,7 +2328,7 @@ button[class*=btn] {
     min-width: 13%;
     display: flex;
     align-items: center;
-    justify-content: center;
+    
     flex-direction: column;
     
 }
