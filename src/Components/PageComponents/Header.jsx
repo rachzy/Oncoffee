@@ -2,22 +2,22 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 import "../../css/Header.css";
-import '../../css/extra.css';
-import '../../css/Top.css';
+import "../../css/extra.css";
+import "../../css/Top.css";
 
-import Title from "../Header/Title";
-import Logo from "../Header/Logo";
-import MenuItem from "../Header/MenuItem";
+import Title from "./Header/Title";
+import Logo from "./Header/Logo";
+import MenuItem from "./Header/MenuItem";
 
 import onCoffee_logo from "../../imgs/OnCoffee.png";
 import newUser_logo from "../../imgs/newuser.png";
 import newHeart_logo from "../../imgs/newhearth.png";
 import newKart_logo from "../../imgs/newkart.png";
 
-import ConteudoSearch from "../Header/ConteudoSearch";
-import ButtonNavbar from "../Header/ButtonNavbar";
-import FavoritedProducts from "../Header/MenuTabs/FavoritedProducts";
-import ShoppingCartProducts from "../Header/MenuTabs/ShoppingCartProdcuts";
+import ConteudoSearch from "./Header/ConteudoSearch";
+import ButtonNavbar from "./Header/ButtonNavbar";
+import FavoritedProducts from "./Header/MenuTabs/FavoritedProducts";
+import ShoppingCartProducts from "./Header/MenuTabs/ShoppingCartProdcuts";
 
 const Header = ({
   children,
@@ -91,10 +91,20 @@ const Header = ({
           <div className="user_box">
             <ul>
               <li>
-                <ButtonNavbar className="login" onClick={() => {navigate('/login')}}>
+                <ButtonNavbar
+                  className="login"
+                  onClick={() => {
+                    navigate("/login");
+                  }}
+                >
                   Login
                 </ButtonNavbar>
-                <ButtonNavbar className="register" href="/">
+                <ButtonNavbar
+                  className="register"
+                  onClick={() => {
+                    navigate("/login?openRegister");
+                  }}
+                >
                   Registro
                 </ButtonNavbar>
               </li>

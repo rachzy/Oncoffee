@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./css/Content.css";
 
 import Axios from "axios";
+
 import getCookie from "./globalFunctions/getCookie";
 import deleteCookie from "./globalFunctions/deleteCookie";
 import displayError from "./globalFunctions/displayErrors";
@@ -11,7 +12,6 @@ import displayError from "./globalFunctions/displayErrors";
 import SkipToContentButton from "./Components/PageComponents/SkipToContentButton";
 import Popup from "./Components/PageComponents/Popup";
 import Header from "./Components/PageComponents/Header";
-import Buttonsmo from "./Components/ContentMobile/Buttonsmo";
 import Index from "./Components/Index";
 import Error from "./Components/PageComponents/Error";
 
@@ -280,7 +280,6 @@ const App = () => {
       >
         {headerPageTitle}
       </Header>
-      <Buttonsmo />
       <Routes>
         <Route
           path="/"

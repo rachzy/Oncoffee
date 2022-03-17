@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
-import ProductPopup from "../Popup/ProductPopup";
+import ProductPopup from "./Popup/ProductPopup";
 
 const Popup = ({ popupContent }) => {
   const popup = useRef(null);
@@ -30,6 +30,7 @@ const Popup = ({ popupContent }) => {
         //If the path class name is "popup-box active", the click was inside of the popup-box
         if (path.className === "popup-box active")
           return (isClickInsidePopupBox = true);
+        return null;
       });
 
       if (isClickInsidePopupBox) return;
@@ -124,7 +125,7 @@ const Popup = ({ popupContent }) => {
           className={changePopupScrollBoxIfButtonExists()}
         >
           {popupContent.products.map((product) => {
-            if (!product) return;
+            if (!product) return null;
             return (
               <ProductPopup
                 key={product.productId}

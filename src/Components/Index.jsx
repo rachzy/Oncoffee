@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 
 import "../css/Cards.css";
 import "../css/Mid.css";
@@ -8,13 +8,14 @@ import "../css/Top.css";
 import setPageTitle from "../globalFunctions/setPageTitle";
 
 import ContentPc from "./Index/ContentPc";
-import TopBar from "./ContentPc/TopBar";
-import SliderMainPc from "./ContentPc/SliderMainPc";
-import Midcenter from "./ContentPc/Midcenter";
+import TopBar from "./Index/ContentPc/TopBar";
+import SliderMainPc from "./Index/ContentPc/SliderMainPc";
+import Midcenter from "./Index/ContentPc/Midcenter";
 
 import ContentMobile from "./Index/ContentMobile";
-import SliderMobile from "./ContentMobile/SliderMobile";
-import MidcenterMobile from "./ContentMobile/MidcenterMobile";
+import SliderMobile from "./Index/ContentMobile/SliderMobile";
+import MidcenterMobile from "./Index/ContentMobile/MidcenterMobile";
+import Buttonsmo from "./Index/ContentMobile/Buttonsmo";
 
 const Index = ({
   pageTitle,
@@ -29,7 +30,7 @@ const Index = ({
   useEffect(() => {
     setPageTitle(pageTitle);
     setHeaderPageTitle(pageTitle);
-  }, [pageTitle]);
+  }, [setHeaderPageTitle, pageTitle]);
 
   return (
     <>
@@ -60,6 +61,7 @@ const Index = ({
           handleFavoritedProductsChange={handleFavoritedProductsChange}
           handleAddCartProduct={handleAddCartProduct}
         />
+        <Buttonsmo />
       </ContentMobile>
     </>
   );
