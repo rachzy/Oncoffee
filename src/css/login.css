@@ -16,13 +16,6 @@
 
 }
 
-body {
-    overflow-x: hidden;
-    background: rgb(20, 20, 20);
-    min-height: 100vh;
-    
-}
-
 .conteudo-login {
     width: 100%;
     display: flex;

@@ -16,6 +16,7 @@ import Index from "./Components/Index";
 import Error from "./Components/PageComponents/Error";
 
 import Login from "./Components/Login";
+import Confirm from "./Components/Confirm";
 
 const App = () => {
   const userId = getCookie("UID");
@@ -55,7 +56,7 @@ const App = () => {
 
   if (userId && serverStatus === 200) {
     //If there are no security tokens, stop the execution, delete the cookies and reload the page
-    if(!securityToken1 || !securityToken2) {
+    if (!securityToken1 || !securityToken2) {
       deleteCookie("UID");
       deleteCookie("STOKEN1");
       deleteCookie("STOKEN2");
@@ -302,6 +303,16 @@ const App = () => {
           exact
           element={
             <Login pageTitle="Login" setHeaderPageTitle={setHeaderPageTitle} />
+          }
+        />
+        <Route
+          path="/confirm"
+          exact
+          element={
+            <Confirm
+              pageTitle="Confirmação"
+              setHeaderPageTitle={setHeaderPageTitle}
+            />
           }
         />
       </Routes>

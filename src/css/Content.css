@@ -103,7 +103,7 @@ body {
 .navbar3 {
   width: 100%;
 
-  padding: 20px 0px;
+  padding: 70px 0 70px 0;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -117,13 +117,16 @@ body {
 
 .navlogo3 img {
   width: 100px;
-  display: block;
-  margin: auto;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
 }
 
 .navbar3 .navlogo3 {
   width: 100%;
-  display: block;
+  display: flex;
   margin: auto;
   align-items: center;
   justify-content: center;
@@ -138,9 +141,8 @@ body {
 }
 
 .pagname3 {
-  margin-left: 4%;
-  cursor: default;
-  padding-right: 65px;
+  position: absolute;
+  left: 3%;
 }
 
 .hunderline3 {
@@ -259,14 +261,13 @@ body {
   padding: 5px 8px;
   color: rgba(255, 255, 255, 0.8);
   font-size: 16px;
-  font-family: Poppins,sans-serif;
+  font-family: Poppins, sans-serif;
   font-weight: 400;
   border-radius: 3px;
   cursor: pointer;
 }
 
 .fav_box_overflow {
-  
   height: max-content;
   max-height: 150px;
   display: flex;
@@ -278,25 +279,15 @@ body {
 }
 
 .fav_box_overflow::-webkit-scrollbar {
-  
   width: 5px;
-  
 }
 
 .fav_box_overflow::-webkit-scrollbar-track {
   background: rgba(35, 35, 35, 1);
-  
-  
 }
 .fav_box_overflow::-webkit-scrollbar-thumb {
   background-color: rgb(167, 89, 45);
-  
-  
-  
-  
 }
-
-
 
 .shopkartmo3:hover .fav_box {
   display: flex;
@@ -307,19 +298,16 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  
+
   margin-bottom: 8px;
 }
 
-
-.fav_img_line  {
+.fav_img_line {
   width: 25%;
-  
 }
 
 .fav_img_line img {
   width: 100%;
-
 }
 
 .fav_text_line {
@@ -331,7 +319,7 @@ body {
   font-size: 16px;
   font-weight: 400;
   color: rgba(255, 255, 255, 0.8);
-  font-family: Poppins,sans-serif;
+  font-family: Poppins, sans-serif;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -341,11 +329,10 @@ body {
   font-size: 20px;
   font-weight: 400;
   color: rgba(255, 255, 255, 0.8);
-  font-family: Poppins,sans-serif;
+  font-family: Poppins, sans-serif;
 }
 
 .fav_remove_line {
-  
   width: 15%;
   display: flex;
   align-items: center;
@@ -388,11 +375,10 @@ body {
 
 .fav_quant p {
   color: rgba(255, 255, 255, 0.7);
-  font-family: Poppins,sans-serif;
+  font-family: Poppins, sans-serif;
   font-size: 15px;
   transition: 0.2s ease all;
 }
-
 
 .shop_box {
   position: absolute;
@@ -413,7 +399,7 @@ body {
   padding: 5px 8px;
   color: rgba(255, 255, 255, 0.8);
   font-size: 16px;
-  font-family: Poppins,sans-serif;
+  font-family: Poppins, sans-serif;
   font-weight: 400;
   border-radius: 3px;
   transition: 0.2s ease-in-out all;
@@ -425,7 +411,6 @@ body {
 }
 
 .shop_box_overflow {
-  
   height: max-content;
   max-height: 250px;
   display: flex;
@@ -437,25 +422,15 @@ body {
 }
 
 .shop_box_overflow::-webkit-scrollbar {
-  
   width: 5px;
-  
 }
 
 .shop_box_overflow::-webkit-scrollbar-track {
   background: rgba(35, 35, 35, 1);
-  
-  
 }
 .shop_box_overflow::-webkit-scrollbar-thumb {
   background-color: rgb(167, 89, 45);
-  
-  
-  
-  
 }
-
-
 
 .shopkartmo3:hover .shop_box {
   display: flex;
@@ -466,20 +441,16 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  
+
   margin-bottom: 8px;
 }
 
-
-
-.shop_img_line  {
+.shop_img_line {
   width: 25%;
-  
 }
 
 .shop_img_line img {
   width: 100%;
-
 }
 
 .shop_text_line {
@@ -491,7 +462,7 @@ body {
   font-size: 16px;
   font-weight: 400;
   color: rgba(255, 255, 255, 0.8);
-  font-family: Poppins,sans-serif;
+  font-family: Poppins, sans-serif;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -501,11 +472,10 @@ body {
   font-size: 20px;
   font-weight: 400;
   color: rgba(255, 255, 255, 0.8);
-  font-family: Poppins,sans-serif;
+  font-family: Poppins, sans-serif;
 }
 
 .shop_remove_line {
-  
   width: 15%;
   display: flex;
   align-items: center;
@@ -548,7 +518,7 @@ body {
 
 .shop_quant p {
   color: rgba(255, 255, 255, 0.7);
-  font-family: Poppins,sans-serif;
+  font-family: Poppins, sans-serif;
   font-size: 15px;
   transition: 0.2s ease all;
 }
@@ -1093,12 +1063,12 @@ body {
 }
 
 @media screen and (max-width: 850px) {
-    #loader-mobile {
-        display: block;
-      }
-      #loader-pc {
-        display: none;
-      }
+  #loader-mobile {
+    display: block;
+  }
+  #loader-pc {
+    display: none;
+  }
 }
 
 @media screen and (max-width: 815px) {

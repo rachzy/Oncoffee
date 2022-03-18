@@ -82,10 +82,10 @@ const Header = ({
   return (
     <header>
       <nav className="navbar3">
+      <Logo className="navlogo3" logo={onCoffee_logo} />
         <Title firstClass="pagname3" secondClass="hunderline3">
           {children}
         </Title>
-        <Logo className="navlogo3" logo={onCoffee_logo} />
 
         <MenuItem icon={newUser_logo} alt="newuser-oncoffee-icon">
           <div className="user_box">
@@ -99,12 +99,9 @@ const Header = ({
                 >
                   Login
                 </ButtonNavbar>
-                <ButtonNavbar
-                  className="register"
-                  onClick={() => {
+                <ButtonNavbar className="register" onClick={() => {
                     navigate("/login?openRegister");
-                  }}
-                >
+                  }}>
                   Registro
                 </ButtonNavbar>
               </li>
