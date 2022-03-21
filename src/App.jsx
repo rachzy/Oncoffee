@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./css/Content.css";
 
 import Axios from "axios";
+
 import getCookie from "./globalFunctions/getCookie";
 import deleteCookie from "./globalFunctions/deleteCookie";
 import displayError from "./globalFunctions/displayErrors";
@@ -11,11 +12,11 @@ import displayError from "./globalFunctions/displayErrors";
 import SkipToContentButton from "./Components/PageComponents/SkipToContentButton";
 import Popup from "./Components/PageComponents/Popup";
 import Header from "./Components/PageComponents/Header";
-import Buttonsmo from "./Components/ContentMobile/Buttonsmo";
 import Index from "./Components/Index";
 import Error from "./Components/PageComponents/Error";
 
 import Login from "./Components/Login";
+import Confirm from "./Components/Confirm";
 
 const App = () => {
   const userId = getCookie("UID");
@@ -55,7 +56,7 @@ const App = () => {
 
   if (userId && serverStatus === 200) {
     //If there are no security tokens, stop the execution, delete the cookies and reload the page
-    if(!securityToken1 || !securityToken2) {
+    if (!securityToken1 || !securityToken2) {
       deleteCookie("UID");
       deleteCookie("STOKEN1");
       deleteCookie("STOKEN2");
@@ -280,7 +281,6 @@ const App = () => {
       >
         {headerPageTitle}
       </Header>
-      <Buttonsmo />
       <Routes>
         <Route
           path="/"
@@ -303,6 +303,16 @@ const App = () => {
           exact
           element={
             <Login pageTitle="Login" setHeaderPageTitle={setHeaderPageTitle} />
+          }
+        />
+        <Route
+          path="/confirm"
+          exact
+          element={
+            <Confirm
+              pageTitle="Confirmação"
+              setHeaderPageTitle={setHeaderPageTitle}
+            />
           }
         />
       </Routes>
