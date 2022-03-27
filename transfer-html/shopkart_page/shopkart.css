@@ -762,3 +762,291 @@ body {
 .sbtt:nth-child(1) img {
     width: 25px;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.conteudo_pc {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 10px;
+  flex-direction: column;
+}
+
+
+.conteudo_carrinho {
+    margin-top: 20px;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.carrinho_info {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.carrinho_info h2 {
+    font-size: 18px;
+    font-family: Poppins,sans-serif;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.carrinho_titulo_1 {
+    width: 50%;
+}
+
+.carrinho_titulo_2 {
+  width: 12%;
+  text-align: center;
+}
+
+.carrinho_titulo_3 {
+  width: 14%;
+  text-align: center;
+}
+
+.carrinho_titulo_4 {
+  width: 12%;
+  text-align: center;
+}
+
+.carrinho_titulo_5 {
+  width: 12%;
+  text-align: center;
+}
+
+
+
+
+.carrinho_box {
+  width: 100%;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carrinho_check {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 5%;
+  
+}
+
+.carrinho_img {
+  width: 45%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.carrinho_img img {
+  width: 180px;
+}
+
+.carrinho_unit {
+  width: 12%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.carrinho_unit h2 {
+  font-size: 22px;
+  font-family: Poppins,sans-serif;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.carrinho_unit h3 {
+  font-size: 15px;
+  font-family: Poppins,sans-serif;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.4);
+  margin-bottom: -6px;
+  letter-spacing: 4px;
+  text-decoration: line-through;
+}
+
+.carrinho_quant {
+  width: 14%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+}
+
+.carrinho_final {
+  width: 12%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carrinho_final h2 {
+  font-size: 22px;
+  font-family: Poppins,sans-serif;
+  font-weight: 500;
+  color: rgb(197, 116, 69);
+}
+
+.carrinho_acao {
+  width: 12%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carrinho_acao button {
+  font-size: 15px;
+  font-family: Poppins,sans-serif;
+  font-weight: 400;
+  color: rgb(240, 105, 105);
+  background: transparent;
+  transition: all ease 0.2s;
+}
+
+.carrinho_acao button:hover {
+  color: rgb(255, 30, 30);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.quantity {
+  margin-top: 5px;
+  background: rgb(45, 45, 45);
+  width: max-content;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  border-radius: 8px;
+}
+.quantity input {
+  -webkit-appearance: none;
+  border: none;
+  text-align: center;
+  width: 32px;
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 300;
+  background: rgb(45, 45, 45);
+  cursor: default;
+}
+
+button[class*=btn] {
+  width: 30px;
+  height: 30px;
+  background: rgb(45, 45, 45);
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+.minus-btn img {
+  margin-bottom: 3px;
+}
+.plus-btn img {
+  margin-top: 2px;
+}
+
+.option-input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+  position: relative;
+  top: 13.33333px;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  transition: all 0.15s ease-out 0s;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  outline: none;
+  position: relative;
+  z-index: 1000;
+  border-radius: 3px;
+}
+.option-input:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+.option-input:checked {
+  background: rgb(167, 89, 45);
+}
+.option-input:checked::before {
+  width: 20px;
+  height: 20px;
+  display:flex;
+  content: '\f00c';
+  font-size: 12.5px;
+  font-weight:bold;
+  position: absolute;
+  align-items:center;
+  justify-content:center;
+  font-family:'Font Awesome 5 Free';
+}
+.option-input:checked::after {
+  -webkit-animation: click-wave 0.65s;
+  -moz-animation: click-wave 0.65s;
+  animation: click-wave 0.65s;
+  background: rgb(167, 89, 45);
+  content: '';
+  display: block;
+  position: relative;
+  z-index: 100;
+}
