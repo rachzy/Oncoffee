@@ -20,6 +20,7 @@ const LogReg = () => {
 
   //Displays the "LoginBox"
   const handleLoginButtonClick = () => {
+    if(!underline || underline.current === null) return;
     underline.current.style.marginLeft = "0%";
     loginContainer.classList.remove("grow");
     registerBox.classList.remove("active");
@@ -28,6 +29,7 @@ const LogReg = () => {
 
   //Displays the "RegisterBox"
   const handleRegisterButtonClick = () => {
+    if(!underline || underline.current === null) return;
     underline.current.style.marginLeft = "50%";
     loginContainer.classList.add("grow");
     loginBox.classList.remove("active");
@@ -36,7 +38,12 @@ const LogReg = () => {
 
   //If "openRegister" is in the URL params, display the "RegisterBox"
   //(checking if underline.current is not undefined to check if the elements are already loaded)
-  if (underline.current && openRegister !== null) handleRegisterButtonClick();
+  if (underline.current && openRegister !== null) {
+   handleRegisterButtonClick();
+  } else {
+    handleLoginButtonClick();
+  }
+    
 
   return (
     <>

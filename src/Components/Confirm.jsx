@@ -22,7 +22,7 @@ const Confirm = ({ setHeaderPageTitle, pageTitle }) => {
 
   return (
     <main className="conteudo-confirm">
-      <Textarea />
+      {/* <Textarea /> */}
       <main className="container-confirm">
         <Numbercolumn mainClassName={mainClasses.Numbercolumn} />
         <Numberconfirm mainClassName={mainClasses.Numberconfirm} />        

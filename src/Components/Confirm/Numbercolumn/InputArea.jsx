@@ -1,87 +1,77 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
+import Error from "./Error";
 
 const InputArea = () => {
-  function initialState() {
-    return { phonenumber: "" };
-  }
+  const [inputValue, setInputValue] = useState("");
+  const [errorValue, setErrorValue] = useState("");
 
-  const [inputValues, setInputValues] = useState(initialState());
+  const sendBtn = useRef(null);
 
   const handleButtonClick = () => {
-    const separateStringInSpaces = () => {
-      const splitStringInSpaces = inputValues.phonenumber.split(" ");
-      switch (splitStringInSpaces.length) {
-        case 3:
-          break;
-        default:
-          let finalValue;
-          const validateFirstValue = () => {
-            let firstValue = splitStringInSpaces[0];
-            if (firstValue.charAt(0) !== "+") firstValue = `+${firstValue}`;
+    sendBtn.current.classList.add("loading");
+    const validateInput = () => {
+      //Remove every space, "+" and "-" from the string
+      const extractOnlyNumbers = inputValue
+        .replace(/\s/g, "")
+        .replace("+", "")
+        .replace("-", "");
 
-            if (firstValue.length !== 4) {
-              const sliceFirst3Chars = firstValue.substring(0, 3);
-              const sliceRemainingChars = firstValue.substring(
-                3,
-                firstValue.length
-              );
-              firstValue = [sliceFirst3Chars, sliceRemainingChars];
-            }
-
-            if(firstValue[0]) {
-                splitStringInSpaces = [
-                    ...firstValue,
-                    ...splitStringInSpaces
-                ]
-            } else {
-                splitStringInSpaces[0] = firstValue;
-            }
-
-            return (finalValue = firstValue);
-          };
-          validateFirstValue();
-
-          const validateSecondValue = () => {
-              console.log(splitStringInSpaces);
-            let secondValue = splitStringInSpaces[1];
-
-            if (secondValue.length !== 2) {
-              const sliceFirst2Chars = secondValue.slice(0, 2);
-              const sliceRemainingChars = secondValue.slice(
-                2,
-                secondValue.length
-              );
-              secondValue = `${sliceFirst2Chars} ${sliceRemainingChars}`;
-            }
-            return (finalValue += secondValue);
-          };
-          validateSecondValue();
-
-          console.log(finalValue);
+      if (isNaN(extractOnlyNumbers)) {
+        return setErrorValue(
+          "O número inserido é inválido. Utilize apenas números e siga o formato: +XX XX XXXXXXXXXX"
+        );
       }
+
+      const splitInputValue = inputValue.split(" ");
+
+      //Add "+" before the first value if it doesn't already have
+      if (splitInputValue[0].charAt(0) !== "+") {
+        splitInputValue[0] = `+${splitInputValue[0]}`;
+        setInputValue(`+${inputValue}`);
+      }
+
+      //If the string is not separated exactly in 3 spaces
+      if (splitInputValue.length !== 3) {
+        return setErrorValue(
+          "O formato do número deve seguir esse formato: +XX XX XXXXXXXXX"
+        );
+      }
+
+      if (
+        splitInputValue[0].length > 4 ||
+        splitInputValue[1].length > 3 ||
+        splitInputValue[2].length < 6 ||
+        splitInputValue[2].length > 11
+      )
+        return setErrorValue(
+          "O número inserido é inválido. Siga o formato: +XX XX XXXXXXXXXX"
+        );
+
+      return setErrorValue("");
     };
-    separateStringInSpaces();
+    validateInput();
+    sendBtn.current.classList.remove("loading");
   };
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setInputValues({
-      [name]: value,
-    });
+    const { value } = e.target;
+    setInputValue(value);
   };
 
   return (
     <>
       <input
         name="phonenumber"
-        placeholder="+55 (00) 0 0000-0000"
+        placeholder="+55 00 00000-0000"
         className="inputnumber"
         type="text"
         onChange={handleChange}
-        value={inputValues.phonenumber}
+        value={inputValue}
       />
+      <Error text={errorValue} />
       <div className="enviarcenter">
         <input
+          ref={sendBtn}
           onClick={handleButtonClick}
           type="button"
           value="Enviar"

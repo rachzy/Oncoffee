@@ -316,3 +316,13 @@
   text-align: center;
   font-family: "Poppins";
 }
+
+/* ERROR */
+
+.error-msg {
+  font-size: 14px;
+  font-family: Roboto,sans-serif;
+  color: rgb(182, 74, 74);
+  margin-left: 5px;
+  text-align: center;
+}
