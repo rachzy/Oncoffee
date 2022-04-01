@@ -839,8 +839,20 @@ body {
     color: rgba(255, 255, 255, 0.4);
 }
 
+.carrinho_info h3 {
+  font-size: 16px;
+  font-family: Poppins,sans-serif;
+  font-weight: 300;
+  color: rgb(167, 89, 45);
+  margin-left: 30px;
+  margin-right: 5px;
+}
+
 .carrinho_titulo_1 {
     width: 50%;
+    display: flex;
+    align-items: center;
+    
 }
 
 .carrinho_titulo_2 {
@@ -892,7 +904,7 @@ body {
 .carrinho_img img {
   width: 180px;
 }
-
+ 
 .carrinho_unit {
   width: 12%;
   display: flex;
@@ -999,13 +1011,8 @@ button[class*=btn] {
 }
 
 .option-input {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  -ms-appearance: none;
-  -o-appearance: none;
   appearance: none;
   position: relative;
-  top: 13.33333px;
   right: 0;
   bottom: 0;
   left: 0;
@@ -1050,3 +1057,47 @@ button[class*=btn] {
   position: relative;
   z-index: 100;
 }
+
+
+
+
+
+
+
+.cupons_area {
+  margin-top: 20px;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+
+/*dropdown cupons*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
