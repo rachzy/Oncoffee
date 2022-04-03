@@ -3,14 +3,11 @@ import { useSearchParams } from "react-router-dom";
 
 const LogReg = () => {
   //function to get URL params
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   //"openRegister" param determines if the Register Box will be initially open
   //"nextPage" param determines the page that the user will be redirected to after the Login or Register
-  const [openRegister, nextPage] = [
-    searchParams.get("openRegister"),
-    searchParams.get("next"),
-  ];
+  const openRegister = searchParams.get("openRegister");
 
   const underline = useRef(null);
 

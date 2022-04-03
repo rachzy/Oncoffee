@@ -6,7 +6,7 @@ const GoBackIcon = () => {
   const navigate = useNavigate();
   return (
     <label onClick={() => navigate(-1)} htmlFor="backbtt">
-      <i className="fas fa-angle-left"></i>
+      <i className="fas fa-angle-left" />
     </label>
   );
 };

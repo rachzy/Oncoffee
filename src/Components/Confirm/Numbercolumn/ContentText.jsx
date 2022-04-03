@@ -6,9 +6,9 @@ const ContentText = () => {
       <h2>Já está quase lá</h2>
       <h3>Segurança</h3>
       <p>
-        Digite seu número de telefone abaixo, para que enviemos um código de
-        segurança, onde vamos garantir que sua conta fique segura sempre que
-        você à acessar.
+        Insira seu endereço de e-mail, o mesmo será necessária para medidas de
+        segurança e como forma de contato entre você e o OnCoffee. Um código
+        será enviado à esse email para realizar sua verificação.
       </p>
     </>
   );

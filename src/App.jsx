@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, createContext } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import "./css/Content.css";
@@ -18,6 +18,8 @@ import Error from "./Components/PageComponents/Error";
 import Login from "./Components/Login";
 import Confirm from "./Components/Confirm";
 
+export const GlobalServerContext = createContext();
+
 const App = () => {
   const userId = getCookie("UID");
   const securityToken1 = getCookie("STOKEN1");
@@ -29,11 +31,15 @@ const App = () => {
   const [serverStatus, setServerStatus] = useState();
 
   useEffect(() => {
+    let displayedOnce = false;
     const checkServerConnection = async () => {
       //The main page of the server will always return a status
       const checkServerConnection = await Axios.get(`${serverUrl}`).catch(
-        () => {
-          return displayError("0", "ERR_CONNECTION_REFUSED");
+        (err) => {
+          if (!displayedOnce) {
+            displayError(err, "");
+            return displayedOnce = true;
+          }
         }
       );
 
@@ -281,41 +287,48 @@ const App = () => {
       >
         {headerPageTitle}
       </Header>
-      <Routes>
-        <Route
-          path="/"
-          exact
-          element={
-            <Index
-              pageTitle="Home"
-              setHeaderPageTitle={setHeaderPageTitle}
-              serverStatus={serverStatus}
-              isIndexAlreadyLoaded={isIndexAlreadyLoaded}
-              setIndexAlreadyLoaded={setIndexAlreadyLoaded}
-              handleFavoritedProductsChange={handleFavoritedProductsChange}
-              handleSetPopupState={handleSetPopupState}
-              handleAddCartProduct={handleAddCartProduct}
-            />
-          }
-        />
-        <Route
-          path="/login"
-          exact
-          element={
-            <Login pageTitle="Login" setHeaderPageTitle={setHeaderPageTitle} />
-          }
-        />
-        <Route
-          path="/confirm"
-          exact
-          element={
-            <Confirm
-              pageTitle="Confirmação"
-              setHeaderPageTitle={setHeaderPageTitle}
-            />
-          }
-        />
-      </Routes>
+      <GlobalServerContext.Provider
+        value={{ serverUrl: serverUrl, displayError: displayError }}
+      >
+        <Routes>
+          <Route
+            path="/"
+            exact
+            element={
+              <Index
+                pageTitle="Home"
+                setHeaderPageTitle={setHeaderPageTitle}
+                serverStatus={serverStatus}
+                isIndexAlreadyLoaded={isIndexAlreadyLoaded}
+                setIndexAlreadyLoaded={setIndexAlreadyLoaded}
+                handleFavoritedProductsChange={handleFavoritedProductsChange}
+                handleSetPopupState={handleSetPopupState}
+                handleAddCartProduct={handleAddCartProduct}
+              />
+            }
+          />
+          <Route
+            path="/login"
+            exact
+            element={
+              <Login
+                pageTitle="Login"
+                setHeaderPageTitle={setHeaderPageTitle}
+              />
+            }
+          />
+          <Route
+            path="/confirm"
+            exact
+            element={
+              <Confirm
+                pageTitle="Confirmação"
+                setHeaderPageTitle={setHeaderPageTitle}
+              />
+            }
+          />
+        </Routes>
+      </GlobalServerContext.Provider>
       <Error />
     </Router>
   );

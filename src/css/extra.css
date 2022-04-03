@@ -265,7 +265,7 @@
   max-width: 90%;
   bottom: -500px;
   position: fixed;
-  display: inherit;
+  display: flex;
   background-color: rgb(168, 6, 6);
   width: fit-content;
   left: 20px;

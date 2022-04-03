@@ -1,55 +1,89 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
+
 import Error from "./Error";
 
-const InputArea = () => {
+import Axios from "axios";
+
+import { ChangeClassesContext } from "../../Confirm";
+import { GlobalServerContext } from "../../../App";
+
+const InputArea = ({ emailInitialValue }) => {
   const [inputValue, setInputValue] = useState("");
   const [errorValue, setErrorValue] = useState("");
+
+  useEffect(() => {
+    setInputValue(emailInitialValue);
+  }, [emailInitialValue]);
+
+  const changeClass = useContext(ChangeClassesContext);
+  const serverDetails = useContext(GlobalServerContext);
+
+  const [searchParams] = useSearchParams();
 
   const sendBtn = useRef(null);
 
   const handleButtonClick = () => {
     sendBtn.current.classList.add("loading");
+
+    let canContinue = true;
+
     const validateInput = () => {
-      //Remove every space, "+" and "-" from the string
-      const extractOnlyNumbers = inputValue
-        .replace(/\s/g, "")
-        .replace("+", "")
-        .replace("-", "");
-
-      if (isNaN(extractOnlyNumbers)) {
-        return setErrorValue(
-          "O número inserido é inválido. Utilize apenas números e siga o formato: +XX XX XXXXXXXXXX"
-        );
-      }
-
-      const splitInputValue = inputValue.split(" ");
-
-      //Add "+" before the first value if it doesn't already have
-      if (splitInputValue[0].charAt(0) !== "+") {
-        splitInputValue[0] = `+${splitInputValue[0]}`;
-        setInputValue(`+${inputValue}`);
-      }
-
-      //If the string is not separated exactly in 3 spaces
-      if (splitInputValue.length !== 3) {
-        return setErrorValue(
-          "O formato do número deve seguir esse formato: +XX XX XXXXXXXXX"
-        );
-      }
+      const splitInputValueInSigns = inputValue.split("@");
+      const splitInputValueInDots = inputValue.split(".");
 
       if (
-        splitInputValue[0].length > 4 ||
-        splitInputValue[1].length > 3 ||
-        splitInputValue[2].length < 6 ||
-        splitInputValue[2].length > 11
-      )
-        return setErrorValue(
-          "O número inserido é inválido. Siga o formato: +XX XX XXXXXXXXXX"
-        );
+        splitInputValueInSigns.length !== 2 ||
+        splitInputValueInDots.length <= 1
+      ) {
+        setErrorValue("Insira um email válido.");
+        return (canContinue = false);
+      }
 
-      return setErrorValue("");
+      if (inputValue.length < 10 || inputValue.length > 50) {
+        setErrorValue("O email deve ter de 10 à 50 caracteres");
+        return (canContinue = false);
+      }
+
+      setErrorValue("");
     };
     validateInput();
+
+    if (canContinue) {
+      const [id, registerToken] = [
+        searchParams.get("id"),
+        searchParams.get("token"),
+      ];
+
+      const postNewEmail = async () => {
+        const query = await Axios.post(`${serverDetails.serverUrl}/setverificationemail`, {
+          id: id,
+          registerToken: registerToken,
+        })
+          .then(() => {
+            sendBtn.current.classList.remove("loading");
+          })
+          .catch((err) => {
+            return setErrorValue(`Ocorreu um erro interno do servidor: ${err}`);
+          });
+
+        console.log(query);
+
+        const { data } = query;
+
+        if (data.isError) {
+          return setErrorValue(
+            `Ocorreu um erro ao registrar esse email: ${data.errorCode}`
+          );
+        }
+
+        if(data.queryStatus === 200) {
+          changeClass("numberconfirm");
+        }
+      };
+      return postNewEmail();
+    }
+
     sendBtn.current.classList.remove("loading");
   };
 
@@ -62,9 +96,11 @@ const InputArea = () => {
     <>
       <input
         name="phonenumber"
-        placeholder="+55 00 00000-0000"
+        type="email"
+        placeholder="exemplo@gmail.com"
         className="inputnumber"
-        type="text"
+        minLength="10"
+        maxLength="50"
         onChange={handleChange}
         value={inputValue}
       />

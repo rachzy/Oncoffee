@@ -48,6 +48,46 @@
     
 }
 
+/* ERROR MESSAGE */
+
+.errormessage {
+    display: none;
+    padding: 10px;
+}
+
+.errormessage.active {
+    display: block;
+}
+
+.errormessage h1 {
+    font-family: Poppins, sans-serif;
+    font-weight: 300;
+    color: rgb(236, 10, 10);
+    margin-left: 5px;
+    text-align: center;
+}
+
+.errormessage p {
+    text-align: center;
+}
+
+.errormessage button {
+    background-color: rgb(161, 46, 46);
+    padding: 10px;
+    width: 40%;
+    display: block;
+    margin: auto;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: 0.2s all;
+}
+
+.errormessage button:hover {
+    transform: scale(1.05);
+}
+
+/*NUMBER COLUM*/
+
 .numbercolum {
     display: none;
 }
@@ -56,6 +96,8 @@
     display: block;
 }
 
+/* NUMBER CONFIRM */
+
 .numberconfirm {
     display: none;
 }
@@ -63,6 +105,8 @@
 .numberconfirm.active {
     display: block;
 }
+
+/* CONTAINER CONFIRM*/
 
 .container-confirm {
     background: rgb(50, 50, 50);
@@ -120,6 +164,7 @@
     font-size: 15px;
     margin-top: 5px;
     cursor: default;
+    text-align: center;
 }
 
 .inputnumber {
@@ -182,7 +227,6 @@
     font-size: 13px;
     font-family: Ubuntu,sans-serif;
     cursor: pointer;
-    margin-top: 10px;
     width: max-content;
 }
 
@@ -204,17 +248,27 @@
 
 .bttcenter {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    float: right;
-    margin-top: 15px;
     margin-right: 2%;
 }
 
 .bttcenter input {
+    margin-top: 5px;
     padding: 5px 10px;
     font-size: 14px;
     border-radius: 3px;
     background: rgb(167, 89, 45);
     color: white;
     font-family: Poppins,sans-serif;
+    transition: 0.2s all;
+    cursor: pointer;
+}
+
+.bttcenter input:hover {
+    background: rgb(167, 78, 30);
+}
+
+.bttcenter.loading input {
+    background: rgb(121, 67, 37);
 }

@@ -1,4 +1,5 @@
 import React, { useState, useRef } from "react";
+import {useNavigate, useSearchParams} from "react-router-dom";
 
 import Axios from "axios";
 
@@ -8,6 +9,9 @@ import Input from "../../Input";
 import Error from "../../Error";
 
 const RegisterInputs = () => {
+  const navigate = useNavigate();
+  const searchParams = useSearchParams();
+
   //Import serverURL
   const { serverUrl } = require("../../../../connection.json");
 
@@ -230,7 +234,9 @@ const RegisterInputs = () => {
             errorMessage = `Esse campo deve ter pelo menos ${input.minlength} caracteres`;
           }
 
-          if (input.value === "") errorMessage = "Esse campo é obrigatório!";
+          if (input.value === "") {
+            errorMessage = "Esse campo é obrigatório!";
+          }
 
           return {
             ...input,
@@ -366,11 +372,12 @@ const RegisterInputs = () => {
   const verifyMatching = (name) => {
     const getInput = inputData.filter((input) => input.name === name)[0];
     if (!getInput.matchingInput.enabled) return false; //If the matching "enabled" option is not true, then the input is not a matching input
+ 
+    //Get the input name
+    const matchInputName = getInput.matchingInput.match;
 
-    const [matchInputName, getMatchInput] = [
-      getInput.matchingInput.match, //Get the input name
-      inputData.filter((input) => input.name === matchInputName)[0], //Get the matching input name
-    ];
+    //Get the matching input name
+    const getMatchInput = inputData.filter((input) => input.name === matchInputName)[0];
 
     let originalInput, verifyingInput;
 
@@ -426,9 +433,14 @@ const RegisterInputs = () => {
 
     //Verify matching in all matching inputs
     inputData.map((input) => {
-      if (input.matchingInput.enabled && verifyMatching(input.name) === false)
+      if (input.matchingInput.enabled && verifyMatching(input.name) === false) {
         return (canContinue = false);
-      if (input.error.enabled) return (canContinue = false);
+      }
+
+      if (input.error.enabled) {
+        return (canContinue = false);
+      }
+
       return null;
     });
 
@@ -495,8 +507,14 @@ const RegisterInputs = () => {
         return;
       }
 
-      if (data.queryStatus === 200)
-        setMainErrorValue("Valor inserido com sucesso!");
+      if (data.queryStatus === 200) {
+        let redirectUrl = `/confirm?id=${data.userInfo.userId}&token=${data.userInfo.registerToken}`;
+
+        const nextPage = searchParams.get("next");
+        if(nextPage) redirectUrl = `${redirectUrl}&next=${nextPage}`;
+        
+        navigate(redirectUrl);
+      }
     };
     postNewUser();
   };

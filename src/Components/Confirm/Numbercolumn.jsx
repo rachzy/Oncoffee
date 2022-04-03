@@ -4,13 +4,13 @@ import GoBackIcon from "./GoBackIcon";
 import ContentText from "./Numbercolumn/ContentText";
 import InputArea from "./Numbercolumn/InputArea";
 
-const Numbercolumn = ({mainClassName}) => {
+const Numbercolumn = ({mainClassName, emailInitialValue}) => {
   return (
     <main className={mainClassName}>
       <input type="button" name="" id="backbtt" />
       <GoBackIcon />
       <ContentText />
-      <InputArea />
+      <InputArea emailInitialValue={emailInitialValue} />
     </main>
   );
 };
