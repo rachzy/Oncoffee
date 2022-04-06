@@ -1072,6 +1072,7 @@ button[class*=btn] {
   flex-direction: flex;
   align-items: center;
   justify-content: space-between;
+  position: relative;
 
 }
 
@@ -1080,13 +1081,19 @@ button[class*=btn] {
 
 
 .cupons_buttons {
-  width: 50%;
+  width: 32%;
   font-size: 22px;
   font-family: Poppins,sans-serif;
   font-weight: 500;
   color: rgba(255, 255, 255, 0.8);
   background: transparent;
   text-align: start;
+  cursor: pointer;
+
+}
+
+.cupons_buttons:hover .cupons_box {
+  display: flex;
 }
 
 .cupons_buttons i {
@@ -1149,14 +1156,40 @@ button[class*=btn] {
 
 
 
-.cupons_box {
-  width: 60%;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.cupons_box {
+  width: 30%;
+  position: absolute;
+  left: 0;
+  margin-right: 500px;
+  display: none;
+  
   flex-direction: column;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  max-height: 280px;
+  padding: 10px;
+  background: rgb(30, 30, 30);
+  border-radius: 10px;
+  z-index: 999;
 }
+
+.cupons_box::-webkit-scrollbar {
+    
+  width: 5px;
+  background: rgb(30, 30, 30);
+  border-radius: 15px;
+}
+
+.cupons_box::-webkit-scrollbar-thumb {
+  background-color: rgb(55, 55, 55);
+  
+  border-radius: 15px;
+  
+  
+}
+
+
 
 
 .cupons_box ul {
@@ -1208,4 +1241,217 @@ button[class*=btn] {
   font-weight: 400;
   font-family: Poppins,sans-serif;
   color: rgba(255, 255, 255, 0.5);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.outros {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-around;
+  
+
+}
+
+
+.outros-name {
+  color: rgba(255, 255, 255, 0.8);
+  font-family: Poppins,sans-serif;
+  font-weight: 400;
+  font-size: 28px;
+  margin-left: 15px;
+  margin-top: 30px;
+
+
+
+
+}
+
+.outros-card {
+  background: rgb(55, 55, 55);
+  border-radius: 15px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  position: relative;
+  box-shadow: 0px 20px 20px rgb(0, 0, 0,0.4);
+  
+  max-width: 200px;
+  min-width: 200px;
+  margin-top: 100px;
+  min-height: 200px;
+  
+}
+
+
+
+
+.cardmo-img2  {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 150px;
+  height: 75px;
+  
+  border-radius: 15px;
+    
+}
+
+
+.cardmo-img2 img {
+  width: 170px;
+  border-radius: 15px;
+  position: absolute;
+  margin-top: -90px;
+  z-index: 799;
+  
+}
+
+.cardmo-text2 {
+  display: flex;
+  flex-direction: column;
+  bottom: 0;
+  align-items: center;
+}
+
+.cardmo-text2 h2 {
+  font-size: 18px;
+  font-family: Poppins,sans-serif;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 400;
+  margin-left: 0;
+}
+
+
+.cardmo-text2 h3 {
+  color: rgba(255, 255, 255, 0.8);
+  font-family: Roboto,sans-serif;
+  font-weight: 400;
+  font-size: 24px;
+}
+
+.cardmo-text2 h4 {
+  color: rgba(255, 255, 255, 0.4);
+  font-family: Roboto,sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  text-decoration: line-through;
+  letter-spacing: 2.0px;
+}
+
+.cardmo-text2 a {
+  color: rgba(255, 255, 255, 1);
+  font-family: Roboto,sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  margin-top: 5px;
+  background: rgb(168, 86, 39);
+  padding: 10px 15px;
+  border-radius: 4px;
+  margin-bottom: 5px;
+}
+
+
+
+
+.favbtt2 {
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin-top: -55px;
+  margin-right: 5px;
+  z-index: 800;
+}
+
+#favbtt2 {
+  display: none;
+}
+
+.favbtt2 img {
+  width: 28px;
+}
+
+#imgreleased2 {
+  display: none;
+}
+
+
+
+#favbtt2:checked ~ #imgpressed2 {
+  display: block;
+}
+
+
+
+.desconto-area2 {
+  
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-top: -65px;
+  margin-left: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  z-index: 800;
+}
+
+.desconto-area2 h3 {
+  color: rgba(255, 255, 255, 0.5);
+  font-family: Roboto,sans-serif;
+  font-style: italic;
+  font-weight: 600;
+  font-size: 18px;
+
+
+
+}
+
+
+
+
+
+
+
+.other_products {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  flex-direction: column;
+  
+  width: 90%;
 }
