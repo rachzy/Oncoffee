@@ -1167,52 +1167,5 @@ button[class*=btn] {
   flex-direction: column;
 }
 
-.cupons_box li {
-  width: 100%;
-}
-
-.cupons_box li label {
-  border-bottom: 1px solid rgb(45, 45, 45);
-  width: 100%;
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  cursor: pointer;
-}
-
-
-.check_radio {
-  width: 25px;
-  height: 25px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 30px;
-  border: 2px solid rgb(255, 255, 255,0.15);
-}
-
-#radio1:checked ~ .check_radio {
-  background: rgb(167, 89, 45);
-  border: 2px solid rgb(197, 116, 69);
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
