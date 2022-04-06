@@ -1167,5 +1167,45 @@ button[class*=btn] {
   flex-direction: column;
 }
 
+.radio_box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 15px;
+  border: 1px solid transparent;
+  transition: 0.3s ease all;
+  margin-top: 5px;
+}
 
+.radio_box:hover {
+  border: 1px solid rgb(55, 55, 55);
+  cursor: pointer;
+}
 
+#radio_checked {
+  border: 1px solid rgb(167, 89, 45);
+}
+
+.radio_box input {
+  display: none;
+}
+
+.radio_cupons {
+  width: 100%;
+  cursor: pointer;
+  padding: 15px;
+}
+
+.radio_cupons h2 {
+  font-size: 22px;
+  font-weight: 500;
+  font-family: Poppins,sans-serif;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.radio_cupons h3 {
+  font-size: 18px;
+  font-weight: 400;
+  font-family: Poppins,sans-serif;
+  color: rgba(255, 255, 255, 0.5);
+}
