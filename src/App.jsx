@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, createContext } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import "./css/Content.css";
 
 import Axios from "axios";
+
 import getCookie from "./globalFunctions/getCookie";
 import deleteCookie from "./globalFunctions/deleteCookie";
 import displayError from "./globalFunctions/displayErrors";
@@ -11,11 +12,13 @@ import displayError from "./globalFunctions/displayErrors";
 import SkipToContentButton from "./Components/PageComponents/SkipToContentButton";
 import Popup from "./Components/PageComponents/Popup";
 import Header from "./Components/PageComponents/Header";
-import Buttonsmo from "./Components/ContentMobile/Buttonsmo";
 import Index from "./Components/Index";
 import Error from "./Components/PageComponents/Error";
 
 import Login from "./Components/Login";
+import Confirm from "./Components/Confirm";
+
+export const GlobalServerContext = createContext();
 
 const App = () => {
   const userId = getCookie("UID");
@@ -28,11 +31,15 @@ const App = () => {
   const [serverStatus, setServerStatus] = useState();
 
   useEffect(() => {
+    let displayedOnce = false;
     const checkServerConnection = async () => {
       //The main page of the server will always return a status
       const checkServerConnection = await Axios.get(`${serverUrl}`).catch(
-        () => {
-          return displayError("0", "ERR_CONNECTION_REFUSED");
+        (err) => {
+          if (!displayedOnce) {
+            displayError(err, "");
+            return displayedOnce = true;
+          }
         }
       );
 
@@ -54,6 +61,13 @@ const App = () => {
   }, [serverUrl]);
 
   if (userId && serverStatus === 200) {
+    //If there are no security tokens, stop the execution, delete the cookies and reload the page
+    if (!securityToken1 || !securityToken2) {
+      deleteCookie("UID");
+      deleteCookie("STOKEN1");
+      deleteCookie("STOKEN2");
+      window.location.reload();
+    }
     //Check if the security tokens cookies are valid, if they're not, unset all of them and reload the page
     const getSecurityTokens = async () => {
       const { data } = await Axios.get(
@@ -252,7 +266,11 @@ const App = () => {
     }
   };
 
+  //State that controls the Header title
   const [headerPageTitle, setHeaderPageTitle] = useState();
+
+  //State that controls if the user had already loaded the index page once to avoid unnecessary loading
+  const [isIndexAlreadyLoaded, setIndexAlreadyLoaded] = useState(false);
 
   return (
     <Router>
@@ -269,30 +287,48 @@ const App = () => {
       >
         {headerPageTitle}
       </Header>
-      <Buttonsmo />
-      <Routes>
-        <Route
-          path="/"
-          exact
-          element={
-            <Index
-              pageTitle="Home"
-              setHeaderPageTitle={setHeaderPageTitle}
-              serverStatus={serverStatus}
-              handleFavoritedProductsChange={handleFavoritedProductsChange}
-              handleSetPopupState={handleSetPopupState}
-              handleAddCartProduct={handleAddCartProduct}
-            />
-          }
-        />
-        <Route
-          path="/login"
-          exact
-          element={
-            <Login pageTitle="Login" setHeaderPageTitle={setHeaderPageTitle} />
-          }
-        />
-      </Routes>
+      <GlobalServerContext.Provider
+        value={{ serverUrl: serverUrl, displayError: displayError }}
+      >
+        <Routes>
+          <Route
+            path="/"
+            exact
+            element={
+              <Index
+                pageTitle="Home"
+                setHeaderPageTitle={setHeaderPageTitle}
+                serverStatus={serverStatus}
+                isIndexAlreadyLoaded={isIndexAlreadyLoaded}
+                setIndexAlreadyLoaded={setIndexAlreadyLoaded}
+                handleFavoritedProductsChange={handleFavoritedProductsChange}
+                handleSetPopupState={handleSetPopupState}
+                handleAddCartProduct={handleAddCartProduct}
+              />
+            }
+          />
+          <Route
+            path="/login"
+            exact
+            element={
+              <Login
+                pageTitle="Login"
+                setHeaderPageTitle={setHeaderPageTitle}
+              />
+            }
+          />
+          <Route
+            path="/confirm"
+            exact
+            element={
+              <Confirm
+                pageTitle="Confirmação"
+                setHeaderPageTitle={setHeaderPageTitle}
+              />
+            }
+          />
+        </Routes>
+      </GlobalServerContext.Provider>
       <Error />
     </Router>
   );

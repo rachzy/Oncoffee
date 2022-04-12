@@ -265,7 +265,7 @@
   max-width: 90%;
   bottom: -500px;
   position: fixed;
-  display: inherit;
+  display: flex;
   background-color: rgb(168, 6, 6);
   width: fit-content;
   left: 20px;
@@ -315,4 +315,14 @@
   color: white;
   text-align: center;
   font-family: "Poppins";
+}
+
+/* ERROR */
+
+.error-msg {
+  font-size: 14px;
+  font-family: Roboto,sans-serif;
+  color: rgb(182, 74, 74);
+  margin-left: 5px;
+  text-align: center;
 }

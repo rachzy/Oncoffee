@@ -16,13 +16,6 @@
 
 }
 
-body {
-    overflow-x: hidden;
-    background: rgb(20, 20, 20);
-    min-height: 100vh;
-    
-}
-
 .conteudo-login {
     width: 100%;
     display: flex;
@@ -291,6 +284,10 @@ body {
     transition: 0.3s all ease;
 }
 
+.proxbtt.clicked {
+    background: linear-gradient(45deg,rgba(197, 106, 54, 0.6),rgba(167, 89, 45, 0.6));
+}
+
 .proxbtt:hover {
     letter-spacing: 2px;
     cursor: pointer;
@@ -312,7 +309,5 @@ body {
     font-size: 14px;
     font-family: Roboto,sans-serif;
     color: rgb(182, 74, 74);
-    padding: 3px 5px;
-    margin-bottom: 5px;
-    height: 5px;
+    margin-left: 5px;
 }

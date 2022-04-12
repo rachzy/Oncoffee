@@ -1,0 +1,279 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+
+* {
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-style: initial;
+    box-shadow: 0 0 0 0;
+    border: 0 none;
+    outline: none;
+}
+
+.conteudo-confirm {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-height: 100vh;
+}
+
+.textarea {
+    color: rgb(22, 22, 22);
+
+    width: 150%;
+    font-size: 50px;
+    position: fixed;
+    
+    cursor: default;
+    letter-spacing: 6px;
+    
+    
+}
+
+.textarea p {
+    display: inline-block;
+    transition: all 0.3s ease-in-out;
+    font-weight: 800;
+    font-family: Poppins,sans-serif;
+    font-style: italic;
+}
+
+.textarea p:hover {
+    color: rgb(28, 28, 28);
+    
+}
+
+/* ERROR MESSAGE */
+
+.errormessage {
+    display: none;
+    padding: 10px;
+}
+
+.errormessage.active {
+    display: block;
+}
+
+.errormessage h1 {
+    font-family: Poppins, sans-serif;
+    font-weight: 300;
+    color: rgb(236, 10, 10);
+    margin-left: 5px;
+    text-align: center;
+}
+
+.errormessage p {
+    text-align: center;
+}
+
+.errormessage button {
+    background-color: rgb(161, 46, 46);
+    padding: 10px;
+    width: 40%;
+    display: block;
+    margin: auto;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: 0.2s all;
+}
+
+.errormessage button:hover {
+    transform: scale(1.05);
+}
+
+/*NUMBER COLUM*/
+
+.numbercolum {
+    display: none;
+}
+
+.numbercolum.active {
+    display: block;
+}
+
+/* NUMBER CONFIRM */
+
+.numberconfirm {
+    display: none;
+}
+
+.numberconfirm.active {
+    display: block;
+}
+
+/* CONTAINER CONFIRM*/
+
+.container-confirm {
+    background: rgb(50, 50, 50);
+    width: 18%;
+    border-radius: 15px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 35%;
+}
+
+#backbtt {
+    display: none;
+}
+
+.container-confirm label {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 16px;
+}
+
+.container-confirm label i {
+    text-align: left;
+}
+
+.container-confirm label i:hover {
+    cursor: pointer;
+}
+
+
+.container-confirm h2 {
+    color: white;
+    font-family: Poppins,sans-serif;
+    font-weight: 500;
+    font-size: 25px;
+    cursor: default;
+    text-align: center;
+}
+
+.container-confirm h3 {
+    color: rgb(230, 127, 68);
+    font-size: 17px;
+    font-family: Poppins,sans-serif;
+    font-weight: 400;
+    text-align: center;
+    letter-spacing: 1px;
+    cursor: default;
+    
+}
+
+.container-confirm p {
+    color: rgba(255, 255, 255, 0.7);
+    font-family: Ubuntu,sans-serif;
+    font-weight: 300;
+    font-size: 15px;
+    margin-top: 5px;
+    cursor: default;
+    text-align: center;
+}
+
+.inputnumber {
+    padding: 8px;
+    margin-top: 10px;
+    border-radius: 3px;
+    width: 95%;
+    background: rgb(40, 40, 40);
+    color: white;
+    font-family: Roboto,sans-serif;
+    font-size: 14px;
+    border: 1px solid rgba(5, 121, 253, 0);
+    transition: all 0.3s ease;
+}
+
+.inputnumber:focus {
+    border: 1px solid rgb(167, 89, 45);
+}
+
+.enviarbtt {
+    width: 50%;
+    padding: 5px;
+    background-color: rgb(167, 89, 45);
+    color: white;
+    font-family: Poppins,sans-serif;
+    font-size: 15px;
+    letter-spacing: 0.7px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: 0.2s ease-in-out all;
+}
+
+.enviarbtt.loading {
+    background-color: rgb(105, 58, 31);
+}
+
+.enviarcenter {
+    display: flex;
+    width: 100%;
+    margin-top: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.inputstext {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+#reenviar {
+    display: none;
+}
+
+.reenviar p {
+    color: rgb(167, 89, 45);
+    font-size: 13px;
+    font-family: Ubuntu,sans-serif;
+    cursor: pointer;
+    width: max-content;
+    transition: 0.2s all;
+}
+
+.reenviar p:hover {
+    color: rgb(214, 93, 23);
+}
+
+.inputstext input {
+    width: 8%;
+    border: 1px solid rgba(5, 121, 253, 0);
+    padding: 10px;
+    background: rgb(40, 40, 40);
+    border-radius: 5px;
+    text-align: center;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.inputstext input:focus {
+    border: 1px solid rgb(167, 89, 45);
+}
+
+
+.bttcenter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 2%;
+}
+
+.bttcenter input {
+    margin-top: 5px;
+    padding: 5px 10px;
+    font-size: 14px;
+    border-radius: 3px;
+    background: rgb(167, 89, 45);
+    color: white;
+    font-family: Poppins,sans-serif;
+    transition: 0.2s all;
+    cursor: pointer;
+}
+
+.bttcenter input:hover {
+    background: rgb(167, 78, 30);
+}
+
+.bttcenter.loading input {
+    background: rgb(121, 67, 37);
+}

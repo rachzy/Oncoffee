@@ -1,28 +1,27 @@
-import React, { useState, useEffect } from "react";
-
-import Axios from "axios";
+import React, { useEffect } from "react";
 
 import "../css/Cards.css";
 import "../css/Mid.css";
 import "../css/Mobile.css";
 import "../css/Top.css";
 
-import getCookie from "../globalFunctions/getCookie";
-import displayError from "../globalFunctions/displayErrors";
 import setPageTitle from "../globalFunctions/setPageTitle";
 
 import ContentPc from "./Index/ContentPc";
-import TopBar from "./ContentPc/TopBar";
-import SliderMainPc from "./ContentPc/SliderMainPc";
-import Midcenter from "./ContentPc/Midcenter";
+import TopBar from "./Index/ContentPc/TopBar";
+import SliderMainPc from "./Index/ContentPc/SliderMainPc";
+import Midcenter from "./Index/ContentPc/Midcenter";
 
 import ContentMobile from "./Index/ContentMobile";
-import SliderMobile from "./ContentMobile/SliderMobile";
-import MidcenterMobile from "./ContentMobile/MidcenterMobile";
+import SliderMobile from "./Index/ContentMobile/SliderMobile";
+import MidcenterMobile from "./Index/ContentMobile/MidcenterMobile";
+import Buttonsmo from "./Index/ContentMobile/Buttonsmo";
 
 const Index = ({
   pageTitle,
   setHeaderPageTitle,
+  isIndexAlreadyLoaded,
+  setIndexAlreadyLoaded,
   handleAddCartProduct,
   handleFavoritedProductsChange,
   handleSetPopupState,
@@ -31,11 +30,15 @@ const Index = ({
   useEffect(() => {
     setPageTitle(pageTitle);
     setHeaderPageTitle(pageTitle);
-  }, [pageTitle]);
+  }, [setHeaderPageTitle, pageTitle]);
 
   return (
     <>
-      <ContentPc serverStatus={serverStatus}>
+      <ContentPc
+        serverStatus={serverStatus}
+        isIndexAlreadyLoaded={isIndexAlreadyLoaded}
+        setIndexAlreadyLoaded={setIndexAlreadyLoaded}
+      >
         <TopBar />
         <SliderMainPc />
         <Midcenter
@@ -45,13 +48,20 @@ const Index = ({
           handleSetPopupState={handleSetPopupState}
         />
       </ContentPc>
-      <ContentMobile serverStatus={serverStatus}>
+      <ContentMobile
+        serverStatus={serverStatus}
+        isIndexAlreadyLoaded={isIndexAlreadyLoaded}
+        setIndexAlreadyLoaded={setIndexAlreadyLoaded}
+      >
         <SliderMobile />
         <MidcenterMobile
           serverStatus={serverStatus}
+          isIndexAlreadyLoaded={isIndexAlreadyLoaded}
+          setIndexAlreadyLoaded={setIndexAlreadyLoaded}
           handleFavoritedProductsChange={handleFavoritedProductsChange}
           handleAddCartProduct={handleAddCartProduct}
         />
+        <Buttonsmo />
       </ContentMobile>
     </>
   );
