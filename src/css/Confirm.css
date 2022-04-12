@@ -19,7 +19,7 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    min-height: 100vh;
+    max-height: 100vh;
 }
 
 .textarea {
@@ -228,6 +228,11 @@
     font-family: Ubuntu,sans-serif;
     cursor: pointer;
     width: max-content;
+    transition: 0.2s all;
+}
+
+.reenviar p:hover {
+    color: rgb(214, 93, 23);
 }
 
 .inputstext input {

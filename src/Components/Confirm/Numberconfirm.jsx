@@ -5,7 +5,6 @@ import TitleDescription from "./Numberconfirm/TitleDescription";
 import InputsArea from "./Numberconfirm/InputsArea";
 
 const Numberconfirm = ({mainClassName}) => {
-  document.body.style.overflowY = 'hidden';
   return (
     <main className={mainClassName}>
       <GoBack />

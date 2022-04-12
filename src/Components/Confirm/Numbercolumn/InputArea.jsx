@@ -56,30 +56,35 @@ const InputArea = ({ emailInitialValue }) => {
       ];
 
       const postNewEmail = async () => {
-        const query = await Axios.post(`${serverDetails.serverUrl}/setverificationemail`, {
-          id: id,
+        await Axios.post(`${serverDetails.serverUrl}/account/setverificationemail`, {
+          userId: id,
           registerToken: registerToken,
+          email: inputValue
         })
-          .then(() => {
+          .then((response) => {
             sendBtn.current.classList.remove("loading");
+
+            const { data } = response;
+
+            if (data.isError) {
+              return setErrorValue(
+                `Ocorreu um erro ao registrar esse email: ${data.errorCode}`
+              );
+            }
+
+            switch(data.queryStatus) {
+              case 200:
+                changeClass("numberconfirm");
+                break;
+              default:
+                return setErrorValue(
+                  "Ocorreu um erro desconhecido, por favor tente de novo mais tarde."
+                );
+            }
           })
           .catch((err) => {
             return setErrorValue(`Ocorreu um erro interno do servidor: ${err}`);
           });
-
-        console.log(query);
-
-        const { data } = query;
-
-        if (data.isError) {
-          return setErrorValue(
-            `Ocorreu um erro ao registrar esse email: ${data.errorCode}`
-          );
-        }
-
-        if(data.queryStatus === 200) {
-          changeClass("numberconfirm");
-        }
       };
       return postNewEmail();
     }

@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import {useNavigate, useSearchParams} from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 import Axios from "axios";
 
@@ -10,7 +10,7 @@ import Error from "../../Error";
 
 const RegisterInputs = () => {
   const navigate = useNavigate();
-  const searchParams = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   //Import serverURL
   const { serverUrl } = require("../../../../connection.json");
@@ -345,14 +345,10 @@ const RegisterInputs = () => {
 
           //If the Array length is 2, than the user in fact insert a "-" in the input value
           if (checkIfValueHasScore.length === 2) {
-            if (
-              isNaN(checkIfValueHasScore[0]) ||
-              isNaN(checkIfValueHasScore[1]) ||
-              checkIfValueHasScore[0].length !== 9 ||
-              checkIfValueHasScore[1].length !== 2
-            )
-              //If any of those conditions is true, then the CPF is not valid
+            const cutScore = input.value.replace("-", "");
+            if (isNaN(cutScore)) {
               return SetErrorObject("emailcpf");
+            }
             return null; //If every condition returned as false, then the cpf is valid
           }
 
@@ -372,12 +368,14 @@ const RegisterInputs = () => {
   const verifyMatching = (name) => {
     const getInput = inputData.filter((input) => input.name === name)[0];
     if (!getInput.matchingInput.enabled) return false; //If the matching "enabled" option is not true, then the input is not a matching input
- 
+
     //Get the input name
     const matchInputName = getInput.matchingInput.match;
 
     //Get the matching input name
-    const getMatchInput = inputData.filter((input) => input.name === matchInputName)[0];
+    const getMatchInput = inputData.filter(
+      (input) => input.name === matchInputName
+    )[0];
 
     let originalInput, verifyingInput;
 
@@ -474,18 +472,21 @@ const RegisterInputs = () => {
     });
 
     const postNewUser = async () => {
-      const { data } = await Axios.post(`${serverUrl}/postnewuser`, {
+      const query = await Axios.post(`${serverUrl}/account/register`, {
         name: name,
         lastname: lastname,
         emailcpf: emailcpf,
         password: password,
-      }).catch(() => {
+      }).catch((err) => {
         setMainErrorValue(
-          "Ocorreu um erro interno do servidor. Tente novamente em alguns segundos"
+          `Ocorreu um erro interno do servidor. Tente novamente em alguns segundos. (${err})`
         );
+        proxBtn.current.classList.remove("clicked");
       });
 
       proxBtn.current.classList.remove("clicked");
+
+      const { data } = query;
 
       if (data.isError) {
         const errorCode = data.errorCode;
@@ -495,6 +496,14 @@ const RegisterInputs = () => {
               "custom",
               "email",
               "Esse e-mail ou CPF já está em uso!",
+              false
+            );
+            break;
+          case "INVALID_EMAIL":
+            SetErrorObject(
+              "custom",
+              "email",
+              "Esse e-mail ou CPF é inválido",
               false
             );
             break;
@@ -511,8 +520,8 @@ const RegisterInputs = () => {
         let redirectUrl = `/confirm?id=${data.userInfo.userId}&token=${data.userInfo.registerToken}`;
 
         const nextPage = searchParams.get("next");
-        if(nextPage) redirectUrl = `${redirectUrl}&next=${nextPage}`;
-        
+        if (nextPage) redirectUrl = `${redirectUrl}&next=${nextPage}`;
+
         navigate(redirectUrl);
       }
     };

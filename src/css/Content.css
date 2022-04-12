@@ -102,63 +102,117 @@ body {
 
 .navbar3 {
   width: 100%;
-
-  padding: 70px 0 70px 0;
+  
+  padding: 20px 0px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  
   align-items: center;
-
+  
   flex-direction: row;
   position: relative;
-  z-index: 99999;
+  z-index: 999;
   top: 0;
+  
 }
 
-.navlogo3 img {
+
+.nav_left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+
+  width: 30%;
+}
+
+.center_nav_left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  margin-right: 25%;
+  
+  width: 40%;
+  
+}
+
+
+.nav_mid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  
+  width: 40%;
+}
+
+.nav_right {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: end;
+  
+  width: 30%;
+}
+
+
+.center_nav_right {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-right: 25%;
+  width: 40%;
+  
+}
+
+.nav_mid img {
   width: 100px;
-  position: absolute;
-  margin-left: auto;
-  margin-right: auto;
-  left: 0;
-  right: 0;
+  
 }
 
 .navbar3 .navlogo3 {
   width: 100%;
+  
   display: flex;
-  margin: auto;
   align-items: center;
   justify-content: center;
 }
 
-.pagname3 h1 {
+.nav_left h1 {
   color: white;
   font-size: 32px;
-  font-family: Poppins, sans-serif;
+  font-family: Poppins,sans-serif;
   font-weight: 500;
   letter-spacing: 0.7px;
+ 
 }
 
-.pagname3 {
-  position: absolute;
-  left: 3%;
-}
 
 .hunderline3 {
-  width: 40%;
+  width: 60px;
+  
   border-radius: 5px;
   height: 4px;
   background: rgb(167, 89, 45);
   top: 0;
   margin-top: -6px;
+
 }
 
 .shopkartmo3 {
   margin-right: 4%;
   margin-top: -15px;
   display: inline-block;
+  
 }
+
+
 
 .shopkartmo3 label img {
   width: 25px;
@@ -172,12 +226,15 @@ body {
 }
 
 #userbtt {
+  
   transition: 0.4s ease all;
 }
 
 .shopkartmo3:hover .user_box {
   display: flex;
 }
+
+
 
 .user_box {
   position: absolute;
@@ -186,46 +243,55 @@ body {
   padding-top: 12px;
   border-radius: 5px;
   margin-left: -85px;
-
+  
   display: none;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
+
+
+
 .user_box li a {
   font-size: 15px;
-  cursor: pointer;
-  font-family: Ubuntu, sans-serif;
+  
+  font-family: Ubuntu,sans-serif;
   transition: 0.2s ease all;
+  
 }
 
 .lia {
   color: rgba(255, 255, 255, 0.7);
 }
 
+
 .lia:hover {
   color: rgba(255, 255, 255, 0.8);
 }
 
-.login {
+.login  {
+  
   color: white;
   padding: 5px 20px;
-
+  
   border-radius: 5px;
-  font-family: Ubuntu, sans-serif;
+  font-family: Ubuntu,sans-serif;
+  
 }
 
 .login:hover {
   background: rgba(255, 255, 255, 0.1);
 }
 
+
+
 .register {
-  border: 1px solid rgb(255, 255, 255, 0.8);
+  border: 1px solid rgb(255, 255, 255,0.8);
   color: rgba(255, 255, 255, 0.8);
   padding: 5px 8px;
   border-radius: 5px;
-  font-family: Ubuntu, sans-serif;
+  font-family: Ubuntu,sans-serif;
   margin-left: 15px;
 }
 
@@ -241,6 +307,11 @@ body {
 .user_box li:nth-child(2) {
   margin-top: 20px;
 }
+
+
+
+
+
 
 .fav_box {
   position: absolute;
@@ -261,13 +332,13 @@ body {
   padding: 5px 8px;
   color: rgba(255, 255, 255, 0.8);
   font-size: 16px;
-  font-family: Poppins, sans-serif;
+  font-family: Poppins,sans-serif;
   font-weight: 400;
   border-radius: 3px;
-  cursor: pointer;
 }
 
 .fav_box_overflow {
+  
   height: max-content;
   max-height: 150px;
   display: flex;
@@ -279,15 +350,25 @@ body {
 }
 
 .fav_box_overflow::-webkit-scrollbar {
+  
   width: 5px;
+  
 }
 
 .fav_box_overflow::-webkit-scrollbar-track {
   background: rgba(35, 35, 35, 1);
+  
+  
 }
 .fav_box_overflow::-webkit-scrollbar-thumb {
   background-color: rgb(167, 89, 45);
+  
+  
+  
+  
 }
+
+
 
 .shopkartmo3:hover .fav_box {
   display: flex;
@@ -298,16 +379,19 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-
+  
   margin-bottom: 8px;
 }
 
-.fav_img_line {
+
+.fav_img_line  {
   width: 25%;
+  
 }
 
 .fav_img_line img {
   width: 100%;
+
 }
 
 .fav_text_line {
@@ -319,7 +403,7 @@ body {
   font-size: 16px;
   font-weight: 400;
   color: rgba(255, 255, 255, 0.8);
-  font-family: Poppins, sans-serif;
+  font-family: Poppins,sans-serif;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -329,10 +413,11 @@ body {
   font-size: 20px;
   font-weight: 400;
   color: rgba(255, 255, 255, 0.8);
-  font-family: Poppins, sans-serif;
+  font-family: Poppins,sans-serif;
 }
 
 .fav_remove_line {
+  
   width: 15%;
   display: flex;
   align-items: center;
@@ -375,10 +460,11 @@ body {
 
 .fav_quant p {
   color: rgba(255, 255, 255, 0.7);
-  font-family: Poppins, sans-serif;
+  font-family: Poppins,sans-serif;
   font-size: 15px;
   transition: 0.2s ease all;
 }
+
 
 .shop_box {
   position: absolute;
@@ -399,18 +485,13 @@ body {
   padding: 5px 8px;
   color: rgba(255, 255, 255, 0.8);
   font-size: 16px;
-  font-family: Poppins, sans-serif;
+  font-family: Poppins,sans-serif;
   font-weight: 400;
   border-radius: 3px;
-  transition: 0.2s ease-in-out all;
-  cursor: pointer;
-}
-
-.shop_box a:hover {
-  transform: scale(1.05);
 }
 
 .shop_box_overflow {
+  
   height: max-content;
   max-height: 250px;
   display: flex;
@@ -422,15 +503,25 @@ body {
 }
 
 .shop_box_overflow::-webkit-scrollbar {
+  
   width: 5px;
+  
 }
 
 .shop_box_overflow::-webkit-scrollbar-track {
   background: rgba(35, 35, 35, 1);
+  
+  
 }
 .shop_box_overflow::-webkit-scrollbar-thumb {
   background-color: rgb(167, 89, 45);
+  
+  
+  
+  
 }
+
+
 
 .shopkartmo3:hover .shop_box {
   display: flex;
@@ -441,16 +532,20 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-
+  
   margin-bottom: 8px;
 }
 
-.shop_img_line {
+
+
+.shop_img_line  {
   width: 25%;
+  
 }
 
 .shop_img_line img {
   width: 100%;
+
 }
 
 .shop_text_line {
@@ -462,7 +557,7 @@ body {
   font-size: 16px;
   font-weight: 400;
   color: rgba(255, 255, 255, 0.8);
-  font-family: Poppins, sans-serif;
+  font-family: Poppins,sans-serif;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -472,10 +567,11 @@ body {
   font-size: 20px;
   font-weight: 400;
   color: rgba(255, 255, 255, 0.8);
-  font-family: Poppins, sans-serif;
+  font-family: Poppins,sans-serif;
 }
 
 .shop_remove_line {
+  
   width: 15%;
   display: flex;
   align-items: center;
@@ -493,13 +589,13 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
   transition: 0.3s ease all;
 }
 
 .shop_remove_line button:hover {
   background: rgb(235, 76, 76);
   color: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
 }
 
 .shop_quant {
@@ -518,66 +614,127 @@ body {
 
 .shop_quant p {
   color: rgba(255, 255, 255, 0.7);
-  font-family: Poppins, sans-serif;
+  font-family: Poppins,sans-serif;
   font-size: 15px;
   transition: 0.2s ease all;
 }
 
+
+
+
+
+
+
+
+
+
 .navbar2 {
   width: 100%;
-
+  
   padding: 20px 0px;
   display: none;
-  flex-direction: column;
-  justify-content: space-between;
+  flex-direction: row;
   align-items: center;
-
+  
   flex-direction: row;
   position: relative;
   z-index: 999;
   top: 0;
+  
 }
 
-.navlogo2 img {
-  width: 100px;
-  margin-left: -78px;
-}
 
-.navbar2 .navlogo2 {
-  width: 100%;
 
+
+
+
+
+.nav_mobile_left {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  
+  width: 30%;
 }
 
-.pagname h1 {
+.center_mobile_left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  margin-right: 25%;
+  width: 40%;
+  
+}
+
+
+.nav_mobile_left h1 {
   color: white;
-  font-size: 32px;
-  font-family: Poppins, sans-serif;
+  font-size: 24px;
+  font-family: Poppins,sans-serif;
   font-weight: 500;
   letter-spacing: 0.7px;
+  
 }
 
-.pagname {
-  margin-left: 4%;
-  cursor: default;
-  padding-right: 65px;
-}
-
-.hunderline {
-  width: 40%;
+.hunderline2 {
+  width: 45px;
   border-radius: 5px;
   height: 4px;
   background: rgb(167, 89, 45);
   top: 0;
   margin-top: -6px;
+
 }
+
+
+.nav_mobile_mid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  width: 40%;
+}
+
+.nav_mobile_right {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  
+  width: 30%;
+}
+
+.nav_right_center {
+  width: 60%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 35px;
+
+}
+
+.nav_mobile_mid img {
+  width: 100px;
+}
+
+
+.center_nav_right {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-right: 25%;
+  width: 40%;
+  
+}
+
 
 .shopkartmo {
   margin-right: 4%;
   margin-top: -15px;
   display: inline-block;
+  
 }
 
 .shopkartmo label img {

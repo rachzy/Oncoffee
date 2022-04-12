@@ -17,7 +17,7 @@ import ErrorColumn from "./Confirm/ErrorColumn";
 import Numbercolumn from "./Confirm/Numbercolumn";
 import Numberconfirm from "./Confirm/Numberconfirm";
 
-import Textarea from "./Confirm/Textarea";
+// import Textarea from "./Confirm/Textarea";
 
 import { GlobalServerContext } from "../App";
 
@@ -28,6 +28,8 @@ const Confirm = ({ setHeaderPageTitle, pageTitle }) => {
     setPageTitle(pageTitle);
     setHeaderPageTitle(pageTitle);
   }, [pageTitle, setHeaderPageTitle]);
+
+  const loadingMessage = useRef(null);
 
   const getGlobalServerContext = useContext(GlobalServerContext);
   const [searchParams] = useSearchParams();
@@ -41,6 +43,7 @@ const Confirm = ({ setHeaderPageTitle, pageTitle }) => {
 
   //Function that can easily handle a class change and display off the others
   const classDisplay = (className) => {
+    loadingMessage.current.style.display = 'none';
     switch (className) {
       case "errormessage":
         setMainClasses({
@@ -75,10 +78,9 @@ const Confirm = ({ setHeaderPageTitle, pageTitle }) => {
   const [errorMessage, setErrorMessage] = useState();
 
   //Get URL params
-  const [userId, registerToken, nextPage] = [
+  const [userId, registerToken] = [
     searchParams.get("id"),
     searchParams.get("token"),
-    searchParams.get("next"),
   ];
 
   const [emailInitialValue, setEmailInitialValue] = useState("");
@@ -86,7 +88,7 @@ const Confirm = ({ setHeaderPageTitle, pageTitle }) => {
   useEffect(() => {
     const verifyIfSearchParamsAreValid = async () => {
       const validateParamsCon = await Axios.get(
-        `${getGlobalServerContext.serverUrl}/validateregisterparams/${userId}/${registerToken}`
+        `${getGlobalServerContext.serverUrl}/account/validateregisterparams/${userId}/${registerToken}`
       ).catch((err) => {
         return setErrorMessage(`Ocorreu um erro interno do servidor: ${err}`);
       });
@@ -128,6 +130,7 @@ const Confirm = ({ setHeaderPageTitle, pageTitle }) => {
       {/* <Textarea /> */}
       <main className="container-confirm">
         <ChangeClassesContext.Provider value={classDisplay}>
+          <p ref={loadingMessage}>Carregando...</p>
           <ErrorColumn
             mainClassName={mainClasses.ErrorMessage}
             message={errorMessage}
