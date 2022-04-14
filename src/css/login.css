@@ -35,7 +35,7 @@
     border-radius: 15px;
     padding: 25px;
     min-width: 35%;
-    height: 370px;
+    height: 430px;
     display: block;
     margin: auto;
     justify-content: center;
@@ -212,6 +212,7 @@
 }
 
 .logininputcolumn2 label {
+    margin-bottom: 30px;
     width: 40%;
     font-size: 18px;
     font-family: Roboto,sans-serif;
@@ -258,7 +259,7 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    margin-top: -270px;
+    margin-top: -350px;
     margin-left: 150%;
     transition: 0.2s ease-in-out all;
 }
@@ -284,7 +285,7 @@
     transition: 0.3s all ease;
 }
 
-.proxbtt.clicked {
+.proxbtt.loading {
     background: linear-gradient(45deg,rgba(197, 106, 54, 0.6),rgba(167, 89, 45, 0.6));
 }
 

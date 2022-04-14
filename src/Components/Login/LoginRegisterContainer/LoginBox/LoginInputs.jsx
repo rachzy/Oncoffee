@@ -1,14 +1,21 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useContext } from "react";
+import { useSearchParams, useNavigate } from "react-router-dom";
+
+import Axios from "axios";
 
 import Input from "../../Input";
 import Error from "../../Error";
 
-const LoginInputs = () => {
-  function initialState() {
-    return { user: "", password: "" };
-  }
+import { GlobalServerContext } from "../../../../App";
 
-  const [inputValues, setInputValues] = useState(initialState());
+const LoginInputs = () => {
+  const getGlobalServerContext = useContext(GlobalServerContext);
+
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const nextPage = searchParams.get("next");
+
+  const [inputValues, setInputValues] = useState({ user: "", password: "" });
   const [errorValues, setErrorValues] = useState([
     {
       name: "user",
@@ -19,6 +26,7 @@ const LoginInputs = () => {
       text: "",
     },
   ]);
+  const [mainErrorValue, setMainErrorValue] = useState("");
 
   const loginInputColumn = useRef(null);
 
@@ -31,22 +39,71 @@ const LoginInputs = () => {
     });
   };
 
+  const proxBtn = useRef(null);
   const handleButtonClick = () => {
-    const newErrorValues = errorValues.map((error) => {
-      let errorMessage;
-      if (error.name === "user") errorMessage = "Email ou CPF inválido";
-      if (error.name === "password") errorMessage = "Senha inválida";
-      return {
-        name: error.name,
-        text: errorMessage,
-      };
-    });
-    setErrorValues(newErrorValues);
+    proxBtn.current.classList.add("loading");
+    const executeLogin = async () => {
+      try {
+        const { data } = await Axios.post(
+          `${getGlobalServerContext.serverUrl}/account/login`,
+          {
+            emailcpf: inputValues.user,
+            pass: inputValues.password,
+          },
+          {
+            withCredentials: true,
+          }
+        );
+
+        if (data.isError) {
+          proxBtn.current.classList.remove("loading");
+          switch (data.errorCode) {
+            case "INVALID_CREDENTIALS":
+              return setErrorValues([
+                {
+                  name: "user",
+                  text: "Email ou CPF inválidos",
+                },
+                {
+                  name: "password",
+                  text: "Senha inválida",
+                },
+              ]);
+            default:
+              return setMainErrorValue(
+                `Ocorreu um erro ao tentar efetuar o login: ${data.errorCode}`
+              );
+          }
+        }
+
+        if (data.queryStatus === 200) {
+          if (!nextPage || nextPage === null || nextPage === "") {
+            return navigate("/");
+          }
+          return navigate(`/${nextPage}`);
+        }
+      } catch (err) {
+        proxBtn.current.classList.remove("loading");
+        switch (err.response.status) {
+          case 429:
+            setMainErrorValue(
+              "Você realizou muitas tentativas em um curto período de tempo, tente novamente mais tarde."
+            );
+            break;
+          default:
+            setMainErrorValue(`Ocorreu um erro interno do servidor: ${err}`);
+        }
+      }
+    };
+    executeLogin();
   };
 
   const inputLoginPassword = document.querySelector("#input-login-password");
   const handleShowPasswordClick = () => {
-    const newType = inputLoginPassword.getAttribute("type") === "password" ? "text" : "password";
+    const newType =
+      inputLoginPassword.getAttribute("type") === "password"
+        ? "text"
+        : "password";
     inputLoginPassword.setAttribute("type", newType);
   };
 
@@ -92,10 +149,12 @@ const LoginInputs = () => {
           style={{ height: "20px" }}
         />
       </div>
-      <Input
+      <Error text={mainErrorValue} style={{textAlign: "center", height: "30px", marginBottom: "10px"}} />
+      <input
         type="button"
         className="proxbtt"
         onClick={handleButtonClick}
+        ref={proxBtn}
         value="Entrar"
       />
     </>

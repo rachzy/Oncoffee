@@ -1,6 +1,6 @@
 //Oncoffee server-side (by r4ch)
 //Sets the PORT that the server gonna be hosted on
-const PORT = 3001;
+const PORT = 8000;
 
 //Libs
 const Express = require("express");
@@ -28,7 +28,7 @@ const rateLimit = require("express-rate-limit");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-app.use(cors());
+app.use(cors({ credentials: true, origin: true }));
 app.use(helmet());
 app.use(hpp());
 app.use(morgan("dev"));
@@ -80,7 +80,7 @@ app.use("/getfavoriteproductsids/", getFavoriteProductsIds);
 const getFavoriteProducts = require("./routes/GET/getFavoriteProducts.js");
 app.use("/getfavoriteproducts/", getFavoriteProducts);
 
-//GET => ACCOUNT
+//GET METHODS => ACCOUNT
 
 //Get User Security Tokens Router
 const getUserSecurityTokens = require("./routes/GET/getUserSecurityTokens.js");
@@ -94,11 +94,7 @@ app.use("/verifysecuritytokens/", getVerifySecurityTokens);
 const getValidateRegisterParams = require("./routes/GET/getValidateRegisterParams.js");
 app.use("/account/validateregisterparams", getValidateRegisterParams);
 
-
-
-
-
-
+//
 
 //POST METHODS
 
@@ -108,19 +104,22 @@ app.use("/postsearch/", postSearchRouter);
 const postFavoriteProduct = require("./routes/POST/postFavoriteProduct.js");
 app.use("/postfavoriteproduct/", postFavoriteProduct);
 
-//POST => ACCOUNT
+//POST METHODS => ACCOUNT
 
-const postUserRegister = require("./routes/POST/postUserRegister.js");
+const postUserRegister = require("./routes/POST/account/Register/postUserRegister.js");
 app.use("/account/register/", postUserRegister);
 
-const postSetVerificationEmail = require("./routes/POST/postSetVerificationEmail.js");
+const postSetVerificationEmail = require("./routes/POST/account/Email/postSetVerificationEmail.js");
 app.use("/account/setverificationemail", postSetVerificationEmail);
 
-const postResendVerificationEmail = require("./routes/POST/postResendVerificationEmail.js");
+const postResendVerificationEmail = require("./routes/POST/account/Email/postResendVerificationEmail.js");
 app.use("/account/resendverificationemail", postResendVerificationEmail);
 
-const postVerifyAccount = require("./routes/POST/postVerifyAccount.js");
+const postVerifyAccount = require("./routes/POST/account/Register/postVerifyAccount.js");
 app.use("/account/verify", postVerifyAccount);
+
+const postUserLogin = require("./routes/POST/account/Login/postUserLogin.js");
+app.use("/account/login", postUserLogin);
 
 //Host the server on it's port (Default is 3001);
 const server = app.listen(PORT, () => {

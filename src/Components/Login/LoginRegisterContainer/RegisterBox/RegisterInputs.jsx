@@ -56,6 +56,7 @@ const RegisterInputs = () => {
           enabled: false,
           text: "",
         },
+        isLastInput: false
       },
       {
         id: random(),
@@ -73,6 +74,7 @@ const RegisterInputs = () => {
           enabled: false,
           text: "",
         },
+        isLastInput: false
       },
       {
         id: random(),
@@ -92,6 +94,7 @@ const RegisterInputs = () => {
           enabled: false,
           text: "",
         },
+        isLastInput: false
       },
       {
         id: random(),
@@ -111,6 +114,7 @@ const RegisterInputs = () => {
           enabled: false,
           text: "",
         },
+        isLastInput: false
       },
       {
         id: random(),
@@ -129,6 +133,7 @@ const RegisterInputs = () => {
           enabled: false,
           text: "",
         },
+        isLastInput: false
       },
       {
         id: random(),
@@ -147,6 +152,7 @@ const RegisterInputs = () => {
           enabled: false,
           text: "",
         },
+        isLastInput: true
       },
     ];
   }
@@ -174,6 +180,7 @@ const RegisterInputs = () => {
             onChange={handleChange}
             onBlur={handleBlur}
             value={input.value}
+            isLastInput={input.isLastInput}
           />
 
           <Error key={`${input.id}-error`} text={input.error.text} />
@@ -520,7 +527,7 @@ const RegisterInputs = () => {
         let redirectUrl = `/confirm?id=${data.userInfo.userId}&token=${data.userInfo.registerToken}`;
 
         const nextPage = searchParams.get("next");
-        if (nextPage) redirectUrl = `${redirectUrl}&next=${nextPage}`;
+        if (nextPage && nextPage !== null) redirectUrl = `${redirectUrl}&next=${nextPage}`;
 
         navigate(redirectUrl);
       }
@@ -532,6 +539,7 @@ const RegisterInputs = () => {
     <>
       {displayInputs()}
       <input
+        id="nextBtn"
         ref={proxBtn}
         onClick={handleButtonClick}
         type="button"

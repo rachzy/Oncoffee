@@ -5,11 +5,11 @@ const Axios = require("axios");
 const bcrypt = require("bcrypt");
 const saltRounds = 8;
 
-const generateRandomString = require("../../globalFunctions/generateRandomString.js");
-const sendError = require("../../globalFunctions/sendError.js");
-const sendMail = require("../../globalFunctions/sendMail.js");
+const generateRandomString = require("../../../../globalFunctions/generateRandomString.js");
+const sendError = require("../../../../globalFunctions/sendError.js");
+const sendMail = require("../../../../globalFunctions/sendMail.js");
 
-const server = require("../../server.js");
+const server = require("../../../../server.js");
 
 //Create and insert a new user in the database
 router.post("/", (req, res) => {

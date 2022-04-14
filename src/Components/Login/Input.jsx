@@ -11,10 +11,19 @@ const Input = ({
   onClick,
   onBlur,
   onChange,
-  onKeyPress,
   value,
-  method
+  method,
+  isLastInput
 }) => {
+  const handleKeyPress = (e) => {
+    const { key } = e;
+    if(key !== "Enter") return;
+
+    if(!isLastInput) return;
+    
+    const nextBtn = document.querySelector("#nextBtn");
+    nextBtn.click();
+  }
   return (
     <input
       autoComplete="off"
@@ -29,7 +38,7 @@ const Input = ({
       onClick={onClick}
       onChange={onChange}
       onBlur={onBlur}
-      onKeyPress={onKeyPress}
+      onKeyPress={handleKeyPress}
       value={value}
       formMethod={method}
     />

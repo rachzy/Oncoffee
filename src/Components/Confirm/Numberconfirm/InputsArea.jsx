@@ -108,7 +108,7 @@ const InputsArea = () => {
   const handlePaste = (e) => {
     const { id } = e.target;
 
-    if(parseInt(id) !== 0) return;
+    if (parseInt(id) !== 0) return;
     e.preventDefault();
 
     const eventClipboardData = e.clipboardData || window.ClipboardEvent;
@@ -120,7 +120,6 @@ const InputsArea = () => {
     let filterInputValues = inputValues.filter((input) => input.id > 0);
 
     for (let i = 0; i < filterInputValues.length; i++) {
-
       let filterArray = filterInputValues.filter((input) => input.id !== i);
 
       let newObject = {
@@ -129,13 +128,13 @@ const InputsArea = () => {
         value: "",
       };
 
-      if(splitClipboardData[i]) {
+      if (splitClipboardData[i]) {
         newObject.value = splitClipboardData[i];
       }
 
       filterInputValues = [...filterArray, newObject];
     }
-    
+
     filterInputValues = filterInputValues.sort((a, b) => {
       return a.id - b.id;
     });
@@ -192,7 +191,7 @@ const InputsArea = () => {
                 //dividing it by 1000 and subtracting it by 30 will result in the amount of remaining seconds
                 //until "resend email" function will be available
                 const remainingSeconds = Math.floor(
-                  30 - parseInt(data.errno) / 1000
+                  60 - parseInt(data.errno) / 1000
                 );
                 return setBottomMessage({
                   text: `Aguarde mais ${remainingSeconds} segundo(s) para executar essa ação novamente`,
@@ -222,7 +221,7 @@ const InputsArea = () => {
 
     setBottomMessage({
       text: "",
-      color: ""
+      color: "",
     });
 
     const getCodeInsertByTheUser = inputValues
@@ -232,65 +231,69 @@ const InputsArea = () => {
       .replace(0, "");
 
     const validateCode = async () => {
-      await Axios.post(`${getGlobalServerContext.serverUrl}/account/verify`, {
-        userId: userId,
-        registerToken: registerToken,
-        verificationCode: getCodeInsertByTheUser,
-      })
-        .catch((err) => {
+      try {
+        const { data } = await Axios.post(
+          `${getGlobalServerContext.serverUrl}/account/verify`,
+          {
+            userId: userId,
+            registerToken: registerToken,
+            verificationCode: getCodeInsertByTheUser,
+          },
+          {
+            withCredentials: true,
+          }
+        );
+
+        if (data.isError) {
           bttCenter.current.classList.remove("loading");
-          switch (err.response.status) {
-            case 429:
+          switch (data.errorCode) {
+            case "ACCOUNT_NOT_FOUND":
               setBottomMessage({
-                text: `Você fez várias tentativas, tente novamente mais tarde.`,
+                text: `Essa conta não foi encontrada`,
+                color: "rgb(251, 46, 46)",
+              });
+              break;
+            case "INVALID_CODE":
+              setBottomMessage({
+                text: `Código incorreto`,
+                color: "rgb(251, 46, 46)",
+              });
+              break;
+            case "ACCOUNT_ALREADY_VERIFIED":
+              setBottomMessage({
+                text: `Essa conta já foi confirmada`,
                 color: "rgb(251, 46, 46)",
               });
               break;
             default:
               setBottomMessage({
-                text: `Ocorreu um erro interno no servidor: ${err}`,
+                text: `Ocorreu um erro ao tentar confirmar essa conta: ${data.errorCode}`,
                 color: "rgb(251, 46, 46)",
               });
           }
-          bttCenter.current.classList.remove("loading");
-        })
-        .then((response) => {
-          const { data } = response;
+        }
 
-          if (data.isError) {
-            switch (data.errorCode) {
-              case "ACCOUNT_NOT_FOUND":
-                setBottomMessage({
-                  text: `Essa conta não foi encontrada`,
-                  color: "rgb(251, 46, 46)",
-                });
-                break;
-              case "INVALID_CODE":
-                setBottomMessage({
-                  text: `Código incorreto`,
-                  color: "rgb(251, 46, 46)",
-                });
-                break;
-              case "ACCOUNT_ALREADY_VERIFIED":
-                setBottomMessage({
-                  text: `Essa conta já foi confirmada`,
-                  color: "rgb(251, 46, 46)",
-                });
-                break;
-              default:
-                setBottomMessage({
-                  text: `Ocorreu um erro ao tentar confirmar essa conta: ${data.errorCode}`,
-                  color: "rgb(251, 46, 46)",
-                });
-            }
-            bttCenter.current.classList.remove("loading");
-          }
-
-          if (data.queryStatus === 200) {
-            if (!nextPage || nextPage === null || nextPage === "") navigate("/");
-            navigate(`/${nextPage}`);
-          }
-        });
+        if (data.queryStatus === 200) {
+          if (!nextPage || nextPage === null || nextPage === "")
+            return navigate("/");
+          navigate(`/${nextPage}`);
+        }
+      } catch (err) {
+        bttCenter.current.classList.remove("loading");
+        switch (err.response.status) {
+          case 429:
+            setBottomMessage({
+              text: `Você fez várias tentativas, tente novamente mais tarde.`,
+              color: "rgb(251, 46, 46)",
+            });
+            break;
+          default:
+            setBottomMessage({
+              text: `Ocorreu um erro interno no servidor: ${err}`,
+              color: "rgb(251, 46, 46)",
+            });
+        }
+      }
     };
 
     validateCode();
