@@ -7,6 +7,7 @@ import random from "../../../../globalFunctions/randomNumber";
 
 import Input from "../../Input";
 import Error from "../../Error";
+import HCaptcha from "@hcaptcha/react-hcaptcha";
 
 const RegisterInputs = () => {
   const navigate = useNavigate();
@@ -160,6 +161,10 @@ const RegisterInputs = () => {
   //State that receive and controls every input data
   const [inputData, setInputData] = useState(initialInputDataStateValue());
 
+  //Captcha response state
+  const [captchaVerified, setCaptchaVerified] = useState(false);
+  const [captchaText, setCaptchaText] = useState("");
+
   //State that controls the "main error" that it's displayed right under the "next" button
   const [mainErrorValue, setMainErrorValue] = useState("");
 
@@ -203,6 +208,12 @@ const RegisterInputs = () => {
     });
     setInputData(fetchInputs);
   };
+
+    //Function that will be triggered when an input blurs
+    const handleBlur = (e) => {
+      const { name } = e.target;
+      validateErrors(name); //When the input blurs, validate it.
+    };
 
   //Function that sets input errors inside of the state
   //Params guide
@@ -408,16 +419,15 @@ const RegisterInputs = () => {
     verifyValue(name);
   };
 
-  //Function that will be triggered when an input blurs
-  const handleBlur = (e) => {
-    const { name } = e.target;
-    validateErrors(name); //When the input blurs, validate it.
-  };
+  const handleCaptchaVerify = (token) => {
+    setCaptchaVerified(true);
+  }
 
   //Function that will be triggered when the main button get clicked
   const handleButtonClick = () => {
     proxBtn.current.classList.add("clicked"); //Add the "clicked" class to the button
     setMainErrorValue(""); //Clear the main error state
+    setCaptchaText("");
 
     //Boolean variable that will define if all the inputs are valid and the program can execute
     let canContinue = true;
@@ -449,6 +459,12 @@ const RegisterInputs = () => {
 
       return null;
     });
+
+    //Verify if Captcha response is true
+    if (!captchaVerified) {
+      canContinue = false;
+      setCaptchaText("Preencha o captcha");
+    }
 
     //If can continue is false, return and remove the "clicked" class from the main button
     if (!canContinue) return proxBtn.current.classList.remove("clicked");
@@ -540,9 +556,16 @@ const RegisterInputs = () => {
   return (
     <>
       {displayInputs()}
+      <div className="captcha-div">
+        <HCaptcha
+          sitekey="10000000-ffff-ffff-ffff-000000000001"
+          onVerify={handleCaptchaVerify}
+        />
+      </div>
+        <Error style={{ textAlign: "center", marginTop: "5px" }} text={captchaText} />
       <input
         id="nextBtn"
-        style={{marginTop: "20px"}}
+        style={{ marginTop: "20px" }}
         ref={proxBtn}
         onClick={handleButtonClick}
         type="button"

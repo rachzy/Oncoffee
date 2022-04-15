@@ -271,6 +271,16 @@
     margin-top: 5px;
 }
 
+.captcha-div {
+    width: 100%;
+
+    margin-top: 20px;
+
+    display: flex;
+
+    justify-content: center;
+}
+
 
 .proxbtt {
     background: linear-gradient(45deg,rgb(197, 107, 54),rgb(167, 89, 45));
