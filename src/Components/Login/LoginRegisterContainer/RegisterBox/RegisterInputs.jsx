@@ -56,7 +56,7 @@ const RegisterInputs = () => {
           enabled: false,
           text: "",
         },
-        isLastInput: false
+        isLastInput: false,
       },
       {
         id: random(),
@@ -74,7 +74,7 @@ const RegisterInputs = () => {
           enabled: false,
           text: "",
         },
-        isLastInput: false
+        isLastInput: false,
       },
       {
         id: random(),
@@ -94,7 +94,7 @@ const RegisterInputs = () => {
           enabled: false,
           text: "",
         },
-        isLastInput: false
+        isLastInput: false,
       },
       {
         id: random(),
@@ -114,7 +114,7 @@ const RegisterInputs = () => {
           enabled: false,
           text: "",
         },
-        isLastInput: false
+        isLastInput: false,
       },
       {
         id: random(),
@@ -133,7 +133,7 @@ const RegisterInputs = () => {
           enabled: false,
           text: "",
         },
-        isLastInput: false
+        isLastInput: false,
       },
       {
         id: random(),
@@ -152,7 +152,7 @@ const RegisterInputs = () => {
           enabled: false,
           text: "",
         },
-        isLastInput: true
+        isLastInput: true,
       },
     ];
   }
@@ -180,6 +180,7 @@ const RegisterInputs = () => {
             onChange={handleChange}
             onBlur={handleBlur}
             value={input.value}
+            form="register"
             isLastInput={input.isLastInput}
           />
 
@@ -479,57 +480,58 @@ const RegisterInputs = () => {
     });
 
     const postNewUser = async () => {
-      const query = await Axios.post(`${serverUrl}/account/register`, {
-        name: name,
-        lastname: lastname,
-        emailcpf: emailcpf,
-        password: password,
-      }).catch((err) => {
+      try {
+        const { data } = await Axios.post(`${serverUrl}/account/register`, {
+          name: name,
+          lastname: lastname,
+          emailcpf: emailcpf,
+          password: password,
+        });
+
+        proxBtn.current.classList.remove("clicked");
+
+        if (data.isError) {
+          const errorCode = data.errorCode;
+          switch (errorCode) {
+            case "EMAIL_ALREADY_IN_USE":
+              SetErrorObject(
+                "custom",
+                "email",
+                "Esse e-mail ou CPF já está em uso!",
+                false
+              );
+              break;
+            case "INVALID_EMAIL":
+              SetErrorObject(
+                "custom",
+                "email",
+                "Esse e-mail ou CPF é inválido",
+                false
+              );
+              break;
+            default:
+              setMainErrorValue(
+                "Ocorreu um erro ao tentar te registrar. Por favor, tente recarregar a página"
+              );
+              break;
+          }
+          return;
+        }
+
+        if (data.queryStatus === 200) {
+          let redirectUrl = `/confirm?id=${data.userInfo.userId}&token=${data.userInfo.registerToken}`;
+
+          const nextPage = searchParams.get("next");
+          if (nextPage && nextPage !== null)
+            redirectUrl = `${redirectUrl}&next=${nextPage}`;
+
+          navigate(redirectUrl);
+        }
+      } catch (err) {
+        proxBtn.current.classList.remove("clicked");
         setMainErrorValue(
           `Ocorreu um erro interno do servidor. Tente novamente em alguns segundos. (${err})`
         );
-        proxBtn.current.classList.remove("clicked");
-      });
-
-      proxBtn.current.classList.remove("clicked");
-
-      const { data } = query;
-
-      if (data.isError) {
-        const errorCode = data.errorCode;
-        switch (errorCode) {
-          case "EMAIL_ALREADY_IN_USE":
-            SetErrorObject(
-              "custom",
-              "email",
-              "Esse e-mail ou CPF já está em uso!",
-              false
-            );
-            break;
-          case "INVALID_EMAIL":
-            SetErrorObject(
-              "custom",
-              "email",
-              "Esse e-mail ou CPF é inválido",
-              false
-            );
-            break;
-          default:
-            setMainErrorValue(
-              "Ocorreu um erro ao tentar te registrar. Por favor, tente recarregar a página"
-            );
-            break;
-        }
-        return;
-      }
-
-      if (data.queryStatus === 200) {
-        let redirectUrl = `/confirm?id=${data.userInfo.userId}&token=${data.userInfo.registerToken}`;
-
-        const nextPage = searchParams.get("next");
-        if (nextPage && nextPage !== null) redirectUrl = `${redirectUrl}&next=${nextPage}`;
-
-        navigate(redirectUrl);
       }
     };
     postNewUser();
@@ -540,6 +542,7 @@ const RegisterInputs = () => {
       {displayInputs()}
       <input
         id="nextBtn"
+        style={{marginTop: "20px"}}
         ref={proxBtn}
         onClick={handleButtonClick}
         type="button"

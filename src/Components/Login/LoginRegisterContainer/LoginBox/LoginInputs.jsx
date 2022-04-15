@@ -12,6 +12,7 @@ const LoginInputs = () => {
   const getGlobalServerContext = useContext(GlobalServerContext);
 
   const navigate = useNavigate();
+
   const [searchParams] = useSearchParams();
   const nextPage = searchParams.get("next");
 
@@ -28,6 +29,66 @@ const LoginInputs = () => {
   ]);
   const [mainErrorValue, setMainErrorValue] = useState("");
 
+  //Function that will manipulate the errorValues in an easiest and fast way
+  //type: the error type, if not specified it will just clean all the errors
+  //options (optional): additional info that some types of errors need to work properly
+  const manageErrorValues = (type, options) => {
+    switch (type) {
+      //Clean all the errors messages
+      case "clean":
+        const cleanErrorValues = errorValues.map((input) => {
+          return {
+            name: input.name,
+            text: "",
+          };
+        });
+        setErrorValues(cleanErrorValues);
+        break;
+      //Clean a single error message
+      case "singleclean":
+        const singleCleanErrorValues = errorValues.map((input) => {
+          if (input.name !== options.name) return input;
+          return {
+            name: input.name,
+            text: "",
+          };
+        });
+        setErrorValues(singleCleanErrorValues);
+        break;
+      case "empty":
+        const singleEmptyErrorValues = errorValues.map((input) => {
+          if (input.name !== options.name) return input;
+          return {
+            name: input.name,
+            text: "Preencha esse campo",
+          };
+        });
+        setErrorValues(singleEmptyErrorValues);
+        break;
+      case "invalid":
+        const invalidErrorValues = errorValues.map((input) => {
+          switch (input.name) {
+            case "user":
+              return {
+                name: "user",
+                text: "Email ou CPF inválido",
+              };
+            case "password":
+              return {
+                name: "password",
+                text: "Senha inválida",
+              };
+            default:
+              return null;
+          }
+        });
+        setErrorValues(invalidErrorValues);
+        break;
+      default:
+        manageErrorValues("clean");
+    }
+  };
+
   const loginInputColumn = useRef(null);
 
   const handleChange = (e) => {
@@ -39,16 +100,56 @@ const LoginInputs = () => {
     });
   };
 
+  const handleBlur = (e) => {
+    const { name } = e.target;
+
+    const options = {
+      name: name,
+    };
+
+    manageErrorValues("singleclean", options);
+
+    if (inputValues[name] === "") {
+      return manageErrorValues("empty", options);
+    }
+  };
+
   const proxBtn = useRef(null);
+
   const handleButtonClick = () => {
     proxBtn.current.classList.add("loading");
+    manageErrorValues("clean");
+    setMainErrorValue("");
+
+    const validateInputs = () => {
+      const { user, password } = inputValues;
+
+      if (user === "") {
+        const options = {
+          name: "user",
+        };
+        proxBtn.current.classList.remove("loading");
+        return manageErrorValues("empty", options);
+      }
+
+      if (password === "") {
+        const options = {
+          name: "password",
+        };
+        proxBtn.current.classList.remove("loading");
+        return manageErrorValues("empty", options);
+      }
+
+      executeLogin();
+    };
+
     const executeLogin = async () => {
       try {
         const { data } = await Axios.post(
           `${getGlobalServerContext.serverUrl}/account/login`,
           {
             emailcpf: inputValues.user,
-            pass: inputValues.password,
+            password: inputValues.password,
           },
           {
             withCredentials: true,
@@ -59,16 +160,8 @@ const LoginInputs = () => {
           proxBtn.current.classList.remove("loading");
           switch (data.errorCode) {
             case "INVALID_CREDENTIALS":
-              return setErrorValues([
-                {
-                  name: "user",
-                  text: "Email ou CPF inválidos",
-                },
-                {
-                  name: "password",
-                  text: "Senha inválida",
-                },
-              ]);
+              manageErrorValues("invalid");
+              break;
             default:
               return setMainErrorValue(
                 `Ocorreu um erro ao tentar efetuar o login: ${data.errorCode}`
@@ -95,7 +188,8 @@ const LoginInputs = () => {
         }
       }
     };
-    executeLogin();
+
+    validateInputs();
   };
 
   const inputLoginPassword = document.querySelector("#input-login-password");
@@ -108,7 +202,7 @@ const LoginInputs = () => {
   };
 
   return (
-    <>
+    <form method="POST">
       <div ref={loginInputColumn} className="loginputcolumn1">
         <Input
           name="user"
@@ -117,13 +211,10 @@ const LoginInputs = () => {
           className="logmail"
           placeholder="E-mail ou Cpf"
           onChange={handleChange}
+          onBlur={handleBlur}
           value={inputValues.user}
         />
-        <Error
-          id={errorValues[0].id}
-          text={errorValues[0].text}
-          style={{ height: "20px" }}
-        />
+        <Error id={errorValues[0].id} text={errorValues[0].text} />
         <div className="inputpassword">
           <Input
             name="password"
@@ -132,7 +223,10 @@ const LoginInputs = () => {
             className="logpassword"
             placeholder="Senha"
             onChange={handleChange}
+            onBlur={handleBlur}
             value={inputValues.password}
+            form="login"
+            isLastInput
           />
           <input type="checkbox" id="passwordcheck" />
           <label
@@ -143,21 +237,21 @@ const LoginInputs = () => {
             <i className="far fa-eye"></i>
           </label>
         </div>
-        <Error
-          id={errorValues[1].id}
-          text={errorValues[1].text}
-          style={{ height: "20px" }}
-        />
+        <Error id={errorValues[1].id} text={errorValues[1].text} />
       </div>
-      <Error text={mainErrorValue} style={{textAlign: "center", height: "30px", marginBottom: "10px"}} />
+      <Error
+        style={{ textAlign: "center", marginTop: "10px", height: "30px" }}
+        text={mainErrorValue}
+      />
       <input
         type="button"
+        id="loginBtn"
         className="proxbtt"
         onClick={handleButtonClick}
         ref={proxBtn}
         value="Entrar"
       />
-    </>
+    </form>
   );
 };
 

@@ -16,28 +16,28 @@ const sendError = require("../../../../globalFunctions/sendError.js");
 const server = require("../../../../server.js");
 
 router.post("/", (req, res) => {
-  const { emailcpf, pass } = req.body;
+  const { emailcpf, password } = req.body;
 
-  console.log(emailcpf);
-
-  if (!emailcpf || !pass) return sendError(res, "INVALID_PARAMS", "");
+  if (!emailcpf || !password) return sendError(res, "INVALID_PARAMS", "");
 
   server.db.query(
-    "SELECT userId, securityToken1, securityToken2, password FROM accounts WHERE emailcpf = ?",
+    "SELECT accountId, securityToken1, securityToken2, password FROM accounts WHERE emailcpf = ?",
     [emailcpf],
     (err, result) => {
       if (err) return sendError(res, err.code, err.errno);
       if (result.length !== 1) return sendError(res, "INVALID_CREDENTIALS", "");
 
-      bcrypt.compare(pass, result[0], (errB, resultB) => {
+      bcrypt.compare(password, result[0].password, (errB, resultB) => {
         if (errB) return sendError(res, "PASSWORD_VALIDATION_ERROR", "");
-        if (!resultB) return sendError("INVALID_PARAMS", "");
+        if (!resultB) return sendError(res, "INVALID_CREDENTIALS", "");
 
-        const { userId, securityToken1, securityToken2 } = result[0];
+        console.log("passed 2");
+
+        const { accountId, securityToken1, securityToken2 } = result[0];
 
         const cookieMaxAge = 24 * 60 * 60 * 30 * 2; // 2 months
 
-        res.cookie("userId", userId, {
+        res.cookie("userId", accountId, {
           maxAge: cookieMaxAge,
           httpOnly: true,
         });

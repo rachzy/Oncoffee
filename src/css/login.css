@@ -35,7 +35,7 @@
     border-radius: 15px;
     padding: 25px;
     min-width: 35%;
-    height: 430px;
+    height: 398px;
     display: block;
     margin: auto;
     justify-content: center;
@@ -112,7 +112,7 @@
 
 .loginbox {
     width: 100%;
-    display: flex;
+    display: inline-flex;
     flex-direction: column;
     margin-top: 25px;
     margin-left: -150%;
@@ -257,15 +257,14 @@
 
 .registerbox {
     width: 100%;
-    display: flex;
+    display: inline-flex;
     flex-direction: column;
-    margin-top: -350px;
     margin-left: 150%;
     transition: 0.2s ease-in-out all;
 }
 
 .registerbox.active {
-    margin-left: 0px;
+    margin-left: 50%;
 }
 
 .registerbox input {
@@ -283,6 +282,7 @@
     margin-top: 10px;
     letter-spacing: 0.4px;
     transition: 0.3s all ease;
+    width: 100%;
 }
 
 .proxbtt.loading {

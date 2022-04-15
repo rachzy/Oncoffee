@@ -28,9 +28,11 @@ const LogReg = () => {
   const handleRegisterButtonClick = () => {
     if(!underline || underline.current === null) return;
     underline.current.style.marginLeft = "50%";
-    loginContainer.classList.add("grow");
     loginBox.classList.remove("active");
     registerBox.classList.add("active");
+    setTimeout(() => {
+      loginContainer.classList.add("grow");
+    }, 200);
   };
 
   //If "openRegister" is in the URL params, display the "RegisterBox"
