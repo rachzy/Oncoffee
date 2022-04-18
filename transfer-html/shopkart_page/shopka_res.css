@@ -4,3 +4,63 @@
         
     }
 }
+
+
+
+
+@media screen and (max-width: 1065px) {
+    .carrinho_text {
+        display: none;
+    }
+
+    .carrinho_img {
+        width: 22%;
+    }
+
+    .carrinho_unit {
+        width: 17.75%;
+      }
+      
+      .carrinho_quant {
+        width: 19.75%;
+      }
+      
+      .carrinho_final {
+        width: 17.75%;
+      }
+      
+      .carrinho_acao {
+        width: 17.75%;
+      }
+
+
+      
+    .carrinho_titulo_1 {
+        width: 27%;
+        display: flex;
+        align-items: center;
+        
+    }
+    
+    .carrinho_titulo_2 {
+        width: 17.75%;
+      text-align: center;
+    }
+    
+    .carrinho_titulo_3 {
+      width: 19.75%;
+      text-align: center;
+    }
+    
+    .carrinho_titulo_4 {
+        width: 17.75%;
+      text-align: center;
+    }
+    
+    .carrinho_titulo_5 {
+        width: 17.75%;
+      text-align: center;
+    }
+    
+      
+}
