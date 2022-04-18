@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const Logo = ({ className, logo }) => {
+const Logo = ({ logo }) => {
   const navigate = useNavigate();
   const handleLogoClick = () => {
     const [swichline, contentSearch] = [
@@ -15,13 +15,10 @@ const Logo = ({ className, logo }) => {
     navigate("/");
   };
   return (
-    <div onClick={handleLogoClick} className={className}>
-      <img
-        style={{ cursor: "pointer" }}
-        title="Voltar pra página principal"
-        src={logo}
-        alt="oncoffee-banner"
-      />
+    <div className="nav_mid">
+      <a style={{cursor: "pointer"}} onClick={handleLogoClick}>
+        <img src={logo} alt="" />
+      </a>
     </div>
   );
 };

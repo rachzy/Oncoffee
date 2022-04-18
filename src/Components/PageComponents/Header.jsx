@@ -18,6 +18,7 @@ import ConteudoSearch from "./Header/ConteudoSearch";
 import ButtonNavbar from "./Header/ButtonNavbar";
 import FavoritedProducts from "./Header/MenuTabs/FavoritedProducts";
 import ShoppingCartProducts from "./Header/MenuTabs/ShoppingCartProdcuts";
+import NavRight from "./Header/NavRight";
 
 const Header = ({
   children,
@@ -29,24 +30,6 @@ const Header = ({
   serverStatus,
 }) => {
   const navigate = useNavigate();
-
-  // const handleLoginButtonClick = async () => {
-  //   const userId = 25022006;
-
-  //   const { data } = await Axios.get(
-  //     `${serverUrl}/getusersecuritytokens/${userId}`
-  //   );
-  //   if (data.isError) {
-  //     displayError(data.errorCode, data.errno);
-  //     return;
-  //   }
-
-  //   if (!data && data.length === 0) return;
-
-  //   document.cookie = `STOKEN1 = ${data.accountSecurityToken1};secure`;
-  //   document.cookie = `STOKEN2 = ${data.accountSecurityToken2};secure`;
-  //   document.cookie = `UID = ${userId};secure`;
-  // };
 
   const handleMobileHeartIconClick = () => {
     const popup = document.querySelector(".popup");
@@ -82,73 +65,76 @@ const Header = ({
   return (
     <header>
       <nav className="navbar3">
-      <Logo className="navlogo3" logo={onCoffee_logo} />
-        <Title firstClass="pagname3" secondClass="hunderline3">
-          {children}
-        </Title>
+        <Title>{children}</Title>
+        <Logo logo={onCoffee_logo} />
 
-        <MenuItem icon={newUser_logo} alt="newuser-oncoffee-icon">
-          <div className="user_box">
-            <ul>
-              <li>
-                <ButtonNavbar
-                  className="login"
-                  onClick={() => {
-                    navigate("/login");
-                  }}
-                >
-                  Login
-                </ButtonNavbar>
-                <ButtonNavbar className="register" onClick={() => {
-                    navigate("/login?openRegister");
-                  }}>
-                  Registro
-                </ButtonNavbar>
-              </li>
-              <li>
-                <ButtonNavbar className="lia" href="/">
-                  Minha Conta
-                </ButtonNavbar>
-              </li>
-              <li>
-                <ButtonNavbar className="lia" href="/">
-                  Meus Cupons
-                </ButtonNavbar>
-              </li>
-              <li>
-                <ButtonNavbar className="lia" href="/">
-                  Sobre nós
-                </ButtonNavbar>
-              </li>
-              <li>
-                <ButtonNavbar className="lia" href="/">
-                  Suporte
-                </ButtonNavbar>
-              </li>
-              <li>
-                <ButtonNavbar className="lia" href="/">
-                  Vender aqui
-                </ButtonNavbar>
-              </li>
-            </ul>
-          </div>
-        </MenuItem>
+        <NavRight>
+          <MenuItem icon={newUser_logo} alt="newuser-oncoffee-icon">
+            <div className="user_box">
+              <ul>
+                <li>
+                  <ButtonNavbar
+                    className="login"
+                    onClick={() => {
+                      navigate("/login");
+                    }}
+                  >
+                    Login
+                  </ButtonNavbar>
+                  <ButtonNavbar
+                    className="register"
+                    onClick={() => {
+                      navigate("/login?openRegister");
+                    }}
+                  >
+                    Registro
+                  </ButtonNavbar>
+                </li>
+                <li>
+                  <ButtonNavbar className="lia" href="/">
+                    Minha Conta
+                  </ButtonNavbar>
+                </li>
+                <li>
+                  <ButtonNavbar className="lia" href="/">
+                    Meus Cupons
+                  </ButtonNavbar>
+                </li>
+                <li>
+                  <ButtonNavbar className="lia" href="/">
+                    Sobre nós
+                  </ButtonNavbar>
+                </li>
+                <li>
+                  <ButtonNavbar className="lia" href="/">
+                    Suporte
+                  </ButtonNavbar>
+                </li>
+                <li>
+                  <ButtonNavbar className="lia" href="/">
+                    Vender aqui
+                  </ButtonNavbar>
+                </li>
+              </ul>
+            </div>
+          </MenuItem>
 
-        <MenuItem
-          id="favorited-products-icon"
-          icon={newHeart_logo}
-          alt="newhearth-oncoffee-icon"
-        >
-          {renderFavoritedProductsIfServerStatusIs200()}
-        </MenuItem>
+          <MenuItem
+            id="favorited-products-icon"
+            icon={newHeart_logo}
+            alt="newhearth-oncoffee-icon"
+          >
+            {renderFavoritedProductsIfServerStatusIs200()}
+          </MenuItem>
 
-        <MenuItem icon={newKart_logo} alt="newkart-oncoffee-icon">
-          <ShoppingCartProducts
-            handleSetPopupState={handleSetPopupState}
-            cartProducts={cartProductsState}
-            handleRemoveCartProduct={handleRemoveCartProduct}
-          />
-        </MenuItem>
+          <MenuItem icon={newKart_logo} alt="newkart-oncoffee-icon">
+            <ShoppingCartProducts
+              handleSetPopupState={handleSetPopupState}
+              cartProducts={cartProductsState}
+              handleRemoveCartProduct={handleRemoveCartProduct}
+            />
+          </MenuItem>
+        </NavRight>
       </nav>
       <nav id="#top" className="navbar2">
         <Title firstClass="pagname" secondClass="hunderline">

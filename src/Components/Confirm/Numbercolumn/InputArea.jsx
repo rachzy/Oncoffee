@@ -1,87 +1,214 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useContext, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 
-const InputArea = () => {
-  function initialState() {
-    return { phonenumber: "" };
-  }
+import CallbackMessage from "./CallbackMessage";
 
-  const [inputValues, setInputValues] = useState(initialState());
+import Axios from "axios";
 
-  const handleButtonClick = () => {
-    const separateStringInSpaces = () => {
-      const splitStringInSpaces = inputValues.phonenumber.split(" ");
-      switch (splitStringInSpaces.length) {
+import { ChangeClassesContext } from "../../Confirm";
+import { GlobalServerContext } from "../../../App";
+
+const InputArea = ({ emailInitialValue }) => {
+  const [searchParams] = useSearchParams();
+
+  const changeClass = useContext(ChangeClassesContext);
+  const serverDetails = useContext(GlobalServerContext);
+
+  const [inputValue, setInputValue] = useState("");
+  useEffect(() => {
+    setInputValue(emailInitialValue);
+  }, [emailInitialValue]);
+
+  const [callbackMessageState, setCallbackMessageState] = useState({
+    value: "",
+    isError: false,
+  });
+
+  //Callback loading animation
+  let toggleLoadingAnimation;
+  let loadingState = 0;
+
+  const startLoadingAnimation = () => {
+    toggleLoadingAnimation = setInterval(() => {
+      switch (loadingState) {
+        case 0:
+          loadingState++;
+          setCallbackMessageState({
+            value: "Aguarde",
+            isError: false,
+          });
+          break;
+        case 1:
+          loadingState++;
+          setCallbackMessageState({
+            value: "Aguarde.",
+            isError: false,
+          });
+          break;
+        case 2:
+          loadingState++;
+          setCallbackMessageState({
+            value: "Aguarde..",
+            isError: false,
+          });
+          break;
         case 3:
+          loadingState = 0;
+          setCallbackMessageState({
+            value: "Aguarde...",
+            isError: false,
+          });
           break;
         default:
-          let finalValue;
-          const validateFirstValue = () => {
-            let firstValue = splitStringInSpaces[0];
-            if (firstValue.charAt(0) !== "+") firstValue = `+${firstValue}`;
-
-            if (firstValue.length !== 4) {
-              const sliceFirst3Chars = firstValue.substring(0, 3);
-              const sliceRemainingChars = firstValue.substring(
-                3,
-                firstValue.length
-              );
-              firstValue = [sliceFirst3Chars, sliceRemainingChars];
-            }
-
-            if(firstValue[0]) {
-                splitStringInSpaces = [
-                    ...firstValue,
-                    ...splitStringInSpaces
-                ]
-            } else {
-                splitStringInSpaces[0] = firstValue;
-            }
-
-            return (finalValue = firstValue);
-          };
-          validateFirstValue();
-
-          const validateSecondValue = () => {
-              console.log(splitStringInSpaces);
-            let secondValue = splitStringInSpaces[1];
-
-            if (secondValue.length !== 2) {
-              const sliceFirst2Chars = secondValue.slice(0, 2);
-              const sliceRemainingChars = secondValue.slice(
-                2,
-                secondValue.length
-              );
-              secondValue = `${sliceFirst2Chars} ${sliceRemainingChars}`;
-            }
-            return (finalValue += secondValue);
-          };
-          validateSecondValue();
-
-          console.log(finalValue);
+          loadingState = 0;
       }
+    }, 300);
+  };
+
+  const disableLoadingAnimation = () => {
+    if (!toggleLoadingAnimation) return;
+    clearInterval(toggleLoadingAnimation);
+    setCallbackMessageState({
+      value: "",
+      isError: false,
+    });
+  };
+
+  const sendBtn = useRef(null);
+  const handleButtonClick = () => {
+    sendBtn.current.classList.add("loading");
+
+    let canContinue = true;
+
+    const validateInput = () => {
+      const splitInputValueInSigns = inputValue.split("@");
+      const splitInputValueInDots = inputValue.split(".");
+
+      if (
+        splitInputValueInSigns.length !== 2 ||
+        splitInputValueInDots.length <= 1
+      ) {
+        setCallbackMessageState({
+          value: "Insira um email válido.",
+          isError: true,
+        });
+        return (canContinue = false);
+      }
+
+      if (inputValue.length < 10 || inputValue.length > 50) {
+        setCallbackMessageState({
+          value: "O email deve ter de 10 à 50 caracteres",
+          isError: true,
+        });
+        return (canContinue = false);
+      }
+
+      setCallbackMessageState({
+        value: "",
+        isError: false,
+      });
     };
-    separateStringInSpaces();
+    validateInput();
+
+    if (canContinue) {
+      startLoadingAnimation();
+      const [id, registerToken] = [
+        searchParams.get("id"),
+        searchParams.get("token"),
+      ];
+
+      const postNewEmail = async () => {
+        try {
+          const { data } = await Axios.post(
+            `${serverDetails.serverUrl}/account/setverificationemail`,
+            {
+              userId: id,
+              registerToken: registerToken,
+              email: inputValue,
+            },
+          );
+
+          disableLoadingAnimation();
+          sendBtn.current.classList.remove("loading");
+
+          if (data.isError) {
+            switch (data.errorCode) {
+              case "RATE_LIMIT":
+                //"data.errno" will return the amount of milliseconds since when the last email was sent
+                //dividing it by 1000 and subtracting it by 30 will result in the amount of remaining seconds
+                //until "resend email" function will be available
+                const remainingSeconds = Math.floor(
+                  60 - parseInt(data.errno) / 1000
+                );
+                return setCallbackMessageState({
+                  value: `Aguarde mais ${remainingSeconds} segundo(s) para executar essa ação novamente`,
+                  isError: true,
+                });
+              case "EMAIL_ALREADY_IN_USE":
+                return setCallbackMessageState({
+                  value: "Este email já está em uso!",
+                  isError: true,
+                });
+              default:
+                return setCallbackMessageState({
+                  value: `Ocorreu um erro ao registrar este email: ${data.errorCode}`,
+                  isError: true,
+                });
+            }
+          }
+
+          switch (data.queryStatus) {
+            case 200:
+              changeClass("numberconfirm");
+              break;
+            default:
+              return setCallbackMessageState({
+                value:
+                  "Ocorreu um erro desconhecido, por favor tente de novo mais tarde.",
+                isError: true,
+              });
+          }
+        } catch (err) {
+          disableLoadingAnimation();
+          sendBtn.current.classList.remove("loading");
+
+          return setCallbackMessageState({
+            value: `Ocorreu um erro interno do servidor: ${err}`,
+            isError: true,
+          });
+        }
+      };
+      return postNewEmail();
+    }
+
+    sendBtn.current.classList.remove("loading");
   };
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setInputValues({
-      [name]: value,
-    });
+    const { value } = e.target;
+    setInputValue(value);
   };
 
   return (
     <>
       <input
-        name="phonenumber"
-        placeholder="+55 (00) 0 0000-0000"
+        autoComplete="off"
+        name="email"
+        type="email"
+        placeholder="exemplo@gmail.com"
         className="inputnumber"
-        type="text"
+        minLength="10"
+        maxLength="50"
         onChange={handleChange}
-        value={inputValues.phonenumber}
+        value={inputValue}
+      />
+      <CallbackMessage
+        text={callbackMessageState.value}
+        isError={callbackMessageState.isError}
       />
       <div className="enviarcenter">
         <input
+          ref={sendBtn}
           onClick={handleButtonClick}
           type="button"
           value="Enviar"

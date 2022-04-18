@@ -1,4 +1,5 @@
 import React, { useState, useRef } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 import Axios from "axios";
 
@@ -6,8 +7,12 @@ import random from "../../../../globalFunctions/randomNumber";
 
 import Input from "../../Input";
 import Error from "../../Error";
+import HCaptcha from "@hcaptcha/react-hcaptcha";
 
 const RegisterInputs = () => {
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+
   //Import serverURL
   const { serverUrl } = require("../../../../connection.json");
 
@@ -52,6 +57,7 @@ const RegisterInputs = () => {
           enabled: false,
           text: "",
         },
+        isLastInput: false,
       },
       {
         id: random(),
@@ -69,6 +75,7 @@ const RegisterInputs = () => {
           enabled: false,
           text: "",
         },
+        isLastInput: false,
       },
       {
         id: random(),
@@ -88,6 +95,7 @@ const RegisterInputs = () => {
           enabled: false,
           text: "",
         },
+        isLastInput: false,
       },
       {
         id: random(),
@@ -107,6 +115,7 @@ const RegisterInputs = () => {
           enabled: false,
           text: "",
         },
+        isLastInput: false,
       },
       {
         id: random(),
@@ -125,6 +134,7 @@ const RegisterInputs = () => {
           enabled: false,
           text: "",
         },
+        isLastInput: false,
       },
       {
         id: random(),
@@ -143,12 +153,17 @@ const RegisterInputs = () => {
           enabled: false,
           text: "",
         },
+        isLastInput: true,
       },
     ];
   }
 
   //State that receive and controls every input data
   const [inputData, setInputData] = useState(initialInputDataStateValue());
+
+  //Captcha response state
+  const [captchaVerified, setCaptchaVerified] = useState(false);
+  const [captchaText, setCaptchaText] = useState("");
 
   //State that controls the "main error" that it's displayed right under the "next" button
   const [mainErrorValue, setMainErrorValue] = useState("");
@@ -170,6 +185,8 @@ const RegisterInputs = () => {
             onChange={handleChange}
             onBlur={handleBlur}
             value={input.value}
+            form="register"
+            isLastInput={input.isLastInput}
           />
 
           <Error key={`${input.id}-error`} text={input.error.text} />
@@ -191,6 +208,12 @@ const RegisterInputs = () => {
     });
     setInputData(fetchInputs);
   };
+
+    //Function that will be triggered when an input blurs
+    const handleBlur = (e) => {
+      const { name } = e.target;
+      validateErrors(name); //When the input blurs, validate it.
+    };
 
   //Function that sets input errors inside of the state
   //Params guide
@@ -230,7 +253,9 @@ const RegisterInputs = () => {
             errorMessage = `Esse campo deve ter pelo menos ${input.minlength} caracteres`;
           }
 
-          if (input.value === "") errorMessage = "Esse campo é obrigatório!";
+          if (input.value === "") {
+            errorMessage = "Esse campo é obrigatório!";
+          }
 
           return {
             ...input,
@@ -339,14 +364,10 @@ const RegisterInputs = () => {
 
           //If the Array length is 2, than the user in fact insert a "-" in the input value
           if (checkIfValueHasScore.length === 2) {
-            if (
-              isNaN(checkIfValueHasScore[0]) ||
-              isNaN(checkIfValueHasScore[1]) ||
-              checkIfValueHasScore[0].length !== 9 ||
-              checkIfValueHasScore[1].length !== 2
-            )
-              //If any of those conditions is true, then the CPF is not valid
+            const cutScore = input.value.replace("-", "");
+            if (isNaN(cutScore)) {
               return SetErrorObject("emailcpf");
+            }
             return null; //If every condition returned as false, then the cpf is valid
           }
 
@@ -367,10 +388,13 @@ const RegisterInputs = () => {
     const getInput = inputData.filter((input) => input.name === name)[0];
     if (!getInput.matchingInput.enabled) return false; //If the matching "enabled" option is not true, then the input is not a matching input
 
-    const [matchInputName, getMatchInput] = [
-      getInput.matchingInput.match, //Get the input name
-      inputData.filter((input) => input.name === matchInputName)[0], //Get the matching input name
-    ];
+    //Get the input name
+    const matchInputName = getInput.matchingInput.match;
+
+    //Get the matching input name
+    const getMatchInput = inputData.filter(
+      (input) => input.name === matchInputName
+    )[0];
 
     let originalInput, verifyingInput;
 
@@ -395,16 +419,15 @@ const RegisterInputs = () => {
     verifyValue(name);
   };
 
-  //Function that will be triggered when an input blurs
-  const handleBlur = (e) => {
-    const { name } = e.target;
-    validateErrors(name); //When the input blurs, validate it.
-  };
+  const handleCaptchaVerify = (token) => {
+    setCaptchaVerified(true);
+  }
 
   //Function that will be triggered when the main button get clicked
   const handleButtonClick = () => {
     proxBtn.current.classList.add("clicked"); //Add the "clicked" class to the button
     setMainErrorValue(""); //Clear the main error state
+    setCaptchaText("");
 
     //Boolean variable that will define if all the inputs are valid and the program can execute
     let canContinue = true;
@@ -426,11 +449,22 @@ const RegisterInputs = () => {
 
     //Verify matching in all matching inputs
     inputData.map((input) => {
-      if (input.matchingInput.enabled && verifyMatching(input.name) === false)
+      if (input.matchingInput.enabled && verifyMatching(input.name) === false) {
         return (canContinue = false);
-      if (input.error.enabled) return (canContinue = false);
+      }
+
+      if (input.error.enabled) {
+        return (canContinue = false);
+      }
+
       return null;
     });
+
+    //Verify if Captcha response is true
+    if (!captchaVerified) {
+      canContinue = false;
+      setCaptchaText("Preencha o captcha");
+    }
 
     //If can continue is false, return and remove the "clicked" class from the main button
     if (!canContinue) return proxBtn.current.classList.remove("clicked");
@@ -462,41 +496,59 @@ const RegisterInputs = () => {
     });
 
     const postNewUser = async () => {
-      const { data } = await Axios.post(`${serverUrl}/postnewuser`, {
-        name: name,
-        lastname: lastname,
-        emailcpf: emailcpf,
-        password: password,
-      }).catch(() => {
-        setMainErrorValue(
-          "Ocorreu um erro interno do servidor. Tente novamente em alguns segundos"
-        );
-      });
+      try {
+        const { data } = await Axios.post(`${serverUrl}/account/register`, {
+          name: name,
+          lastname: lastname,
+          emailcpf: emailcpf,
+          password: password,
+        });
 
-      proxBtn.current.classList.remove("clicked");
+        proxBtn.current.classList.remove("clicked");
 
-      if (data.isError) {
-        const errorCode = data.errorCode;
-        switch (errorCode) {
-          case "EMAIL_ALREADY_IN_USE":
-            SetErrorObject(
-              "custom",
-              "email",
-              "Esse e-mail ou CPF já está em uso!",
-              false
-            );
-            break;
-          default:
-            setMainErrorValue(
-              "Ocorreu um erro ao tentar te registrar. Por favor, tente recarregar a página"
-            );
-            break;
+        if (data.isError) {
+          const errorCode = data.errorCode;
+          switch (errorCode) {
+            case "EMAIL_ALREADY_IN_USE":
+              SetErrorObject(
+                "custom",
+                "email",
+                "Esse e-mail ou CPF já está em uso!",
+                false
+              );
+              break;
+            case "INVALID_EMAIL":
+              SetErrorObject(
+                "custom",
+                "email",
+                "Esse e-mail ou CPF é inválido",
+                false
+              );
+              break;
+            default:
+              setMainErrorValue(
+                "Ocorreu um erro ao tentar te registrar. Por favor, tente recarregar a página"
+              );
+              break;
+          }
+          return;
         }
-        return;
-      }
 
-      if (data.queryStatus === 200)
-        setMainErrorValue("Valor inserido com sucesso!");
+        if (data.queryStatus === 200) {
+          let redirectUrl = `/confirm?id=${data.userInfo.userId}&token=${data.userInfo.registerToken}`;
+
+          const nextPage = searchParams.get("next");
+          if (nextPage && nextPage !== null)
+            redirectUrl = `${redirectUrl}&next=${nextPage}`;
+
+          navigate(redirectUrl);
+        }
+      } catch (err) {
+        proxBtn.current.classList.remove("clicked");
+        setMainErrorValue(
+          `Ocorreu um erro interno do servidor. Tente novamente em alguns segundos. (${err})`
+        );
+      }
     };
     postNewUser();
   };
@@ -504,7 +556,16 @@ const RegisterInputs = () => {
   return (
     <>
       {displayInputs()}
+      <div className="captcha-div">
+        <HCaptcha
+          sitekey="10000000-ffff-ffff-ffff-000000000001"
+          onVerify={handleCaptchaVerify}
+        />
+      </div>
+        <Error style={{ textAlign: "center", marginTop: "5px" }} text={captchaText} />
       <input
+        id="nextBtn"
+        style={{ marginTop: "20px" }}
         ref={proxBtn}
         onClick={handleButtonClick}
         type="button"
