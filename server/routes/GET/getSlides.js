@@ -28,7 +28,7 @@ router.get("/:identifier", (req, res) => {
         res.write("[");
 
         let amountOfLoadedSlides = 0;
-        result.map((row) => {
+        result.forEach((row) => {
           server.db.query(
             `SELECT * FROM products WHERE productId = ${row.productId}`,
             (err2, result2) => {
@@ -59,6 +59,9 @@ router.get("/:identifier", (req, res) => {
           );
         });
       });
+      break;
+    default:
+      sendError(res, "UNKNOWN_CATEGORY", "UNKCTG");
   }
 });
 

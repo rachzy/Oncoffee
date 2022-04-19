@@ -20,14 +20,11 @@ router.use(cookieParser());
 const server = require("../../../../server.js");
 
 router.post("/", (req, res) => {
-  const [userId, registerToken, verificationCode] = [
-    req.body.userId,
-    req.body.registerToken,
-    req.body.verificationCode,
-  ];
+  const { userId, registerToken, verificationCode } = req.body;
 
-  if (!userId || !registerToken || !verificationCode)
+  if (!userId || !registerToken || !verificationCode) {
     return sendError(res, "INVALID_PARAMS", "");
+  }
 
   server.db.query(
     "SELECT accountId, securityToken1, securityToken2, verificationCode, verified FROM accounts WHERE accountId = ? and registerToken = ?",
@@ -35,11 +32,19 @@ router.post("/", (req, res) => {
     (err, result) => {
       if (err) return sendError(res, err.code, err.errno);
       if (result.length !== 1) return sendError(res, "ACCOUNT_NOT_FOUND", "");
-      if (result[0].verified === 1)
+
+      const {
+        verified,
+        resultVerificationCode,
+        securityToken1,
+        securityToken2,
+      } = result[0];
+
+      if (verified === 1) {
         return sendError(res, "ACCOUNT_ALREADY_VERIFIED", "");
-      if (
-        result[0].verificationCode.toString() !== verificationCode.toString()
-      ) {
+      }
+
+      if (verificationCode.toString() !== resultVerificationCode.toString()) {
         return sendError(res, "INVALID_CODE", "");
       }
 
@@ -52,9 +57,7 @@ router.post("/", (req, res) => {
             return sendError(res, "UNEXPECTED_INSERTION_ERROR", "");
           }
 
-          const {securityToken1, securityToken2} = result[0];
-
-          const cookieMaxAge = 60 * 60 * 24 * 30 * 2 // 2 months
+          const cookieMaxAge = 1000 * 60 * 60 * 24 * 30 * 2; // 2 months
 
           res.cookie("userId", userId, {
             maxAge: cookieMaxAge,

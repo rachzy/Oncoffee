@@ -50,7 +50,10 @@ app.use(Express.json());
 
 //Router to check if the server is online
 app.get("/", (req, res) => {
-  res.sendStatus(200);
+  db.query("SELECT 1 + 1", (err, result) => {
+    if(err) return res.sendStatus(500);
+    if(result) return res.sendStatus(200);
+  });
 });
 
 //Get (single) Product Router
@@ -77,18 +80,16 @@ app.use("/getcategories/", getCategoriesRouter);
 const getFavoriteProductsIds = require("./routes/GET/getFavoriteProductsIds.js");
 app.use("/getfavoriteproductsids/", getFavoriteProductsIds);
 
+//GET METHODS => USER
+
 const getFavoriteProducts = require("./routes/GET/getFavoriteProducts.js");
-app.use("/getfavoriteproducts/", getFavoriteProducts);
+app.use("/user/getfavoriteproducts/", getFavoriteProducts);
 
 //GET METHODS => ACCOUNT
 
-//Get User Security Tokens Router
-const getUserSecurityTokens = require("./routes/GET/getUserSecurityTokens.js");
-app.use("/getusersecuritytokens/", getUserSecurityTokens);
-
 //Verify Security Tokens
-const getVerifySecurityTokens = require("./routes/GET/getVerifySecurityTokens.js");
-app.use("/verifysecuritytokens/", getVerifySecurityTokens);
+const getValidateSecurityTokens = require("./routes/GET/account/getValidateSecurityTokens.js");
+app.use("/account/validatetokens/", getValidateSecurityTokens);
 
 //Validate Register Params
 const getValidateRegisterParams = require("./routes/GET/getValidateRegisterParams.js");
@@ -101,8 +102,10 @@ app.use("/account/validateregisterparams", getValidateRegisterParams);
 const postSearchRouter = require("./routes/POST/postSearch.js");
 app.use("/postsearch/", postSearchRouter);
 
+//POST METHODS => USER
+
 const postFavoriteProduct = require("./routes/POST/postFavoriteProduct.js");
-app.use("/postfavoriteproduct/", postFavoriteProduct);
+app.use("/user/postfavoriteproduct/", postFavoriteProduct);
 
 //POST METHODS => ACCOUNT
 
