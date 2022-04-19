@@ -683,70 +683,103 @@ body {
     transition: 0.2s ease all;
 }
 
-.buttonsmo {
-    width: 100%;
-    height: 75px;
-    background: rgb(35, 35, 35);
-    position: fixed;
-    bottom: 0;
-    border: 1px solid rgb(45, 45, 45);
-    border-bottom: 1px solid rgb(35, 35, 35);
-    border-radius: 100% 100% 0% 0% / 100% 100% 100% 100% ;
-    display: none;
-    z-index: 900;
-   
+
+
+.botoes_buy {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 140px;
+  background: transparent;
+  position: fixed;
+  bottom: 0;
+  background: rgba(35,35,35);
+  border-top-left-radius: 45px;
+  border-top-right-radius: 45px;
+  z-index: 899;
+  
 }
 
-.buttonsmo input {
-    display: none;
+.button_cupon  {
+  width: 90%;
+  border-bottom: 1px solid rgb(55, 55, 55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button_cupon button {
+  width: 96%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: transparent;
+  
+  padding-bottom: 10px;
+}
+
+.button_cupon button h2 {
+  font-size: 18px;
+  font-family: Poppins,sans-serif;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 400;
 
 }
 
-.switcher {
-    
-    height: 100%;
-    display: flex;
-    align-items: center;
-    margin-top: 0px;
-    flex-direction: column;
-    
+.button_cupon button h2 i {
+  font-size: 18px;
+  
+  color: rgb(167, 89, 45);
+  margin-right: 10px;
+  
 }
 
-.linearea {
-    width: 100%;
+.button_cupon button h3 {
+  font-size: 12px;
+  font-family: Poppins,sans-serif;
+  color: rgb(167, 89, 45);
+  font-weight: 400;
+
 }
 
-.swichline {
-    width: 20%;
-    height: 5px;
-    background: rgb(167, 89, 45);
-    position: absolute;
-    border-radius: 5px;
-    margin-bottom: 5px;
-    margin-left: 4%;
-    bottom: 0;
-    transition: all 0.5s ease;
+
+
+.buttons_finish {
+  width: 90%;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.buttonsarea {
-    
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
+.buttons_finish h2 {
+  font-size: 20px;
+  font-family: Poppins,sans-serif;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 400;
 }
 
-.buttonsarea label:first-child {
-    margin-left: 12%;
-    margin-top: 30px;
+.buttons_finish span {
+  color: rgb(167, 89, 45);
+  font-weight: 500;
+  font-size: 22px;
 }
 
-.buttonsarea label:nth-child(2) {
-    margin-top: 20px;
-}
-
-.buttonsarea label:last-child {
-    margin-right: 12%;
-    margin-top: 30px;
+.buttons_finish button {
+  font-size: 20px;
+  font-family: Poppins,sans-serif;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 400;
+  /*Laranja: Ativado
+  Cinza: Desativado*/
+  background: rgb(167, 89, 45);
+  background: rgb(65, 65, 65);
+  width: 35%;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  border-radius: 8px;
 }
 
 
@@ -822,6 +855,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    
     justify-content: center;
 }
 
@@ -1155,8 +1189,10 @@ button[class*=btn] {
   font-family: Poppins,sans-serif;
   font-weight: 500;
   color: rgba(255, 255, 255, 0.8);
-  background: transparent;
+  /*Laranja: Ativado
+  Cinza: Desativado*/
   background: rgb(167, 89, 45);
+  background: rgb(65, 65, 65);
   padding: 8px 0px;
   border-radius: 8px;
   width: 26%;
@@ -1192,7 +1228,7 @@ button[class*=btn] {
   padding: 10px;
   background: rgb(30, 30, 30);
   border-radius: 10px;
-  z-index: 999;
+  z-index: 1999;
 }
 
 .cupons_box::-webkit-scrollbar {
@@ -1514,6 +1550,39 @@ button[class*=btn] {
 
 
 
+@media screen and (max-width: 1300px) {
+  .produto_box:last-child {
+      display: none;
+  }
+
+  .produto_box {
+      width: 17%;
+      
+  }
+
+  .produto_box .comprar {
+      
+      padding: 8px 25px;
+      
+      width: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  }
+}
+
+@media screen and (max-width: 1150px) {
+  .produto_box {
+      width: 16%;
+      height: 265px;
+  }
+
+  .produto_box .comprar {
+      
+      width: 80px;
+  }
+}
+
 
 
 
@@ -1657,7 +1726,38 @@ button[class*=btn] {
 
 
 
+@media screen and (max-width: 1300px) {
+  .produto2_box:last-child {
+      display: none;
+  }
 
+  .produto2_box {
+      width: 17%;
+      
+  }
+
+  .produto2_box a {
+      
+      padding: 8px 45px;
+      
+      width: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  }
+}
+
+@media screen and (max-width: 1150px) {
+  .produto2_box {
+      width: 16%;
+      height: 265px;
+  }
+
+  .produto2_box a{
+      
+      width: 40px;
+  }
+}
 
 
 
