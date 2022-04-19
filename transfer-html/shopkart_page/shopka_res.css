@@ -64,3 +64,17 @@
     
       
 }
+
+
+
+
+
+
+
+@media screen and (max-width: 850px) {
+  .conteudo_pc {
+    display: none;
+  }
+
+  
+}

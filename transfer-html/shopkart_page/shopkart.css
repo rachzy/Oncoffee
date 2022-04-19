@@ -1193,7 +1193,7 @@ button[class*=btn] {
   padding: 10px;
   background: rgb(30, 30, 30);
   border-radius: 10px;
-  z-index: 999;
+  z-index: 1999;
 }
 
 .cupons_box::-webkit-scrollbar {
