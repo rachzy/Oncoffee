@@ -9,7 +9,10 @@ const server = require("../../../server.js");
 router.get("/", (req, res) => {
   const { userId, stoken1, stoken2 } = req.cookies;
 
-  if (!userId || !stoken1 || !stoken2) return;
+  if (!userId || !stoken1 || !stoken2) return res.send({
+    queryStatus: 200,
+    isLoggedIn: false
+  });
 
   const errorCallback = (code, errno) => {
     res.cookie("userId", "");
@@ -34,6 +37,7 @@ router.get("/", (req, res) => {
 
       res.send({
         queryStatus: 200,
+        isLoggedIn: true
       });
     }
   );

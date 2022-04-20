@@ -1,61 +1,56 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 
 import Axios from "axios";
-
-import getCookie from "../../../globalFunctions/getCookie";
-import displayError from "../../../globalFunctions/displayErrors";
 
 import ProductSection from "./MidcenterMobile/ProductSection";
 import FeaturedPromotions from "./MidcenterMobile/FeaturedPromotions";
 import OtherProductsSection from "./MidcenterMobile/OtherProductsSection";
 import TopPromo from "./MidcenterMobile/TopPromo";
 
-const MidcenterMobile = ({
-  handleFavoritedProductsChange
-}) => {
+import { GlobalServerContext } from "../../../App";
 
-  const { serverUrl } = require("../../../connection.json");
-
-  const userId = getCookie("UID");
+const MidcenterMobile = ({ handleFavoritedProductsChange }) => {
+  const { serverUrl, displayError } = useContext(GlobalServerContext);
 
   const [slideProductsIds, setSlideProductsIds] = useState([]);
   const [favoritedProductsIds, setFavoritedProductsIds] = useState();
 
   useEffect(() => {
     const fetchSlides = async () => {
-      const { data } = await Axios.get(
-        `${serverUrl}/getslides/featuredpromotions`
-      ).catch(() => {
-        return displayError("0", "SERVER_CONN_FAILED");
-      });
+      try {
+        const { data } = await Axios.get(
+          `${serverUrl}/getslides/featuredpromotions`
+        );
 
-      if (data.isError) {
-        displayError(data.errorCode, data.errno);
-        return;
+        if (data.isError) {
+          return displayError(data.errorCode, data.errno);
+        }
+
+        setSlideProductsIds(data);
+      } catch (err) {
+        displayError(err);
       }
-
-      setSlideProductsIds(data);
     };
     fetchSlides();
 
     const fetchFavoritedProductsIds = async () => {
-      if (!userId) return;
-      const { data } = await Axios.get(
-        `${serverUrl}/getfavoriteproductsids/${userId}`
-      ).catch(() => {
-        return displayError("0", "SERVER_CONN_FAILED");
-      });
+      try {
+        const { data } = await Axios.get(
+          `${serverUrl}/user/getfavoriteproductsids/`
+        );
 
-      if (data.isError) {
-        displayError(data.errorCode, data.errno);
-        return;
+        if (data.isError) {
+          return displayError(data.errorCode, data.errno);
+        }
+
+        if (!data) return;
+        setFavoritedProductsIds(data);
+      } catch (err) {
+        displayError(err);
       }
-
-      if (!data) return;
-      setFavoritedProductsIds(data);
     };
     fetchFavoritedProductsIds();
-  }, [userId, serverUrl]);
+  }, [serverUrl]);
 
   return (
     <>

@@ -1,11 +1,12 @@
-import React, { useRef } from "react";
+import React, { useCallback, useContext, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 import displayError from "../../../../.././globalFunctions/displayErrors";
 
 import HeartIcon from "../../../../../imgs/newhearth.png";
 import FavHeartIcon from "../../../../../imgs/favhearth.png";
-import getCookie from "../../../../../globalFunctions/getCookie";
+
+import { GlobalServerContext } from "../../../../../App";
 
 const Product = ({
   productId,
@@ -21,13 +22,13 @@ const Product = ({
   favoritedProductsIds,
   handleAddCartProduct,
   handleFavoritedProductsChange,
-  handleSetPopupState,
 }) => {
-  const userId = getCookie("UID");
   const favhearticon = useRef(null);
   const defaulthearticon = useRef(null);
 
-  if (userId) {
+  const { isLogged } = useContext(GlobalServerContext);
+
+  if (isLogged) {
     //Simple function that will check if the product is already favorited by the user
     //and display a "favorited heart" icon instead of a default one if it is
     const checkIfProductIsFavorited = async () => {
@@ -110,10 +111,9 @@ const Product = ({
 
   const handleHeartIconClick = (currentTime) => {
     //Redirect the user to login page if he's not logged in
-    if (!userId) {
-      navigate("/login/");
+    if (!isLogged) {
       window.scrollTo(0, 0);
-      return;
+      return navigate("/login/");
     }
 
     //LOGIC SECTION

@@ -1,13 +1,12 @@
-import React, { useRef } from "react";
+import React, { useRef, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 import Axios from "axios";
 
-import getCookie from "../../../../../globalFunctions/getCookie";
-import displayError from "../../../../../globalFunctions/displayErrors";
-
 import FavHeartIcon from "../../../../../imgs/favhearth.png";
 import HeartIcon from "../../../../../imgs/newhearth.png";
+
+import { GlobalServerContext } from "../../../../../App";
 
 const Product = ({
   productDiscount,
@@ -20,48 +19,45 @@ const Product = ({
   favoritedProductsIds,
   handleFavoritedProductsChange,
 }) => {
-  const userId = getCookie("UID");
   const favhearticon = useRef(null);
   const defaulthearticon = useRef(null);
 
-  const { serverUrl } = require("../../../../../connection.json");
+  const { serverUrl, displayError, isLogged } = useContext(GlobalServerContext);
 
-  if (userId) {
-    //Simple function that will check if the product is already favorited by the user
-    //and display a "favorited heart" icon instead of a default one if it is
-    const checkIfProductIsFavorited = async () => {
-      if (!favoritedProductsIds) return;
-      //Each value of this Array corresponds to a single productId
-      const splitProductIds = favoritedProductsIds.toString().split(",");
+  //Simple function that will check if the product is already favorited by the user
+  //and display a "favorited heart" icon instead of a default one if it is
+  const checkIfProductIsFavorited = async () => {
+    if (!favoritedProductsIds) return;
+    //Each value of this Array corresponds to a single productId
+    const splitProductIds = favoritedProductsIds.toString().split(",");
 
-      //If "splitProductIds" is not null, that means that there are more than one product
-      if (splitProductIds) {
-        splitProductIds.map((pId) => {
-          if (!pId || pId === null || pId === "") return;
-          if (pId === productId.toString()) {
-            if (
-              favhearticon.current === null ||
-              defaulthearticon.current === null
-            )
-              return;
-            //If the product is already favorited, display a favorited heart instead of a default one
-            favhearticon.current.classList.add("active");
-            defaulthearticon.current.classList.remove("active");
-          }
-        });
-        return;
-      }
+    //If "splitProductIds" is not null, that means that there are more than one product
+    if (splitProductIds) {
+      splitProductIds.forEach((pId) => {
+        if (!pId || pId === null || pId === "") return;
+        if (pId === productId.toString()) {
+          if (
+            favhearticon.current === null ||
+            defaulthearticon.current === null
+          )
+            return;
+          //If the product is already favorited, display a favorited heart instead of a default one
+          favhearticon.current.classList.add("active");
+          defaulthearticon.current.classList.remove("active");
+        }
+      });
+      return;
+    }
 
-      //If the program did not return, that means that there's just a single product (that will correspond to "data" value)
-      if (favoritedProductsIds === productId.toString()) {
-        //If the product is already favorited, display a favorited heart instead of a default one
-        favhearticon.current.classList.add("active");
-        defaulthearticon.current.classList.remove("active");
-      }
-    };
-    //Execute the function after 500ms to avoid loading problems
-    setTimeout(checkIfProductIsFavorited, 500);
-  }
+    //If the program did not return, that means that there's just a single product (that will correspond to "data" value)
+    if (favoritedProductsIds === productId.toString()) {
+      //If the product is already favorited, display a favorited heart instead of a default one
+      favhearticon.current.classList.add("active");
+      defaulthearticon.current.classList.remove("active");
+    }
+  };
+  //Execute the function after 500ms to avoid loading problems
+  setTimeout(checkIfProductIsFavorited, 500);
 
   //Return a discount div if there's discount
   const returnDiscount = () => {
@@ -96,10 +92,9 @@ const Product = ({
 
   const handleHeartIconClick = (currentTime) => {
     //Redirect the user to login page if he's not logged in
-    if (!userId) {
-      navigate("/login/");
+    if (!isLogged) {
       window.scrollTo(0, 0);
-      return;
+      return navigate("/login/");
     }
 
     //LOGIC SECTION
@@ -121,15 +116,23 @@ const Product = ({
     }
     lastClick = currentTimeTimeStamp;
 
-    //Pos the new product on the database
+    //Post the new product on the database
     const postNewFavoriteProduct = async () => {
-      const { data } = Axios.post(`${serverUrl}/postfavoriteproduct/`, {
-        userId: userId,
-        productId: productId,
-      });
-      if (!data) return;
-      if (data.isError) {
-        displayError(data.errorCode, data.errno);
+      try {
+        const { data } = await Axios.post(
+          `${serverUrl}/user/postfavoriteproduct/`,
+          {
+            productId: productId,
+          }
+        );
+
+        if (!data) return;
+
+        if (data.isError) {
+          displayError(data.errorCode, data.errno);
+        }
+      } catch (err) {
+        displayError(err.message);
       }
     };
     postNewFavoriteProduct();

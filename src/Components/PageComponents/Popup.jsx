@@ -16,7 +16,7 @@ const Popup = ({ popupContent }) => {
       //Displays off the popup div
       popup.current.classList.remove("active");
       document.body.style.overflowY = "visible";
-    }, 500);
+    }, 200);
   };
 
   if (popup.current) {

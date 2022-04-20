@@ -67,23 +67,23 @@ app.use("/getproducts/", getProductsRouter);
 const getSlidesRouter = require("./routes/GET/getSlides.js");
 app.use("/getslides/", getSlidesRouter);
 
-//Get (many) Searches according to UserId Router
-const getUserSearchesRouter = require("./routes/GET/getUserSearches.js");
-app.use("/getusersearches/", getUserSearchesRouter);
-
 const getProductsForSearchesRouter = require("./routes/GET/getProductsForSearches.js");
 app.use("/getproductsforsearches/", getProductsForSearchesRouter);
 
 const getCategoriesRouter = require("./routes/GET/getCategories.js");
 app.use("/getcategories/", getCategoriesRouter);
 
-const getFavoriteProductsIds = require("./routes/GET/getFavoriteProductsIds.js");
-app.use("/getfavoriteproductsids/", getFavoriteProductsIds);
-
 //GET METHODS => USER
 
-const getFavoriteProducts = require("./routes/GET/getFavoriteProducts.js");
+//Get (many) Searches according to UserId Router
+const getUserSearchesRouter = require("./routes/GET/user/getUserSearches.js");
+app.use("/getusersearches/", getUserSearchesRouter);
+
+const getFavoriteProducts = require("./routes/GET/user/getFavoriteProducts.js");
 app.use("/user/getfavoriteproducts/", getFavoriteProducts);
+
+const getFavoriteProductsIds = require("./routes/GET/user/getFavoriteProductsIds.js");
+app.use("/user/getfavoriteproductsids/", getFavoriteProductsIds);
 
 //GET METHODS => ACCOUNT
 
@@ -99,13 +99,13 @@ app.use("/account/validateregisterparams", getValidateRegisterParams);
 
 //POST METHODS
 
-const postSearchRouter = require("./routes/POST/postSearch.js");
-app.use("/postsearch/", postSearchRouter);
-
 //POST METHODS => USER
 
-const postFavoriteProduct = require("./routes/POST/postFavoriteProduct.js");
+const postFavoriteProduct = require("./routes/POST/user/postFavoriteProduct.js");
 app.use("/user/postfavoriteproduct/", postFavoriteProduct);
+
+const postSearchRouter = require("./routes/POST/user/postSearch.js");
+app.use("/user/postsearch/", postSearchRouter);
 
 //POST METHODS => ACCOUNT
 

@@ -1,8 +1,6 @@
 import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
-import getCookie from "../../../globalFunctions/getCookie";
-
 const ProductPopup = ({
   popupType,
   productId,
@@ -24,9 +22,6 @@ const ProductPopup = ({
 
   //When the user clicks in the X Button in front of the product
   const handleXClick = async () => {
-    const userId = getCookie("UID");
-    if (!userId) return;
-
     let removeProductBtn;
 
     //Check if there's a button of "Remove Favorite" (Default Heart Icon) for that product loaded in the page

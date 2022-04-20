@@ -8,11 +8,18 @@ const ShoppingCartProducts = ({
   handleRemoveCartProduct,
 }) => {
   //Open the "Popup" when the main button get clicked
-  const handleButtonClick = () => {
-    const popup = document.querySelector(".popup");
-    const popupBox = document.querySelector(".popup-box");
+  const handleButtonClick = async () => {
+    const [popup, popupBox] = [
+      document.querySelector(".popup"),
+      document.querySelector(".popup-box"),
+    ];
+
     popup.classList.add("active");
-    popupBox.classList.add("active");
+
+    setTimeout(() => {
+      popupBox.classList.add("active");
+    }, 1);
+
     document.body.style.overflow = "hidden";
     handleSetPopupState("shoppingcart");
   };

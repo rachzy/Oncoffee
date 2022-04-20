@@ -23,6 +23,7 @@ const App = () => {
 
   //State that will save the current status of the connection with the server
   const [serverStatus, setServerStatus] = useState();
+  const [isUserLoggedIn, setUserLoggedIn] = useState();
   const [favoritedProducts, setFavoritedProducts] = useState([]);
 
   useEffect(() => {
@@ -40,12 +41,27 @@ const App = () => {
       }
     };
 
+    const validateSecurityTokens = async () => {
+      try {
+        const { data } = await Axios.get(`${serverUrl}/account/validatetokens`);
+
+        if (data.isError) return window.location.reload();
+
+        if (data.queryStatus !== 200) return;
+
+        const { isLoggedIn } = data;
+        setUserLoggedIn(isLoggedIn);
+      } catch (err) {
+        displayError(err, err.response.code);
+      }
+    };
+
     const checkServerConnection = async () => {
       try {
         const { status } = await Axios.get(`${serverUrl}`);
         setServerStatus(status);
 
-        if(status !== 200) return;
+        if (status !== 200) return;
         fetchFavoritedProducts();
         clearInterval(checkConnectionInterval);
       } catch (err) {
@@ -56,16 +72,6 @@ const App = () => {
 
     let checkConnectionInterval = setInterval(checkServerConnection, 5000);
   }, [serverUrl, serverStatus]);
-
-  // const validateSecurityTokens = async () => {
-  //   try {
-  //     const { data } = await Axios.get(`${serverUrl}/account/validatetokens`);
-
-  //     if (data.isError) window.location.reload();
-  //   } catch (err) {
-  //     displayError(err, err.response.code);
-  //   }
-  // };
 
   const handleFavoritedProductsChange = (newProduct) => {
     if (!newProduct || !newProduct.productId) return;
@@ -115,10 +121,8 @@ const App = () => {
       return;
 
     const parseCartProducts = () => {
-      return JSON.parse(
-        cartProductsSavedOnLocalStorage
-      );
-    }
+      return JSON.parse(cartProductsSavedOnLocalStorage);
+    };
     parseCartProducts();
 
     if (!Array.isArray(parseCartProducts())) {
@@ -181,9 +185,10 @@ const App = () => {
     });
     if (!popupType) return;
 
+    let PopupContentArray;
     switch (popupType) {
       case "favoritedproducts":
-        let PopupContentObject = {
+        PopupContentArray = {
           title: "Seus favoritos",
           type: "favoritedproducts",
           products: favoritedProducts,
@@ -192,7 +197,6 @@ const App = () => {
             handleFavoritedProductsChange(productId);
           },
         };
-        setPopupContent(PopupContentObject);
         break;
       case "shoppingcart":
         if (!cartProducts || cartProducts.length === 0) return;
@@ -200,7 +204,7 @@ const App = () => {
         //   if (!product || !product.productId) return;
         //   return `${product.productId}`;
         // });
-        PopupContentObject = {
+        PopupContentArray = {
           title: "Seu Carrinho",
           type: "cartproducts",
           products: cartProducts,
@@ -211,11 +215,10 @@ const App = () => {
             handleRemoveCartProduct();
           },
         };
-        setPopupContent(PopupContentObject);
         break;
       case "singleproduct":
         if (!productObject) return;
-        PopupContentObject = {
+        PopupContentArray = {
           title: productObject.productName,
           type: "singleproduct",
           product: productObject,
@@ -224,11 +227,11 @@ const App = () => {
           },
           removeProduct: false,
         };
-        setPopupContent(PopupContentObject);
         break;
       default:
         break;
     }
+    setPopupContent(PopupContentArray);
   };
 
   //State that controls the Header title
@@ -239,22 +242,26 @@ const App = () => {
 
   return (
     <Router>
-      <SkipToContentButton />
-      <Popup popupContent={popupContent} />
-      <Header
-        serverStatus={serverStatus}
-        cartProducts={cartProducts}
-        favoritedProductsState={favoritedProducts}
-        cartProductsState={cartProducts}
-        handleSetPopupState={handleSetPopupState}
-        handleRemoveCartProduct={handleRemoveCartProduct}
-        handleFavoritedProductsChange={handleFavoritedProductsChange}
-      >
-        {headerPageTitle}
-      </Header>
       <GlobalServerContext.Provider
-        value={{ serverUrl: serverUrl, displayError: displayError }}
+        value={{
+          serverUrl: serverUrl,
+          displayError: displayError,
+          isLogged: isUserLoggedIn,
+        }}
       >
+        <SkipToContentButton />
+        <Popup popupContent={popupContent} />
+        <Header
+          serverStatus={serverStatus}
+          cartProducts={cartProducts}
+          favoritedProductsState={favoritedProducts}
+          cartProductsState={cartProducts}
+          handleSetPopupState={handleSetPopupState}
+          handleRemoveCartProduct={handleRemoveCartProduct}
+          handleFavoritedProductsChange={handleFavoritedProductsChange}
+        >
+          {headerPageTitle}
+        </Header>
         <Routes>
           <Route
             path="/"

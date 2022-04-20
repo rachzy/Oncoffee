@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
 
-const sendError = require("../../globalFunctions/sendError.js");
+const sendError = require("../../../globalFunctions/sendError.js");
 
-const server = require("../../server.js");
+const server = require("../../../server.js");
 
 //Get all the favorited products of an user
 router.get("/", (req, res) => {

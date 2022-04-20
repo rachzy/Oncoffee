@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import Axios from "axios";
 
@@ -7,7 +7,7 @@ import ProductLine from "./ProductSection/ProductLine";
 import Product from "./ProductSection/Product";
 import BottomBtn from "./BottomBtn";
 
-import displayError from "../../../../globalFunctions/displayErrors";
+import { GlobalServerContext } from "../../../../App";
 
 const ProductSection = ({
   category,
@@ -23,18 +23,25 @@ const ProductSection = ({
   const [products, setProducts] = useState([]);
 
   //Get products from the Database by using Axios through GET method
-  const { serverUrl } = require("../../../../connection.json"); //Import serverUrl (Ex: http://localhost:3001);
+  const { serverUrl, displayError } = useContext(GlobalServerContext); //Import serverUrl (Ex: http://localhost:3001);
 
   //Fetch all products
   useEffect(() => {
     const fetchProducts = async () => {
-      const { data } = await Axios.get(`${serverUrl}/getproducts/${category}`);
+      try {
+        const { data } = await Axios.get(
+          `${serverUrl}/getproducts/${category}`
+        );
 
-      if (data.isError) return displayError(data.errorCode, data.errno);
-      setProducts(data);
+        if (data.isError) return displayError(data.errorCode, data.errno);
+
+        setProducts(data);
+      } catch (err) {
+        displayError(err.message, "INTERNAL_ERROR");
+      }
     };
     fetchProducts();
-  }, [serverUrl, category]);
+  }, [serverUrl, displayError, category]);
 
   //BOTTOM BTN //
 
