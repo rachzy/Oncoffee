@@ -1858,3 +1858,189 @@ button[class*=btn] {
   text-decoration: underline;
   
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*mobile*/
+
+
+
+.option-input2 {
+  appearance: none;
+  position: relative;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 30px;
+  width: 30px;
+  transition: all 0.15s ease-out 0s;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: #fff;
+  display: inline-block;
+  outline: none;
+  position: relative;
+  z-index: 1000;
+  border-radius: 3px;
+}
+.option-input2:checked {
+  background: rgb(167, 89, 45);
+}
+.option-input2:checked::before {
+  width: 30px;
+  height: 30px;
+  display:flex;
+  content: '\f00c';
+  font-size: 16.5px;
+  font-weight:bold;
+  position: absolute;
+  align-items:center;
+  justify-content:center;
+  font-family:'Font Awesome 5 Free';
+}
+.option-input2:checked::after {
+  -webkit-animation: click-wave 0.65s;
+  -moz-animation: click-wave 0.65s;
+  animation: click-wave 0.65s;
+  background: rgb(167, 89, 45);
+  content: '';
+  display: block;
+  position: relative;
+  z-index: 100;
+}
+
+
+
+
+
+
+.conteudo_mobile {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+
+
+
+.goback {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background: rgb(30, 30, 30);
+  padding: 15px 0px;
+}
+
+.goback button {
+  width: 96%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 22px;
+  color: rgba(255, 255, 255, 0.8);
+  font-family: Poppins,sans-serif;
+  font-weight: 400;
+  background: transparent;
+}
+
+.goback i {
+  font-size: 32px;
+  margin-right: 20px;
+  color: rgb(167, 89, 45);
+}
+
+
+.check_all {
+  width: 100%;
+  padding: 10px 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top: 2px solid rgb(40, 40, 40);
+  border-bottom: 2px solid rgb(40, 40, 40);
+}
+
+.check_allc {
+  width: 96%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.check_all h2 {
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.8);
+  font-family: Poppins,sans-serif;
+  font-weight: 400;
+  margin-left: 10px;
+}
