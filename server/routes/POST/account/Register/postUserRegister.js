@@ -13,15 +13,11 @@ const server = require("../../../../server.js");
 
 //Create and insert a new user in the database
 router.post("/", (req, res) => {
-  const [name, lastname, emailcpf, password] = [
-    req.body.name.toString(),
-    req.body.lastname.toString(),
-    req.body.emailcpf.toString(),
-    req.body.password.toString(),
-  ];
+  const { name, lastname, emailcpf, password } = req.body;
 
-  if (!name || !lastname || !emailcpf || !password)
+  if (!name || !lastname || !emailcpf || !password) {
     return sendError(res, "NOT_ENOUGH_PARAMETERS", "");
+  }
 
   if (
     name.length < 2 ||
@@ -31,8 +27,9 @@ router.post("/", (req, res) => {
     emailcpf.length < 10 ||
     emailcpf.length > 50 ||
     password.length < 5
-  )
+  ) {
     return sendError(res, "INVALID_PARAMETERS", "");
+  }
 
   const checkIfValueHasSign = emailcpf.split("@"); //Split the string in "@"
   const checkIfValueHasDot = emailcpf.split("."); //Split the string in "."
@@ -128,8 +125,9 @@ router.post("/", (req, res) => {
           (err2, result2) => {
             if (err2) return sendError(res, err2.code, err2.errno);
 
-            if (result2.affectedRows === 0)
+            if (result2.affectedRows === 0) {
               return sendError(res, "UNEXPECTED_INSERTION_ERROR", "");
+            }
 
             //Insert the user data in the database
             server.db.query(

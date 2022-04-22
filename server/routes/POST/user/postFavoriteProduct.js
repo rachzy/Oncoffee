@@ -1,16 +1,18 @@
 const express = require("express");
 const router = express.Router();
 
-const sendError = require("../../globalFunctions/sendError.js");
+const sendError = require("../../../globalFunctions/sendError.js");
 
-const server = require("../../server.js");
+const server = require("../../../server.js");
 
 //Post a favorited product by a user on his column on table "users"
 router.post("/", (req, res) => {
   //Get params
-  const [userId, productId] = [req.body.userId, req.body.productId];
+  const { userId } = req.cookies;
+  const productId = req.body.productId;
 
-  if (!userId || !productId || userId === "" || productId === "") return;
+  if (!userId || !productId || userId === "" || productId === "")
+    return sendError("INVALID_PARAMS", "");
 
   //First query, to get the product ids favorited by the user
   server.db.query(
@@ -32,17 +34,20 @@ router.post("/", (req, res) => {
 
       //Map the final array
       splitFavProducts.map((FavProductId) => {
-        if (productId.toString() === FavProductId)
-          //If any of the product ids on the database is the same as the one that's being requested
-          //that means that that product is already favorited by the user
-          //Then, return "productAlreadyFavorited" as true
+        //If any of the product ids on the database is the same as the one that's being requested
+        //that means that that product is already favorited by the user
+        //Then, return "productAlreadyFavorited" as true
+        if (productId.toString() === FavProductId) {
           return (productAlreadyFavorited = true);
+        }
+        return null;
       });
 
       if (productAlreadyFavorited) {
         //If the product is already favorited:
 
         let finalProductInsertion;
+
         if (productId.toString() === splitFavProducts[0]) {
           finalProductInsertion = `${productId},`;
         } else {
@@ -71,6 +76,7 @@ router.post("/", (req, res) => {
 
         //String that will be the new value of that column
         let favoriteProductsPlusNewProduct;
+
         if (userFavoriteProducts === "") {
           favoriteProductsPlusNewProduct = `${productId}`;
         } else {

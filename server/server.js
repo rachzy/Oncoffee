@@ -50,7 +50,10 @@ app.use(Express.json());
 
 //Router to check if the server is online
 app.get("/", (req, res) => {
-  res.sendStatus(200);
+  db.query("SELECT 1 + 1", (err, result) => {
+    if(err) return res.sendStatus(500);
+    if(result) return res.sendStatus(200);
+  });
 });
 
 //Get (single) Product Router
@@ -64,31 +67,29 @@ app.use("/getproducts/", getProductsRouter);
 const getSlidesRouter = require("./routes/GET/getSlides.js");
 app.use("/getslides/", getSlidesRouter);
 
-//Get (many) Searches according to UserId Router
-const getUserSearchesRouter = require("./routes/GET/getUserSearches.js");
-app.use("/getusersearches/", getUserSearchesRouter);
-
 const getProductsForSearchesRouter = require("./routes/GET/getProductsForSearches.js");
 app.use("/getproductsforsearches/", getProductsForSearchesRouter);
 
 const getCategoriesRouter = require("./routes/GET/getCategories.js");
 app.use("/getcategories/", getCategoriesRouter);
 
-const getFavoriteProductsIds = require("./routes/GET/getFavoriteProductsIds.js");
-app.use("/getfavoriteproductsids/", getFavoriteProductsIds);
+//GET METHODS => USER
 
-const getFavoriteProducts = require("./routes/GET/getFavoriteProducts.js");
-app.use("/getfavoriteproducts/", getFavoriteProducts);
+//Get (many) Searches according to UserId Router
+const getUserSearchesRouter = require("./routes/GET/user/getUserSearches.js");
+app.use("/getusersearches/", getUserSearchesRouter);
+
+const getFavoriteProducts = require("./routes/GET/user/getFavoriteProducts.js");
+app.use("/user/getfavoriteproducts/", getFavoriteProducts);
+
+const getFavoriteProductsIds = require("./routes/GET/user/getFavoriteProductsIds.js");
+app.use("/user/getfavoriteproductsids/", getFavoriteProductsIds);
 
 //GET METHODS => ACCOUNT
 
-//Get User Security Tokens Router
-const getUserSecurityTokens = require("./routes/GET/getUserSecurityTokens.js");
-app.use("/getusersecuritytokens/", getUserSecurityTokens);
-
 //Verify Security Tokens
-const getVerifySecurityTokens = require("./routes/GET/getVerifySecurityTokens.js");
-app.use("/verifysecuritytokens/", getVerifySecurityTokens);
+const getValidateSecurityTokens = require("./routes/GET/account/getValidateSecurityTokens.js");
+app.use("/account/validatetokens/", getValidateSecurityTokens);
 
 //Validate Register Params
 const getValidateRegisterParams = require("./routes/GET/getValidateRegisterParams.js");
@@ -98,11 +99,13 @@ app.use("/account/validateregisterparams", getValidateRegisterParams);
 
 //POST METHODS
 
-const postSearchRouter = require("./routes/POST/postSearch.js");
-app.use("/postsearch/", postSearchRouter);
+//POST METHODS => USER
 
-const postFavoriteProduct = require("./routes/POST/postFavoriteProduct.js");
-app.use("/postfavoriteproduct/", postFavoriteProduct);
+const postFavoriteProduct = require("./routes/POST/user/postFavoriteProduct.js");
+app.use("/user/postfavoriteproduct/", postFavoriteProduct);
+
+const postSearchRouter = require("./routes/POST/user/postSearch.js");
+app.use("/user/postsearch/", postSearchRouter);
 
 //POST METHODS => ACCOUNT
 
