@@ -1949,7 +1949,6 @@ button[class*=btn] {
   display: inline-block;
   outline: none;
   position: relative;
-  z-index: 1000;
   border-radius: 3px;
 }
 .option-input2:checked {
@@ -2043,4 +2042,70 @@ button[class*=btn] {
   font-family: Poppins,sans-serif;
   font-weight: 400;
   margin-left: 10px;
+}
+
+
+
+
+
+
+.carrinho_overflow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+}
+
+
+
+.carrinho_mbox {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.check_area {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20%;
+}
+
+.kart_photo {
+  display: flex;
+  margin-right: 20px;
+}
+
+.kart_photo img {
+  width: 130px;
+}
+
+.kart_info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.kart_info h2 {
+  font-size: 14px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.8);
+  font-family: Poppins,sans-serif;
+}
+
+.kart_info h3 {
+  font-size: 16px;
+  font-weight: 500;
+  color: rgb(167, 89, 45);
+  font-family: Poppins,sans-serif;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.kart_info h3 span {
+  color: rgb(95, 95, 95);
+  margin-right: 10px;
+  text-decoration: line-through;
 }
