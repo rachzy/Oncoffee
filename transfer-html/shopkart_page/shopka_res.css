@@ -76,5 +76,19 @@
     display: none;
   }
 
-  
+  .conteudo_mobile {
+    display: flex;
+  }
+
+  button[class*=btn] {
+    cursor: default;
+  }
+}
+
+
+@media screen and (max-width: 38 0px) {
+  .kart_info h3 {
+    display: flex;
+    flex-direction: column;
+  }
 }

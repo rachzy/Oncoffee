@@ -1983,7 +1983,7 @@ button[class*=btn] {
 
 
 .conteudo_mobile {
-  display: flex;
+  display: none;
   align-items: center;
   flex-direction: column;
   justify-content: center;
