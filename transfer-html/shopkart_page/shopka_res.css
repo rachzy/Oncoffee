@@ -86,9 +86,69 @@
 }
 
 
-@media screen and (max-width: 38 0px) {
+@media screen and (max-width: 380px) {
   .kart_info h3 {
     display: flex;
     flex-direction: column;
+  }
+
+  
+  .button_cupon  {
+    width: 90%;
+    border-bottom: 1px solid rgb(55, 55, 55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .button_cupon button {
+    width: 96%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: transparent;
+    
+    padding-bottom: 10px;
+  }
+  
+  .button_cupon button h2 {
+    font-size: 13px;
+    font-family: Poppins,sans-serif;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 400;
+  
+  }
+  
+  .button_cupon button h2 i {
+    font-size: 13px;
+    
+    color: rgb(167, 89, 45);
+    margin-right: 10px;
+    
+  }
+  
+  .button_cupon button h3 {
+    font-size: 10px;
+  
+  }
+
+
+  .buttons_finish {
+    width: 90%;
+    margin-top: 20px;
+  }
+  
+  .buttons_finish h2 {
+    font-size: 18px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .buttons_finish span {
+    font-size: 22px;
+  }
+  
+  .buttons_finish button {
+    font-size: 16px;
   }
 }
