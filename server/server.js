@@ -1,6 +1,6 @@
 //Oncoffee server-side (by r4ch)
 //Sets the PORT that the server gonna be hosted on
-const PORT = 3001;
+const PORT = 8000;
 
 //Libs
 const Express = require("express");
@@ -28,7 +28,7 @@ const rateLimit = require("express-rate-limit");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-app.use(cors());
+app.use(cors({ credentials: true, origin: true }));
 app.use(helmet());
 app.use(hpp());
 app.use(morgan("dev"));
@@ -50,7 +50,10 @@ app.use(Express.json());
 
 //Router to check if the server is online
 app.get("/", (req, res) => {
-  res.sendStatus(200);
+  db.query("SELECT 1 + 1", (err, result) => {
+    if(err) return res.sendStatus(500);
+    if(result) return res.sendStatus(200);
+  });
 });
 
 //Get (single) Product Router
@@ -64,63 +67,62 @@ app.use("/getproducts/", getProductsRouter);
 const getSlidesRouter = require("./routes/GET/getSlides.js");
 app.use("/getslides/", getSlidesRouter);
 
-//Get (many) Searches according to UserId Router
-const getUserSearchesRouter = require("./routes/GET/getUserSearches.js");
-app.use("/getusersearches/", getUserSearchesRouter);
-
 const getProductsForSearchesRouter = require("./routes/GET/getProductsForSearches.js");
 app.use("/getproductsforsearches/", getProductsForSearchesRouter);
 
 const getCategoriesRouter = require("./routes/GET/getCategories.js");
 app.use("/getcategories/", getCategoriesRouter);
 
-const getFavoriteProductsIds = require("./routes/GET/getFavoriteProductsIds.js");
-app.use("/getfavoriteproductsids/", getFavoriteProductsIds);
+//GET METHODS => USER
 
-const getFavoriteProducts = require("./routes/GET/getFavoriteProducts.js");
-app.use("/getfavoriteproducts/", getFavoriteProducts);
+//Get (many) Searches according to UserId Router
+const getUserSearchesRouter = require("./routes/GET/user/getUserSearches.js");
+app.use("/getusersearches/", getUserSearchesRouter);
 
-//GET => ACCOUNT
+const getFavoriteProducts = require("./routes/GET/user/getFavoriteProducts.js");
+app.use("/user/getfavoriteproducts/", getFavoriteProducts);
 
-//Get User Security Tokens Router
-const getUserSecurityTokens = require("./routes/GET/getUserSecurityTokens.js");
-app.use("/getusersecuritytokens/", getUserSecurityTokens);
+const getFavoriteProductsIds = require("./routes/GET/user/getFavoriteProductsIds.js");
+app.use("/user/getfavoriteproductsids/", getFavoriteProductsIds);
+
+//GET METHODS => ACCOUNT
 
 //Verify Security Tokens
-const getVerifySecurityTokens = require("./routes/GET/getVerifySecurityTokens.js");
-app.use("/verifysecuritytokens/", getVerifySecurityTokens);
+const getValidateSecurityTokens = require("./routes/GET/account/getValidateSecurityTokens.js");
+app.use("/account/validatetokens/", getValidateSecurityTokens);
 
 //Validate Register Params
 const getValidateRegisterParams = require("./routes/GET/getValidateRegisterParams.js");
 app.use("/account/validateregisterparams", getValidateRegisterParams);
 
-
-
-
-
-
+//
 
 //POST METHODS
 
-const postSearchRouter = require("./routes/POST/postSearch.js");
-app.use("/postsearch/", postSearchRouter);
+//POST METHODS => USER
 
-const postFavoriteProduct = require("./routes/POST/postFavoriteProduct.js");
-app.use("/postfavoriteproduct/", postFavoriteProduct);
+const postFavoriteProduct = require("./routes/POST/user/postFavoriteProduct.js");
+app.use("/user/postfavoriteproduct/", postFavoriteProduct);
 
-//POST => ACCOUNT
+const postSearchRouter = require("./routes/POST/user/postSearch.js");
+app.use("/user/postsearch/", postSearchRouter);
 
-const postUserRegister = require("./routes/POST/postUserRegister.js");
+//POST METHODS => ACCOUNT
+
+const postUserRegister = require("./routes/POST/account/Register/postUserRegister.js");
 app.use("/account/register/", postUserRegister);
 
-const postSetVerificationEmail = require("./routes/POST/postSetVerificationEmail.js");
+const postSetVerificationEmail = require("./routes/POST/account/Email/postSetVerificationEmail.js");
 app.use("/account/setverificationemail", postSetVerificationEmail);
 
-const postResendVerificationEmail = require("./routes/POST/postResendVerificationEmail.js");
+const postResendVerificationEmail = require("./routes/POST/account/Email/postResendVerificationEmail.js");
 app.use("/account/resendverificationemail", postResendVerificationEmail);
 
-const postVerifyAccount = require("./routes/POST/postVerifyAccount.js");
+const postVerifyAccount = require("./routes/POST/account/Register/postVerifyAccount.js");
 app.use("/account/verify", postVerifyAccount);
+
+const postUserLogin = require("./routes/POST/account/Login/postUserLogin.js");
+app.use("/account/login", postUserLogin);
 
 //Host the server on it's port (Default is 3001);
 const server = app.listen(PORT, () => {

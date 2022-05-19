@@ -1,10 +1,10 @@
 const express = require("express");
-const sendError = require("../../globalFunctions/sendError");
+const sendError = require("../../../../globalFunctions/sendError");
 const router = express.Router();
 
-const sendMail = require("../../globalFunctions/sendMail");
+const sendMail = require("../../../../globalFunctions/sendMail");
 
-const server = require("../../server.js");
+const server = require("../../../../server.js");
 
 router.post("/", (req, res) => {
   const [userId, registerToken] = [req.body.userId, req.body.registerToken];

@@ -1,26 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import Axios from "axios";
-
-import displayError from "../../../../../globalFunctions/displayErrors";
-import getCookie from "../../../../../globalFunctions/getCookie";
 
 import Input from "./Input";
 import SearchIcon from "./SearchIcon";
 import Autocomplete from "./Autocomplete";
 
+import {GlobalServerContext} from "../../../../../App";
+
 const SearchBar = () => {
   //Get "serverUrl" from "connection.json";
-  const { serverUrl } = require("../../../../../connection.json");
+  const { serverUrl, displayError, isLogged } = useContext(GlobalServerContext);
 
   //Get "useNavigate" from React (to use it for redirects)
   const navigate = useNavigate();
-
-  //Function to set the inital value and structure of the "inputValue" state
-  function initialState() {
-    return { value: "" };
-  }
 
   //State that will control exactly what will be displayed on the "autocomplete" div
   const [autocompleteShow, setAutocompleteShow] = useState([]);
@@ -29,7 +23,9 @@ const SearchBar = () => {
   const [autocompleteData, setAutocompleteData] = useState([]);
 
   //State that will save the value of the search input
-  const [inputValue, setInputValue] = useState(initialState());
+  const [inputValue, setInputValue] = useState({
+    value: ""
+  });
 
   //Function that will set the "inputValue" state every time that the input get changed
   const handleInputChange = async (e) => {
@@ -102,7 +98,6 @@ const SearchBar = () => {
     //Post Data
     const postInputValue = async () => {
       const { data } = await Axios.post(`${serverUrl}/postsearch`, {
-        userId: getCookie("UID"),
         searchValue: inputValue.value,
       });
       if (data.isError) {
@@ -113,17 +108,21 @@ const SearchBar = () => {
 
     //Get new data after insert
     const fetchNewSearches = async () => {
-      const userId = getCookie("UID");
-      if (!userId) return;
-      const { data } = await Axios.get(
-        `${serverUrl}/getusersearches/${userId}`
-      );
-      if (data.isError) {
-        displayError(data.errorCode, data.errno);
-        return;
+      try {
+        const { data } = await Axios.get(
+          `${serverUrl}/getusersearches/`
+        );
+        
+        if (data.isError) {
+          return displayError(data.errorCode, data.errno);
+        }
+  
+        setAutocompleteData(data);
+        setAutocompleteShow(data);
+      } catch(err) {
+        displayError(err.message, "CANT_GET_USER_SEARCHES");
       }
-      setAutocompleteData(data);
-      setAutocompleteShow(data);
+
     };
     setTimeout(fetchNewSearches, 1000);
   };
@@ -131,20 +130,25 @@ const SearchBar = () => {
   useEffect(() => {
     //Function to set the autocomplete values according to the received data by the user ID
     const fetchData = async () => {
-      const userId = getCookie("UID");
-      if (!userId) return;
-      const { data } = await Axios.get(
-        `${serverUrl}/getusersearches/${userId}`
-      );
-      if (data.isError) {
-        displayError(data.errorCode, data.errno);
-        return;
+      if (!isLogged) return;
+
+      try {
+        const { data } = await Axios.get(
+          `${serverUrl}/getusersearches/`
+        );
+
+        if (data.isError) {
+          return displayError(data.errorCode, data.errno);
+        }
+
+        setAutocompleteData(data);
+        setAutocompleteShow(data);
+      } catch(err) {
+        displayError(err.message, "CANT_FETCH_DATA")
       }
-      setAutocompleteData(data);
-      setAutocompleteShow(data);
     };
     fetchData();
-  }, [serverUrl]);
+  }, [serverUrl, displayError, isLogged]);
 
   return (
     <div className="input_consult">

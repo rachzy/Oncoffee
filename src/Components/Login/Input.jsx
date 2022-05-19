@@ -11,10 +11,31 @@ const Input = ({
   onClick,
   onBlur,
   onChange,
-  onKeyPress,
   value,
-  method
+  form,
+  isLastInput
 }) => {
+  const handleKeyPress = (e) => {
+    const { key } = e;
+    if(key !== "Enter") return;
+
+    if(!isLastInput) return;
+
+    let targetBtn;
+
+    switch(form) {
+      case "login":
+        targetBtn = document.querySelector("#loginBtn");
+        break;
+      case "register":
+        targetBtn = document.querySelector("#nextBtn");
+        break;
+      default:
+        break;
+    }
+
+    targetBtn.click();
+  }
   return (
     <input
       autoComplete="off"
@@ -29,9 +50,8 @@ const Input = ({
       onClick={onClick}
       onChange={onChange}
       onBlur={onBlur}
-      onKeyPress={onKeyPress}
+      onKeyPress={handleKeyPress}
       value={value}
-      formMethod={method}
     />
   );
 };

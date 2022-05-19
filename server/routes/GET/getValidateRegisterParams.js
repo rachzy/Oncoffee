@@ -13,26 +13,28 @@ router.get("/:accountId/:registerToken", (req, res) => {
   if (!accountId || !registerToken) return sendError(res, 'INVALID_PARAMS', '');;
 
   server.db.query(
-    "SELECT * FROM accounts WHERE accountId = ? and registerToken = ?",
+    "SELECT verificationEmail, verified FROM accounts WHERE accountId = ? and registerToken = ?",
     [accountId, registerToken],
     (err, result) => {
         if(err) return sendError(res, err.code, err.errno);
-
         if(result.length !== 1) return sendError(res, 'INVALID_PARAMS', '');
-        if(result[0].verified === 1) return sendError(res, 'ALREADY_VERIFIED', '');
+
+        const { verified, verificationEmail } = result[0];
+
+        if(verified === 1) return sendError(res, 'ALREADY_VERIFIED', '');
 
         let email = {
           isUsing: false,
-          email: ""
-        };
-        const splitEmailCpfAtSigns = result[0].emailcpf.split("@");
+          email: null
+        }
 
-        if(splitEmailCpfAtSigns.length === 2) {
+        if(verificationEmail !== null) {
           email = {
             isUsing: true,
-            email: result[0].emailcpf
+            email: verificationEmail
           }
         }
+
         res.send({
           queryStatus: 200,
           email: email

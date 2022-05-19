@@ -1,12 +1,10 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 import "../../../css/Search.css";
 
 import Axios from "axios";
 
-import getCookie from "../../../globalFunctions/getCookie";
-import displayError from "../../../globalFunctions/displayErrors";
 import similarity from "../../../globalFunctions/similarity";
 
 import InputSearchMobile from "./ConteudoSearch/InputSearchSection/InputSearchMobile";
@@ -15,9 +13,11 @@ import RecommendedSection from "./ConteudoSearch/RecommendedSection";
 import InputSearchSection from "./ConteudoSearch/InputSearchSection";
 import Categories from "./ConteudoSearch/Categories";
 
+import { GlobalServerContext } from "../../../App";
+
 const ConteudoSearch = () => {
   //Get "serverUrl" from "connection.json";
-  const { serverUrl } = require("../../../connection.json");
+  const { serverUrl, displayError, isLogged } = useContext(GlobalServerContext);
 
   //Get "useNavigate" from React (to use it for redirects)
   const navigate = useNavigate();
@@ -57,82 +57,87 @@ const ConteudoSearch = () => {
       return;
 
     //Get all the search results according to what the user typed from the database
-    const { data } = await Axios.get(
-      `${serverUrl}/getproductsforsearches/${InputSearchProductValue.searchValue}`
-    ).catch(() => {
-      return displayError("0", "SERVER_CONN_FAILED");
-    });
+    try {
+      const { data } = await Axios.get(
+        `${serverUrl}/getproductsforsearches/${InputSearchProductValue.searchValue}`
+      );
 
-    if (data.isError) return displayError(data.errorCode, data.errno);
+      if (data.isError) return displayError(data.errorCode, data.errno);
 
-    let finalProductsReturn;
-    if (data.length === 0) {
-      setAutocompleteShow([
-        {
-          searchId: InputSearchProductValue.searchValue,
-          searchValue: InputSearchProductValue.searchValue,
-          notRecent: true,
-        },
-      ]);
-      return;
-    }
-    data.map((d) => {
-      if (!d || d.productName === "") return null;
-      if (finalProductsReturn) {
-        finalProductsReturn = [
-          ...finalProductsReturn,
+      let finalProductsReturn;
+      if (data.length === 0) {
+        setAutocompleteShow([
           {
-            searchId: d.productId,
-            searchValue: d.productName,
+            searchId: InputSearchProductValue.searchValue,
+            searchValue: InputSearchProductValue.searchValue,
             notRecent: true,
           },
-        ];
-      } else {
-        finalProductsReturn = [
-          {
-            searchId: d.productId,
-            searchValue: d.productName,
-            notRecent: true,
-          },
-        ];
+        ]);
+        return;
       }
-      return finalProductsReturn;
-    });
-
-    if (!finalProductsReturn || finalProductsReturn === "") return;
-
-    //Set the final state value
-    setAutocompleteShow(finalProductsReturn);
+      data.map((d) => {
+        if (!d || d.productName === "") return null;
+        if (finalProductsReturn) {
+          finalProductsReturn = [
+            ...finalProductsReturn,
+            {
+              searchId: d.productId,
+              searchValue: d.productName,
+              notRecent: true,
+            },
+          ];
+        } else {
+          finalProductsReturn = [
+            {
+              searchId: d.productId,
+              searchValue: d.productName,
+              notRecent: true,
+            },
+          ];
+        }
+        return finalProductsReturn;
+      });
+  
+      if (!finalProductsReturn || finalProductsReturn === "") return;
+  
+      //Set the final state value
+      setAutocompleteShow(finalProductsReturn);
+    } catch (err) {
+      displayError(err.message, "COULDNT_GET_INPUT_SEARCHES");
+    }
   };
 
   //Post user search on the database
   const postInputSearchProductValue = (searchValue) => {
     const postData = async () => {
-      const { data } = await Axios.post(`${serverUrl}/postsearch`, {
-        userId: getCookie("UID"),
-        searchValue: searchValue,
-      });
-      if (data.isError) {
-        displayError(data.errorCode, data.errno);
+      try {
+        const { data } = await Axios.post(`${serverUrl}/user/postsearch`, {
+          searchValue: searchValue,
+        });
+
+        if (data.isError) {
+          displayError(data.errorCode, data.errno);
+        }
+      } catch (err) {
+        displayError(err.message, "COULDNT_POST_SEARCH");
       }
     };
     postData();
 
     //Get new data after insert
     const fetchNewSearches = async () => {
-      const userId = getCookie("UID");
-      if (!userId) return;
+      if (!isLogged) return;
 
-      const { data } = await Axios.get(
-        `${serverUrl}/getusersearches/${userId}`
-      ).catch(() => {
-        return displayError("0", "SERVER_CONN_FAILED");
-      });
+      try {
+        const { data } = await Axios.get(`${serverUrl}/user/getusersearches/`);
 
-      if (data.isError) return displayError(data.errorCode, data.errno);
+        if (data.isError) return displayError(data.errorCode, data.errno);
 
-      setAutocompleteData(data);
-      setAutocompleteShow(data);
+        setAutocompleteData(data);
+        setAutocompleteShow(data);
+      } catch (err) {
+        displayError(err.message, "COULDNT_FETCH_SEARCHES");
+      }
     };
     setTimeout(fetchNewSearches, 1000);
   };
@@ -155,22 +160,21 @@ const ConteudoSearch = () => {
 
   useEffect(() => {
     const fetchSearches = async () => {
-      const userId = getCookie("UID");
-      if (!userId) return;
+      if (!isLogged) return;
 
-      const { data } = await Axios.get(
-        `http://localhost:3001/getusersearches/${userId}`
-      ).catch(() => {
-        return displayError("0", "SERVER_CONN_FAILED");
-      });
+      try {
+        const { data } = await Axios.get(`${serverUrl}/getusersearches`);
 
-      if (data.isError) displayError(data.errorCode, data.errno);
+        if (data.isError) displayError(data.errorCode, data.errno);
 
-      setAutocompleteData(data);
-      setAutocompleteShow(data);
+        setAutocompleteData(data);
+        setAutocompleteShow(data);
+      } catch (err) {
+        return displayError(err.message, "COULDNT_FETCH_SEARCHES");
+      }
     };
     fetchSearches();
-  }, [serverUrl]);
+  }, [serverUrl, displayError, isLogged]);
 
   //State that will save the value of the input for searching Categories
   const [InputSearchCategoryValue, setInputCategoryValue] = useState(
@@ -210,18 +214,19 @@ const ConteudoSearch = () => {
 
   useEffect(() => {
     const fetchCategories = async () => {
-      const { data } = await Axios.get(`${serverUrl}/getcategories/`).catch(
-        () => {
-          return displayError("0", "SERVER_CONN_FAILED");
-        }
-      );
-      if (data.isError) return displayError(data.errorCode, data.errno);
+      try {
+        const { data } = await Axios.get(`${serverUrl}/getcategories/`);
 
-      setCategoriesData(data);
-      setCategoriesShow(data);
+        if (data.isError) return displayError(data.errorCode, data.errno);
+
+        setCategoriesData(data);
+        setCategoriesShow(data);
+      } catch (err) {
+        displayError(err.message, "COULDNT_FETCH_CATEGORIES");
+      }
     };
     fetchCategories();
-  }, [serverUrl]);
+  }, [serverUrl, displayError]);
 
   return (
     <main ref={contentSearch} id="content-search" className="conteudosearch">

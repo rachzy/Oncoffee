@@ -1,14 +1,13 @@
 const express = require("express");
 const router = express.Router();
 
-const sendError = require("../../globalFunctions/sendError.js");
+const sendError = require("../../../globalFunctions/sendError.js");
 
-const server = require("../../server.js");
+const server = require("../../../server.js");
 
 //Get just a single product from the database by it's id
-router.get("/:userId", (req, res) => {
-  if (!req.params.userId) return;
-  let userId = req.params.userId;
+router.get("/", (req, res) => {
+  const { userId } = req.cookies;
 
   if (!userId) return;
   server.db.query(

@@ -7,6 +7,7 @@ import random from "../../../../globalFunctions/randomNumber";
 
 import Input from "../../Input";
 import Error from "../../Error";
+import HCaptcha from "@hcaptcha/react-hcaptcha";
 
 const RegisterInputs = () => {
   const navigate = useNavigate();
@@ -56,6 +57,7 @@ const RegisterInputs = () => {
           enabled: false,
           text: "",
         },
+        isLastInput: false,
       },
       {
         id: random(),
@@ -73,6 +75,7 @@ const RegisterInputs = () => {
           enabled: false,
           text: "",
         },
+        isLastInput: false,
       },
       {
         id: random(),
@@ -92,6 +95,7 @@ const RegisterInputs = () => {
           enabled: false,
           text: "",
         },
+        isLastInput: false,
       },
       {
         id: random(),
@@ -111,6 +115,7 @@ const RegisterInputs = () => {
           enabled: false,
           text: "",
         },
+        isLastInput: false,
       },
       {
         id: random(),
@@ -129,6 +134,7 @@ const RegisterInputs = () => {
           enabled: false,
           text: "",
         },
+        isLastInput: false,
       },
       {
         id: random(),
@@ -147,12 +153,17 @@ const RegisterInputs = () => {
           enabled: false,
           text: "",
         },
+        isLastInput: true,
       },
     ];
   }
 
   //State that receive and controls every input data
   const [inputData, setInputData] = useState(initialInputDataStateValue());
+
+  //Captcha response state
+  const [captchaVerified, setCaptchaVerified] = useState(false);
+  const [captchaText, setCaptchaText] = useState("");
 
   //State that controls the "main error" that it's displayed right under the "next" button
   const [mainErrorValue, setMainErrorValue] = useState("");
@@ -174,6 +185,8 @@ const RegisterInputs = () => {
             onChange={handleChange}
             onBlur={handleBlur}
             value={input.value}
+            form="register"
+            isLastInput={input.isLastInput}
           />
 
           <Error key={`${input.id}-error`} text={input.error.text} />
@@ -195,6 +208,12 @@ const RegisterInputs = () => {
     });
     setInputData(fetchInputs);
   };
+
+    //Function that will be triggered when an input blurs
+    const handleBlur = (e) => {
+      const { name } = e.target;
+      validateErrors(name); //When the input blurs, validate it.
+    };
 
   //Function that sets input errors inside of the state
   //Params guide
@@ -400,16 +419,15 @@ const RegisterInputs = () => {
     verifyValue(name);
   };
 
-  //Function that will be triggered when an input blurs
-  const handleBlur = (e) => {
-    const { name } = e.target;
-    validateErrors(name); //When the input blurs, validate it.
-  };
+  const handleCaptchaVerify = (token) => {
+    setCaptchaVerified(true);
+  }
 
   //Function that will be triggered when the main button get clicked
   const handleButtonClick = () => {
     proxBtn.current.classList.add("clicked"); //Add the "clicked" class to the button
     setMainErrorValue(""); //Clear the main error state
+    setCaptchaText("");
 
     //Boolean variable that will define if all the inputs are valid and the program can execute
     let canContinue = true;
@@ -442,6 +460,12 @@ const RegisterInputs = () => {
       return null;
     });
 
+    //Verify if Captcha response is true
+    if (!captchaVerified) {
+      canContinue = false;
+      setCaptchaText("Preencha o captcha");
+    }
+
     //If can continue is false, return and remove the "clicked" class from the main button
     if (!canContinue) return proxBtn.current.classList.remove("clicked");
 
@@ -472,57 +496,58 @@ const RegisterInputs = () => {
     });
 
     const postNewUser = async () => {
-      const query = await Axios.post(`${serverUrl}/account/register`, {
-        name: name,
-        lastname: lastname,
-        emailcpf: emailcpf,
-        password: password,
-      }).catch((err) => {
+      try {
+        const { data } = await Axios.post(`${serverUrl}/account/register`, {
+          name: name,
+          lastname: lastname,
+          emailcpf: emailcpf,
+          password: password,
+        });
+
+        proxBtn.current.classList.remove("clicked");
+
+        if (data.isError) {
+          const errorCode = data.errorCode;
+          switch (errorCode) {
+            case "EMAIL_ALREADY_IN_USE":
+              SetErrorObject(
+                "custom",
+                "email",
+                "Esse e-mail ou CPF já está em uso!",
+                false
+              );
+              break;
+            case "INVALID_EMAIL":
+              SetErrorObject(
+                "custom",
+                "email",
+                "Esse e-mail ou CPF é inválido",
+                false
+              );
+              break;
+            default:
+              setMainErrorValue(
+                "Ocorreu um erro ao tentar te registrar. Por favor, tente recarregar a página"
+              );
+              break;
+          }
+          return;
+        }
+
+        if (data.queryStatus === 200) {
+          let redirectUrl = `/confirm?id=${data.userInfo.userId}&token=${data.userInfo.registerToken}`;
+
+          const nextPage = searchParams.get("next");
+          if (nextPage && nextPage !== null)
+            redirectUrl = `${redirectUrl}&next=${nextPage}`;
+
+          navigate(redirectUrl);
+        }
+      } catch (err) {
+        proxBtn.current.classList.remove("clicked");
         setMainErrorValue(
           `Ocorreu um erro interno do servidor. Tente novamente em alguns segundos. (${err})`
         );
-        proxBtn.current.classList.remove("clicked");
-      });
-
-      proxBtn.current.classList.remove("clicked");
-
-      const { data } = query;
-
-      if (data.isError) {
-        const errorCode = data.errorCode;
-        switch (errorCode) {
-          case "EMAIL_ALREADY_IN_USE":
-            SetErrorObject(
-              "custom",
-              "email",
-              "Esse e-mail ou CPF já está em uso!",
-              false
-            );
-            break;
-          case "INVALID_EMAIL":
-            SetErrorObject(
-              "custom",
-              "email",
-              "Esse e-mail ou CPF é inválido",
-              false
-            );
-            break;
-          default:
-            setMainErrorValue(
-              "Ocorreu um erro ao tentar te registrar. Por favor, tente recarregar a página"
-            );
-            break;
-        }
-        return;
-      }
-
-      if (data.queryStatus === 200) {
-        let redirectUrl = `/confirm?id=${data.userInfo.userId}&token=${data.userInfo.registerToken}`;
-
-        const nextPage = searchParams.get("next");
-        if (nextPage) redirectUrl = `${redirectUrl}&next=${nextPage}`;
-
-        navigate(redirectUrl);
       }
     };
     postNewUser();
@@ -531,7 +556,16 @@ const RegisterInputs = () => {
   return (
     <>
       {displayInputs()}
+      <div className="captcha-div">
+        <HCaptcha
+          sitekey="10000000-ffff-ffff-ffff-000000000001"
+          onVerify={handleCaptchaVerify}
+        />
+      </div>
+        <Error style={{ textAlign: "center", marginTop: "5px" }} text={captchaText} />
       <input
+        id="nextBtn"
+        style={{ marginTop: "20px" }}
         ref={proxBtn}
         onClick={handleButtonClick}
         type="button"

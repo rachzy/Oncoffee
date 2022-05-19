@@ -35,7 +35,7 @@
     border-radius: 15px;
     padding: 25px;
     min-width: 35%;
-    height: 370px;
+    height: 398px;
     display: block;
     margin: auto;
     justify-content: center;
@@ -112,7 +112,7 @@
 
 .loginbox {
     width: 100%;
-    display: flex;
+    display: inline-flex;
     flex-direction: column;
     margin-top: 25px;
     margin-left: -150%;
@@ -212,6 +212,7 @@
 }
 
 .logininputcolumn2 label {
+    margin-bottom: 30px;
     width: 40%;
     font-size: 18px;
     font-family: Roboto,sans-serif;
@@ -256,19 +257,28 @@
 
 .registerbox {
     width: 100%;
-    display: flex;
+    display: inline-flex;
     flex-direction: column;
-    margin-top: -270px;
     margin-left: 150%;
     transition: 0.2s ease-in-out all;
 }
 
 .registerbox.active {
-    margin-left: 0px;
+    margin-left: 50%;
 }
 
 .registerbox input {
     margin-top: 5px;
+}
+
+.captcha-div {
+    width: 100%;
+
+    margin-top: 20px;
+
+    display: flex;
+
+    justify-content: center;
 }
 
 
@@ -282,9 +292,10 @@
     margin-top: 10px;
     letter-spacing: 0.4px;
     transition: 0.3s all ease;
+    width: 100%;
 }
 
-.proxbtt.clicked {
+.proxbtt.loading {
     background: linear-gradient(45deg,rgba(197, 106, 54, 0.6),rgba(167, 89, 45, 0.6));
 }
 
