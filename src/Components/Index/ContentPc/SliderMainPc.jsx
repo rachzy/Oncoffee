@@ -7,7 +7,7 @@ import SlideIconMainPc from "./SliderMainPc/SlideIconMainPc";
 
 import displayError from "../../../globalFunctions/displayErrors";
 
-import {GlobalServerContext} from "../../../App";
+import { GlobalServerContext } from "../../../App";
 
 //Slider 1.0 for OnCoffee
 //Developed by r4ch
@@ -17,11 +17,8 @@ const SliderMainPc = () => {
   const nextBtn = useRef(null);
   const prevBtn = useRef(null);
 
-  function initialState() {
-    return { isLoading: true };
-  }
   //State to store all the slide images
-  const [adSlides, setAdSlides] = useState([initialState()]);
+  const [adSlides, setAdSlides] = useState([{ isLoading: true }]);
 
   //Get server Url (Ex: "http://localhost:3001")
   const { serverUrl } = useContext(GlobalServerContext);
@@ -46,8 +43,8 @@ const SliderMainPc = () => {
     fetchImgs();
   }, [serverUrl]);
 
-   //Function to make the slider starts running
-   const startSlider = () => {
+  //Function to make the slider starts running
+  const startSlider = () => {
     const slides = document.querySelectorAll(".slide");
     const slideIcons = document.querySelectorAll(".slide-icon");
     let slideNumber = 0; //String that will determine which slide will be the active one through it's number
@@ -78,7 +75,7 @@ const SliderMainPc = () => {
       //If this slide is the same as the one that corresponds to it's order according to "slideNumber", so that means that it's the one that need to be showed up. Then, toogle the class "active" on it
       slides[slideNumber].classList.add("active");
       slideIcons[slideNumber].classList.add("active");
-    }
+    };
 
     //Function that will display the previous slide
     const prevSlide = () => {
@@ -105,7 +102,7 @@ const SliderMainPc = () => {
           slideIcon.classList.add("active");
         }
       });
-    }
+    };
 
     //Function that will get triggered when "nextBtn" get clicked
     nextBtn.current.addEventListener("click", function () {
@@ -141,26 +138,22 @@ const SliderMainPc = () => {
       sliderPlayer = setInterval(nextSlide, 4000);
     };
     startSliderPlayer();
-  }
+  };
   return (
     <main className="slider_center">
       <div ref={slider} className="slider">
         {adSlides.map((slide) => {
           if (slide.isLoading) return null;
+
+          let slideClass = "slide";
           if (adSlides[0] === slide) {
-            return (
-              <SlideMainPc
-                key={slide.id}
-                className="slide active"
-                imgSrc={slide.imgSrc}
-                imgAlt={slide.imgAlt}
-              />
-            );
+            slideClass = `${slideClass} active`;
           }
+
           return (
             <SlideMainPc
               key={slide.id}
-              className="slide"
+              className={slideClass}
               imgSrc={slide.imgSrc}
               imgAlt={slide.imgAlt}
             />
@@ -173,12 +166,13 @@ const SliderMainPc = () => {
         <div className="navigation-visibility">
           {adSlides.map((slide) => {
             if (slide.isLoading) return null;
-            if (adSlides[0] === slide) {
-              return (
-                <SlideIconMainPc key={slide.id} className="slide-icon active" />
-              );
+
+            let slideIconClass = "slide-icon";
+            if(adSlides[0] === slide) {
+              slideIconClass = `${slideIconClass} active`
             }
-            return <SlideIconMainPc key={slide.id} className="slide-icon" />;
+
+            return <SlideIconMainPc key={slide.id} className={slideIconClass} />;
           })}
         </div>
       </div>
