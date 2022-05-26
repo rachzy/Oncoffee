@@ -42,8 +42,8 @@ const SliderFeaturedPc = () => {
 
   //Function to make the slider starts running
   function startSlider() {
-    const slides = document.querySelectorAll(".slide");
-    const slideIcons = document.querySelectorAll(".slide-icon");
+    const slides = document.querySelectorAll(".slide2");
+    const slideIcons = document.querySelectorAll(".slide-icon2");
     let slideNumber = 0; //String that will determine which slide will be the active one through it's number
 
     //When set as true, the slides won't be allowed to change
