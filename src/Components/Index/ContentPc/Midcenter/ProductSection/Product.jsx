@@ -167,6 +167,7 @@ const Product = ({
         favHeartIcon.forEach((element) => {
           element.classList.remove("active");
         });
+
         const newFavoritedProductsIds = `${favoritedProductsIds},${productId}`;
         setFavoriteProductsIds(newFavoritedProductsIds);
       } else {
@@ -176,6 +177,7 @@ const Product = ({
         favHeartIcon.forEach((element) => {
           element.classList.add("active");
         });
+
         const newFavoritedProductsIds = favoritedProductsIds.replace(
           `${productId}`,
           ""

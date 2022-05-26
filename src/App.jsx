@@ -30,7 +30,7 @@ const App = () => {
     const fetchFavoritedProducts = async () => {
       try {
         const { data } = await Axios.get(
-          `${serverUrl}/user/getfavoriteproducts`
+          `${serverUrl}/user/getfavoriteproducts`, {withCredentials: true}
         );
 
         if (data.isError) return displayError(data.errorCode, data.errno);
@@ -43,7 +43,10 @@ const App = () => {
 
     const validateSecurityTokens = async () => {
       try {
-        const { data } = await Axios.get(`${serverUrl}/account/validatetokens`);
+        const { data } = await Axios.get(
+          `${serverUrl}/account/validatetokens`,
+          { withCredentials: true }
+        );
 
         if (data.isError) return window.location.reload();
 
@@ -62,6 +65,7 @@ const App = () => {
         setServerStatus(status);
 
         if (status !== 200) return;
+        validateSecurityTokens();
         fetchFavoritedProducts();
         clearInterval(checkConnectionInterval);
       } catch (err) {
@@ -79,36 +83,43 @@ const App = () => {
     //Post the new product on the database
     const postNewFavoriteProduct = async () => {
       try {
-        const { data } = Axios.post(`${serverUrl}/user/postfavoriteproduct`, {
-          productId: newProduct.productId,
-        });
+        const { data } = Axios.post(
+          `${serverUrl}/user/postfavoriteproduct`,
+          {
+            productId: newProduct.productId,
+          },
+          { withCredentials: true }
+        );
 
-        if (!data) return;
-        if (data.isError) {
-          displayError(data.errorCode, data.errno);
-        }
+        if (!data || !data.isError) return;
+        displayError(data.errorCode, data.errno);
+        changeProductClass();
       } catch (err) {
-        displayError(err, err.response.code);
+        displayError(err, err.code);
+        changeProductClass();
       }
     };
     postNewFavoriteProduct();
 
-    let productAlreadyFavorited = false;
-
-    for (let i = 0; i <= favoritedProducts.length - 1; i++) {
-      if (newProduct.productId === favoritedProducts[i].productId)
-        productAlreadyFavorited = true;
-    }
-
-    if (productAlreadyFavorited) {
-      const newFavoritedProducts = favoritedProducts.filter(
-        (product) => product.productId !== newProduct.productId
-      );
+    const changeProductClass = () => {
+      let productAlreadyFavorited = false;
+  
+      for (let i = 0; i <= favoritedProducts.length - 1; i++) {
+        if (newProduct.productId === favoritedProducts[i].productId)
+          productAlreadyFavorited = true;
+      }
+  
+      if (productAlreadyFavorited) {
+        const newFavoritedProducts = favoritedProducts.filter(
+          (product) => product.productId !== newProduct.productId
+        );
+        setFavoritedProducts(newFavoritedProducts);
+        return;
+      }
+      const newFavoritedProducts = [newProduct, ...favoritedProducts];
       setFavoritedProducts(newFavoritedProducts);
-      return;
     }
-    const newFavoritedProducts = [newProduct, ...favoritedProducts];
-    setFavoritedProducts(newFavoritedProducts);
+    changeProductClass();
   };
 
   const [cartProducts, setCartProducts] = useState();
