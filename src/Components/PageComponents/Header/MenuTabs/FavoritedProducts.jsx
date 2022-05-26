@@ -21,7 +21,7 @@ const FavoritedProducts = ({
     }, 1);
 
     document.body.style.overflow = "hidden";
-    handleSetPopupState("shoppingcart");
+    handleSetPopupState("favoriteproducts");
   };
 
   function returnFavoritedProducts() {

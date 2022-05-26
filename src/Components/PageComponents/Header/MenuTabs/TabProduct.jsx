@@ -50,10 +50,10 @@ const TabProduct = ({
         `#productFavHeart${productId}`
       );
       if (productCardHeartIcon) return productCardHeartIcon.click();
-      const productArray = {
+      const product = {
         productId: productId,
       };
-      handleFavoritedProductsChange(productArray);
+      handleFavoritedProductsChange(product);
     }
   };
 
