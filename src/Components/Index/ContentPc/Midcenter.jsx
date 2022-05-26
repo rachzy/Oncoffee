@@ -50,7 +50,7 @@ const Midcenter = ({
       if (!isLogged) return;
       try {
         const { data } = await Axios.get(
-          `${serverUrl}/getfavoriteproductsids/`
+          `${serverUrl}/user/getfavoriteproductsids/`, {withCredentials: true}
         );
 
         if (data.isError) {

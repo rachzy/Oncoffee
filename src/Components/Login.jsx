@@ -1,16 +1,24 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
+import {useNavigate} from "react-router-dom";
+
+import Axios from "axios";
 
 import setPageTitle from "../globalFunctions/setPageTitle";
-
 import LoginRegisterContainer from "./Login/LoginRegisterContainer";
 
 import "../css/login.css";
 
+import {GlobalServerContext} from "../App";
+
 const Login = ({ setHeaderPageTitle, pageTitle }) => {
+  const navigate = useNavigate();
+  const {isLogged} = useContext(GlobalServerContext);
+
   useEffect(() => {
+    if(isLogged) return navigate("/");
     setPageTitle(pageTitle);
     setHeaderPageTitle(pageTitle);
-  }, [pageTitle, setHeaderPageTitle]);
+  }, [pageTitle, setHeaderPageTitle, isLogged, navigate]);
 
   return (
     <main className="conteudo-login">

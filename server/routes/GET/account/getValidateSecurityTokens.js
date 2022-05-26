@@ -15,9 +15,9 @@ router.get("/", (req, res) => {
   });
 
   const errorCallback = (code, errno) => {
-    res.cookie("userId", "");
-    res.cookie("stoken1", "");
-    res.cookie("stoken2", "");
+    res.clearCookie("userId");
+    res.clearCookie("stoken1");
+    res.clearCookie("stoken2");
 
     sendError(res, code, errno);
   };
@@ -30,6 +30,8 @@ router.get("/", (req, res) => {
       if (result.length !== 1) return errorCallback("ACCOUNT_NOT_FOUND", "");
 
       const { securityToken1, securityToken2 } = result[0];
+
+      console.log(securityToken1, securityToken2);
 
       if (stoken1 !== securityToken1 || stoken2 !== securityToken2) {
         return errorCallback("INVALID_TOKENS", "");

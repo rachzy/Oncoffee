@@ -24,18 +24,18 @@ const App = () => {
   //State that will save the current status of the connection with the server
   const [serverStatus, setServerStatus] = useState();
   const [isUserLoggedIn, setUserLoggedIn] = useState();
-  const [favoritedProducts, setFavoritedProducts] = useState([]);
+  const [favoriteProducts, setFavoriteProducts] = useState([]);
 
   useEffect(() => {
-    const fetchFavoritedProducts = async () => {
+    const fetchFavoriteProducts = async () => {
       try {
         const { data } = await Axios.get(
-          `${serverUrl}/user/getfavoriteproducts`
+          `${serverUrl}/user/getfavoriteproducts`, {withCredentials: true}
         );
 
         if (data.isError) return displayError(data.errorCode, data.errno);
 
-        setFavoritedProducts(data);
+        setFavoriteProducts(data);
       } catch (err) {
         displayError(err, err.response.code);
       }
@@ -43,7 +43,10 @@ const App = () => {
 
     const validateSecurityTokens = async () => {
       try {
-        const { data } = await Axios.get(`${serverUrl}/account/validatetokens`);
+        const { data } = await Axios.get(
+          `${serverUrl}/account/validatetokens`,
+          { withCredentials: true }
+        );
 
         if (data.isError) return window.location.reload();
 
@@ -62,7 +65,8 @@ const App = () => {
         setServerStatus(status);
 
         if (status !== 200) return;
-        fetchFavoritedProducts();
+        validateSecurityTokens();
+        fetchFavoriteProducts();
         clearInterval(checkConnectionInterval);
       } catch (err) {
         displayError(err.message);
@@ -73,42 +77,49 @@ const App = () => {
     let checkConnectionInterval = setInterval(checkServerConnection, 5000);
   }, [serverUrl, serverStatus]);
 
-  const handleFavoritedProductsChange = (newProduct) => {
+  const handleFavoriteProductsChange = (newProduct) => {
     if (!newProduct || !newProduct.productId) return;
 
     //Post the new product on the database
     const postNewFavoriteProduct = async () => {
       try {
-        const { data } = Axios.post(`${serverUrl}/user/postfavoriteproduct`, {
-          productId: newProduct.productId,
-        });
+        const { data } = Axios.post(
+          `${serverUrl}/user/postfavoriteproduct`,
+          {
+            productId: newProduct.productId,
+          },
+          { withCredentials: true }
+        );
 
-        if (!data) return;
-        if (data.isError) {
-          displayError(data.errorCode, data.errno);
-        }
+        if (!data || !data.isError) return;
+        displayError(data.errorCode, data.errno);
+        changeProductClass();
       } catch (err) {
-        displayError(err, err.response.code);
+        displayError(err, err.code);
+        changeProductClass();
       }
     };
     postNewFavoriteProduct();
 
-    let productAlreadyFavorited = false;
-
-    for (let i = 0; i <= favoritedProducts.length - 1; i++) {
-      if (newProduct.productId === favoritedProducts[i].productId)
-        productAlreadyFavorited = true;
+    const changeProductClass = () => {
+      let productAlreadyFavorite = false;
+  
+      for (let i = 0; i <= favoriteProducts.length - 1; i++) {
+        if (newProduct.productId === favoriteProducts[i].productId)
+          productAlreadyFavorite = true;
+      }
+  
+      if (productAlreadyFavorite) {
+        const newfavoriteProducts = favoriteProducts.filter(
+          (product) => product.productId !== newProduct.productId
+        );
+        setFavoriteProducts(newfavoriteProducts);
+        return;
+      }
+      const newfavoriteProducts = [newProduct, ...favoriteProducts];
+      setFavoriteProducts(newfavoriteProducts);
     }
-
-    if (productAlreadyFavorited) {
-      const newFavoritedProducts = favoritedProducts.filter(
-        (product) => product.productId !== newProduct.productId
-      );
-      setFavoritedProducts(newFavoritedProducts);
-      return;
-    }
-    const newFavoritedProducts = [newProduct, ...favoritedProducts];
-    setFavoritedProducts(newFavoritedProducts);
+    changeProductClass();
   };
 
   const [cartProducts, setCartProducts] = useState();
@@ -187,14 +198,18 @@ const App = () => {
 
     let PopupContentArray;
     switch (popupType) {
-      case "favoritedproducts":
+      case "favoriteproducts":
         PopupContentArray = {
           title: "Seus favoritos",
-          type: "favoritedproducts",
-          products: favoritedProducts,
+          type: "favoriteproducts",
+          products: favoriteProducts,
           button: false,
-          removeProduct: function (productId) {
-            handleFavoritedProductsChange(productId);
+          removeProduct: function (product) {
+            const productCardHeartIcon = document.querySelector(
+              `#productFavHeart${product.productId}`
+            );
+            if (productCardHeartIcon) return productCardHeartIcon.click();
+            handleFavoriteProductsChange(product);
           },
         };
         break;
@@ -254,11 +269,11 @@ const App = () => {
         <Header
           serverStatus={serverStatus}
           cartProducts={cartProducts}
-          favoritedProductsState={favoritedProducts}
+          favoritedProductsState={favoriteProducts}
           cartProductsState={cartProducts}
           handleSetPopupState={handleSetPopupState}
           handleRemoveCartProduct={handleRemoveCartProduct}
-          handleFavoritedProductsChange={handleFavoritedProductsChange}
+          handleFavoritedProductsChange={handleFavoriteProductsChange}
         >
           {headerPageTitle}
         </Header>
@@ -273,7 +288,7 @@ const App = () => {
                 serverStatus={serverStatus}
                 isIndexAlreadyLoaded={isIndexAlreadyLoaded}
                 setIndexAlreadyLoaded={setIndexAlreadyLoaded}
-                handleFavoritedProductsChange={handleFavoritedProductsChange}
+                handleFavoritedProductsChange={handleFavoriteProductsChange}
                 handleSetPopupState={handleSetPopupState}
                 handleAddCartProduct={handleAddCartProduct}
               />

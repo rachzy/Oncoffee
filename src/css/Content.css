@@ -13,6 +13,15 @@
   outline: none;
 }
 
+@keyframes fadeIn {
+  0% {
+    opacity: 0%;
+  }
+  100% {
+    opacity: 100%;
+  }
+}
+
 @keyframes navcolor {
   0% {
     border-bottom: 1px solid rgba(7, 120, 250, 0.568);
@@ -1186,6 +1195,7 @@ body {
   position: absolute;
   width: 100%;
 
+  animation: fadeIn 1s ease-in-out;
   clip-path: circle(0% at 0 50%);
 }
 
@@ -2223,6 +2233,7 @@ body {
   position: absolute;
   width: 100%;
 
+  animation: fadeIn 1s ease-in-out;
   clip-path: circle(0% at 0 50%);
 }
 
@@ -2801,6 +2812,7 @@ body {
   position: absolute;
   width: 100%;
 
+  animation: fadeIn 1s ease-in-out;
   clip-path: circle(0% at 0 50%);
 }
 
