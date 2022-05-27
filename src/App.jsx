@@ -266,6 +266,8 @@ const App = () => {
           serverUrl: serverUrl,
           displayError: displayError,
           isLogged: isUserLoggedIn,
+          setIsLogged: setUserLoggedIn,
+          setUserSessionState: setUserSessionState
         }}
       >
         <SkipToContentButton />
@@ -306,6 +308,7 @@ const App = () => {
                 <Login
                   pageTitle="Login"
                   setHeaderPageTitle={setHeaderPageTitle}
+                  setUserSessionState={setUserSessionState}
                 />
               }
             />
