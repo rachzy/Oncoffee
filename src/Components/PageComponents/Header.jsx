@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 import "../../css/Header.css";
@@ -20,6 +20,8 @@ import FavoritedProducts from "./Header/MenuTabs/FavoritedProducts";
 import ShoppingCartProducts from "./Header/MenuTabs/ShoppingCartProdcuts";
 import NavRight from "./Header/NavRight";
 
+import { GlobalServerContext } from "../../App";
+
 const Header = ({
   children,
   favoritedProductsState,
@@ -29,6 +31,7 @@ const Header = ({
   handleFavoritedProductsChange,
   serverStatus,
 }) => {
+  const { isLogged } = useContext(GlobalServerContext);
   const navigate = useNavigate();
 
   const handleMobileHeartIconClick = () => {
@@ -62,6 +65,45 @@ const Header = ({
     );
   }
 
+  const renderUserBoxContent = () => {
+    if (isLogged) {
+      return (
+        <>
+          <li>
+            <ButtonNavbar className="lia" href="/">
+              Minha Conta
+            </ButtonNavbar>
+          </li>
+          <li>
+            <ButtonNavbar className="lia" href="/">
+              Meus Cupons
+            </ButtonNavbar>
+          </li>
+        </>
+      );
+    }
+    return (
+      <li>
+        <ButtonNavbar
+          className="login"
+          onClick={() => {
+            navigate("/login");
+          }}
+        >
+          Login
+        </ButtonNavbar>
+        <ButtonNavbar
+          className="register"
+          onClick={() => {
+            navigate("/login?openRegister");
+          }}
+        >
+          Registro
+        </ButtonNavbar>
+      </li>
+    );
+  };
+
   return (
     <header>
       <nav className="navbar3">
@@ -72,34 +114,7 @@ const Header = ({
           <MenuItem icon={newUser_logo} alt="newuser-oncoffee-icon">
             <div className="user_box">
               <ul>
-                <li>
-                  <ButtonNavbar
-                    className="login"
-                    onClick={() => {
-                      navigate("/login");
-                    }}
-                  >
-                    Login
-                  </ButtonNavbar>
-                  <ButtonNavbar
-                    className="register"
-                    onClick={() => {
-                      navigate("/login?openRegister");
-                    }}
-                  >
-                    Registro
-                  </ButtonNavbar>
-                </li>
-                <li>
-                  <ButtonNavbar className="lia" href="/">
-                    Minha Conta
-                  </ButtonNavbar>
-                </li>
-                <li>
-                  <ButtonNavbar className="lia" href="/">
-                    Meus Cupons
-                  </ButtonNavbar>
-                </li>
+                {renderUserBoxContent()}
                 <li>
                   <ButtonNavbar className="lia" href="/">
                     Sobre nós
