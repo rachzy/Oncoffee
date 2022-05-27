@@ -17,6 +17,7 @@ import Login from "./Components/Login";
 import Confirm from "./Components/Confirm";
 
 export const GlobalServerContext = createContext();
+export const UserSession = createContext();
 
 const App = () => {
   const { serverUrl } = require("./connection.json");
@@ -25,12 +26,14 @@ const App = () => {
   const [serverStatus, setServerStatus] = useState();
   const [isUserLoggedIn, setUserLoggedIn] = useState();
   const [favoriteProducts, setFavoriteProducts] = useState([]);
+  const [userSessionState, setUserSessionState] = useState();
 
   useEffect(() => {
     const fetchFavoriteProducts = async () => {
       try {
         const { data } = await Axios.get(
-          `${serverUrl}/user/getfavoriteproducts`, {withCredentials: true}
+          `${serverUrl}/user/getfavoriteproducts`,
+          { withCredentials: true }
         );
 
         if (data.isError) return displayError(data.errorCode, data.errno);
@@ -52,8 +55,9 @@ const App = () => {
 
         if (data.queryStatus !== 200) return;
 
-        const { isLoggedIn } = data;
+        const { isLoggedIn, userData } = data;
         setUserLoggedIn(isLoggedIn);
+        setUserSessionState(userData);
       } catch (err) {
         displayError(err, err.response.code);
       }
@@ -103,12 +107,12 @@ const App = () => {
 
     const changeProductClass = () => {
       let productAlreadyFavorite = false;
-  
+
       for (let i = 0; i <= favoriteProducts.length - 1; i++) {
         if (newProduct.productId === favoriteProducts[i].productId)
           productAlreadyFavorite = true;
       }
-  
+
       if (productAlreadyFavorite) {
         const newfavoriteProducts = favoriteProducts.filter(
           (product) => product.productId !== newProduct.productId
@@ -118,7 +122,7 @@ const App = () => {
       }
       const newfavoriteProducts = [newProduct, ...favoriteProducts];
       setFavoriteProducts(newfavoriteProducts);
-    }
+    };
     changeProductClass();
   };
 
@@ -266,55 +270,57 @@ const App = () => {
       >
         <SkipToContentButton />
         <Popup popupContent={popupContent} />
-        <Header
-          serverStatus={serverStatus}
-          cartProducts={cartProducts}
-          favoritedProductsState={favoriteProducts}
-          cartProductsState={cartProducts}
-          handleSetPopupState={handleSetPopupState}
-          handleRemoveCartProduct={handleRemoveCartProduct}
-          handleFavoritedProductsChange={handleFavoriteProductsChange}
-        >
-          {headerPageTitle}
-        </Header>
-        <Routes>
-          <Route
-            path="/"
-            exact
-            element={
-              <Index
-                pageTitle="Home"
-                setHeaderPageTitle={setHeaderPageTitle}
-                serverStatus={serverStatus}
-                isIndexAlreadyLoaded={isIndexAlreadyLoaded}
-                setIndexAlreadyLoaded={setIndexAlreadyLoaded}
-                handleFavoritedProductsChange={handleFavoriteProductsChange}
-                handleSetPopupState={handleSetPopupState}
-                handleAddCartProduct={handleAddCartProduct}
-              />
-            }
-          />
-          <Route
-            path="/login"
-            exact
-            element={
-              <Login
-                pageTitle="Login"
-                setHeaderPageTitle={setHeaderPageTitle}
-              />
-            }
-          />
-          <Route
-            path="/confirm"
-            exact
-            element={
-              <Confirm
-                pageTitle="Confirmação"
-                setHeaderPageTitle={setHeaderPageTitle}
-              />
-            }
-          />
-        </Routes>
+        <UserSession.Provider value={userSessionState}>
+          <Header
+            serverStatus={serverStatus}
+            cartProducts={cartProducts}
+            favoritedProductsState={favoriteProducts}
+            cartProductsState={cartProducts}
+            handleSetPopupState={handleSetPopupState}
+            handleRemoveCartProduct={handleRemoveCartProduct}
+            handleFavoritedProductsChange={handleFavoriteProductsChange}
+          >
+            {headerPageTitle}
+          </Header>
+          <Routes>
+            <Route
+              path="/"
+              exact
+              element={
+                <Index
+                  pageTitle="Home"
+                  setHeaderPageTitle={setHeaderPageTitle}
+                  serverStatus={serverStatus}
+                  isIndexAlreadyLoaded={isIndexAlreadyLoaded}
+                  setIndexAlreadyLoaded={setIndexAlreadyLoaded}
+                  handleFavoritedProductsChange={handleFavoriteProductsChange}
+                  handleSetPopupState={handleSetPopupState}
+                  handleAddCartProduct={handleAddCartProduct}
+                />
+              }
+            />
+            <Route
+              path="/login"
+              exact
+              element={
+                <Login
+                  pageTitle="Login"
+                  setHeaderPageTitle={setHeaderPageTitle}
+                />
+              }
+            />
+            <Route
+              path="/confirm"
+              exact
+              element={
+                <Confirm
+                  pageTitle="Confirmação"
+                  setHeaderPageTitle={setHeaderPageTitle}
+                />
+              }
+            />
+          </Routes>
+        </UserSession.Provider>
       </GlobalServerContext.Provider>
       <Error />
     </Router>
