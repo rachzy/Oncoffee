@@ -1,6 +1,8 @@
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
+import Axios from "axios";
+
 import "../../css/Header.css";
 import "../../css/extra.css";
 import "../../css/Top.css";
@@ -20,7 +22,8 @@ import FavoritedProducts from "./Header/MenuTabs/FavoritedProducts";
 import ShoppingCartProducts from "./Header/MenuTabs/ShoppingCartProdcuts";
 import NavRight from "./Header/NavRight";
 
-import { GlobalServerContext } from "../../App";
+import { GlobalServerContext, UserSession } from "../../App";
+import displayError from "../../globalFunctions/displayErrors";
 
 const Header = ({
   children,
@@ -31,8 +34,10 @@ const Header = ({
   handleFavoritedProductsChange,
   serverStatus,
 }) => {
-  const { isLogged } = useContext(GlobalServerContext);
   const navigate = useNavigate();
+
+  const { isLogged, serverUrl } = useContext(GlobalServerContext);
+  const userSession = useContext(UserSession);
 
   const handleMobileHeartIconClick = () => {
     const popup = document.querySelector(".popup");
@@ -54,7 +59,7 @@ const Header = ({
     handleSetPopupState("shoppingcart");
   };
 
-  function renderFavoritedProductsIfServerStatusIs200() {
+  const renderFavoritedProductsIfServerStatusIs200 = () => {
     if (serverStatus !== 200) return null;
     return (
       <FavoritedProducts
@@ -63,12 +68,19 @@ const Header = ({
         handleFavoritedProductsChange={handleFavoritedProductsChange}
       />
     );
-  }
+  };
 
   const renderUserBoxContent = () => {
-    if (isLogged) {
+    if (isLogged && userSession) {
       return (
         <>
+          <li>
+            <img
+              src={require(`../../imgs/${userSession.userPfp}`)}
+              alt={`${userSession.userName}-pfp`}
+            />
+            <p>Olá, {userSession.userName}</p>
+          </li>
           <li>
             <ButtonNavbar className="lia" href="/">
               Minha Conta
@@ -104,6 +116,31 @@ const Header = ({
     );
   };
 
+  const renderSignOutButton = () => {
+    if (!isLogged || !userSession) return;
+
+    const handleSignOutButtonClick = async () => {
+      try {
+        const { data } = await Axios.get(`${serverUrl}/account/signout`, {
+          withCredentials: true,
+        });
+
+        if (data.queryStatus !== 200) return;
+
+        window.location.reload();
+        localStorage.removeItem("cartProducts")
+      } catch (err) {
+        displayError(err, err.code);
+      }
+    };
+
+    return (
+      <button onClick={handleSignOutButtonClick} className="sign-out">
+        Sair
+      </button>
+    );
+  };
+
   return (
     <header>
       <nav className="navbar3">
@@ -130,6 +167,7 @@ const Header = ({
                     Vender aqui
                   </ButtonNavbar>
                 </li>
+                {renderSignOutButton()}
               </ul>
             </div>
           </MenuItem>

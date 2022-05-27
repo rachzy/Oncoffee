@@ -248,7 +248,7 @@ body {
 .user_box {
   position: absolute;
   background: rgb(40, 40, 40);
-  padding: 15px;
+  padding: 25px;
   padding-top: 12px;
   border-radius: 5px;
   margin-left: -85px;
@@ -261,6 +261,16 @@ body {
 
 
 
+.user_box img {
+  width: 15vh;
+  border-radius: 50%;
+}
+
+.user_box p {
+  font-family: Poppins, sans-serif;
+  text-align: center;
+  color: white;
+}
 
 .user_box li a {
   font-size: 15px;
@@ -315,6 +325,27 @@ body {
 
 .user_box li:nth-child(2) {
   margin-top: 20px;
+}
+
+
+
+.sign-out {
+  margin-top: 20px;
+  width: 100%;
+  background: transparent;
+  border: 1px solid rgba(226, 11, 11, 0.8);
+  color: rgba(226, 11, 11, 0.8);
+  padding: 5px 8px;
+  border-radius: 5px;
+  font-family: Ubuntu,sans-serif;
+
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.sign-out:hover {
+  background-color: rgba(226, 11, 11, 0.8);
+  color: white;
 }
 
 
