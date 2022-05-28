@@ -2529,6 +2529,17 @@ body {
   cursor: pointer;
 }
 
+.produto_favorito i {
+  font-size: 25px;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.76);
+  transition: 0.2s all;
+}
+
+.produto_favorito i.active {
+  color: #1da1f2;
+}
+
 .produto_favorito input {
   display: none;
 }

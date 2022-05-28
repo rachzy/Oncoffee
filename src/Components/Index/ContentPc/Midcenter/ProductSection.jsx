@@ -17,8 +17,10 @@ const ProductSection = ({
   favoritedProductsIds,
   setFavoritedProductsIds,
   handleAddCartProduct,
+  handleRemoveCartProduct,
   handleFavoritedProductsChange,
   handleSetPopupState,
+  cartProducts
 }) => {
   const [products, setProducts] = useState([]);
 
@@ -106,10 +108,12 @@ const ProductSection = ({
                         setFavoriteProductsIds={setFavoritedProductsIds}
                         favoritedProductsIds={favoritedProductsIds}
                         handleAddCartProduct={handleAddCartProduct}
+                        handleRemoveCartProduct={handleRemoveCartProduct}
                         handleSetPopupState={handleSetPopupState}
                         handleFavoritedProductsChange={
                           handleFavoritedProductsChange
                         }
+                        cartProducts={cartProducts}
                       />
                       {/* Load other 4 products */}
                       {products.map((insideProduct) => {
@@ -144,10 +148,12 @@ const ProductSection = ({
                               setFavoriteProductsIds={setFavoritedProductsIds}
                               favoritedProductsIds={favoritedProductsIds}
                               handleAddCartProduct={handleAddCartProduct}
+                              handleRemoveCartProduct={handleRemoveCartProduct}
                               handleSetPopupState={handleSetPopupState}
                               handleFavoritedProductsChange={
                                 handleFavoritedProductsChange
                               }
+                              cartProducts={cartProducts}
                             />
                           );
                         }
@@ -208,8 +214,10 @@ const ProductSection = ({
               setFavoriteProductsIds={setFavoritedProductsIds}
               favoritedProductsIds={favoritedProductsIds}
               handleAddCartProduct={handleAddCartProduct}
+              handleRemoveCartProduct={handleRemoveCartProduct}
               handleSetPopupState={handleSetPopupState}
               handleFavoritedProductsChange={handleFavoritedProductsChange}
+              cartProducts={cartProducts}
             />
           );
         })}

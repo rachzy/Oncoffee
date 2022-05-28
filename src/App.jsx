@@ -126,7 +126,7 @@ const App = () => {
     changeProductClass();
   };
 
-  const [cartProducts, setCartProducts] = useState();
+  const [cartProducts, setCartProducts] = useState([]);
 
   useEffect(() => {
     let cartProductsSavedOnLocalStorage =
@@ -298,6 +298,8 @@ const App = () => {
                   handleFavoritedProductsChange={handleFavoriteProductsChange}
                   handleSetPopupState={handleSetPopupState}
                   handleAddCartProduct={handleAddCartProduct}
+                  handleRemoveCartProduct={handleRemoveCartProduct}
+                  cartProducts={cartProducts}
                 />
               }
             />
