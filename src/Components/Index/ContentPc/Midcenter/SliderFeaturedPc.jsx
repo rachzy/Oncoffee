@@ -17,6 +17,8 @@ const SliderFeaturedPc = () => {
   const nextBtn = useRef(null);
   const prevBtn = useRef(null);
 
+  const [isLoaded, setIsLoaded] = useState(false);
+
   //State to store all the slide images
   const [adSlides, setAdSlides] = useState([{ isLoading: true }]);
 
@@ -37,9 +39,6 @@ const SliderFeaturedPc = () => {
         }
 
         setAdSlides(data);
-        setTimeout(() => {
-          startSlider(); //After the adSlides state have been set, starts the slider
-        }, 1000);
       } catch (err) {
         displayError(err, err.code);
       }
@@ -49,6 +48,8 @@ const SliderFeaturedPc = () => {
 
       //Function to make the slider starts running
       const startSlider = () => {
+        if(!isLoaded || !adSlides || adSlides.isLoading) return;
+
         const slides = document.querySelectorAll(".slide2");
         const slideIcons = document.querySelectorAll(".slide-icon2");
         let slideNumber = 0; //String that will determine which slide will be the active one through it's number
@@ -143,9 +144,13 @@ const SliderFeaturedPc = () => {
         };
         startSliderPlayer();
       };
+      startSlider();
 
   return (
     <main
+    onLoad={() => {
+      setIsLoaded(true)
+    }}
       className="slider2_center"
     >
       <div className="slider2_center_text">
