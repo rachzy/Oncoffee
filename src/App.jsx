@@ -146,7 +146,7 @@ const App = () => {
     }
 
     setCartProducts(parseCartProducts());
-  }, []);
+  }, []); //DON'T INCLUDE "cartProducts" HERE, IT BREAKS THE CODE FOR SOME REASON
 
   const handleAddCartProduct = (newProduct) => {
     if (!newProduct) return;
