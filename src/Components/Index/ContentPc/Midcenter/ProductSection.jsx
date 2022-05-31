@@ -46,10 +46,9 @@ const ProductSection = ({
   }, [serverUrl, displayError, category]);
 
   const renderProduct = (product) => {
-    const generateRandomElementId = Math.floor(Math.random() * 10000);
     return (
       <Product
-        key={`${product.productId}-${generateRandomElementId}`}
+        key={`${product.productId}`}
         productId={product.productId}
         productName={product.productName}
         productImgSrc={product.productImgSrc}
@@ -128,10 +127,10 @@ const ProductSection = ({
                     // }
                     // return null;
 
-// I WANNA CLARIFY THAT WHAT I DID HERE WAS 100% AGAINST MY WANT! FOR SOME REASON THE FOR LOOP
-// WASN'T WORKING, I TRIED DOING IT WITH WHILE AND IT DIDN'T WORK AS WELL, THE NUMBERS WEREN'T INCREASING
-//AS THEY SHOULD, SO MY ONLY OPTIONS WAS CODE THIS SHIT THAT YOU'RE ABOUT TO SEE
-//IF SOMEONE IS EVER READING THAT, PLEASE NOW THAT THIS WASN'T MY FAULT AND I HAD NO CHOICE!!!!!!
+                    // I WANNA CLARIFY THAT WHAT I DID HERE WAS 100% AGAINST MY WANT! FOR SOME REASON THE FOR LOOP
+                    // WASN'T WORKING, I TRIED DOING IT WITH WHILE AND IT DIDN'T WORK AS WELL, THE NUMBERS WEREN'T INCREASING
+                    //AS THEY SHOULD, SO MY ONLY OPTIONS WAS CODE THIS SHIT THAT YOU'RE ABOUT TO SEE
+                    //IF SOMEONE IS EVER READING THAT, PLEASE NOW THAT THIS WASN'T MY FAULT AND I HAD NO CHOICE!!!!!!
 
                     const productNumberInt = parseInt(productNumber);
                     const productNumbersThatShouldBeRendered = [
@@ -162,13 +161,12 @@ const ProductSection = ({
 
   //If bottomBtn is not undefined, that means that it exists and it needs to be rendered
   const renderBottomBtn = () => {
-    if (bottomBtn) {
-      return (
-        <BottomBtn returnMoreProductsFunction={returnMoreProducts}>
-          {bottomBtn}
-        </BottomBtn>
-      );
-    }
+    if (!bottomBtn) return null;
+    return (
+      <BottomBtn returnMoreProductsFunction={returnMoreProducts}>
+        {bottomBtn}
+      </BottomBtn>
+    );
   };
 
   return (
