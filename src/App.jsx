@@ -81,29 +81,8 @@ const App = () => {
     let checkConnectionInterval = setInterval(checkServerConnection, 5000);
   }, [serverUrl, serverStatus]);
 
-  const handleFavoriteProductsChange = (newProduct) => {
+  const handleFavoriteProductsChange = async (newProduct) => {
     if (!newProduct || !newProduct.productId) return;
-
-    //Post the new product on the database
-    const postNewFavoriteProduct = async () => {
-      try {
-        const { data } = Axios.post(
-          `${serverUrl}/user/postfavoriteproduct`,
-          {
-            productId: newProduct.productId,
-          },
-          { withCredentials: true }
-        );
-
-        if (!data || !data.isError) return;
-        displayError(data.errorCode, data.errno);
-        changeProductClass();
-      } catch (err) {
-        displayError(err, err.code);
-        changeProductClass();
-      }
-    };
-    postNewFavoriteProduct();
 
     const changeProductClass = () => {
       let productAlreadyFavorite = false;
@@ -123,7 +102,30 @@ const App = () => {
       const newfavoriteProducts = [newProduct, ...favoriteProducts];
       setFavoriteProducts(newfavoriteProducts);
     };
-    changeProductClass();
+
+    //Post the new product on the database
+    const postNewFavoriteProduct = async () => {
+      try {
+        const { data } = await Axios.post(
+          `${serverUrl}/user/postfavoriteproduct`,
+          {
+            productId: newProduct.productId,
+          },
+          { withCredentials: true }
+        );
+
+        if (!data.isError && data.queryStatus === 200) {
+          changeProductClass();
+          return {successful: true}
+        }
+        
+        displayError(data.errorCode, data.errno);
+        ;
+      } catch (err) {
+        displayError(err, err.code);
+      }
+    };
+    return postNewFavoriteProduct();
   };
 
   const [cartProducts, setCartProducts] = useState([]);

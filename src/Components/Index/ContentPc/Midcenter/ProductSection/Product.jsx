@@ -174,6 +174,45 @@ const Product = ({
 
     //Change the FavoriteedProducts state with the new value
     const addNewProductToFavoriteProductsState = async () => {
+      //CLASS SECTION
+      const changeProductClass = () => {
+        const DefaultHeartClassList = defaultHeartIcon.current.classList;
+        const defaultHeartIconElements = document.querySelectorAll(
+          `#productDefaultHeart${productId}`
+        );
+        const favHeartIconElements = document.querySelectorAll(
+          `#productFavHeart${productId}`
+        );
+
+        const changeHeartIconClass = () => {
+          if (DefaultHeartClassList[1] === "active") {
+            defaultHeartIconElements.forEach((element) => {
+              element.classList.add("active");
+            });
+            favHeartIconElements.forEach((element) => {
+              element.classList.remove("active");
+            });
+
+            const newFavoritedProductsIds = `${favoritedProductsIds},${productId}`;
+            setFavoriteProductsIds(newFavoritedProductsIds);
+          } else {
+            defaultHeartIconElements.forEach((element) => {
+              element.classList.remove("active");
+            });
+            favHeartIconElements.forEach((element) => {
+              element.classList.add("active");
+            });
+
+            const newFavoritedProductsIds = favoritedProductsIds.replace(
+              `${productId}`,
+              ""
+            );
+            setFavoriteProductsIds(newFavoritedProductsIds);
+          }
+        };
+        changeHeartIconClass();
+      };
+
       const newProduct = {
         productId: productId,
         productName: productName,
@@ -182,47 +221,17 @@ const Product = ({
         productImgAlt: productImgAlt,
         productFinalPrice: productFinalPrice,
       };
-      handleFavoritedProductsChange(newProduct);
-    };
-    addNewProductToFavoriteProductsState();
+      changeProductClass();
+      try {
+        const query = await handleFavoritedProductsChange(newProduct);
 
-    //CLASS SECTION
-
-    const DefaultHeartClassList = defaultHeartIcon.current.classList;
-    const defaultHeartIconElements = document.querySelectorAll(
-      `#productDefaultHeart${productId}`
-    );
-    const favHeartIconElements = document.querySelectorAll(
-      `#productFavHeart${productId}`
-    );
-
-    const changeHeartIconClass = () => {
-      if (DefaultHeartClassList[1] === "active") {
-        defaultHeartIconElements.forEach((element) => {
-          element.classList.add("active");
-        });
-        favHeartIconElements.forEach((element) => {
-          element.classList.remove("active");
-        });
-
-        const newFavoritedProductsIds = `${favoritedProductsIds},${productId}`;
-        setFavoriteProductsIds(newFavoritedProductsIds);
-      } else {
-        defaultHeartIconElements.forEach((element) => {
-          element.classList.remove("active");
-        });
-        favHeartIconElements.forEach((element) => {
-          element.classList.add("active");
-        });
-
-        const newFavoritedProductsIds = favoritedProductsIds.replace(
-          `${productId}`,
-          ""
-        );
-        setFavoriteProductsIds(newFavoritedProductsIds);
+        if (!query.successful) return changeProductClass();
+      } catch (err) {
+        displayError(err, err.code);
+        changeProductClass();
       }
     };
-    changeHeartIconClass();
+    addNewProductToFavoriteProductsState();
   };
 
   const handleBuyClick = () => {

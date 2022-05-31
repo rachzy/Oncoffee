@@ -18,8 +18,7 @@ router.post("/", (req, res) => {
     "SELECT userFavoriteProducts FROM users WHERE userId = ?",
     [userId],
     (err, result) => {
-      if (err) return "sendError"(res, err.code, err.errno);
-
+      if (err) return sendError(res, err.code, err.errno);
       if (!result || result.length === 0) return;
 
       //Get all the favorited product ids sent by the server
@@ -44,8 +43,6 @@ router.post("/", (req, res) => {
         });
 
         if (productAlreadyFavorited) {
-          //If the product is already favorited:
-
           let finalProductInsertion;
 
           if (productId.toString() === splitFavProducts[0]) {
@@ -57,7 +54,6 @@ router.post("/", (req, res) => {
           if (splitFavProducts.length === 1)
             finalProductInsertion = `${productId}`;
 
-          //Remove that product id from the column
           const newFavoriteProducts = userFavoriteProducts.replace(
             finalProductInsertion,
             ""
@@ -67,8 +63,9 @@ router.post("/", (req, res) => {
           return server.db.query(
             "UPDATE users SET userFavoriteProducts = ? WHERE userId = ?",
             [newFavoriteProducts, userId],
-            (err) => {
-              if (err) return sendError(res, err.code, err.errno);
+            (err2) => {
+              if (err2) return sendError(res, err2.code, err2.errno);
+              res.send({queryStatus: 200});
             }
           );
         }
@@ -89,13 +86,13 @@ router.post("/", (req, res) => {
       server.db.query(
         "UPDATE users SET userFavoriteProducts = ? WHERE userId = ?",
         [favoriteProductsPlusNewProduct, userId],
-        (err) => {
-          if (err) sendError(res, err.code, err.errno);
+        (err2) => {
+          if (err2) return sendError(res, err2.code, err2.errno);
+          res.send({queryStatus: 200});
         }
       );
     }
   );
-  res.end();
 });
 
 module.exports = router;
