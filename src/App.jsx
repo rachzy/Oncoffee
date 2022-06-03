@@ -59,7 +59,7 @@ const App = () => {
         setUserLoggedIn(isLoggedIn);
         setUserSessionState(userData);
       } catch (err) {
-        displayError(err, err.response.code);
+        displayError(err, err.code);
       }
     };
 
@@ -73,7 +73,7 @@ const App = () => {
         fetchFavoriteProducts();
         clearInterval(checkConnectionInterval);
       } catch (err) {
-        displayError(err.message);
+        displayError(err.message, err.code);
       }
     };
     checkServerConnection();
@@ -84,7 +84,7 @@ const App = () => {
   const handleFavoriteProductsChange = async (newProduct) => {
     if (!newProduct || !newProduct.productId) return;
 
-    const changeProductClass = () => {
+    const changeFavoriteProductsState = () => {
       let productAlreadyFavorite = false;
 
       for (let i = 0; i <= favoriteProducts.length - 1; i++) {
@@ -115,14 +115,23 @@ const App = () => {
         );
 
         if (!data.isError && data.queryStatus === 200) {
-          changeProductClass();
-          return {successful: true}
+          changeFavoriteProductsState();
+          return { successful: true };
         }
-        
-        displayError(data.errorCode, data.errno);
-        ;
+
+        displayError(
+          "",
+          "",
+          "Um erro interno do servidor ocorreu ao tentar executar essa ação"
+        );
+        return { successful: false };
       } catch (err) {
-        displayError(err, err.code);
+        displayError(
+          "",
+          "",
+          "Um erro interno do servidor ocorreu ao tentar executar essa ação"
+        );
+        return { successful: false };
       }
     };
     return postNewFavoriteProduct();
@@ -173,8 +182,11 @@ const App = () => {
     const newCartProducts = cartProducts.filter(
       (product) => product.productId !== removedProductId
     );
+
     setCartProducts(newCartProducts);
     localStorage.setItem("cartProducts", JSON.stringify(newCartProducts));
+
+    return { successful: true }
   };
 
   //State that will control the content of the popup component
@@ -210,12 +222,8 @@ const App = () => {
           type: "favoriteproducts",
           products: favoriteProducts,
           button: false,
-          removeProduct: function (product) {
-            const productCardHeartIcon = document.querySelector(
-              `#productFavHeart${product.productId}`
-            );
-            if (productCardHeartIcon) return productCardHeartIcon.click();
-            handleFavoriteProductsChange(product);
+          removeProduct: async(product) => {
+            return handleFavoriteProductsChange(product);
           },
         };
         break;
@@ -232,8 +240,8 @@ const App = () => {
           button: {
             title: "Fazer checkout",
           },
-          removeProduct: function () {
-            handleRemoveCartProduct();
+          removeProduct: async() => {
+            return handleRemoveCartProduct();
           },
         };
         break;
@@ -269,7 +277,7 @@ const App = () => {
           displayError: displayError,
           isLogged: isUserLoggedIn,
           setIsLogged: setUserLoggedIn,
-          setUserSessionState: setUserSessionState
+          setUserSessionState: setUserSessionState,
         }}
       >
         <SkipToContentButton />

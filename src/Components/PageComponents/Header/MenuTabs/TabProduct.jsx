@@ -57,7 +57,7 @@ const TabProduct = ({
     }
   };
 
-  function returnProductIfNotUndefined() {
+  const returnProductIfNotUndefined = () => {
     if (!productName) return;
     return (
       <div className={`${classPrefix}_product`}>

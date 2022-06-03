@@ -39,10 +39,10 @@ const FavoritedProducts = ({
       return (
         <>
           {favoritedProducts.map((p) => {
-            if (!p) return;
+            if (!p) return null;
             if (favoritedProducts.length > 5) {
               for (let i = 5; i <= favoritedProducts.length; i++) {
-                if (p === favoritedProducts[i]) return;
+                if (p === favoritedProducts[i]) return null;
               }
             }
             return (
