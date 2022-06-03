@@ -36,7 +36,6 @@ const SeeMoreCard = ({ renderDiv, returnMoreProductsFunction }) => {
   //Render Method (if renderDiv is true, render everything inside of a "midmobile-overflow" div. 
   //Else, just render the card by itself)
   const renderMethod = () => {
-    let renderContent;
     if (renderDiv) {
       return (
         <div className="midmobile-overflow">

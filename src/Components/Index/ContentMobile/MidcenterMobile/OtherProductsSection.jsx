@@ -1,38 +1,58 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 
 import Axios from "axios";
-
-import displayError from "../../../../globalFunctions/displayErrors";
 
 import Product from "./OtherProductsSection/Product";
 import SeeMoreCard from "./SeeMoreCard";
 
+import { GlobalServerContext } from "../../../../App";
+
 const OtherProductsSection = ({
   setFavoritedProductsIds,
   handleFavoritedProductsChange,
-  favoritedProductsIds
+  favoritedProductsIds,
 }) => {
   const [products, setProducts] = useState([]);
 
   //Get products from the Database by using Axios through GET method
-  const { serverUrl } = require("../../../.././connection.json"); //Import serverUrl (Ex: http://localhost:3001);
+  const { serverUrl, displayError } = useContext(GlobalServerContext); //Import serverUrl (Ex: http://localhost:3001);
+
+  //Fetch all products
   useEffect(() => {
     const fetchProducts = async () => {
-      await Axios.get(`${serverUrl}/getproducts/otherproducts`).then(
-        (response) => {
-          const data = response.data;
-          if (data.isError) {
-            displayError(data.errorCode, data.errno);
-            return;
-          }
-          setProducts(data);
-        }
-      );
+      try {
+        const { data } = await Axios.get(
+          `${serverUrl}/getproducts/otherproducts`
+        );
+
+        if (data.isError) return displayError(data.errorCode, data.errno);
+
+        setProducts(data);
+      } catch (err) {
+        displayError(err.message, "INTERNAL_ERROR");
+      }
     };
     fetchProducts();
-  }, [serverUrl]);
+  }, [serverUrl, displayError]);
 
-  //Function that will be triggered when bottomBtn is clicked
+  const renderProduct = (product) => {
+    const generateRandomElementId = Math.floor(Math.random() * 10000);
+    return (
+      <Product
+        key={`${product.productId}-${generateRandomElementId}`}
+        productId={product.productId}
+        productName={product.productName}
+        productImgSrc={product.productImgSrc}
+        productImgAlt={product.productImgAlt}
+        productFinalPrice={product.productFinalPrice}
+        productDiscount={product.productDiscount}
+        setFavoriteProductsIds={setFavoritedProductsIds}
+        handleFavoritedProductsChange={handleFavoritedProductsChange}
+        favoritedProductsIds={favoritedProductsIds}
+      />
+    );
+  };
+
   //Function that will be triggered when bottomBtn is clicked
   const returnMoreProducts = (lastLoadedProduct) => {
     let productsThatNeedToBeLoaded;
@@ -56,39 +76,20 @@ const OtherProductsSection = ({
           const splitProductsThatNeedToBeLoaded =
             productsThatNeedToBeLoaded.split(",");
 
-          //Map the split that had been made and now each productNumber is separated
+          //Map the split that had been made and now each productId is separated
           const returnProducts = splitProductsThatNeedToBeLoaded.map(
             (productNumber) => {
               //How the productNumber is setted as a "string" and the program need it as an "int", convert it.
               const convertProductNumberToInt = Math.floor(productNumber);
 
               //If the product that corresponds to that productNumber doesn't exist, stop the execution
-              if (!products[convertProductNumberToInt - 1]) return;
+              if (!products[convertProductNumberToInt - 1]) return null;
 
               //If the product corresponds to a product that need to be loaded, render it.
               if (product === products[convertProductNumberToInt - 1]) {
-                if (productNumber > lastLoadedProduct) return;
+                if (productNumber > lastLoadedProduct) return null;
 
-                return (
-                  <Product
-                    key={product.productId}
-                    productId={product.productId}
-                    productName={product.productName}
-                    productImgSrc={product.productImgSrc}
-                    productImgAlt={product.productImgAlt}
-                    productCategory={product.productCategory}
-                    productFinalPrice={product.productFinalPrice}
-                    productDiscount={product.productDiscount}
-                    productAbout={product.productDescription}
-                    productGrade={product.productGrade}
-                    productTotalSales={product.productTotalSales}
-                    setFavoriteProductsIds={setFavoritedProductsIds}
-                    handleFavoritedProductsChange={
-                      handleFavoritedProductsChange
-                    }
-                    favoritedProductsIds={favoritedProductsIds}
-                  />
-                );
+                return renderProduct(product);
               }
               return null;
             }
@@ -106,41 +107,11 @@ const OtherProductsSection = ({
         {products.map((product) => {
           if (products.length > 5) {
             for (let i = 0; i < 5; i++) {
-              if (product === products[i]) {
-                return (
-                  <Product
-                    key={product.productId}
-                    productId={product.productId}
-                    productName={product.productName}
-                    productImgSrc={product.productImgSrc}
-                    productImgAlt={product.productImgAlt}
-                    productFinalPrice={product.productFinalPrice}
-                    productDiscount={product.productDiscount}
-                    setFavoriteProductsIds={setFavoritedProductsIds}
-                    handleFavoritedProductsChange={
-                      handleFavoritedProductsChange
-                    }
-                    favoritedProductsIds={favoritedProductsIds}
-                  />
-                );
-              }
+              if (product === products[i]) return renderProduct(product);
             }
-            return;
+            return null;
           }
-          return (
-            <Product
-              key={product.productId}
-              productId={product.productId}
-              productName={product.productName}
-              productImgSrc={product.productImgSrc}
-              productImgAlt={product.productImgAlt}
-              productFinalPrice={product.productFinalPrice}
-              productDiscount={product.productDiscount}
-              setFavoritedProductsIds={setFavoritedProductsIds}
-              handleFavoriteProductsChange={handleFavoritedProductsChange}
-              favoritedProductsIds={favoritedProductsIds}
-            />
-          );
+          return renderProduct(product);
         })}
         <SeeMoreCard
           renderDiv={true}

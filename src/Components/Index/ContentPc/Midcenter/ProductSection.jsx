@@ -17,8 +17,10 @@ const ProductSection = ({
   favoritedProductsIds,
   setFavoritedProductsIds,
   handleAddCartProduct,
+  handleRemoveCartProduct,
   handleFavoritedProductsChange,
   handleSetPopupState,
+  cartProducts,
 }) => {
   const [products, setProducts] = useState([]);
 
@@ -43,7 +45,30 @@ const ProductSection = ({
     fetchProducts();
   }, [serverUrl, displayError, category]);
 
-  //BOTTOM BTN //
+  const renderProduct = (product) => {
+    return (
+      <Product
+        key={`${product.productId}`}
+        productId={product.productId}
+        productName={product.productName}
+        productImgSrc={product.productImgSrc}
+        productImgAlt={product.productImgAlt}
+        productCategory={product.productCategory}
+        productFinalPrice={product.productFinalPrice}
+        productDiscount={product.productDiscount}
+        productDescription={product.productDescription}
+        productGrade={product.productGrade}
+        productTotalSales={product.productTotalSales}
+        setFavoriteProductsIds={setFavoritedProductsIds}
+        favoritedProductsIds={favoritedProductsIds}
+        handleAddCartProduct={handleAddCartProduct}
+        handleRemoveCartProduct={handleRemoveCartProduct}
+        handleSetPopupState={handleSetPopupState}
+        handleFavoritedProductsChange={handleFavoritedProductsChange}
+        cartProducts={cartProducts}
+      />
+    );
+  };
 
   //Function that will be triggered when bottomBtn is clicked
   const returnMoreProducts = (lastLoadedProduct) => {
@@ -68,96 +93,64 @@ const ProductSection = ({
           const splitProductsThatNeedToBeLoaded =
             productsThatNeedToBeLoaded.split(",");
 
-          //Map the split that had been made and now each productNumber is separated
+          //Map the split that had been made and now each productId is separated
           const returnProducts = splitProductsThatNeedToBeLoaded.map(
             (productNumber) => {
-              //How the productNumber is setted as a "string" and the program need it as an "int", convert it.
-              const convertProductNumberToInt = Math.floor(productNumber);
+              //If the product that corresponds to that fd doesn't exist, stop the execution
+              if (
+                !products[productNumber - 1] ||
+                product !== products[productNumber]
+              )
+                return null;
 
-              //If the product that corresponds to that productNumber doesn't exist, stop the execution
-              if (!products[convertProductNumberToInt - 1]) return null;
+              //If the product is divisible by 5, that means that 5 products have already been loaded, and
+              //that a new column need to be rendered
+              const checkIfProductIdIsDivisibleBy5 = (productNumber - 1) % 5;
 
-              //If the product corresponds to a product that need to be loaded, render it.
-              if (product === products[convertProductNumberToInt - 1]) {
-                if (productNumber > lastLoadedProduct) return null;
+              if (checkIfProductIdIsDivisibleBy5 !== 0) return null;
 
-                //If the product is divisible by 5, that means that 5 products have already been loaded, and
-                //that a new column need to be rendered
-                const checkIfProductNumberIsDivisibleBy5 =
-                  (productNumber - 1) % 5;
+              return (
+                //Load the new column
+                <ProductLine
+                  key={`${product.productId}${productNumber}`}
+                  category={category}
+                >
+                  {/* Load the product by itself */}
+                  {renderProduct(product)}
+                  {/* Load other 4 products */}
+                  {products.map((insideProduct) => {
+                    // const productIdPlus3 = parseInt(productNumber) + 3;
 
-                if (checkIfProductNumberIsDivisibleBy5 === 0) {
-                  return (
-                    //Load the new column
-                    <ProductLine key={product.productId} category={category}>
-                      {/* Load the product by itself */}
-                      <Product
-                        key={product.productId}
-                        productId={product.productId}
-                        productName={product.productName}
-                        productImgSrc={product.productImgSrc}
-                        productImgAlt={product.productImgAlt}
-                        productCategory={product.productCategory}
-                        productFinalPrice={product.productFinalPrice}
-                        productDiscount={product.productDiscount}
-                        productDescription={product.productDescription}
-                        productGrade={product.productGrade}
-                        productTotalSales={product.productTotalSales}
-                        setFavoriteProductsIds={setFavoritedProductsIds}
-                        favoritedProductsIds={favoritedProductsIds}
-                        handleAddCartProduct={handleAddCartProduct}
-                        handleSetPopupState={handleSetPopupState}
-                        handleFavoritedProductsChange={
-                          handleFavoritedProductsChange
-                        }
-                      />
-                      {/* Load other 4 products */}
-                      {products.map((insideProduct) => {
-                        const productNumberPlus3 =
-                          Math.floor(productNumber) + 3;
+                    // for (let i = productNumber; i <= productIdPlus3; i++) {
+                    //   if(insideProduct !== products[i]) return null;
+                    //   return <>{renderProduct(insideProduct)}</>;
+                    // }
+                    // return null;
 
-                        for (
-                          let i = productNumber;
-                          i <= productNumberPlus3;
-                          i++
-                        ) {
-                          if (insideProduct !== products[i]) return null;
-                          return (
-                            <Product
-                              key={insideProduct.productId}
-                              productId={insideProduct.productId}
-                              productName={insideProduct.productName}
-                              productImgSrc={insideProduct.productImgSrc}
-                              productImgAlt={insideProduct.productImgAlt}
-                              productCategory={insideProduct.productCategory}
-                              productFinalPrice={
-                                insideProduct.productFinalPrice
-                              }
-                              productDiscount={insideProduct.productDiscount}
-                              productDescription={
-                                insideProduct.productDescription
-                              }
-                              productGrade={insideProduct.productGrade}
-                              productTotalSales={
-                                insideProduct.productTotalSales
-                              }
-                              setFavoriteProductsIds={setFavoritedProductsIds}
-                              favoritedProductsIds={favoritedProductsIds}
-                              handleAddCartProduct={handleAddCartProduct}
-                              handleSetPopupState={handleSetPopupState}
-                              handleFavoritedProductsChange={
-                                handleFavoritedProductsChange
-                              }
-                            />
-                          );
+                    // I WANNA CLARIFY THAT WHAT I DID HERE WAS 100% AGAINST MY WANT! FOR SOME REASON THE FOR LOOP
+                    // WASN'T WORKING, I TRIED DOING IT WITH WHILE AND IT DIDN'T WORK AS WELL, THE NUMBERS WEREN'T INCREASING
+                    //AS THEY SHOULD, SO MY ONLY OPTIONS WAS CODE THIS SHIT THAT YOU'RE ABOUT TO SEE
+                    //IF SOMEONE IS EVER READING THAT, PLEASE NOW THAT THIS WASN'T MY FAULT AND I HAD NO CHOICE!!!!!!
+
+                    const productNumberInt = parseInt(productNumber);
+                    const productNumbersThatShouldBeRendered = [
+                      productNumberInt,
+                      productNumberInt + 1,
+                      productNumberInt + 2,
+                      productNumberInt + 3,
+                    ];
+
+                    return productNumbersThatShouldBeRendered.map(
+                      (productInsideNumber) => {
+                        if (insideProduct === products[productInsideNumber]) {
+                          return renderProduct(insideProduct);
                         }
                         return null;
-                      })}
-                    </ProductLine>
-                  );
-                }
-              }
-              return null;
+                      }
+                    );
+                  })}
+                </ProductLine>
+              );
             }
           );
           return returnProducts;
@@ -168,13 +161,12 @@ const ProductSection = ({
 
   //If bottomBtn is not undefined, that means that it exists and it needs to be rendered
   const renderBottomBtn = () => {
-    if (bottomBtn) {
-      return (
-        <BottomBtn returnMoreProductsFunction={returnMoreProducts}>
-          {bottomBtn}
-        </BottomBtn>
-      );
-    }
+    if (!bottomBtn) return null;
+    return (
+      <BottomBtn returnMoreProductsFunction={returnMoreProducts}>
+        {bottomBtn}
+      </BottomBtn>
+    );
   };
 
   return (
@@ -183,35 +175,16 @@ const ProductSection = ({
 
       <ProductLine category={category}>
         {products.map((product) => {
-          let productNumber;
+          let productId;
           if (products.length > 5) {
             for (let i = 0; i <= products.length; i++) {
               if (product === products[i]) {
-                productNumber = i;
+                productId = i;
               }
             }
           }
-          if (productNumber >= 5) return null;
-          return (
-            <Product
-              key={product.productId}
-              productId={product.productId}
-              productName={product.productName}
-              productImgSrc={product.productImgSrc}
-              productImgAlt={product.productImgAlt}
-              productCategory={product.productCategory}
-              productFinalPrice={product.productFinalPrice}
-              productDiscount={product.productDiscount}
-              productDescription={product.productDescription}
-              productGrade={product.productGrade}
-              productTotalSales={product.productTotalSales}
-              setFavoriteProductsIds={setFavoritedProductsIds}
-              favoritedProductsIds={favoritedProductsIds}
-              handleAddCartProduct={handleAddCartProduct}
-              handleSetPopupState={handleSetPopupState}
-              handleFavoritedProductsChange={handleFavoritedProductsChange}
-            />
-          );
+          if (productId >= 5) return null;
+          return renderProduct(product);
         })}
       </ProductLine>
 

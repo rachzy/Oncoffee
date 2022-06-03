@@ -10,7 +10,7 @@ import "../css/login.css";
 
 import {GlobalServerContext} from "../App";
 
-const Login = ({ setHeaderPageTitle, pageTitle }) => {
+const Login = ({ pageTitle, setHeaderPageTitle }) => {
   const navigate = useNavigate();
   const {isLogged} = useContext(GlobalServerContext);
 

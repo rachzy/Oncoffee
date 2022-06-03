@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+
+import Axios from "axios";
 
 import "../../css/Header.css";
 import "../../css/extra.css";
@@ -20,6 +22,9 @@ import FavoritedProducts from "./Header/MenuTabs/FavoritedProducts";
 import ShoppingCartProducts from "./Header/MenuTabs/ShoppingCartProdcuts";
 import NavRight from "./Header/NavRight";
 
+import { GlobalServerContext, UserSession } from "../../App";
+import displayError from "../../globalFunctions/displayErrors";
+
 const Header = ({
   children,
   favoritedProductsState,
@@ -30,6 +35,9 @@ const Header = ({
   serverStatus,
 }) => {
   const navigate = useNavigate();
+
+  const { isLogged, serverUrl } = useContext(GlobalServerContext);
+  const userSession = useContext(UserSession);
 
   const handleMobileHeartIconClick = () => {
     const popup = document.querySelector(".popup");
@@ -51,7 +59,7 @@ const Header = ({
     handleSetPopupState("shoppingcart");
   };
 
-  function renderFavoritedProductsIfServerStatusIs200() {
+  const renderFavoritedProductsIfServerStatusIs200 = () => {
     if (serverStatus !== 200) return null;
     return (
       <FavoritedProducts
@@ -60,7 +68,78 @@ const Header = ({
         handleFavoritedProductsChange={handleFavoritedProductsChange}
       />
     );
-  }
+  };
+
+  const renderUserBoxContent = () => {
+    if (isLogged && userSession) {
+      return (
+        <>
+          <li>
+            <img
+              src={require(`../../imgs/${userSession.userPfp}`)}
+              alt={`${userSession.userName}-pfp`}
+            />
+            <p>Olá, {userSession.userName}</p>
+          </li>
+          <li>
+            <ButtonNavbar className="lia" href="/">
+              Minha Conta
+            </ButtonNavbar>
+          </li>
+          <li>
+            <ButtonNavbar className="lia" href="/">
+              Meus Cupons
+            </ButtonNavbar>
+          </li>
+        </>
+      );
+    }
+    return (
+      <li>
+        <ButtonNavbar
+          className="login"
+          onClick={() => {
+            navigate("/login");
+          }}
+        >
+          Login
+        </ButtonNavbar>
+        <ButtonNavbar
+          className="register"
+          onClick={() => {
+            navigate("/login?openRegister");
+          }}
+        >
+          Registro
+        </ButtonNavbar>
+      </li>
+    );
+  };
+
+  const renderSignOutButton = () => {
+    if (!isLogged || !userSession) return;
+
+    const handleSignOutButtonClick = async () => {
+      try {
+        const { data } = await Axios.get(`${serverUrl}/account/signout`, {
+          withCredentials: true,
+        });
+
+        if (data.queryStatus !== 200) return;
+
+        window.location.reload();
+        localStorage.removeItem("cartProducts")
+      } catch (err) {
+        displayError(err, err.code);
+      }
+    };
+
+    return (
+      <button onClick={handleSignOutButtonClick} className="sign-out">
+        Sair
+      </button>
+    );
+  };
 
   return (
     <header>
@@ -72,34 +151,7 @@ const Header = ({
           <MenuItem icon={newUser_logo} alt="newuser-oncoffee-icon">
             <div className="user_box">
               <ul>
-                <li>
-                  <ButtonNavbar
-                    className="login"
-                    onClick={() => {
-                      navigate("/login");
-                    }}
-                  >
-                    Login
-                  </ButtonNavbar>
-                  <ButtonNavbar
-                    className="register"
-                    onClick={() => {
-                      navigate("/login?openRegister");
-                    }}
-                  >
-                    Registro
-                  </ButtonNavbar>
-                </li>
-                <li>
-                  <ButtonNavbar className="lia" href="/">
-                    Minha Conta
-                  </ButtonNavbar>
-                </li>
-                <li>
-                  <ButtonNavbar className="lia" href="/">
-                    Meus Cupons
-                  </ButtonNavbar>
-                </li>
+                {renderUserBoxContent()}
                 <li>
                   <ButtonNavbar className="lia" href="/">
                     Sobre nós
@@ -115,6 +167,7 @@ const Header = ({
                     Vender aqui
                   </ButtonNavbar>
                 </li>
+                {renderSignOutButton()}
               </ul>
             </div>
           </MenuItem>
