@@ -15,6 +15,7 @@ import Error from "./Components/PageComponents/Error";
 import Index from "./Pages/Index";
 import Login from "./Pages/Login";
 import Confirm from "./Pages/Confirm";
+import Product from "./Pages/Product";
 
 export const GlobalServerContext = createContext();
 export const UserSession = createContext();
@@ -186,7 +187,7 @@ const App = () => {
     setCartProducts(newCartProducts);
     localStorage.setItem("cartProducts", JSON.stringify(newCartProducts));
 
-    return { successful: true }
+    return { successful: true };
   };
 
   //State that will control the content of the popup component
@@ -222,7 +223,7 @@ const App = () => {
           type: "favoriteproducts",
           products: favoriteProducts,
           button: false,
-          removeProduct: async(product) => {
+          removeProduct: async (product) => {
             return handleFavoriteProductsChange(product);
           },
         };
@@ -240,7 +241,7 @@ const App = () => {
           button: {
             title: "Fazer checkout",
           },
-          removeProduct: async() => {
+          removeProduct: async () => {
             return handleRemoveCartProduct();
           },
         };
@@ -333,6 +334,10 @@ const App = () => {
                   setHeaderPageTitle={setHeaderPageTitle}
                 />
               }
+            />
+            <Route
+              path="/product"
+              element={<Product setHeaderPageTitle={setHeaderPageTitle} />}
             />
           </Routes>
         </UserSession.Provider>
