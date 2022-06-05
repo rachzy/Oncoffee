@@ -1,5 +1,7 @@
-import React, { useRef } from "react";
+import React, { useContext, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+
+import {GlobalServerContext} from "../../../App";
 
 const ProductPopup = ({
   popupType,
@@ -14,6 +16,7 @@ const ProductPopup = ({
 }) => {
   const productDiv = useRef(null);
   const navigate = useNavigate();
+  const {displayError} = useContext(GlobalServerContext);
 
   const handleButtonClick = () => {
     navigate(`/product/${productId}`);
@@ -42,13 +45,30 @@ const ProductPopup = ({
     }
       
     if (!removeProductBtn || removeProductBtn === null) {
-      removeProduct({ productId });
+      productDiv.current.classList.add("disabled");
+      try {
+        const query = await removeProduct({ productId });
+        
+        if(!query.successful) {
+          return productDiv.current.classList.remove("disabled");
+        }
+        productDiv.current.style.display = "none";
+      } catch(err) {
+        displayError(err, err.code);
+        return productDiv.current.classList.remove("disabled");
+      }
     } else {
       removeProductBtn.click();
+
+      productDiv.current.classList.add("disabled");
+      setTimeout(() => {
+        //When the animation is over, set the product display as none
+        productDiv.current.style.display = "none";
+      }, 300);
     }
 
     //Add the class "disabled" to trigger the product "disappearing" transition
-    productDiv.current.classList.add("disabled");
+
     setTimeout(() => {
       //When the animation is over, set the product display as none
       productDiv.current.style.display = "none";

@@ -9,7 +9,7 @@ import Error from "../../Error";
 import { GlobalServerContext } from "../../../../App";
 
 const LoginInputs = () => {
-  const getGlobalServerContext = useContext(GlobalServerContext);
+  const {serverUrl, setUserSessionState, setIsLogged} = useContext(GlobalServerContext);
 
   const navigate = useNavigate();
 
@@ -146,7 +146,7 @@ const LoginInputs = () => {
     const executeLogin = async () => {
       try {
         const { data } = await Axios.post(
-          `${getGlobalServerContext.serverUrl}/account/login`,
+          `${serverUrl}/account/login`,
           {
             emailcpf: inputValues.user,
             password: inputValues.password,
@@ -170,6 +170,9 @@ const LoginInputs = () => {
         }
 
         if (data.queryStatus === 200) {
+          setUserSessionState(data.userData); //Set UserSession with user's data
+          setIsLogged(true);
+
           if (!nextPage || nextPage === null || nextPage === "") {
             return navigate("/");
           }

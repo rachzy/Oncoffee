@@ -15,7 +15,9 @@ import { GlobalServerContext } from "../../../App";
 const Midcenter = ({
   handleFavoritedProductsChange,
   handleAddCartProduct,
+  handleRemoveCartProduct,
   handleSetPopupState,
+  cartProducts
 }) => {
   const returnSliderFeaturedPromotions = () => {
     if (slideProductsIds.length === 0) return;
@@ -38,7 +40,7 @@ const Midcenter = ({
           displayError(data.errorCode, data.errno);
           return;
         }
-  
+
         setSlideProductsIds(data);
       } catch (err) {
         return displayError(err.message, "SERVER_CONN_FAILED");
@@ -50,17 +52,18 @@ const Midcenter = ({
       if (!isLogged) return;
       try {
         const { data } = await Axios.get(
-          `${serverUrl}/getfavoriteproductsids/`
+          `${serverUrl}/user/getfavoriteproductsids/`,
+          { withCredentials: true }
         );
 
         if (data.isError) {
           displayError(data.errorCode, data.errno);
           return;
         }
-  
+
         if (!data) return;
         setFavoritedProductsIds(data);
-      } catch(err) {
+      } catch (err) {
         return displayError(err.message, "SERVER_CONN_FAILED");
       }
     };
@@ -78,6 +81,8 @@ const Midcenter = ({
         handleFavoritedProductsChange={handleFavoritedProductsChange}
         handleSetPopupState={handleSetPopupState}
         handleAddCartProduct={handleAddCartProduct}
+        handleRemoveCartProduct={handleRemoveCartProduct}
+        cartProducts={cartProducts}
       />
       <main className="midcenter">
         <ProductSection
@@ -88,6 +93,9 @@ const Midcenter = ({
           setFavoritedProductsIds={setFavoritedProductsIds}
           handleFavoritedProductsChange={handleFavoritedProductsChange}
           handleSetPopupState={handleSetPopupState}
+          handleAddCartProduct={handleAddCartProduct}
+          handleRemoveCartProduct={handleRemoveCartProduct}
+          cartProducts={cartProducts}
         />
 
         {returnSliderFeaturedPromotions()}
@@ -100,6 +108,9 @@ const Midcenter = ({
             setFavoritedProductsIds={setFavoritedProductsIds}
             handleFavoritedProductsChange={handleFavoritedProductsChange}
             handleSetPopupState={handleSetPopupState}
+            handleAddCartProduct={handleAddCartProduct}
+            handleRemoveCartProduct={handleRemoveCartProduct}
+            cartProducts={cartProducts}
           />
 
           <main className="midcenter">
@@ -112,6 +123,9 @@ const Midcenter = ({
               setFavoritedProductsIds={setFavoritedProductsIds}
               handleFavoritedProductsChange={handleFavoritedProductsChange}
               handleSetPopupState={handleSetPopupState}
+              handleAddCartProduct={handleAddCartProduct}
+              handleRemoveCartProduct={handleRemoveCartProduct}
+              cartProducts={cartProducts}
             />
 
             <main className="infos">

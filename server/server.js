@@ -95,6 +95,10 @@ app.use("/account/validatetokens/", getValidateSecurityTokens);
 const getValidateRegisterParams = require("./routes/GET/getValidateRegisterParams.js");
 app.use("/account/validateregisterparams", getValidateRegisterParams);
 
+//Sign out user
+const getSignOut = require("./routes/GET/account/signOut.js");
+app.use("/account/signout", getSignOut);
+
 //
 
 //POST METHODS

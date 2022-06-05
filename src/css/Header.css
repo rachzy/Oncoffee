@@ -2,9 +2,11 @@
     .buttonsmo {
         display: block;
     }
+
     .navbar3 {
         display: none;
     }
+
     .navbar2 {
         display: flex;
     }
@@ -12,7 +14,7 @@
     .final {
         display: none;
     }
-    
+
     .conteudo {
         display: none;
     }
@@ -26,18 +28,18 @@
 @media screen and (max-width: 700px) {
     .navlogo2 img {
         width: 100px;
-        
+
     }
 
     .buttonsarea label:first-child {
         margin-left: 12%;
         margin-top: 30px;
     }
-    
+
     .buttonsarea label:nth-child(2) {
         margin-top: 20px;
     }
-    
+
     .buttonsarea label:last-child {
         margin-right: 12%;
         margin-top: 30px;
@@ -47,9 +49,9 @@
         width: 30px;
         color: rgba(255, 255, 255, 0.7);
         transition: all 0.5s ease;
-    
+
     }
-    
+
     .sbtt:nth-child(1) img {
         width: 25px;
     }
@@ -78,18 +80,18 @@
 @media screen and (max-width: 500px) {
     .navlogo2 img {
         width: 100px;
-        
+
     }
 
     .buttonsarea label:first-child {
         margin-left: 11%;
         margin-top: 30px;
     }
-    
+
     .buttonsarea label:nth-child(2) {
         margin-top: 20px;
     }
-    
+
     .buttonsarea label:last-child {
         margin-right: 11%;
         margin-top: 30px;
@@ -99,9 +101,9 @@
         width: 30px;
         color: rgba(255, 255, 255, 0.7);
         transition: all 0.5s ease;
-    
+
     }
-    
+
     .sbtt:nth-child(1) img {
         width: 25px;
     }
@@ -117,26 +119,26 @@
 @media screen and (max-width: 460px) {
     .navlogo2 img {
         width: 100px;
-        
+
     }
 
 
     .buttonsmo {
-        
+
         height: 65px;
-        
-       
+
+
     }
 
     .buttonsarea label:first-child {
         margin-left: 11%;
         margin-top: 30px;
     }
-    
+
     .buttonsarea label:nth-child(2) {
         margin-top: 20px;
     }
-    
+
     .buttonsarea label:last-child {
         margin-right: 11%;
         margin-top: 30px;
@@ -146,9 +148,9 @@
         width: 25px;
         color: rgba(255, 255, 255, 0.7);
         transition: all 0.5s ease;
-    
+
     }
-    
+
     .sbtt:nth-child(1) img {
         width: 20px;
     }
@@ -161,26 +163,26 @@
 @media screen and (max-width: 380px) {
     .navlogo2 img {
         width: 100px;
-        
+
     }
 
 
     .buttonsmo {
-        
+
         height: 65px;
-        
-       
+
+
     }
 
     .buttonsarea label:first-child {
         margin-left: 11%;
         margin-top: 30px;
     }
-    
+
     .buttonsarea label:nth-child(2) {
         margin-top: 20px;
     }
-    
+
     .buttonsarea label:last-child {
         margin-right: 11%;
         margin-top: 30px;
@@ -190,11 +192,10 @@
         width: 25px;
         color: rgba(255, 255, 255, 0.7);
         transition: all 0.5s ease;
-    
+
     }
-    
+
     .sbtt:nth-child(1) img {
         width: 20px;
     }
 }
-

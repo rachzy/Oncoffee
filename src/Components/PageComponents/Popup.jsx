@@ -42,46 +42,44 @@ const Popup = ({ popupContent }) => {
   function renderElementsIfPopupContentIsNotNull() {
     //Render "BottomBtn" (checkout button) if necessary
     function renderBottomBtn() {
-      if (popupContent.button) {
-        const handleButtonClick = () => {
-          //Get all the products in the popup-box
-          const allPopupProductsIds =
-            document.querySelectorAll(".popup-product");
+      if (!popupContent.button) return;
+      const handleButtonClick = () => {
+        //Get all the products in the popup-box
+        const allPopupProductsIds = document.querySelectorAll(".popup-product");
 
-          let getAllProductsIds;
+        let getAllProductsIds;
 
-          allPopupProductsIds.forEach((productDiv) => {
-            if (!productDiv) return;
+        allPopupProductsIds.forEach((productDiv) => {
+          if (!productDiv) return;
 
-            //If the current "productDiv" display is "none", that means that the user removed it
-            //By clicking in the X button. So, return
-            if (productDiv.style.display === "none") return;
+          //If the current "productDiv" display is "none", that means that the user removed it
+          //By clicking in the X button. So, return
+          if (productDiv.style.display === "none") return;
 
-            if (getAllProductsIds) {
-              getAllProductsIds = `${getAllProductsIds},${productDiv.id}`;
-            } else {
-              getAllProductsIds = `${productDiv.id}`;
-            }
-          });
+          if (getAllProductsIds) {
+            getAllProductsIds = `${getAllProductsIds},${productDiv.id}`;
+          } else {
+            getAllProductsIds = `${productDiv.id}`;
+          }
+        });
 
-          //Redirect the user to the checkout page with the products IDs passed in the URL
-          navigate(`checkout/products=${getAllProductsIds}`);
+        //Redirect the user to the checkout page with the products IDs passed in the URL
+        navigate(`checkout/products=${getAllProductsIds}`);
 
-          //Scroll the page to the top
-          window.scrollTo(0, 0);
+        //Scroll the page to the top
+        window.scrollTo(0, 0);
 
-          //Close the popup
-          handleCloseIconClick();
-        };
+        //Close the popup
+        handleCloseIconClick();
+      };
 
-        return (
-          <div className="popup-bottom-btn">
-            <button className="default-btn" onClick={handleButtonClick}>
-              {popupContent.button.title}
-            </button>
-          </div>
-        );
-      }
+      return (
+        <div className="popup-bottom-btn">
+          <button className="default-btn" onClick={handleButtonClick}>
+            {popupContent.button.title}
+          </button>
+        </div>
+      );
     }
 
     //Return the class of "popup-box" div depending of the "Bottom Button" existence

@@ -23,6 +23,8 @@ const Index = ({
   isIndexAlreadyLoaded,
   setIndexAlreadyLoaded,
   handleAddCartProduct,
+  handleRemoveCartProduct,
+  cartProducts,
   handleFavoritedProductsChange,
   handleSetPopupState,
   serverStatus,
@@ -43,9 +45,11 @@ const Index = ({
         <SliderMainPc />
         <Midcenter
           serverStatus={serverStatus}
+          handleSetPopupState={handleSetPopupState}
           handleFavoritedProductsChange={handleFavoritedProductsChange}
           handleAddCartProduct={handleAddCartProduct}
-          handleSetPopupState={handleSetPopupState}
+          handleRemoveCartProduct={handleRemoveCartProduct}
+          cartProducts={cartProducts}
         />
       </ContentPc>
       <ContentMobile
@@ -60,6 +64,8 @@ const Index = ({
           setIndexAlreadyLoaded={setIndexAlreadyLoaded}
           handleFavoritedProductsChange={handleFavoritedProductsChange}
           handleAddCartProduct={handleAddCartProduct}
+          handleRemoveCartProduct={handleRemoveCartProduct}
+          cartProducts={cartProducts}
         />
         <Buttonsmo />
       </ContentMobile>

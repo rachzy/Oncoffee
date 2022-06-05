@@ -9,21 +9,22 @@ const server = require("../../../server.js");
 router.get("/", (req, res) => {
   const { userId, stoken1, stoken2 } = req.cookies;
 
-  if (!userId || !stoken1 || !stoken2) return res.send({
-    queryStatus: 200,
-    isLoggedIn: false
-  });
+  if (!userId || !stoken1 || !stoken2)
+    return res.send({
+      queryStatus: 200,
+      isLoggedIn: false,
+    });
 
   const errorCallback = (code, errno) => {
-    res.cookie("userId", "");
-    res.cookie("stoken1", "");
-    res.cookie("stoken2", "");
+    res.clearCookie("userId");
+    res.clearCookie("stoken1");
+    res.clearCookie("stoken2");
 
     sendError(res, code, errno);
   };
 
   server.db.query(
-    "SELECT * FROM accounts WHERE accountId = ?",
+    "SELECT securityToken1, securityToken2 FROM accounts WHERE accountId = ?",
     [userId],
     (err, result) => {
       if (err) return errorCallback(err.code, err.errno);
@@ -35,10 +36,20 @@ router.get("/", (req, res) => {
         return errorCallback("INVALID_TOKENS", "");
       }
 
-      res.send({
-        queryStatus: 200,
-        isLoggedIn: true
-      });
+      server.db.query(
+        "SELECT * FROM users WHERE userId = ?",
+        [userId],
+        (err2, result2) => {
+          if (err2) {
+            return sendError(res, err2.message, err2.errno);
+          }
+          res.send({
+            queryStatus: 200,
+            isLoggedIn: true,
+            userData: result2[0],
+          });
+        }
+      );
     }
   );
 });

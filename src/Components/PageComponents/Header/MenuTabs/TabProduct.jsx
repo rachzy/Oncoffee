@@ -50,14 +50,14 @@ const TabProduct = ({
         `#productFavHeart${productId}`
       );
       if (productCardHeartIcon) return productCardHeartIcon.click();
-      const productArray = {
+      const product = {
         productId: productId,
       };
-      handleFavoritedProductsChange(productArray);
+      handleFavoritedProductsChange(product);
     }
   };
 
-  function returnProductIfNotUndefined() {
+  const returnProductIfNotUndefined = () => {
     if (!productName) return;
     return (
       <div className={`${classPrefix}_product`}>

@@ -5,11 +5,11 @@ const bcrypt = require("bcrypt");
 const rateLimit = require("express-rate-limit");
 
 rateLimit({
-	windowMs: 15 * 60 * 1000, // 15 minutes
-	max: 15, // Limit each IP to 15 requests per `window` (here, per 15 minutes)
-	standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
-	legacyHeaders: false, // Disable the `X-RateLimit-*` headers
-})
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 15, // Limit each IP to 15 requests per `window` (here, per 15 minutes)
+  standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+  legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+});
 
 const sendError = require("../../../../globalFunctions/sendError.js");
 
@@ -31,11 +31,9 @@ router.post("/", (req, res) => {
         if (errB) return sendError(res, "PASSWORD_VALIDATION_ERROR", "");
         if (!resultB) return sendError(res, "INVALID_CREDENTIALS", "");
 
-        console.log("passed 2");
-
+        //Set cookies
         const { accountId, securityToken1, securityToken2 } = result[0];
-
-        const cookieMaxAge = 1000 * 60 * 60 * 24 * 30; // 2 months
+        const cookieMaxAge = 1000 * 60 * 60 * 24 * 30; // 1 month
 
         res.cookie("userId", accountId, {
           maxAge: cookieMaxAge,
@@ -50,9 +48,19 @@ router.post("/", (req, res) => {
           httpOnly: true,
         });
 
-        res.send({
-          queryStatus: 200,
-        });
+        server.db.query(
+          "SELECT * FROM users WHERE userId = ?",
+          [accountId],
+          (err2, result2) => {
+            if (err2) {
+              return sendError(res, err2.message, err2.errno);
+            }
+            res.send({
+              queryStatus: 200,
+              userData: result2[0],
+            });
+          }
+        );
       });
     }
   );
