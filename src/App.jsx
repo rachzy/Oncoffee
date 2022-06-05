@@ -10,11 +10,11 @@ import displayError from "./globalFunctions/displayErrors";
 import SkipToContentButton from "./Components/PageComponents/SkipToContentButton";
 import Popup from "./Components/PageComponents/Popup";
 import Header from "./Components/PageComponents/Header";
-import Index from "./Components/Index";
 import Error from "./Components/PageComponents/Error";
 
-import Login from "./Components/Login";
-import Confirm from "./Components/Confirm";
+import Index from "./Pages/Index";
+import Login from "./Pages/Login";
+import Confirm from "./Pages/Confirm";
 
 export const GlobalServerContext = createContext();
 export const UserSession = createContext();

@@ -13,9 +13,9 @@ import "../css/Confirm.css";
 import "../css/ConfirmResp.css";
 
 import setPageTitle from "../globalFunctions/setPageTitle";
-import ErrorColumn from "./Confirm/ErrorColumn";
-import Numbercolumn from "./Confirm/Numbercolumn";
-import Numberconfirm from "./Confirm/Numberconfirm";
+import ErrorColumn from "../Components/Confirm/ErrorColumn";
+import Numbercolumn from "../Components/Confirm/Numbercolumn";
+import Numberconfirm from "../Components/Confirm/Numberconfirm";
 
 // import Textarea from "./Confirm/Textarea";
 

@@ -5,7 +5,7 @@ import CallbackMessage from "./CallbackMessage";
 
 import Axios from "axios";
 
-import { ChangeClassesContext } from "../../Confirm";
+import { ChangeClassesContext } from "../../../Pages/Confirm";
 import { GlobalServerContext } from "../../../App";
 
 const InputArea = ({ emailInitialValue }) => {
