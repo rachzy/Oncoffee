@@ -16,6 +16,7 @@ import Index from "./Pages/Index";
 import Login from "./Pages/Login";
 import Confirm from "./Pages/Confirm";
 import Product from "./Pages/Product";
+import Footer from "./Components/PageComponents/Footer";
 
 export const GlobalServerContext = createContext();
 export const UserSession = createContext();
@@ -343,6 +344,7 @@ const App = () => {
         </UserSession.Provider>
       </GlobalServerContext.Provider>
       <Error />
+      <Footer />
     </Router>
   );
 };
