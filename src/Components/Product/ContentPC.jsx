@@ -25,6 +25,8 @@ import CommentOverflow from "./ContentPC/BotArea/Comments/CommentOverflow";
 import CommentBox from "./ContentPC/BotArea/Comments/CommentOverflow/CommentBox";
 import CommentProfile from "./ContentPC/BotArea/Comments/CommentOverflow/CommentProfile";
 import CommentText from "./ContentPC/BotArea/Comments/CommentOverflow/CommentText";
+import BackNext from "./ContentPC/BotArea/Comments/CommentOverflow/BackNext";
+import Footer from "../PageComponents/Footer";
 
 const ContentPC = () => {
   return (
@@ -82,219 +84,26 @@ const ContentPC = () => {
           <StarsArea />
           <CommentOverflow>
             <CommentBox>
-                <CommentProfile pfp="1629903043818.jpg" level="5" />
-                <CommentText name="Exemplo" rate={5} />
+              <CommentProfile pfp="1629903043818.jpg" level="5" />
+              <CommentText name="Exemplo" rate={5} />
             </CommentBox>
-            <div className="coment_box">
-              <div className="coment_perfil">
-                <div className="perfil_box">
-                  <div className="perfil_img">
-                    <img src={require(`../../imgs/1629903043818.jpg`)} alt="" />
-                  </div>
-                  <div className="lvl">
-                    <h2>5</h2>
-                    <h3>Nível</h3>
-                  </div>
-                </div>
-              </div>
-              <div className="coment_text">
-                <h2>Perfil Name</h2>
-                <div className="coment_nota">
-                  <i className="fa fa-star" aria-hidden="true"></i>
-                  <i className="fa fa-star" aria-hidden="true"></i>
-                  <i className="fa fa-star" aria-hidden="true"></i>
-                  <i className="fa fa-star" aria-hidden="true"></i>
-                  <i className="fa fa-star" aria-hidden="true"></i>
+            <CommentBox>
+              <CommentProfile pfp="1629903043818.jpg" level="5" />
+              <CommentText name="Exemplo" rate={5} />
+            </CommentBox>
+            <CommentBox>
+              <CommentProfile pfp="1629903043818.jpg" level="5" />
+              <CommentText name="Exemplo" rate={5} />
+            </CommentBox>
+            <CommentBox>
+              <CommentProfile pfp="1629903043818.jpg" level="5" />
+              <CommentText name="Exemplo" rate={5} />
+            </CommentBox>
 
-                  <i className="fa fa-star-half" aria-hidden="true"></i>
-                </div>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro
-                  tempora dolor mollitia aliquam aliquid alias enim non harum
-                  placeat id minus optio dicta repellendus neque earum odit
-                  blanditiis, eligendi reprehenderit!
-                </p>
-              </div>
-            </div>
-            <div className="coment_box">
-              <div className="coment_perfil">
-                <div className="perfil_box">
-                  <div className="perfil_img">
-                    <img src={require(`../../imgs/1629903043818.jpg`)} alt="" />
-                  </div>
-                  <div className="lvl">
-                    <h2>5</h2>
-                    <h3>Nível</h3>
-                  </div>
-                </div>
-              </div>
-              <div className="coment_text">
-                <h2>Perfil Name</h2>
-                <div className="coment_nota">
-                  <i className="fa fa-star" aria-hidden="true"></i>
-                  <i className="fa fa-star" aria-hidden="true"></i>
-                  <i className="fa fa-star" aria-hidden="true"></i>
-                  <i className="fa fa-star" aria-hidden="true"></i>
-                  <i className="fa fa-star" aria-hidden="true"></i>
-
-                  <i className="fa fa-star-half" aria-hidden="true"></i>
-                </div>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro
-                  tempora dolor mollitia aliquam aliquid alias enim non harum
-                  placeat id minus optio dicta repellendus neque earum odit
-                  blanditiis, eligendi reprehenderit!
-                </p>
-              </div>
-            </div>
-            <div className="coment_box">
-              <div className="coment_perfil">
-                <div className="perfil_box">
-                  <div className="perfil_img">
-                    <img src={require(`../../imgs/1629903043818.jpg`)} alt="" />
-                  </div>
-                  <div className="lvl">
-                    <h2>5</h2>
-                    <h3>Nível</h3>
-                  </div>
-                </div>
-              </div>
-              <div className="coment_text">
-                <h2>Perfil Name</h2>
-                <div className="coment_nota">
-                  <i className="fa fa-star" aria-hidden="true"></i>
-                  <i className="fa fa-star" aria-hidden="true"></i>
-                  <i className="fa fa-star" aria-hidden="true"></i>
-                  <i className="fa fa-star" aria-hidden="true"></i>
-                  <i className="fa fa-star" aria-hidden="true"></i>
-
-                  <i className="fa fa-star-half" aria-hidden="true"></i>
-                </div>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro
-                  tempora dolor mollitia aliquam aliquid alias enim non harum
-                  placeat id minus optio dicta repellendus neque earum odit
-                  blanditiis, eligendi reprehenderit!
-                </p>
-              </div>
-            </div>
-            <div className="coment_box">
-              <div className="coment_perfil">
-                <div className="perfil_box">
-                  <div className="perfil_img">
-                    <img src={require(`../../imgs/1629903043818.jpg`)} alt="" />
-                  </div>
-                  <div className="lvl">
-                    <h2>5</h2>
-                    <h3>Nível</h3>
-                  </div>
-                </div>
-              </div>
-              <div className="coment_text">
-                <h2>Perfil Name</h2>
-                <div className="coment_nota">
-                  <i className="fa fa-star" aria-hidden="true"></i>
-                  <i className="fa fa-star" aria-hidden="true"></i>
-                  <i className="fa fa-star" aria-hidden="true"></i>
-                  <i className="fa fa-star" aria-hidden="true"></i>
-                  <i className="fa fa-star" aria-hidden="true"></i>
-
-                  <i className="fa fa-star-half" aria-hidden="true"></i>
-                </div>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro
-                  tempora dolor mollitia aliquam aliquid alias enim non harum
-                  placeat id minus optio dicta repellendus neque earum odit
-                  blanditiis, eligendi reprehenderit!
-                </p>
-              </div>
-            </div>
-            <div className="coment_box">
-              <div className="coment_perfil">
-                <div className="perfil_box">
-                  <div className="perfil_img">
-                    <img src={require(`../../imgs/1629903043818.jpg`)} alt="" />
-                  </div>
-                  <div className="lvl">
-                    <h2>5</h2>
-                    <h3>Nível</h3>
-                  </div>
-                </div>
-              </div>
-              <div className="coment_text">
-                <h2>Perfil Name</h2>
-                <div className="coment_nota">
-                  <i className="fa fa-star" aria-hidden="true"></i>
-                  <i className="fa fa-star" aria-hidden="true"></i>
-                  <i className="fa fa-star" aria-hidden="true"></i>
-                  <i className="fa fa-star" aria-hidden="true"></i>
-                  <i className="fa fa-star" aria-hidden="true"></i>
-
-                  <i className="fa fa-star-half" aria-hidden="true"></i>
-                </div>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro
-                  tempora dolor mollitia aliquam aliquid alias enim non harum
-                  placeat id minus optio dicta repellendus neque earum odit
-                  blanditiis, eligendi reprehenderit!
-                </p>
-              </div>
-            </div>
-
-            <section className="back-next">
-              <button>
-                <i className="fas fa-chevron-left"></i>
-              </button>
-              <h2>1</h2>
-              <button>
-                <i className="fas fa-chevron-right"></i>
-              </button>
-            </section>
+            <BackNext currentPage={1} />
           </CommentOverflow>
         </Comments>
       </BotArea>
-
-      <main className="infos_text">
-        <main className="redes_sociais">
-          <div className="redes_text">
-            <h2>Nossas Redes Sociais</h2>
-          </div>
-          <div className="redes_i">
-            <a className="facebook" href="#">
-              <i className="fab fa-facebook-square"></i>
-            </a>
-            <a className="instagram" href="#">
-              <i className="fab fa-instagram"></i>
-            </a>
-            <a className="twitter" href="#">
-              <i className="fab fa-twitter"></i>
-            </a>
-          </div>
-        </main>
-
-        <main className="final_info">
-          <ul>
-            <li>
-              <a href="#">Nossos Termos</a>
-            </li>
-            <li>
-              <a href="#">Sobre Nós</a>
-            </li>
-            <li>
-              <a href="#">Ajuda</a>
-            </li>
-            <li>
-              <a href="#">Suporte</a>
-            </li>
-            <li>
-              <a href="#">Contato</a>
-            </li>
-            <li>
-              <a href="#">Vender No Site</a>
-            </li>
-          </ul>
-        </main>
-      </main>
     </section>
   );
 };
