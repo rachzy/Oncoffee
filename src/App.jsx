@@ -337,7 +337,7 @@ const App = () => {
               }
             />
             <Route
-              path="/product"
+              path="/product/:productId"
               element={<Product setHeaderPageTitle={setHeaderPageTitle} />}
             />
           </Routes>
