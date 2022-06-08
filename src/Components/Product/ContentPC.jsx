@@ -85,19 +85,19 @@ const ContentPC = () => {
           <CommentOverflow>
             <CommentBox>
               <CommentProfile pfp="1629903043818.jpg" level="5" />
-              <CommentText name="Exemplo" rate={5} />
+              <CommentText name="Exemplo" rate={3} />
             </CommentBox>
             <CommentBox>
               <CommentProfile pfp="1629903043818.jpg" level="5" />
-              <CommentText name="Exemplo" rate={5} />
+              <CommentText name="Exemplo" rate={1.8} />
             </CommentBox>
             <CommentBox>
               <CommentProfile pfp="1629903043818.jpg" level="5" />
-              <CommentText name="Exemplo" rate={5} />
+              <CommentText name="Exemplo" rate={2} />
             </CommentBox>
             <CommentBox>
               <CommentProfile pfp="1629903043818.jpg" level="5" />
-              <CommentText name="Exemplo" rate={5} />
+              <CommentText name="Exemplo" rate={4.1} />
             </CommentBox>
 
             <BackNext currentPage={1} />
