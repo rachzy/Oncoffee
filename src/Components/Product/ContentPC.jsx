@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import "../../css/Product.css";
 
@@ -26,9 +26,73 @@ import CommentBox from "./ContentPC/BotArea/Comments/CommentOverflow/CommentBox"
 import CommentProfile from "./ContentPC/BotArea/Comments/CommentOverflow/CommentProfile";
 import CommentText from "./ContentPC/BotArea/Comments/CommentOverflow/CommentText";
 import BackNext from "./ContentPC/BotArea/Comments/CommentOverflow/BackNext";
-import Footer from "../PageComponents/Footer";
 
 const ContentPC = () => {
+  const randomId = () => {
+    return Math.floor(Math.random() * 999999999 + 10000000);
+  };
+
+  //Product State
+  const [product, setProduct] = useState({
+    productId: randomId(),
+    productTitle: "Café 3 corações",
+    productBrand: "3Corações",
+    productImage: "cafegourmet.png",
+    productDescription:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident odio sequi mollitia quo ipsa, cum corporis expedita eveniet cupiditate voluptates, recusandae ab itaque assumenda minima. Iure ratione cumque non aspernatur.",
+    productRemainingAmount: 21,
+    productPrice: {
+      realPrice: 120,
+      discount: 50,
+      installments: 12,
+      interestRate: 5,
+      freight: 120,
+    },
+    productDetails: [
+      {
+        title: "Grãos",
+        description: "Bla bla bla",
+      },
+      {
+        title: "Sementes",
+        description: "Bla bla bla",
+      },
+      {
+        title: "Torradeiras",
+        description: "Bla bla bla",
+      },
+      {
+        title: "Alguma coisa",
+        description: "Bla bla bla",
+      },
+      {
+        title: "Coisa alguma",
+        description: "Bla bla bla",
+      },
+    ],
+    productImages: ["cafegourmet.png", "cafegourmet.png", "cafegourmet.png"],
+    productRate: {
+      oneStars: 100,
+      twoStars: 350,
+      threeStars: 175,
+      fourStars: 394,
+      fiveStars: 498,
+    },
+    productComments: [
+      {
+        id: randomId(),
+        name: "Jorgin do Pneu",
+        level: 4,
+        title: "Produto da China",
+        description:
+          "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae pariatur quisquam, modi debitis deleniti harum! Sequi doloribus possimus natus consequuntur optio labore dolore? Rem, tempore molestias minus odit voluptates nobis?",
+        rateGiven: 4,
+      },
+    ],
+  });
+
+  //State that controls the amount of products that will be bought by the user
+  const [amount, setAmount] = useState(1);
   return (
     <section className="conteudo_pc">
       <Back />
@@ -36,10 +100,17 @@ const ContentPC = () => {
       {/* Top-Area */}
       <TopArea>
         <CardBox>
-          <CardBoxText />
-          <CardBoxImg />
+          <CardBoxText productBrand={product.productBrand} />
+          <CardBoxImg productImg={product.productImage} />
         </CardBox>
-        <CardBoxInfo />
+        <CardBoxInfo
+          productTitle={product.productTitle}
+          productDescription={product.productDescription}
+          productRate={product.productRate}
+          productPrice={product.productPrice}
+          amount={amount}
+          setAmount={setAmount}
+        />
       </TopArea>
 
       {/* Mid-Area */}

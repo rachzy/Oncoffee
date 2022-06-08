@@ -1,9 +1,14 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const Back = () => {
+  const navigate = useNavigate();
+  const redirectBack = () => {
+    navigate('/');
+  }
   return (
     <div className="back">
-      <button>
+      <button onClick={redirectBack}>
         <i className="fas fa-long-arrow-alt-left"></i> Voltar
       </button>
     </div>

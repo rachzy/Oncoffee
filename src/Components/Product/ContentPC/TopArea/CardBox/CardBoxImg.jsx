@@ -1,10 +1,10 @@
 import React from "react";
 
-const CardBoxImg = () => {
+const CardBoxImg = ({productImg}) => {
   return (
     <div className="card_img">
       <img
-        src={require(`../../../../../imgs/Combo_CafesGourmet.png`)}
+        src={require(`../../../../../imgs/${productImg}`)}
         alt="product-logo"
       />
       <div className="fav_hearth">
