@@ -31,8 +31,8 @@ const ProductRate = ({ productRate, setProductRate, productTotalOrders }) => {
         if (!getStarType) return;
 
         const calculateStarTypePercentage =
-          (getStarType * 100) / this.getTotalAmountOfRates();
-        return calculateStarTypePercentage();
+          Math.round((getStarType * 100) / this.getTotalAmountOfRates());
+        return (`${calculateStarTypePercentage}%`);
       };
     }
   }
@@ -70,11 +70,11 @@ const ProductRate = ({ productRate, setProductRate, productTotalOrders }) => {
           </div>
         </ul>
         <ul className="porcentagem">
-          <h2>100%</h2>
-          <h2>100%</h2>
-          <h2>100%</h2>
-          <h2>100%</h2>
-          <h2>100%</h2>
+          <h2>{rate.getStarPercentage("fiveStars")}</h2>
+          <h2>{rate.getStarPercentage("fourStars")}</h2>
+          <h2>{rate.getStarPercentage("threeStars")}</h2>
+          <h2>{rate.getStarPercentage("twoStars")}</h2>
+          <h2>{rate.getStarPercentage("oneStars")}</h2>
         </ul>
       </div>
       <h3>{rate.getTotalAmountOfRates()} Avaliações</h3>
