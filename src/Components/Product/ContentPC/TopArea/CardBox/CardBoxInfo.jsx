@@ -9,6 +9,7 @@ import ProductTitle from "./CardBoxInfo/ProductTitle";
 const CardBoxInfo = ({
   productTitle,
   productRate,
+  productTotalOrders,
   setProductRate,
   productPrice,
   amount,
@@ -18,7 +19,11 @@ const CardBoxInfo = ({
   return (
     <main className="card_info">
       <ProductTitle productTitle={productTitle} />
-      <ProductRate productRate={productRate} setProductRate={setProductRate} />
+      <ProductRate
+        productRate={productRate}
+        setProductRate={setProductRate}
+        productTotalOrders={productTotalOrders}
+      />
       <ProductPrice productPrice={productPrice} />
       <ProductAmount amount={amount} setAmount={setAmount} />
       <ProductFreight freightCost={freightCost} />

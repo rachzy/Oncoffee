@@ -1,6 +1,6 @@
 import React from "react";
 
-const ProductRate = ({ productRate, setProductRate }) => {
+const ProductRate = ({ productRate, setProductRate, productTotalOrders }) => {
   //RATE
   class Rate {
     constructor(productRate) {
@@ -77,8 +77,8 @@ const ProductRate = ({ productRate, setProductRate }) => {
           <h2>100%</h2>
         </ul>
       </div>
-      <h3>9999 Avaliações</h3>
-      <h3>9999 Pedidos</h3>
+      <h3>{rate.getTotalAmountOfRates()} Avaliações</h3>
+      <h3>{productTotalOrders} Pedidos</h3>
     </div>
   );
 };

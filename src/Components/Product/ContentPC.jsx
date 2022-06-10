@@ -37,6 +37,7 @@ const ContentPC = () => {
     productDescription:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident odio sequi mollitia quo ipsa, cum corporis expedita eveniet cupiditate voluptates, recusandae ab itaque assumenda minima. Iure ratione cumque non aspernatur.",
     productRemainingAmount: 21,
+    productTotalOrders: 150,
     productPrice: {
       realPrice: 120,
       discount: 50,
@@ -243,6 +244,7 @@ const ContentPC = () => {
           productTitle={product.productTitle}
           productDescription={product.productDescription}
           productRate={product.productRate}
+          productTotalOrders={product.productTotalOrders}
           setProductRate={setProductRate}
           productPrice={product.productPrice}
           amount={amount}
