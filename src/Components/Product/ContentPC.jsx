@@ -10,7 +10,6 @@ import MidArea from "./ContentPC/MidArea";
 import MidGrid from "./ContentPC/MidArea/MidGrid";
 import ProductDesc from "./ContentPC/MidArea/MidGrid/ProductDesc";
 import MoreDetails from "./ContentPC/MidArea/MoreDetails";
-import MoreBox from "./ContentPC/MidArea/MoreDetails/MoreBox";
 import MoreImgs from "./ContentPC/MidArea/MoreImgs";
 import MoreProducts from "./ContentPC/MidArea/MoreProducts";
 import MoreCard from "./ContentPC/MidArea/MoreProducts/MoreCard";
@@ -22,10 +21,6 @@ import CardBoxInfo from "./ContentPC/TopArea/CardBox/CardBoxInfo";
 import CardBoxText from "./ContentPC/TopArea/CardBox/CardBoxText";
 import StarsArea from "./ContentPC/BotArea/Comments/StarsArea";
 import CommentOverflow from "./ContentPC/BotArea/Comments/CommentOverflow";
-import CommentBox from "./ContentPC/BotArea/Comments/CommentOverflow/CommentBox";
-import CommentProfile from "./ContentPC/BotArea/Comments/CommentOverflow/CommentProfile";
-import CommentText from "./ContentPC/BotArea/Comments/CommentOverflow/CommentText";
-import BackNext from "./ContentPC/BotArea/Comments/CommentOverflow/BackNext";
 
 const ContentPC = () => {
   const randomId = () => {
@@ -143,6 +138,86 @@ const ContentPC = () => {
         name: "Jorgin do Pneu",
         pfp: "1629903043818.jpg",
         level: 4,
+        title: "Produto da China",
+        description:
+          "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae pariatur quisquam, modi debitis deleniti harum! Sequi doloribus possimus natus consequuntur optio labore dolore? Rem, tempore molestias minus odit voluptates nobis?",
+        rateGiven: 4,
+      },
+      {
+        id: randomId(),
+        name: "Jorgin do Pneu",
+        pfp: "1629903043818.jpg",
+        level: 5,
+        title: "Produto da China",
+        description:
+          "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae pariatur quisquam, modi debitis deleniti harum! Sequi doloribus possimus natus consequuntur optio labore dolore? Rem, tempore molestias minus odit voluptates nobis?",
+        rateGiven: 4,
+      },
+      {
+        id: randomId(),
+        name: "Jorgin do Pneu",
+        pfp: "1629903043818.jpg",
+        level: 5,
+        title: "Produto da China",
+        description:
+          "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae pariatur quisquam, modi debitis deleniti harum! Sequi doloribus possimus natus consequuntur optio labore dolore? Rem, tempore molestias minus odit voluptates nobis?",
+        rateGiven: 4,
+      },
+      {
+        id: randomId(),
+        name: "Jorgin do Pneu",
+        pfp: "1629903043818.jpg",
+        level: 5,
+        title: "Produto da China",
+        description:
+          "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae pariatur quisquam, modi debitis deleniti harum! Sequi doloribus possimus natus consequuntur optio labore dolore? Rem, tempore molestias minus odit voluptates nobis?",
+        rateGiven: 4,
+      },
+      {
+        id: randomId(),
+        name: "Jorgin do Pneu",
+        pfp: "1629903043818.jpg",
+        level: 5,
+        title: "Produto da China",
+        description:
+          "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae pariatur quisquam, modi debitis deleniti harum! Sequi doloribus possimus natus consequuntur optio labore dolore? Rem, tempore molestias minus odit voluptates nobis?",
+        rateGiven: 4,
+      },
+      {
+        id: randomId(),
+        name: "Jorgin do Pneu",
+        pfp: "1629903043818.jpg",
+        level: 5,
+        title: "Produto da China",
+        description:
+          "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae pariatur quisquam, modi debitis deleniti harum! Sequi doloribus possimus natus consequuntur optio labore dolore? Rem, tempore molestias minus odit voluptates nobis?",
+        rateGiven: 4,
+      },
+      {
+        id: randomId(),
+        name: "Jorgin do Pneu",
+        pfp: "1629903043818.jpg",
+        level: 5,
+        title: "Produto da China",
+        description:
+          "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae pariatur quisquam, modi debitis deleniti harum! Sequi doloribus possimus natus consequuntur optio labore dolore? Rem, tempore molestias minus odit voluptates nobis?",
+        rateGiven: 4,
+      },
+      {
+        id: randomId(),
+        name: "Jorgin do Pneu",
+        pfp: "1629903043818.jpg",
+        level: 5,
+        title: "Produto da China",
+        description:
+          "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae pariatur quisquam, modi debitis deleniti harum! Sequi doloribus possimus natus consequuntur optio labore dolore? Rem, tempore molestias minus odit voluptates nobis?",
+        rateGiven: 4,
+      },
+      {
+        id: randomId(),
+        name: "Jorgin do Pneu",
+        pfp: "1629903043818.jpg",
+        level: 5,
         title: "Produto da China",
         description:
           "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae pariatur quisquam, modi debitis deleniti harum! Sequi doloribus possimus natus consequuntur optio labore dolore? Rem, tempore molestias minus odit voluptates nobis?",
