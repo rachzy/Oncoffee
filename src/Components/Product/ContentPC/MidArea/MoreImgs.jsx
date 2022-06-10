@@ -1,11 +1,19 @@
-import React from 'react';
+import React from "react";
 
-const MoreImgs = ({children}) => {
-    return (
-        <main className="more_imgs">
-            {children}
-        </main>
-    );
-}
- 
+const MoreImgs = ({ productImages }) => {
+  return (
+    <main className="more_imgs">
+      {productImages.map((productImage) => {
+        return (
+          <img
+            key={productImage.src}
+            src={require(`../../../../imgs/${productImage.src}`)}
+            alt={productImage.alt}
+          />
+        );
+      })}
+    </main>
+  );
+};
+
 export default MoreImgs;

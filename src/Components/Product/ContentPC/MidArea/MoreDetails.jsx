@@ -1,11 +1,21 @@
-import React from 'react';
+import React from "react";
 
-const MoreDetails = ({children}) => {
-    return (
-        <main className="more_details">
-            {children}
-        </main>
-    );
-}
- 
+import MoreBox from "./MoreDetails/MoreBox";
+
+const MoreDetails = ({ productDetails }) => {
+  return (
+    <main className="more_details">
+      {productDetails.map((detail) => {
+        return (
+          <MoreBox
+            key={detail.id}
+            title={detail.title}
+            description={detail.description}
+          />
+        );
+      })}
+    </main>
+  );
+};
+
 export default MoreDetails;

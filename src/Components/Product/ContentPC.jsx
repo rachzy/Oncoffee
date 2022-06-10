@@ -154,45 +154,6 @@ const ContentPC = () => {
   //State that controls the amount of products that will be bought by the user
   const [amount, setAmount] = useState(1);
 
-  const renderMoreDetailsBoxes = () => {
-    const { productDetails } = product;
-    return productDetails.map((detail) => {
-      return (
-        <MoreBox
-          key={detail.id}
-          title={detail.title}
-          description={detail.description}
-        />
-      );
-    });
-  };
-
-  const renderMoreImages = () => {
-    const { productImages } = product;
-    return productImages.map((productImage) => {
-      return (
-        <img
-          key={productImage.src}
-          src={require(`../../imgs/${productImage.src}`)}
-          alt={productImage.alt}
-        />
-      );
-    });
-  };
-
-  const renderComments = () => {
-    const { productComments } = product;
-
-    return productComments.map((user) => {
-      return (
-        <CommentBox key={user.id}>
-          <CommentProfile pfp={user.pfp} level={user.level} />
-          <CommentText name={user.name} rate={user.rateGiven} />
-        </CommentBox>
-      );
-    });
-  };
-
   return (
     <section className="conteudo_pc">
       <Back />
@@ -227,8 +188,8 @@ const ContentPC = () => {
             title="Descrição do Produto"
             description={product.productDescription}
           />
-          <MoreDetails>{renderMoreDetailsBoxes()}</MoreDetails>
-          <MoreImgs>{renderMoreImages()}</MoreImgs>
+          <MoreDetails productDetails={product.productDetails} />
+          <MoreImgs productImages={product.productImages} />
         </MidGrid>
       </MidArea>
 
@@ -236,10 +197,7 @@ const ContentPC = () => {
         <Comments>
           <TopComment rate={productRate} />
           <StarsArea />
-          <CommentOverflow>
-            {renderComments()}
-            <BackNext currentPage={1} />
-          </CommentOverflow>
+          <CommentOverflow productComments={product.productComments} />
         </Comments>
       </BotArea>
     </section>
