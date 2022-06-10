@@ -1,6 +1,6 @@
 import React from "react";
 
-const MoredBox = ({title, description}) => {
+const MoreBox = ({title, description}) => {
   return (
     <div className="mored_box">
       <h2>{title}</h2>
@@ -9,4 +9,4 @@ const MoredBox = ({title, description}) => {
   );
 };
 
-export default MoredBox;
+export default MoreBox;

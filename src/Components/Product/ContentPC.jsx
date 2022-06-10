@@ -10,7 +10,7 @@ import MidArea from "./ContentPC/MidArea";
 import MidGrid from "./ContentPC/MidArea/MidGrid";
 import ProductDesc from "./ContentPC/MidArea/MidGrid/ProductDesc";
 import MoreDetails from "./ContentPC/MidArea/MoreDetails";
-import MoredBox from "./ContentPC/MidArea/MoreDetails/MoredBox";
+import MoreBox from "./ContentPC/MidArea/MoreDetails/MoreBox";
 import MoreImgs from "./ContentPC/MidArea/MoreImgs";
 import MoreProducts from "./ContentPC/MidArea/MoreProducts";
 import MoreCard from "./ContentPC/MidArea/MoreProducts/MoreCard";
@@ -32,6 +32,7 @@ const ContentPC = () => {
     return Math.floor(Math.random() * 999999999 + 10000000);
   };
 
+  const [productRate, setProductRate] = useState(0);
   //Product State
   const [product, setProduct] = useState({
     productId: randomId(),
@@ -50,27 +51,45 @@ const ContentPC = () => {
     },
     productDetails: [
       {
+        id: randomId(),
         title: "Grãos",
         description: "Bla bla bla",
       },
       {
+        id: randomId(),
         title: "Sementes",
         description: "Bla bla bla",
       },
       {
+        id: randomId(),
         title: "Torradeiras",
         description: "Bla bla bla",
       },
       {
+        id: randomId(),
         title: "Alguma coisa",
         description: "Bla bla bla",
       },
       {
+        id: randomId(),
         title: "Coisa alguma",
         description: "Bla bla bla",
       },
     ],
-    productImages: ["cafegourmet.png", "cafegourmet.png", "cafegourmet.png"],
+    productImages: [
+      {
+        src: "cafegourmet.png",
+        alt: "cafe-gourmet",
+      },
+      {
+        src: "Combo_CafesGourmet.png",
+        alt: "combo-cafesgourmet",
+      },
+      {
+        src: "capsula-de-cafe-espresso-pimpinela-gourmet-tres-01.png",
+        alt: "capsula-cafe",
+      },
+    ],
     productRate: {
       oneStars: 100,
       twoStars: 350,
@@ -82,6 +101,47 @@ const ContentPC = () => {
       {
         id: randomId(),
         name: "Jorgin do Pneu",
+        pfp: "1629903043818.jpg",
+        level: 4,
+        title: "Produto da China",
+        description:
+          "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae pariatur quisquam, modi debitis deleniti harum! Sequi doloribus possimus natus consequuntur optio labore dolore? Rem, tempore molestias minus odit voluptates nobis?",
+        rateGiven: 4,
+      },
+      {
+        id: randomId(),
+        name: "Jorgin do Pneu",
+        pfp: "1629903043818.jpg",
+        level: 4,
+        title: "Produto da China",
+        description:
+          "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae pariatur quisquam, modi debitis deleniti harum! Sequi doloribus possimus natus consequuntur optio labore dolore? Rem, tempore molestias minus odit voluptates nobis?",
+        rateGiven: 4,
+      },
+      {
+        id: randomId(),
+        name: "Jorgin do Pneu",
+        pfp: "1629903043818.jpg",
+        level: 4,
+        title: "Produto da China",
+        description:
+          "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae pariatur quisquam, modi debitis deleniti harum! Sequi doloribus possimus natus consequuntur optio labore dolore? Rem, tempore molestias minus odit voluptates nobis?",
+        rateGiven: 4,
+      },
+      {
+        id: randomId(),
+        name: "Jorgin do Pneu",
+        pfp: "1629903043818.jpg",
+        level: 4,
+        title: "Produto da China",
+        description:
+          "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae pariatur quisquam, modi debitis deleniti harum! Sequi doloribus possimus natus consequuntur optio labore dolore? Rem, tempore molestias minus odit voluptates nobis?",
+        rateGiven: 4,
+      },
+      {
+        id: randomId(),
+        name: "Jorgin do Pneu",
+        pfp: "1629903043818.jpg",
         level: 4,
         title: "Produto da China",
         description:
@@ -93,6 +153,46 @@ const ContentPC = () => {
 
   //State that controls the amount of products that will be bought by the user
   const [amount, setAmount] = useState(1);
+
+  const renderMoreDetailsBoxes = () => {
+    const { productDetails } = product;
+    return productDetails.map((detail) => {
+      return (
+        <MoreBox
+          key={detail.id}
+          title={detail.title}
+          description={detail.description}
+        />
+      );
+    });
+  };
+
+  const renderMoreImages = () => {
+    const { productImages } = product;
+    return productImages.map((productImage) => {
+      return (
+        <img
+          key={productImage.src}
+          src={require(`../../imgs/${productImage.src}`)}
+          alt={productImage.alt}
+        />
+      );
+    });
+  };
+
+  const renderComments = () => {
+    const { productComments } = product;
+
+    return productComments.map((user) => {
+      return (
+        <CommentBox key={user.id}>
+          <CommentProfile pfp={user.pfp} level={user.level} />
+          <CommentText name={user.name} rate={user.rateGiven} />
+        </CommentBox>
+      );
+    });
+  };
+
   return (
     <section className="conteudo_pc">
       <Back />
@@ -107,6 +207,7 @@ const ContentPC = () => {
           productTitle={product.productTitle}
           productDescription={product.productDescription}
           productRate={product.productRate}
+          setProductRate={setProductRate}
           productPrice={product.productPrice}
           amount={amount}
           setAmount={setAmount}
@@ -123,55 +224,20 @@ const ContentPC = () => {
         </MoreProducts>
         <MidGrid>
           <ProductDesc
-            title="Exemplo"
-            description="Nullam faucibus vestibulum sapien, at iaculis quam congue in. Cras vel ligula accumsan, placerat urna eu, luctus ipsum. Maecenas augue leo, egestas bibendum lectus sit amet, imperdiet imperdiet urna. Sed sit amet posuere erat. Suspendisse aliquam scelerisque arcu. Pellentesque eu ligula lobortis, maximus purus et, suscipit arcu. Donec elit libero, tristique eget rhoncus vel, placerat nec ante. Nullam blandit quam porttitor nibh bibendum imperdiet. Etiam ornare sem quis lacus malesuada, et molestie sem convallis. Fusce congue, purus sit amet malesuada elementum, elit ligula vulputate mi, a vulputate ligula leo ac eros. Etiam eleifend dui nec ullamcorper porttitor. Pellentesque nec quam posuere, bibendum augue posuere, sodales dui. Vestibulum elementum feugiat semper. Ut suscipit gravida dolor, sit amet fermentum sem laoreet vitae. Mauris dapibus dignissim rhoncus. Integer ligula odio, aliquam consectetur arcu nec, pretium pellentesque ipsum."
+            title="Descrição do Produto"
+            description={product.productDescription}
           />
-          <MoreDetails>
-            <MoredBox title="Grão" description="Exemplo de grão bla bla bla" />
-            <MoredBox title="Grão" description="Exemplo de grão bla bla bla" />
-            <MoredBox title="Grão" description="Exemplo de grão bla bla bla" />
-            <MoredBox title="Grão" description="Exemplo de grão bla bla bla" />
-            <MoredBox title="Grão" description="Exemplo de grão bla bla bla" />
-          </MoreDetails>
-          <MoreImgs>
-            <img
-              src={require(`../../imgs/cafegourmet.png`)}
-              alt="cafe-gourmet"
-            />
-            <img
-              src={require(`../../imgs/cafegourmet.png`)}
-              alt="cafe-gourmet"
-            />
-            <img
-              src={require(`../../imgs/cafegourmet.png`)}
-              alt="cafe-gourmet"
-            />
-          </MoreImgs>
+          <MoreDetails>{renderMoreDetailsBoxes()}</MoreDetails>
+          <MoreImgs>{renderMoreImages()}</MoreImgs>
         </MidGrid>
       </MidArea>
 
       <BotArea>
         <Comments>
-          <TopComment rate="4.8" />
+          <TopComment rate={productRate} />
           <StarsArea />
           <CommentOverflow>
-            <CommentBox>
-              <CommentProfile pfp="1629903043818.jpg" level="5" />
-              <CommentText name="Exemplo" rate={3} />
-            </CommentBox>
-            <CommentBox>
-              <CommentProfile pfp="1629903043818.jpg" level="5" />
-              <CommentText name="Exemplo" rate={1.8} />
-            </CommentBox>
-            <CommentBox>
-              <CommentProfile pfp="1629903043818.jpg" level="5" />
-              <CommentText name="Exemplo" rate={2} />
-            </CommentBox>
-            <CommentBox>
-              <CommentProfile pfp="1629903043818.jpg" level="5" />
-              <CommentText name="Exemplo" rate={4.1} />
-            </CommentBox>
-
+            {renderComments()}
             <BackNext currentPage={1} />
           </CommentOverflow>
         </Comments>

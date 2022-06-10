@@ -1,6 +1,6 @@
 import React from "react";
 
-const ProductRate = ({ productRate }) => {
+const ProductRate = ({ productRate, setProductRate }) => {
   //RATE
   class Rate {
     constructor(productRate) {
@@ -21,7 +21,9 @@ const ProductRate = ({ productRate }) => {
             4 * fourStars +
             5 * fiveStars) /
           this.getTotalAmountOfRates();
-        return Math.round(finalRate * 10) / 10;
+        const finalRateRounded = Math.round(finalRate * 10) / 10;
+        setProductRate(finalRateRounded);
+        return finalRateRounded;
       };
 
       this.getStarPercentage = (starType) => {

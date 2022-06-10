@@ -6,11 +6,19 @@ import ProductPrice from "./CardBoxInfo/ProductPrice";
 import ProductRate from "./CardBoxInfo/ProductRate";
 import ProductTitle from "./CardBoxInfo/ProductTitle";
 
-const CardBoxInfo = ({ productTitle, productRate, productPrice, amount, setAmount, freightCost }) => {
+const CardBoxInfo = ({
+  productTitle,
+  productRate,
+  setProductRate,
+  productPrice,
+  amount,
+  setAmount,
+  freightCost,
+}) => {
   return (
     <main className="card_info">
       <ProductTitle productTitle={productTitle} />
-      <ProductRate productRate={productRate} />
+      <ProductRate productRate={productRate} setProductRate={setProductRate} />
       <ProductPrice productPrice={productPrice} />
       <ProductAmount amount={amount} setAmount={setAmount} />
       <ProductFreight freightCost={freightCost} />
