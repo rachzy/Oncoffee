@@ -224,6 +224,26 @@ const ContentPC = () => {
           "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae pariatur quisquam, modi debitis deleniti harum! Sequi doloribus possimus natus consequuntur optio labore dolore? Rem, tempore molestias minus odit voluptates nobis?",
         rateGiven: 4,
       },
+      {
+        id: randomId(),
+        name: "Jorgin do Pneu",
+        pfp: "1629903043818.jpg",
+        level: 5,
+        title: "Produto da China",
+        description:
+          "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae pariatur quisquam, modi debitis deleniti harum! Sequi doloribus possimus natus consequuntur optio labore dolore? Rem, tempore molestias minus odit voluptates nobis?",
+        rateGiven: 5,
+      },
+      {
+        id: randomId(),
+        name: "Jorgin do Pneu",
+        pfp: "1629903043818.jpg",
+        level: 5,
+        title: "Produto da China",
+        description:
+          "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae pariatur quisquam, modi debitis deleniti harum! Sequi doloribus possimus natus consequuntur optio labore dolore? Rem, tempore molestias minus odit voluptates nobis?",
+        rateGiven: 3,
+      },
     ],
   });
 
@@ -271,11 +291,10 @@ const ContentPC = () => {
       </MidArea>
 
       <BotArea>
-        <Comments>
-          <TopComment rate={productRate} />
-          <StarsArea />
-          <CommentOverflow productComments={product.productComments} />
-        </Comments>
+        <Comments
+          productRate={productRate}
+          productComments={product.productComments}
+        />
       </BotArea>
     </section>
   );
