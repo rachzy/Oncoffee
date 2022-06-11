@@ -7,15 +7,15 @@ import "../css/Top.css";
 
 import setPageTitle from "../globalFunctions/setPageTitle";
 
-import ContentPc from "./Index/ContentPc";
-import TopBar from "./Index/ContentPc/TopBar";
-import SliderMainPc from "./Index/ContentPc/SliderMainPc";
-import Midcenter from "./Index/ContentPc/Midcenter";
+import ContentPc from "../Components/Index/ContentPc";
+import TopBar from "../Components/Index/ContentPc/TopBar";
+import SliderMainPc from "../Components/Index/ContentPc/SliderMainPc";
+import Midcenter from "../Components/Index/ContentPc/Midcenter";
 
-import ContentMobile from "./Index/ContentMobile";
-import SliderMobile from "./Index/ContentMobile/SliderMobile";
-import MidcenterMobile from "./Index/ContentMobile/MidcenterMobile";
-import Buttonsmo from "./Index/ContentMobile/Buttonsmo";
+import ContentMobile from "../Components/Index/ContentMobile";
+import SliderMobile from "../Components/Index/ContentMobile/SliderMobile";
+import MidcenterMobile from "../Components/Index/ContentMobile/MidcenterMobile";
+import Buttonsmo from "../Components/Index/ContentMobile/Buttonsmo";
 
 const Index = ({
   pageTitle,

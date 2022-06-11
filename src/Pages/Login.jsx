@@ -1,10 +1,8 @@
 import React, { useContext, useEffect } from "react";
 import {useNavigate} from "react-router-dom";
 
-import Axios from "axios";
-
 import setPageTitle from "../globalFunctions/setPageTitle";
-import LoginRegisterContainer from "./Login/LoginRegisterContainer";
+import LoginRegisterContainer from "../Components/Login/LoginRegisterContainer";
 
 import "../css/login.css";
 
