@@ -269,6 +269,7 @@ const ContentPC = () => {
           productPrice={product.productPrice}
           amount={amount}
           setAmount={setAmount}
+          productRemainingAmount={product.productRemainingAmount}
           freightCost={product.productPrice.freight}
         />
       </TopArea>

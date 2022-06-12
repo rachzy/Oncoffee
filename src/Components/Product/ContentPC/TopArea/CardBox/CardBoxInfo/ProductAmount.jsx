@@ -1,14 +1,14 @@
 import React from "react";
 
-const ProductAmount = ({amount, setAmount}) => {
-    const increaseAmount = () => {
-        setAmount((currentState) => currentState + 1);
-      };
-    
-      const decreaseAmount = () => {
-        if (amount <= 1) return;
-        setAmount((currentState) => currentState - 1);
-      };
+const ProductAmount = ({ amount, setAmount, productRemainingAmount }) => {
+  const increaseAmount = () => {
+    setAmount((currentState) => currentState + 1);
+  };
+
+  const decreaseAmount = () => {
+    if (amount <= 1) return;
+    setAmount((currentState) => currentState - 1);
+  };
   return (
     <div className="product_quant">
       <h2>Quantidade:</h2>
@@ -40,7 +40,7 @@ const ProductAmount = ({amount, setAmount}) => {
         </button>
       </div>
 
-      <h3>9999 Itens disponíveis</h3>
+      <h3>{productRemainingAmount} Itens disponíveis</h3>
     </div>
   );
 };

@@ -14,6 +14,7 @@ const CardBoxInfo = ({
   productPrice,
   amount,
   setAmount,
+  productRemainingAmount,
   freightCost,
 }) => {
   return (
@@ -25,7 +26,11 @@ const CardBoxInfo = ({
         productTotalOrders={productTotalOrders}
       />
       <ProductPrice productPrice={productPrice} />
-      <ProductAmount amount={amount} setAmount={setAmount} />
+      <ProductAmount
+        amount={amount}
+        setAmount={setAmount}
+        productRemainingAmount={productRemainingAmount}
+      />
       <ProductFreight freightCost={freightCost} />
       <ProductBuySection />
     </main>
