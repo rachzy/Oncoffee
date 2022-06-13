@@ -1,10 +1,10 @@
 import React, { useState } from "react";
+import { useParams } from "react-router-dom";
 
 import "../../css/Product.css";
 
 import Back from "./ContentPC/Back";
 import BotArea from "./ContentPC/BotArea";
-import TopComment from "./ContentPC/BotArea/Comments/TopComment";
 import Comments from "./ContentPC/BotArea/Comments";
 import MidArea from "./ContentPC/MidArea";
 import MidGrid from "./ContentPC/MidArea/MidGrid";
@@ -19,10 +19,11 @@ import CardBox from "./ContentPC/TopArea/CardBox";
 import CardBoxImg from "./ContentPC/TopArea/CardBox/CardBoxImg";
 import CardBoxInfo from "./ContentPC/TopArea/CardBox/CardBoxInfo";
 import CardBoxText from "./ContentPC/TopArea/CardBox/CardBoxText";
-import StarsArea from "./ContentPC/BotArea/Comments/StarsArea";
-import CommentOverflow from "./ContentPC/BotArea/Comments/CommentOverflow";
 
-const ContentPC = () => {
+const ContentPC = ({ handleFavoriteProductsChange, cartProducts, handleAddCartProduct }) => {
+  const params = useParams();
+  const { productId } = params;
+
   const randomId = () => {
     return Math.floor(Math.random() * 999999999 + 10000000);
   };
@@ -30,7 +31,7 @@ const ContentPC = () => {
   const [productRate, setProductRate] = useState(0);
   //Product State
   const [product, setProduct] = useState({
-    productId: randomId(),
+    productId: productId,
     productTitle: "Café 3 corações",
     productBrand: "3Corações",
     productImage: "cafegourmet.png",
@@ -261,6 +262,7 @@ const ContentPC = () => {
           <CardBoxImg productImg={product.productImage} />
         </CardBox>
         <CardBoxInfo
+          productId={product.productId}
           productTitle={product.productTitle}
           productDescription={product.productDescription}
           productRate={product.productRate}
@@ -271,6 +273,9 @@ const ContentPC = () => {
           setAmount={setAmount}
           productRemainingAmount={product.productRemainingAmount}
           freightCost={product.productPrice.freight}
+          handleFavoriteProductsChange={handleFavoriteProductsChange}
+          cartProducts={cartProducts}
+          handleAddCartProduct={handleAddCartProduct}
         />
       </TopArea>
 

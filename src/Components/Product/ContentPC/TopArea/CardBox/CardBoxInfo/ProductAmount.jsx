@@ -22,7 +22,7 @@ const ProductAmount = ({ amount, setAmount, productRemainingAmount }) => {
         >
           <img
             src="https://designmodo.com/demo/shopping-cart/minus.svg"
-            alt=""
+            alt="add-product-icon"
           />
         </button>
         <input type="text" name="name" value={amount} />
@@ -35,7 +35,7 @@ const ProductAmount = ({ amount, setAmount, productRemainingAmount }) => {
         >
           <img
             src="https://designmodo.com/demo/shopping-cart/plus.svg"
-            alt=""
+            alt="remove-product-icon"
           />
         </button>
       </div>

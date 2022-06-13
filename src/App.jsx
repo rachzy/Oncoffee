@@ -338,7 +338,15 @@ const App = () => {
             />
             <Route
               path="/product/:productId"
-              element={<Product setHeaderPageTitle={setHeaderPageTitle} />}
+              element={
+                <Product
+                  pageTitle="Produto"
+                  setHeaderPageTitle={setHeaderPageTitle}
+                  handleFavoriteProductsChange={handleFavoriteProductsChange}
+                  cartProducts={cartProducts}
+                  handleAddCartProduct={handleAddCartProduct}
+                />
+              }
             />
           </Routes>
         </UserSession.Provider>
