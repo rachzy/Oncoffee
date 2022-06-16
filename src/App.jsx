@@ -10,11 +10,13 @@ import displayError from "./globalFunctions/displayErrors";
 import SkipToContentButton from "./Components/PageComponents/SkipToContentButton";
 import Popup from "./Components/PageComponents/Popup";
 import Header from "./Components/PageComponents/Header";
-import Index from "./Components/Index";
 import Error from "./Components/PageComponents/Error";
 
-import Login from "./Components/Login";
-import Confirm from "./Components/Confirm";
+import Index from "./Pages/Index";
+import Login from "./Pages/Login";
+import Confirm from "./Pages/Confirm";
+import Product from "./Pages/Product";
+import Footer from "./Components/PageComponents/Footer";
 
 export const GlobalServerContext = createContext();
 export const UserSession = createContext();
@@ -186,7 +188,7 @@ const App = () => {
     setCartProducts(newCartProducts);
     localStorage.setItem("cartProducts", JSON.stringify(newCartProducts));
 
-    return { successful: true }
+    return { successful: true };
   };
 
   //State that will control the content of the popup component
@@ -222,7 +224,7 @@ const App = () => {
           type: "favoriteproducts",
           products: favoriteProducts,
           button: false,
-          removeProduct: async(product) => {
+          removeProduct: async (product) => {
             return handleFavoriteProductsChange(product);
           },
         };
@@ -240,7 +242,7 @@ const App = () => {
           button: {
             title: "Fazer checkout",
           },
-          removeProduct: async() => {
+          removeProduct: async () => {
             return handleRemoveCartProduct();
           },
         };
@@ -334,10 +336,23 @@ const App = () => {
                 />
               }
             />
+            <Route
+              path="/product/:productId"
+              element={
+                <Product
+                  pageTitle="Produto"
+                  setHeaderPageTitle={setHeaderPageTitle}
+                  handleFavoriteProductsChange={handleFavoriteProductsChange}
+                  cartProducts={cartProducts}
+                  handleAddCartProduct={handleAddCartProduct}
+                />
+              }
+            />
           </Routes>
         </UserSession.Provider>
       </GlobalServerContext.Provider>
       <Error />
+      <Footer />
     </Router>
   );
 };

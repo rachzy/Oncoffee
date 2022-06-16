@@ -7,8 +7,6 @@ import CafeGourmetImg from "../../../imgs/cafegourmet.png";
 import ProductSection from "./Midcenter/ProductSection";
 import SliderFeaturedPc from "./Midcenter/SliderFeaturedPc";
 import Warranty from "./Midcenter/Warranty";
-import SocialMedias from "./Midcenter/SocialMedias";
-import Finalinfo from "./Midcenter/FinalInfo";
 
 import { GlobalServerContext } from "../../../App";
 
@@ -17,7 +15,7 @@ const Midcenter = ({
   handleAddCartProduct,
   handleRemoveCartProduct,
   handleSetPopupState,
-  cartProducts
+  cartProducts,
 }) => {
   const returnSliderFeaturedPromotions = () => {
     if (slideProductsIds.length === 0) return;
@@ -174,11 +172,6 @@ const Midcenter = ({
                   iusto? Laborum explicabo distinctio perferendis veniam cumque
                   nam!
                 </Warranty>
-              </main>
-
-              <main className="infos_text">
-                <SocialMedias />
-                <Finalinfo />
               </main>
             </main>
           </main>

@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 
-import { ChangeClassesContext } from "../../Confirm";
+import { ChangeClassesContext } from "../../../Pages/Confirm";
 
 const GoBack = () => {
     const changeClass = useContext(ChangeClassesContext);
