@@ -2,7 +2,7 @@ import React from "react";
 
 import "../../css/ProductResponsive.css";
 
-const ContentMobile = () => {
+const ContentMobile = ({product}) => {
   return (
     <section className="conteudo_mobile">
       <div className="btt_back">
