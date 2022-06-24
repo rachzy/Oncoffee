@@ -12,7 +12,7 @@ const ContentMobile = ({product}) => {
 
       <main className="top_mobile">
         <main className="card_box2">
-          <CardBoxBrand />
+          <CardBoxBrand productBrand={product.productBrand} />
           <CardBoxImage productImg={product.productImage} />
         </main>
       </main>
@@ -44,7 +44,7 @@ const ContentMobile = ({product}) => {
                   alt=""
                 />
               </button>
-              <input type="text" name="name" value="1" />
+              <input type="text" name="name" />
 
               <button className="plus-btn" type="button" name="button">
                 <img
