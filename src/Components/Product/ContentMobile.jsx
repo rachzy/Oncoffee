@@ -1,86 +1,19 @@
 import React from "react";
 
 import "../../css/ProductResponsive.css";
+import CardBoxBrand from "./ContentMobile/CardBoxBrand";
+import CardBoxImage from "./ContentMobile/CardBoxImage";
+import Back from "./RComponents/Back";
 
 const ContentMobile = ({product}) => {
   return (
     <section className="conteudo_mobile">
-      <div className="btt_back">
-        <button>
-          <i className="fas fa-long-arrow-alt-left"></i> Voltar
-        </button>
-      </div>
+      <Back />
 
       <main className="top_mobile">
         <main className="card_box2">
-          <div className="card_box_text2">
-            <ul>
-              <h4>3&nbsp;Corações</h4>
-              <h4>3&nbsp;Corações</h4>
-              <h4>3&nbsp;Corações</h4>
-              <h4>3&nbsp;Corações</h4>
-              <h4>3&nbsp;Corações</h4>
-              <h4>3&nbsp;Corações</h4>
-              <h4>3&nbsp;Corações</h4>
-              <h4>3&nbsp;Corações</h4>
-              <h4>3&nbsp;Corações</h4>
-              <h4>3&nbsp;Corações</h4>
-              <h4>3&nbsp;Corações</h4>
-              <h4>3&nbsp;Corações</h4>
-              <h4>3&nbsp;Corações</h4>
-              <h4>3&nbsp;Corações</h4>
-            </ul>
-            <ul>
-              <h4>3&nbsp;Corações</h4>
-              <h4>3&nbsp;Corações</h4>
-              <h4>3&nbsp;Corações</h4>
-              <h4>3&nbsp;Corações</h4>
-              <h4>3&nbsp;Corações</h4>
-              <h4>3&nbsp;Corações</h4>
-              <h4>3&nbsp;Corações</h4>
-              <h4>3&nbsp;Corações</h4>
-              <h4>3&nbsp;Corações</h4>
-              <h4>3&nbsp;Corações</h4>
-              <h4>3&nbsp;Corações</h4>
-              <h4>3&nbsp;Corações</h4>
-              <h4>3&nbsp;Corações</h4>
-              <h4>3&nbsp;Corações</h4>
-            </ul>
-            <ul>
-              <h4>3&nbsp;Corações</h4>
-              <h4>3&nbsp;Corações</h4>
-              <h4>3&nbsp;Corações</h4>
-              <h4>3&nbsp;Corações</h4>
-              <h4>3&nbsp;Corações</h4>
-              <h4>3&nbsp;Corações</h4>
-              <h4>3&nbsp;Corações</h4>
-              <h4>3&nbsp;Corações</h4>
-              <h4>3&nbsp;Corações</h4>
-              <h4>3&nbsp;Corações</h4>
-              <h4>3&nbsp;Corações</h4>
-              <h4>3&nbsp;Corações</h4>
-              <h4>3&nbsp;Corações</h4>
-              <h4>3&nbsp;Corações</h4>
-            </ul>
-          </div>
-          <div className="card_img2">
-            <img src={require(`../../imgs/Combo_CafesGourmet.png`)} alt="" />
-            <div className="fav_hearth2">
-              <input type="checkbox" id="favhearth_check2" />
-              <label for="favhearth_check2">
-                <img
-                  id="checkheart2"
-                  src={require(`../../imgs/favhearth.png`)}
-                  alt="checkheart2"
-                />
-                <img
-                  id="heart2"
-                  src={require(`../../imgs/favhearth.png`)}
-                  alt="heart"
-                />
-              </label>
-            </div>
-          </div>
+          <CardBoxBrand />
+          <CardBoxImage productImg={product.productImage} />
         </main>
       </main>
 
