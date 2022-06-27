@@ -7,6 +7,7 @@ import ContentMobile from "../Components/Product/ContentMobile";
 const Product = ({
   pageTitle,
   setHeaderPageTitle,
+  favoriteProducts,
   handleFavoriteProductsChange,
   cartProducts,
   handleAddCartProduct,
@@ -240,15 +241,27 @@ const Product = ({
       },
     ],
   });
+
+  //State that controls the amount of products that will be bought by the user
+  const [amount, setAmount] = useState(1);
   return (
     <>
       <ContentPC
         product={product}
+        favoriteProducts={favoriteProducts}
         handleFavoriteProductsChange={handleFavoriteProductsChange}
         cartProducts={cartProducts}
         handleAddCartProduct={handleAddCartProduct}
+        amount={amount}
+        setAmount={setAmount}
       />
-      <ContentMobile product={product} />
+      <ContentMobile
+        product={product}
+        amount={amount}
+        setAmount={setAmount}
+        favoriteProducts={favoriteProducts}
+        handleFavoriteProductsChange={handleFavoriteProductsChange}
+      />
     </>
   );
 };

@@ -17,7 +17,6 @@ const CardBoxInfo = ({
   setAmount,
   productRemainingAmount,
   freightCost,
-  handleFavoriteProductsChange,
   cartProducts,
   handleAddCartProduct,
 }) => {

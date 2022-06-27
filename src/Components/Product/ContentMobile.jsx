@@ -1,11 +1,55 @@
-import React from "react";
+import React, { useRef } from "react";
 
 import "../../css/ProductResponsive.css";
 import CardBoxBrand from "./ContentMobile/CardBoxBrand";
 import CardBoxImage from "./ContentMobile/CardBoxImage";
+import ProductTitle from "./ContentMobile/ProductTitle";
+import ProductPrice from "./ContentMobile/ProductPrice";
 import Back from "./RComponents/Back";
+import ProductFreight from "./ContentMobile/ProductFreight";
+import DescBox from "./ContentMobile/DescBox";
 
-const ContentMobile = ({product}) => {
+const ContentMobile = ({
+  product,
+  amount,
+  setAmount,
+  favoriteProducts,
+  handleFavoriteProductsChange,
+}) => {
+  const [completeDesc, showMoreBtn, showLessBtn] = [
+    useRef(null),
+    useRef(null),
+    useRef(null),
+  ];
+
+  const handleHeartClick = () => {
+    handleFavoriteProductsChange(product);
+  };
+
+  const renderDetails = () => {
+    return product.productDetails.map((detail) => {
+      return (
+        <DescBox
+          key={detail.id}
+          title={detail.title}
+          description={detail.description}
+        />
+      );
+    });
+  };
+
+  const handleShowMoreButtonClick = () => {
+      completeDesc.current.style.display = "flex";
+      showMoreBtn.current.style.display = "none";
+      showLessBtn.current.style.display = "flex";
+  };
+
+  const handleShowLessButtonClick = () => {
+    completeDesc.current.style.display = "none";
+    showMoreBtn.current.style.display = "flex";
+    showLessBtn.current.style.display = "none";
+  };
+
   return (
     <section className="conteudo_mobile">
       <Back />
@@ -13,138 +57,56 @@ const ContentMobile = ({product}) => {
       <main className="top_mobile">
         <main className="card_box2">
           <CardBoxBrand productBrand={product.productBrand} />
-          <CardBoxImage productImg={product.productImage} />
+          <CardBoxImage
+            productId={product.productId}
+            productImg={product.productImage}
+            favoriteProducts={favoriteProducts}
+            handleHeartClick={handleHeartClick}
+          />
         </main>
       </main>
 
       <main className="product_info">
-        <div className="titulo">
-          <h2>
-            exemplo exemplo exemplo exemplo exemplo exemplo exemplo exemplo
-            exemplo exemplo exemplo
-          </h2>
-        </div>
+        <ProductTitle title={product.productTitle} />
+        <ProductPrice
+          amount={amount}
+          setAmount={setAmount}
+          productPrice={product.productPrice}
+          productRemainingAmount={product.productRemainingAmount}
+        />
 
-        <div className="preco_area">
-          <div className="preco">
-            <div className="descontopreco">
-              <h3>R$999,99</h3>
-              <h2>R$999,99</h2>
-            </div>
-            <h4>99%OFF</h4>
-          </div>
-
-          <div className="quant_mobile">
-            <h2>Quantidade:</h2>
-
-            <div className="quantity">
-              <button className="minus-btn" type="button" name="button">
-                <img
-                  src="https://designmodo.com/demo/shopping-cart/minus.svg"
-                  alt=""
-                />
-              </button>
-              <input type="text" name="name" />
-
-              <button className="plus-btn" type="button" name="button">
-                <img
-                  src="https://designmodo.com/demo/shopping-cart/plus.svg"
-                  alt=""
-                />
-              </button>
-            </div>
-
-            <h3>9999 Itens disponíveis</h3>
-          </div>
-        </div>
-
-        <div className="calc_frete">
-          <h2>Calcule o Frete</h2>
-          <div className="frete_inputs">
-            <input type="text" placeholder="00000-000" />
-            <button>Calcular</button>
-          </div>
-          <h3>Valor: R$999,99</h3>
-        </div>
+        <ProductFreight freightCost={product.productPrice.freight} />
 
         <main className="mobile_desc">
-          <div className="mobile_desc_box">
-            <h2>Grão</h2>
-            <h3>exemplo exemploexemplo exemploexemplo exemplo</h3>
-          </div>
-          <div className="mobile_desc_box">
-            <h2>Aroma</h2>
-            <h3>exemplo exemploexemplo exemploexemplo exemplo</h3>
-          </div>
-          <div className="mobile_desc_box">
-            <h2>Torra</h2>
-            <h3>exemplo exemploexemplo exemploexemplo exemplo</h3>
-          </div>
-          <div className="mobile_desc_box">
-            <h2>Data da Torra</h2>
-            <h3>exemplo exemploexemplo exemploexemplo exemplo</h3>
-          </div>
-          <div className="mobile_desc_box">
-            <h2>Acidez</h2>
-            <h3>exemplo exemploexemplo exemploexemplo exemplo</h3>
-          </div>
-          <div className="mobile_desc_box">
-            <h2>Corpo</h2>
-            <h3>exemplo exemploexemplo exemploexemplo exemplo</h3>
-          </div>
-          <div className="mobile_desc_box">
-            <h2>Variedade</h2>
-            <h3>exemplo exemploexemplo exemploexemplo exemplo</h3>
-          </div>
-          <div className="mobile_desc_box">
-            <h2>Processo</h2>
-            <h3>exemplo exemploexemplo exemploexemplo exemplo</h3>
-          </div>
-          <div className="mobile_desc_box">
-            <h2>Local de Origem</h2>
-            <h3>exemplo exemploexemplo exemploexemplo exemplo</h3>
-          </div>
-          <div className="mobile_desc_box">
-            <h2>Nota</h2>
-            <h3>exemplo exemploexemplo exemploexemplo exemplo</h3>
-          </div>
-          <div className="mobile_desc_box">
-            <h2>Peso</h2>
-            <h3>exemplo exemploexemplo exemploexemplo exemplo</h3>
-          </div>
+          {renderDetails()}
 
           {/*  Mostrar a descriçao escrita */}
-          <button className="mobile_desc_button">Mais Informações</button>
+          <button
+            ref={showMoreBtn}
+            onClick={handleShowMoreButtonClick}
+            className="mobile_desc_button"
+          >
+            Mais Informações
+          </button>
 
-          <div className="complete_desc">
+          <div
+            ref={completeDesc}
+            style={{ display: "none" }}
+            className="complete_desc"
+          >
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci,
-              qui itaque? Ratione consequatur, quidem error eum aspernatur nulla
-              nemo excepturi earum inventore esse nesciunt laudantium! Deleniti
-              facere fuga ab fugit. Lorem ipsum dolor sit amet consectetur
-              adipisicing elit. Veritatis velit deleniti, minima atque ducimus
-              impedit unde veniam dolorem at sit eligendi earum repellendus
-              consectetur accusantium quod nemo laudantium cum magnam.Lorem
-              ipsum dolor sit amet consectetur adipisicing elit. Adipisci, qui
-              itaque? Ratione consequatur, quidem error eum aspernatur nulla
-              nemo excepturi earum inventore esse nesciunt laudantium! Deleniti
-              facere fuga ab fugit. Lorem ipsum dolor sit amet consectetur
-              adipisicing elit. Veritatis velit deleniti, minima atque ducimus
-              impedit unde veniam dolorem at sit eligendi earum repellendus
-              consectetur accusantium quod nemo laudantium cum magnam.Lorem
-              ipsum dolor sit amet consectetur adipisicing elit. Adipisci, qui
-              itaque? Ratione consequatur, quidem error eum aspernatur nulla
-              nemo excepturi earum inventore esse nesciunt laudantium! Deleniti
-              facere fuga ab fugit. Lorem ipsum dolor sit amet consectetur
-              adipisicing elit. Veritatis velit deleniti, minima atque ducimus
-              impedit unde veniam dolorem at sit eligendi earum repellendus
-              consectetur accusantium quod nemo laudantium cum
-              magnam.adipisicing elit. Veritatis velit deleniti, minima atque
-              ducimus impedit unde veniam dolorem at sit eligend
+              {product.productDescription}
             </p>
           </div>
 
-          <button className="mostrar_menos">Mostrar Menos</button>
+          <button
+            ref={showLessBtn}
+            onClick={handleShowLessButtonClick}
+            style={{ display: "none" }}
+            className="mostrar_menos"
+          >
+            Mostrar Menos
+          </button>
         </main>
 
         <main className="comentarios">

@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 
-const CardBoxImg = ({
+const CardBoxImage = ({
   favoriteProducts,
   handleHeartClick,
   productId,
@@ -28,36 +28,32 @@ const CardBoxImg = ({
     favoriteHeart.current.classList.add("active");
   };
   renderFavoriteHeart();
-
   return (
     <div
       onLoad={() => {
         setIsLoaded(true);
       }}
-      className="card_img"
+      className="card_img2"
     >
-      <img
-        src={require(`../../../../../imgs/${productImg}`)}
-        alt="product-logo"
-      />
-      <div className="fav_hearth">
-        <input type="checkbox" id="favhearth_check" />
-        <label htmlFor="favhearth_check">
+      <img src={require(`../../../imgs/${productImg}`)} alt="" />
+      <div className="fav_hearth2">
+        <input type="checkbox" id="favhearth_check2" />
+        <label htmlFor="favhearth_check2">
           <img
-            id="heart"
-            ref={defaultHeart}
+            id="checkheart2"
             className="hearticon"
+            src={require(`../../../imgs/favhearth.png`)}
             onClick={handleHeartClick}
-            src={require(`../../../../../imgs/newhearth.png`)}
-            alt="new-heart"
+            alt="checkheart2"
+            ref={favoriteHeart}
           />
           <img
-            id="checkheart"
-            ref={favoriteHeart}
+            id="heart2"
             className="hearticon"
+            src={require(`../../../imgs/newhearth.png`)}
             onClick={handleHeartClick}
-            src={require(`../../../../../imgs/favhearth.png`)}
-            alt="fav-heart"
+            alt="heart"
+            ref={defaultHeart}
           />
         </label>
       </div>
@@ -65,4 +61,4 @@ const CardBoxImg = ({
   );
 };
 
-export default CardBoxImg;
+export default CardBoxImage;
