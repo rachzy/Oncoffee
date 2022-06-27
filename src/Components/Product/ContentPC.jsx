@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
 
 import "../../css/Product.css";
 
-import Back from "./ContentPC/Back";
+import Back from "./RComponents/Back";
 import BotArea from "./ContentPC/BotArea";
 import Comments from "./ContentPC/BotArea/Comments";
 import MidArea from "./ContentPC/MidArea";
@@ -20,11 +19,20 @@ import CardBoxImg from "./ContentPC/TopArea/CardBox/CardBoxImg";
 import CardBoxInfo from "./ContentPC/TopArea/CardBox/CardBoxInfo";
 import CardBoxText from "./ContentPC/TopArea/CardBox/CardBoxText";
 
-const ContentPC = ({ product, handleFavoriteProductsChange, cartProducts, handleAddCartProduct }) => {
+const ContentPC = ({
+  product,
+  favoriteProducts,
+  handleFavoriteProductsChange,
+  cartProducts,
+  handleAddCartProduct,
+  amount,
+  setAmount,
+}) => {
   const [productRate, setProductRate] = useState(0);
 
-  //State that controls the amount of products that will be bought by the user
-  const [amount, setAmount] = useState(1);
+  const handleHeartClick = () => {
+    handleFavoriteProductsChange(product);
+  }
 
   return (
     <section className="conteudo_pc">
@@ -34,7 +42,12 @@ const ContentPC = ({ product, handleFavoriteProductsChange, cartProducts, handle
       <TopArea>
         <CardBox>
           <CardBoxText productBrand={product.productBrand} />
-          <CardBoxImg productImg={product.productImage} />
+          <CardBoxImg
+            favoriteProducts={favoriteProducts}
+            handleHeartClick={handleHeartClick}
+            productImg={product.productImage}
+            productId={product.productId}
+          />
         </CardBox>
         <CardBoxInfo
           productId={product.productId}
