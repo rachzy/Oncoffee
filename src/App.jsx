@@ -90,19 +90,19 @@ const App = () => {
       let productAlreadyFavorite = false;
 
       for (let i = 0; i <= favoriteProducts.length - 1; i++) {
-        if (newProduct.productId === favoriteProducts[i].productId)
+        if (newProduct.productId.toString() === favoriteProducts[i].productId.toString())
           productAlreadyFavorite = true;
       }
 
       if (productAlreadyFavorite) {
-        const newfavoriteProducts = favoriteProducts.filter(
-          (product) => product.productId !== newProduct.productId
+        const newFavoriteProducts = favoriteProducts.filter(
+          (product) => product.productId.toString() !== newProduct.productId.toString()
         );
-        setFavoriteProducts(newfavoriteProducts);
+        setFavoriteProducts(newFavoriteProducts);
         return;
       }
-      const newfavoriteProducts = [newProduct, ...favoriteProducts];
-      setFavoriteProducts(newfavoriteProducts);
+      const newFavoriteProducts = [newProduct, ...favoriteProducts];
+      setFavoriteProducts(newFavoriteProducts);
     };
 
     //Post the new product on the database
@@ -338,7 +338,17 @@ const App = () => {
             />
             <Route
               path="/product/:productId"
-              element={<Product setHeaderPageTitle={setHeaderPageTitle} />}
+              exact
+              element={
+                <Product
+                  pageTitle="Produto"
+                  setHeaderPageTitle={setHeaderPageTitle}
+                  favoriteProducts={favoriteProducts}
+                  handleFavoriteProductsChange={handleFavoriteProductsChange}
+                  cartProducts={cartProducts}
+                  handleAddCartProduct={handleAddCartProduct}
+                />
+              }
             />
           </Routes>
         </UserSession.Provider>

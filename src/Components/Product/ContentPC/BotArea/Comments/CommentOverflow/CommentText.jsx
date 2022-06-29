@@ -20,17 +20,17 @@ const CommentText = ({ name, rate, description }) => {
       if (number === 0) return null;
 
       if (Number.isInteger(number)) {
-        return <i className="fa fa-star" aria-hidden="true"></i>; //Return the full star if the number is integer
+        return <i key={number} className="fa fa-star" aria-hidden="true"></i>; //Return the full star if the number is integer
       }
 
       //If the number is not integer
       return (
         <>
           {/* Return the full star by itself */}
-          <i className="fa fa-star" aria-hidden="true"></i>
+          <i key={number} className="fa fa-star" aria-hidden="true"></i>
 
           {/* Return a half star to represent the 0.5 */}
-          <i className="fa fa-star-half" aria-hidden="true"></i>
+          <i key={`${number}-half`} className="fa fa-star-half" aria-hidden="true"></i>
         </>
       );
     });

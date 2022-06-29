@@ -7,6 +7,7 @@ import ProductRate from "./CardBoxInfo/ProductRate";
 import ProductTitle from "./CardBoxInfo/ProductTitle";
 
 const CardBoxInfo = ({
+  productId,
   productTitle,
   productRate,
   productTotalOrders,
@@ -14,7 +15,10 @@ const CardBoxInfo = ({
   productPrice,
   amount,
   setAmount,
+  productRemainingAmount,
   freightCost,
+  cartProducts,
+  handleAddCartProduct,
 }) => {
   return (
     <main className="card_info">
@@ -25,9 +29,17 @@ const CardBoxInfo = ({
         productTotalOrders={productTotalOrders}
       />
       <ProductPrice productPrice={productPrice} />
-      <ProductAmount amount={amount} setAmount={setAmount} />
+      <ProductAmount
+        amount={amount}
+        setAmount={setAmount}
+        productRemainingAmount={productRemainingAmount}
+      />
       <ProductFreight freightCost={freightCost} />
-      <ProductBuySection />
+      <ProductBuySection
+        productId={productId}
+        cartProducts={cartProducts}
+        handleAddCartProduct={handleAddCartProduct}
+      />
     </main>
   );
 };

@@ -25,7 +25,7 @@ const ContentPc = ({
 
   useEffect(() => {
     setIndexAlreadyLoaded(true);
-  }, []);
+  }, [setIndexAlreadyLoaded]);
   //Function that will define the value of "returnElementIfContentIsLoaded"
   function defineFinalReturn() {
     //If the server status is not "OK" or if the loadingState is undefined, don't execute anything

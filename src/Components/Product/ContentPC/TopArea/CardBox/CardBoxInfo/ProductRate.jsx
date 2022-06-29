@@ -1,4 +1,5 @@
-import React from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect } from "react";
 
 const ProductRate = ({ productRate, setProductRate, productTotalOrders }) => {
   //RATE
@@ -22,7 +23,6 @@ const ProductRate = ({ productRate, setProductRate, productTotalOrders }) => {
             5 * fiveStars) /
           this.getTotalAmountOfRates();
         const finalRateRounded = Math.round(finalRate * 10) / 10;
-        setProductRate(finalRateRounded);
         return finalRateRounded;
       };
 
@@ -30,14 +30,19 @@ const ProductRate = ({ productRate, setProductRate, productTotalOrders }) => {
         const getStarType = productRate[starType];
         if (!getStarType) return;
 
-        const calculateStarTypePercentage =
-          Math.round((getStarType * 100) / this.getTotalAmountOfRates());
-        return (`${calculateStarTypePercentage}%`);
+        const calculateStarTypePercentage = Math.round(
+          (getStarType * 100) / this.getTotalAmountOfRates()
+        );
+        return `${calculateStarTypePercentage}%`;
       };
     }
   }
 
   const rate = new Rate(productRate);
+
+  useEffect(() => {
+    setProductRate(rate.getFinalRate());
+  }, [rate, setProductRate]);
   return (
     <div className="product_avaliacao">
       <h2>
@@ -45,36 +50,42 @@ const ProductRate = ({ productRate, setProductRate, productTotalOrders }) => {
         <i className="fas fa-angle-down"></i>
       </h2>
       <div className="avaliacao_box">
-        <ul className="stars">
-          <h2>5 Estrelas</h2>
-          <h2>4 Estrelas</h2>
-          <h2>3 Estrelas</h2>
-          <h2>2 Estrelas</h2>
-          <h2>1 Estrelas</h2>
-        </ul>
-        <ul className="inner_line">
-          <div className="line">
-            <span></span>
-          </div>
-          <div className="line">
-            <span></span>
-          </div>
-          <div className="line">
-            <span></span>
-          </div>
-          <div className="line">
-            <span></span>
-          </div>
-          <div className="line">
-            <span></span>
-          </div>
-        </ul>
-        <ul className="porcentagem">
-          <h2>{rate.getStarPercentage("fiveStars")}</h2>
-          <h2>{rate.getStarPercentage("fourStars")}</h2>
-          <h2>{rate.getStarPercentage("threeStars")}</h2>
-          <h2>{rate.getStarPercentage("twoStars")}</h2>
-          <h2>{rate.getStarPercentage("oneStars")}</h2>
+        <ul>
+          <li>
+            <h2>5 Estrelas</h2>
+            <div className="line_box">
+              <span></span>
+            </div>
+            <h3>{rate.getStarPercentage("fiveStars")}</h3>
+          </li>
+          <li>
+            <h2>4 Estrelas</h2>
+            <div className="line_box">
+              <span></span>
+            </div>
+            <h3>{rate.getStarPercentage("fourStars")}</h3>
+          </li>
+          <li>
+            <h2>3 Estrelas</h2>
+            <div className="line_box">
+              <span></span>
+            </div>
+            <h3>{rate.getStarPercentage("threeStars")}</h3>
+          </li>
+          <li>
+            <h2>2 Estrelas</h2>
+            <div className="line_box">
+              <span></span>
+            </div>
+            <h3>{rate.getStarPercentage("twoStars")}</h3>
+          </li>
+          <li>
+            <h2>1 Estrelas</h2>
+            <div className="line_box">
+              <span></span>
+            </div>
+            <h3>{rate.getStarPercentage("oneStars")}</h3>
+          </li>
         </ul>
       </div>
       <h3>{rate.getTotalAmountOfRates()} Avaliações</h3>

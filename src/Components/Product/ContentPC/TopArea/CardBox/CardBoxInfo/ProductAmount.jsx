@@ -1,14 +1,34 @@
 import React from "react";
 
-const ProductAmount = ({amount, setAmount}) => {
-    const increaseAmount = () => {
-        setAmount((currentState) => currentState + 1);
-      };
-    
-      const decreaseAmount = () => {
-        if (amount <= 1) return;
-        setAmount((currentState) => currentState - 1);
-      };
+const ProductAmount = ({ amount, setAmount, productRemainingAmount }) => {
+  const increaseAmount = () => {
+    if(amount >= productRemainingAmount) return;
+
+    if(!amount) {
+      return setAmount(1);
+    }
+
+    setAmount((currentState) => currentState + 1);
+  };
+
+  const decreaseAmount = () => {
+    if (amount <= 1) return;
+    setAmount((currentState) => currentState - 1);
+  };
+
+  const handleInputChange = (e) => {
+    const { value } = e.target;
+
+    if(!value) {
+      return setAmount("");
+    }
+
+    if (isNaN(value) || value === "0") return;
+    if(parseInt(value) > productRemainingAmount) return;
+
+    setAmount(parseInt(value));
+  };
+
   return (
     <div className="product_quant">
       <h2>Quantidade:</h2>
@@ -22,10 +42,10 @@ const ProductAmount = ({amount, setAmount}) => {
         >
           <img
             src="https://designmodo.com/demo/shopping-cart/minus.svg"
-            alt=""
+            alt="add-product-icon"
           />
         </button>
-        <input type="text" name="name" value={amount} />
+        <input name="name" onChange={handleInputChange} value={amount} />
 
         <button
           onClick={increaseAmount}
@@ -35,12 +55,12 @@ const ProductAmount = ({amount, setAmount}) => {
         >
           <img
             src="https://designmodo.com/demo/shopping-cart/plus.svg"
-            alt=""
+            alt="remove-product-icon"
           />
         </button>
       </div>
 
-      <h3>9999 Itens disponíveis</h3>
+      <h3>{productRemainingAmount} Itens disponíveis</h3>
     </div>
   );
 };

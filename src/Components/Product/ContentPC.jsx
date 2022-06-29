@@ -2,9 +2,8 @@ import React, { useState } from "react";
 
 import "../../css/Product.css";
 
-import Back from "./ContentPC/Back";
+import Back from "./RComponents/Back";
 import BotArea from "./ContentPC/BotArea";
-import TopComment from "./ContentPC/BotArea/Comments/TopComment";
 import Comments from "./ContentPC/BotArea/Comments";
 import MidArea from "./ContentPC/MidArea";
 import MidGrid from "./ContentPC/MidArea/MidGrid";
@@ -19,216 +18,21 @@ import CardBox from "./ContentPC/TopArea/CardBox";
 import CardBoxImg from "./ContentPC/TopArea/CardBox/CardBoxImg";
 import CardBoxInfo from "./ContentPC/TopArea/CardBox/CardBoxInfo";
 import CardBoxText from "./ContentPC/TopArea/CardBox/CardBoxText";
-import StarsArea from "./ContentPC/BotArea/Comments/StarsArea";
-import CommentOverflow from "./ContentPC/BotArea/Comments/CommentOverflow";
 
-const ContentPC = () => {
-  const randomId = () => {
-    return Math.floor(Math.random() * 999999999 + 10000000);
-  };
-
+const ContentPC = ({
+  product,
+  favoriteProducts,
+  handleFavoriteProductsChange,
+  cartProducts,
+  handleAddCartProduct,
+  amount,
+  setAmount,
+}) => {
   const [productRate, setProductRate] = useState(0);
-  //Product State
-  const [product, setProduct] = useState({
-    productId: randomId(),
-    productTitle: "Café 3 corações",
-    productBrand: "3Corações",
-    productImage: "cafegourmet.png",
-    productDescription:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident odio sequi mollitia quo ipsa, cum corporis expedita eveniet cupiditate voluptates, recusandae ab itaque assumenda minima. Iure ratione cumque non aspernatur.",
-    productRemainingAmount: 21,
-    productTotalOrders: 150,
-    productPrice: {
-      realPrice: 120,
-      discount: 50,
-      installments: 12,
-      interestRate: 5,
-      freight: 120,
-    },
-    productDetails: [
-      {
-        id: randomId(),
-        title: "Grãos",
-        description: "Bla bla bla",
-      },
-      {
-        id: randomId(),
-        title: "Sementes",
-        description: "Bla bla bla",
-      },
-      {
-        id: randomId(),
-        title: "Torradeiras",
-        description: "Bla bla bla",
-      },
-      {
-        id: randomId(),
-        title: "Alguma coisa",
-        description: "Bla bla bla",
-      },
-      {
-        id: randomId(),
-        title: "Coisa alguma",
-        description: "Bla bla bla",
-      },
-    ],
-    productImages: [
-      {
-        src: "cafegourmet.png",
-        alt: "cafe-gourmet",
-      },
-      {
-        src: "Combo_CafesGourmet.png",
-        alt: "combo-cafesgourmet",
-      },
-      {
-        src: "capsula-de-cafe-espresso-pimpinela-gourmet-tres-01.png",
-        alt: "capsula-cafe",
-      },
-    ],
-    productRate: {
-      oneStars: 100,
-      twoStars: 350,
-      threeStars: 175,
-      fourStars: 394,
-      fiveStars: 498,
-    },
-    productComments: [
-      {
-        id: randomId(),
-        name: "Jorgin do Pneu",
-        pfp: "1629903043818.jpg",
-        level: 4,
-        title: "Produto da China",
-        description:
-          "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae pariatur quisquam, modi debitis deleniti harum! Sequi doloribus possimus natus consequuntur optio labore dolore? Rem, tempore molestias minus odit voluptates nobis?",
-        rateGiven: 4,
-      },
-      {
-        id: randomId(),
-        name: "Jorgin do Pneu",
-        pfp: "1629903043818.jpg",
-        level: 4,
-        title: "Produto da China",
-        description:
-          "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae pariatur quisquam, modi debitis deleniti harum! Sequi doloribus possimus natus consequuntur optio labore dolore? Rem, tempore molestias minus odit voluptates nobis?",
-        rateGiven: 4,
-      },
-      {
-        id: randomId(),
-        name: "Jorgin do Pneu",
-        pfp: "1629903043818.jpg",
-        level: 4,
-        title: "Produto da China",
-        description:
-          "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae pariatur quisquam, modi debitis deleniti harum! Sequi doloribus possimus natus consequuntur optio labore dolore? Rem, tempore molestias minus odit voluptates nobis?",
-        rateGiven: 4,
-      },
-      {
-        id: randomId(),
-        name: "Jorgin do Pneu",
-        pfp: "1629903043818.jpg",
-        level: 4,
-        title: "Produto da China",
-        description:
-          "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae pariatur quisquam, modi debitis deleniti harum! Sequi doloribus possimus natus consequuntur optio labore dolore? Rem, tempore molestias minus odit voluptates nobis?",
-        rateGiven: 4,
-      },
-      {
-        id: randomId(),
-        name: "Jorgin do Pneu",
-        pfp: "1629903043818.jpg",
-        level: 4,
-        title: "Produto da China",
-        description:
-          "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae pariatur quisquam, modi debitis deleniti harum! Sequi doloribus possimus natus consequuntur optio labore dolore? Rem, tempore molestias minus odit voluptates nobis?",
-        rateGiven: 4,
-      },
-      {
-        id: randomId(),
-        name: "Jorgin do Pneu",
-        pfp: "1629903043818.jpg",
-        level: 5,
-        title: "Produto da China",
-        description:
-          "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae pariatur quisquam, modi debitis deleniti harum! Sequi doloribus possimus natus consequuntur optio labore dolore? Rem, tempore molestias minus odit voluptates nobis?",
-        rateGiven: 4,
-      },
-      {
-        id: randomId(),
-        name: "Jorgin do Pneu",
-        pfp: "1629903043818.jpg",
-        level: 5,
-        title: "Produto da China",
-        description:
-          "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae pariatur quisquam, modi debitis deleniti harum! Sequi doloribus possimus natus consequuntur optio labore dolore? Rem, tempore molestias minus odit voluptates nobis?",
-        rateGiven: 4,
-      },
-      {
-        id: randomId(),
-        name: "Jorgin do Pneu",
-        pfp: "1629903043818.jpg",
-        level: 5,
-        title: "Produto da China",
-        description:
-          "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae pariatur quisquam, modi debitis deleniti harum! Sequi doloribus possimus natus consequuntur optio labore dolore? Rem, tempore molestias minus odit voluptates nobis?",
-        rateGiven: 4,
-      },
-      {
-        id: randomId(),
-        name: "Jorgin do Pneu",
-        pfp: "1629903043818.jpg",
-        level: 5,
-        title: "Produto da China",
-        description:
-          "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae pariatur quisquam, modi debitis deleniti harum! Sequi doloribus possimus natus consequuntur optio labore dolore? Rem, tempore molestias minus odit voluptates nobis?",
-        rateGiven: 4,
-      },
-      {
-        id: randomId(),
-        name: "Jorgin do Pneu",
-        pfp: "1629903043818.jpg",
-        level: 5,
-        title: "Produto da China",
-        description:
-          "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae pariatur quisquam, modi debitis deleniti harum! Sequi doloribus possimus natus consequuntur optio labore dolore? Rem, tempore molestias minus odit voluptates nobis?",
-        rateGiven: 4,
-      },
-      {
-        id: randomId(),
-        name: "Jorgin do Pneu",
-        pfp: "1629903043818.jpg",
-        level: 5,
-        title: "Produto da China",
-        description:
-          "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae pariatur quisquam, modi debitis deleniti harum! Sequi doloribus possimus natus consequuntur optio labore dolore? Rem, tempore molestias minus odit voluptates nobis?",
-        rateGiven: 4,
-      },
-      {
-        id: randomId(),
-        name: "Jorgin do Pneu",
-        pfp: "1629903043818.jpg",
-        level: 5,
-        title: "Produto da China",
-        description:
-          "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae pariatur quisquam, modi debitis deleniti harum! Sequi doloribus possimus natus consequuntur optio labore dolore? Rem, tempore molestias minus odit voluptates nobis?",
-        rateGiven: 4,
-      },
-      {
-        id: randomId(),
-        name: "Jorgin do Pneu",
-        pfp: "1629903043818.jpg",
-        level: 5,
-        title: "Produto da China",
-        description:
-          "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae pariatur quisquam, modi debitis deleniti harum! Sequi doloribus possimus natus consequuntur optio labore dolore? Rem, tempore molestias minus odit voluptates nobis?",
-        rateGiven: 4,
-      },
-    ],
-  });
 
-  //State that controls the amount of products that will be bought by the user
-  const [amount, setAmount] = useState(1);
+  const handleHeartClick = () => {
+    handleFavoriteProductsChange(product);
+  }
 
   return (
     <section className="conteudo_pc">
@@ -238,9 +42,15 @@ const ContentPC = () => {
       <TopArea>
         <CardBox>
           <CardBoxText productBrand={product.productBrand} />
-          <CardBoxImg productImg={product.productImage} />
+          <CardBoxImg
+            favoriteProducts={favoriteProducts}
+            handleHeartClick={handleHeartClick}
+            productImg={product.productImage}
+            productId={product.productId}
+          />
         </CardBox>
         <CardBoxInfo
+          productId={product.productId}
           productTitle={product.productTitle}
           productDescription={product.productDescription}
           productRate={product.productRate}
@@ -249,7 +59,11 @@ const ContentPC = () => {
           productPrice={product.productPrice}
           amount={amount}
           setAmount={setAmount}
+          productRemainingAmount={product.productRemainingAmount}
           freightCost={product.productPrice.freight}
+          handleFavoriteProductsChange={handleFavoriteProductsChange}
+          cartProducts={cartProducts}
+          handleAddCartProduct={handleAddCartProduct}
         />
       </TopArea>
 
@@ -271,11 +85,10 @@ const ContentPC = () => {
       </MidArea>
 
       <BotArea>
-        <Comments>
-          <TopComment rate={productRate} />
-          <StarsArea />
-          <CommentOverflow productComments={product.productComments} />
-        </Comments>
+        <Comments
+          productRate={productRate}
+          productComments={product.productComments}
+        />
       </BotArea>
     </section>
   );

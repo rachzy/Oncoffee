@@ -1006,47 +1006,60 @@ body {
     padding: 15px;
     border-radius: 15px;
     left: 0;
+    
 }
 
-.stars {
-    padding-right: 10px;
-}
-
-.inner_line {
-    width: 120px;
+.avaliacao_box ul {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     flex-direction: column;
-    height: 100%;
-
 }
 
-.line {
-    width: 100%;
-    height: 30px;
-    align-items: center;
+.avaliacao_box li {
     display: flex;
-    
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+}
 
+.avaliacao_box li h2 {
+    display: flex;
+    font-family: Poppins,sans-serif;
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    cursor: default;
+    width: 95px;
     
 }
 
-.line span {
+.avaliacao_box li h3 {
+    font-family: Poppins,sans-serif;
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 300;
+    letter-spacing: 1px;
+    margin-left: 0px;
+    cursor: default;
+}
+
+.line_box {
+    width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0px 10px;
+}
+
+
+.line_box span {
     width: 100%;
-    height: 2px;
     background: rgb(167, 89, 45);
-    
+    height: 4px;
+    border-radius: 5px;
 }
-
-.inner_line span:first-child {
-    margin-top: 10px;
-}
-
-.porcentagem {
-    padding-left: 10px;
-}
-
 
 
 .product_quant {
