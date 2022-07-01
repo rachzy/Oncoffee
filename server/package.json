@@ -33,5 +33,8 @@
     "nodemon": "^2.0.15",
     "rate-limiter-flexible": "^2.3.6",
     "ws": "^8.4.2"
+  },
+  "devDependencies": {
+    "mongoose": "^6.4.1"
   }
 }
