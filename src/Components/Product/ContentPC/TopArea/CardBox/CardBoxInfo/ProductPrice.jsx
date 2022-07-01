@@ -37,7 +37,7 @@ const ProductPrice = ({ productPrice }) => {
       <h3>R$ {productPrice.realPrice.toFixed(2)}</h3>
       <h2>R$ {calculateDiscount()}</h2>
       <h4>-${productPrice.discount}% OFF</h4>
-      <h5>{returnInstallments()}</h5>
+      {returnInstallments()}
     </div>
   );
 };
