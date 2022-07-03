@@ -29,13 +29,18 @@ const accountsSchema = new mongoose.Schema({
     type: String,
     required: false
   },
+  verificationCode: {
+    type: String,
+    required: true
+  },
   lastSentEmailTimestamp: {
     type: String,
     required: false
   },
   verified: {
     type: Boolean,
-    required: true
+    required: true,
+    default: false
   },
 });
 

@@ -29,6 +29,7 @@ const usersSchema = new mongoose.Schema({
   userPfp: {
     type: String,
     required: true,
+    default: "default-pfp.png"
   },
   userFavoriteProducts: {
     type: userFavoriteProducts,

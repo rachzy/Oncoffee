@@ -1,0 +1,3 @@
+{"_id":{"$oid":"62c1def32b2d23a044ad4b41"},"id":259778,"productId":147207721,"typeClass":1,"endDate":{"$date":"2022-08-02T17:57:14.121Z"},"__v":0}
+{"_id":{"$oid":"62c1df302b2d23a044ad4b43"},"id":259778,"productId":816747539,"typeClass":2,"endDate":{"$date":"2022-08-02T18:25:23.933Z"},"__v":0}
+{"_id":{"$oid":"62c1df522b2d23a044ad4b45"},"id":259778,"productId":5537488,"typeClass":1,"endDate":{"$date":"2022-07-18T18:25:23.933Z"},"__v":0}

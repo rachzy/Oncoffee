@@ -81,6 +81,8 @@ app.get("/", async (req, res) => {
   mongoose.disconnect();
 });
 
+//GET METHODS => PRODUCTS
+
 //Get (single) Product Router
 const getProductRouter = require("./routes/GET/products/getProduct");
 app.use("/products/getsingle/", getProductRouter);
@@ -89,17 +91,18 @@ app.use("/products/getsingle/", getProductRouter);
 const getProductsRouter = require("./routes/GET/products/getProducts.js");
 app.use("/products/getmany/", getProductsRouter);
 
-const getSlidesRouter = require("./routes/GET/ads/getSlides.js");
-app.use("/ads/getslides/", getSlidesRouter);
-
 const getProductsForSearchesRouter = require("./routes/GET/products/getProductsForSearches.js");
 app.use("/products/getsearches/", getProductsForSearchesRouter);
 
+//GET METHODS => ADS
+
+const getSlidesRouter = require("./routes/GET/ads/getSlides.js");
+app.use("/ads/getslides/", getSlidesRouter);
+
+//GET METHODS => CATEGORIES
+
 const getCategoriesRouter = require("./routes/GET/categories/getCategories.js");
 app.use("/categories/get/", getCategoriesRouter);
-
-// const postCategory = require("./routes/POST/category/create.js");
-// app.use("/category/create", postCategory);
 
 //GET METHODS => USER
 
@@ -160,6 +163,21 @@ app.use("/account/login", postAccountLogin);
 
 const createProduct = require("./routes/POST/product/createProduct.js");
 app.use("/product/create", createProduct);
+
+//POST METHODS => ADS
+
+const createAd = require("./routes/POST/ads/createAd.js");
+app.use("/ads/create", createAd);
+
+//POST METHODS => CATEGORIES
+
+// const postCategory = require("./routes/POST/category/createCategory.js");
+// app.use("/category/create", postCategory);
+
+//POST METHODS => PROMOTIONS
+
+const createPromotion = require("./routes/POST/promotions/createPromotion.js");
+app.use("/promotions/create", createPromotion);
 
 //Host the server on it's port (Default is 3001);
 const server = app.listen(PORT, () => {

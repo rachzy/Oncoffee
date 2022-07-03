@@ -5,6 +5,10 @@ const productPrice = {
     type: Number,
     required: true,
   },
+  finalPrice: {
+    type: Number,
+    required: true,
+  },
   discount: {
     type: Number,
     required: true,
@@ -28,6 +32,7 @@ const productDetails = [
     id: {
       type: Number,
       required: true,
+      default: Math.floor(Math.random() * 1000000),
     },
     title: {
       type: String,
@@ -42,8 +47,19 @@ const productDetails = [
 
 const productImages = [
   {
-    src: String,
-    alt: String,
+    id: {
+      type: Number,
+      required: true,
+      default: Math.floor(Math.random() * 1000000),
+    },
+    src: {
+      type: String,
+      required: true,
+    },
+    alt: {
+      type: String,
+      required: true,
+    },
   },
 ];
 
@@ -75,6 +91,7 @@ const productComments = [
     id: {
       type: Number,
       required: true,
+      default: Math.floor(Math.random() * 1000000),
     },
     name: {
       type: String,
@@ -116,6 +133,15 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  productCategory: {
+    type: String,
+    required: true,
+  },
+  productCreatedAt: {
+    type: Date,
+    required: true,
+    default: Date(),
+  },
   productImage: {
     type: String,
     required: true,
@@ -124,7 +150,7 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  productRemainingAmount: {
+  productStockAmount: {
     type: Number,
     required: true,
   },
@@ -151,6 +177,15 @@ const productSchema = new mongoose.Schema({
   productComments: {
     type: productComments,
     required: true,
+  },
+  productSellerId: {
+    type: Number,
+    required: true,
+  },
+  productEnabled: {
+    type: Boolean,
+    required: true,
+    default: true,
   },
 });
 

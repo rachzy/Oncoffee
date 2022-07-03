@@ -1,21 +1,30 @@
 const mongoose = require("mongoose");
 
+const SubCategories = [
+  {
+    name: {
+      type: String,
+      required: true,
+    },
+  },
+];
+
 const categoriesSchema = new mongoose.Schema({
   categoryId: {
     type: Number,
-    required: true
+    required: true,
   },
   categoryName: {
     type: String,
-    required: true
+    required: true,
   },
   categoryImg: {
     type: String,
-    required: true
+    required: true,
   },
   categorySubcategories: {
-    type: String,
-    required: true
+    type: SubCategories,
+    required: true,
   },
 });
 

@@ -4,6 +4,7 @@ const adsSchema = new mongoose.Schema({
   id: {
     type: Number,
     required: true,
+    default: Math.floor(Math.random() * 10000000)
   },
   name: {
     type: String,
@@ -19,11 +20,13 @@ const adsSchema = new mongoose.Schema({
   },
   enabled: {
     type: Boolean,
-    required: true
+    required: true,
+    default: true
   },
   createdAt: {
     type: Date,
-    required: true
+    required: true,
+    default: Date()
   }
 });
 

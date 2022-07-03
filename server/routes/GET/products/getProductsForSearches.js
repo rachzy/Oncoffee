@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
 
-const sendError = require("../../globalFunctions/sendError.js");
+const sendError = require("../../../globalFunctions/sendError.js");
 
-const server = require("../../server.js");
+const server = require("../../../server.js");
 
 //Get specific products from the database through a identifier param (Ex: discount, capsules, etc)
 router.get("/:inputValue", (req, res) => {

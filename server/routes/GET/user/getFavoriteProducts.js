@@ -3,6 +3,8 @@ const router = express.Router();
 
 const sendError = require("../../../globalFunctions/sendError.js");
 
+const Users = require("../../../models/users.js");
+
 const server = require("../../../server.js");
 
 //Get all the favorited products of an user

@@ -19,7 +19,7 @@
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "csurf": "^1.11.0",
-    "dotenv": "^16.0.0",
+    "dotenv": "^16.0.1",
     "express": "^4.17.2",
     "express-jwt-permissions": "^1.3.6",
     "express-rate-limit": "^6.2.0",

@@ -1,0 +1,8 @@
+POST http://localhost:8000/promotions/create
+Content-Type: application/json
+
+{
+    "productId": 184656529,
+    "typeClass": 1,
+    "endDate": "2022-07-18T18:25:23.933Z"
+}
