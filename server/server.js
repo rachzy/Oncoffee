@@ -54,17 +54,9 @@ mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true }, (err) => {
   if (err) {
     return console.log("Error:" + err);
   }
-  console.log("Successfully connected to the MongoDB server");
+  console.log("Successfully connected to MongoDB server");
 });
 const db = mongoose.connection;
-
-db.on("error", (err) => {
-  console.log(err);
-});
-
-db.once("open", () => {
-  console.log("Successfully connected to MongoDB server!");
-});
 
 //Router to check if the server is online
 app.get("/", async (req, res) => {
@@ -113,9 +105,6 @@ app.use("/user/getsearches/", getUserSearchesRouter);
 const getFavoriteProducts = require("./routes/GET/user/getFavoriteProducts.js");
 app.use("/user/getfavoriteproducts/", getFavoriteProducts);
 
-const getFavoriteProductsIds = require("./routes/GET/user/getFavoriteProductsIds.js");
-app.use("/user/getfavoriteproductsids/", getFavoriteProductsIds);
-
 //GET METHODS => ACCOUNT
 
 //Verify Security Tokens
@@ -123,8 +112,8 @@ const getValidateSecurityTokens = require("./routes/GET/account/getValidateSecur
 app.use("/account/validatetokens/", getValidateSecurityTokens);
 
 //Validate Register Params
-const getValidateRegisterParams = require("./routes/GET/account/getValidateRegisterParams.js");
-app.use("/account/validateregisterparams", getValidateRegisterParams);
+const getValidateRegisterParams = require("./routes/GET/account/register/getValidateRegisterParams.js");
+app.use("/account/register/validateparams", getValidateRegisterParams);
 
 //Sign out user
 const getSignOut = require("./routes/GET/account/signOut.js");

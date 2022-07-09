@@ -1,8 +1,8 @@
 const express = require("express");
-const sendError = require("../../../globalFunctions/sendError");
+const sendError = require("../../../../globalFunctions/sendError");
 const router = express.Router();
 
-const Accounts = require("../../../models/accounts.js");
+const Accounts = require("../../../../models/accounts.js");
 
 router.get("/:accountId/:registerToken", async (req, res) => {
   const [accountId, registerToken] = [

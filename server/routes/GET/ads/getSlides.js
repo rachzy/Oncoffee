@@ -3,7 +3,7 @@ const router = express.Router();
 
 const Ads = require("../../../models/ads.js");
 const Promotions = require("../../../models/featuredPromotions.js");
-const Products = require("../../../models/product.js");
+const Products = require("../../../models/products.js");
 
 const sendError = require("../../../globalFunctions/sendError.js");
 
@@ -23,35 +23,28 @@ router.get("/:identifier", async (req, res) => {
         res.send(getAds);
         break;
       case "featuredpromotions":
-        let finalArray = [];
         const getPromotions = await Promotions.find();
-        getPromotions.map(async (promotion) => {
-          try {
-            let getEndDate = new Date(promotion.endDate).getTime();
-            let getNowDate = new Date().getTime();
+        let finalArray = [];
+        //Map wasn't working, so I had to do it through a for loop
+        for (let i = 0; i <= getPromotions.length - 1; i++) {
+          let getEndDate = new Date(getPromotions[i].endDate).getTime();
+          let getNowDate = new Date().getTime();
 
-            let distance = getEndDate - getNowDate;
-            if (distance < 0) return;
-
+          let distance = getEndDate - getNowDate;
+          if (distance > 0) {
             const getProduct = await Products.findOne({
-              "productId": promotion.productId,
+              productId: getPromotions[i].productId,
             });
 
             let finalProductObject = {
-              ...getProduct,
-              slideTypeClass: promotion.typeClass,
-              slideEndDate: promotion.endDate,
+              ...getProduct["_doc"],
+              slideTypeClass: getPromotions[i].typeClass,
+              slideEndDate: getPromotions[i].endDate,
             };
 
             finalArray.push(finalProductObject);
-            if(finalArray.length !== getPromotions.length) return;
-            console.log(finalArray);
-            res.json(finalArray);
-            res.end();
-          } catch (err) {
-            return sendError(res, err.message, err.code);
           }
-        });
+        }
         res.send(finalArray);
         break;
       default:

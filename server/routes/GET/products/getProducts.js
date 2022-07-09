@@ -3,48 +3,54 @@ const router = express.Router();
 
 const sendError = require("../../../globalFunctions/sendError.js");
 
-const server = require('../../../server.js');
+const Products = require("../../../models/products");
 
 //Get specific products from the database through a identifier param (Ex: discount, capsules, etc)
-router.get("/:identifier", (req, res) => {
-  const identifier = req.params.identifier;
+router.get("/:identifier/", async (req, res) => {
+  const { identifier } = req.params;
 
-  //Function to send products according to it identifier
-  function sendProducts(category, order, limitNumber) {
-    let [selectCategory, orderBy, limit] = ["", "", ""];
-
-    console.log(selectCategory);
-
-    if (category) selectCategory = `and productCategory = '${category}'`;
-    if (order) orderBy = `ORDER BY ${order}`;
-    if (limitNumber) limit = `LIMIT ${limitNumber}`;
-
-    server.db.query(
-      `SELECT * FROM products WHERE productEnabled = 1 ${selectCategory} ${orderBy} ${limit}`,
-      (err, result) => {
-        if(err) return sendError(res, err.code, err.errno);
-        
-        res.send(result);
-      }
-    );
+  if (!identifier) {
+    return sendError(res, "INVALID_PARAMS");
   }
 
-  switch (identifier) {
-    case undefined | "":
-      sendError("UNDEFINED_IDENTIFIER", "UC", "5");
-      return;
-    case "otherproducts":
-      sendProducts("", "", "100");
-      break;
-    case "capsules":
-      sendProducts("CAPSULAS", "productTotalSales DESC, productGrade DESC", "5");
-      break;
-    case "mostsolds":
-      sendProducts("", "productTotalSales DESC", "5");
-      break;
-    case "discount":
-      sendProducts("", "productDiscount DESC", "5");
-      break;
+  try {
+    switch (identifier) {
+      case "otherproducts":
+        const getOtherProducts = await Products.find({
+          productEnabled: true,
+        }).limit(100);
+        res.send(getOtherProducts);
+        break;
+      case "capsules":
+        const getCapsulesProducts = await Products.find({
+          productCategory: "CAPSULAS",
+          productEnabled: true,
+        })
+          .sort({ productTotalOrders: -1 })
+          .limit(5);
+        res.send(getCapsulesProducts);
+        break;
+      case "mostsolds":
+        const getMostSoldProducts = await Products.find({
+          productEnabled: true,
+        })
+          .sort({ productTotalOrders: -1 })
+          .limit(5);
+        res.send(getMostSoldProducts);
+        break;
+      case "discount":
+        const getProductsWithGreatestDiscounts = await Products.find({
+          productEnabled: true,
+        })
+          .sort({ "productPrice.discount": -1 })
+          .limit(5);
+        res.send(getProductsWithGreatestDiscounts);
+        break;
+      default:
+        return sendError(res, "INVALID_IDENTIFIER");
+    }
+  } catch (err) {
+    return sendError(res, err.message, err.code);
   }
 });
 

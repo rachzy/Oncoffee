@@ -2,7 +2,7 @@ const express = require("express");
 const sendError = require("../../../globalFunctions/sendError");
 const router = express.Router();
 
-const Product = require("../../../models/product");
+const Product = require("../../../models/products");
 
 router.post("/", async (req, res) => {
   const { newProduct } = req.body;
