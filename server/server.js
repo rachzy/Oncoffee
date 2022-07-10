@@ -6,7 +6,6 @@ const PORT = process.env.PORT || 8000;
 //Libs
 const Express = require("express");
 const app = new Express();
-const mysql = require("mysql2");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 
@@ -56,7 +55,6 @@ mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true }, (err) => {
   }
   console.log("Successfully connected to MongoDB server");
 });
-const db = mongoose.connection;
 
 //Router to check if the server is online
 app.get("/", async (req, res) => {
@@ -172,5 +170,3 @@ app.use("/promotions/create", createPromotion);
 const server = app.listen(PORT, () => {
   console.log("Server hosted on http://localhost:" + PORT);
 });
-
-module.exports.db = db;
