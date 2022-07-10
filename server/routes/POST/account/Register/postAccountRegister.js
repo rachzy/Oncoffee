@@ -11,10 +11,6 @@ const sendMail = require("../../../../globalFunctions/sendMail.js");
 const Accounts = require("../../../../models/accounts.js");
 const Users = require("../../../../models/users.js");
 
-const accountTemplate = require("./accountTemplate.json");
-
-const server = require("../../../../server.js");
-
 //Create and insert a new user in the database
 router.post("/", async (req, res) => {
   const { name, lastName, emailcpf, password } = req.body;

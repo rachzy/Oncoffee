@@ -30,7 +30,7 @@ const accountsSchema = new mongoose.Schema({
     required: false
   },
   verificationCode: {
-    type: String,
+    type: Number,
     required: true
   },
   lastSentEmailTimestamp: {
