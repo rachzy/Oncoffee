@@ -1,0 +1,8 @@
+POST http://localhost:8000/ads/create
+Content-Type: application/json
+
+{
+    "name": "Banner 3",
+    "imgSrc": "anuncio3.jpg",
+    "imgAlt": "banner-3-ad"
+}

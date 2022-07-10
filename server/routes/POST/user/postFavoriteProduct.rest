@@ -1,0 +1,7 @@
+POST http://localhost:8000/user/postfavoriteproduct
+Content-Type: application/json
+
+{
+    "userId": 8551191358,
+    "productId": 147207721
+}

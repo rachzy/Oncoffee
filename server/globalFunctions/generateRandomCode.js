@@ -2,7 +2,7 @@
 //It was made to be used as tokens
 const crypto = require("crypto");
 
-function generateRandomString(type, length) {
+function generateRandomCode(type, length) {
   if (isNaN(length)) return;
 
   switch (type) {
@@ -20,4 +20,4 @@ function generateRandomString(type, length) {
   }
 }
 
-module.exports = generateRandomString;
+module.exports = generateRandomCode;

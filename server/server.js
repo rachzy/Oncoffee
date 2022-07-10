@@ -1,20 +1,22 @@
 //Oncoffee server-side (by r4ch)
 //Sets the PORT that the server gonna be hosted on
-const PORT = 8000;
+require("dotenv").config();
+const PORT = process.env.PORT || 8000;
 
 //Libs
 const Express = require("express");
 const app = new Express();
 const mysql = require("mysql2");
+const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 
 //Creates the connection with the database
-const db = mysql.createPool({
-  host: "localhost",
-  user: "root",
-  password: "root",
-  database: "oncoffee",
-});
+// const db = mysql.createPool({
+//   host: "localhost",
+//   user: "root",
+//   password: "root",
+//   database: "oncoffee",
+// });
 
 //Security Libs
 const cors = require("cors");
@@ -48,42 +50,60 @@ app.use(Express.json());
 
 //GET METHODS
 
+mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true }, (err) => {
+  if (err) {
+    return console.log("Error:" + err);
+  }
+  console.log("Successfully connected to MongoDB server");
+});
+const db = mongoose.connection;
+
 //Router to check if the server is online
-app.get("/", (req, res) => {
-  db.query("SELECT 1 + 1", (err, result) => {
-    if(err) return res.sendStatus(500);
-    if(result) return res.sendStatus(200);
-  });
+app.get("/", async (req, res) => {
+  mongoose.connect(
+    process.env.DATABASE_URL,
+    { useNewUrlParser: true },
+    (err) => {
+      if (err) {
+        return res.sendStatus(500);
+      }
+      return res.sendStatus(200);
+    }
+  );
+  mongoose.disconnect();
 });
 
+//GET METHODS => PRODUCTS
+
 //Get (single) Product Router
-const getProductRouter = require("./routes/GET/getProduct");
-app.use("/getproduct/", getProductRouter);
+const getProductRouter = require("./routes/GET/products/getProduct");
+app.use("/products/getsingle/", getProductRouter);
 
 //Get (many) Products Router
-const getProductsRouter = require("./routes/GET/getProducts.js");
-app.use("/getproducts/", getProductsRouter);
+const getProductsRouter = require("./routes/GET/products/getProducts.js");
+app.use("/products/getmany/", getProductsRouter);
 
-const getSlidesRouter = require("./routes/GET/getSlides.js");
-app.use("/getslides/", getSlidesRouter);
+const getProductsForSearchesRouter = require("./routes/GET/products/getProductsForSearches.js");
+app.use("/products/getsearches/", getProductsForSearchesRouter);
 
-const getProductsForSearchesRouter = require("./routes/GET/getProductsForSearches.js");
-app.use("/getproductsforsearches/", getProductsForSearchesRouter);
+//GET METHODS => ADS
 
-const getCategoriesRouter = require("./routes/GET/getCategories.js");
-app.use("/getcategories/", getCategoriesRouter);
+const getSlidesRouter = require("./routes/GET/ads/getSlides.js");
+app.use("/ads/getslides/", getSlidesRouter);
+
+//GET METHODS => CATEGORIES
+
+const getCategoriesRouter = require("./routes/GET/categories/getCategories.js");
+app.use("/categories/get/", getCategoriesRouter);
 
 //GET METHODS => USER
 
 //Get (many) Searches according to UserId Router
 const getUserSearchesRouter = require("./routes/GET/user/getUserSearches.js");
-app.use("/getusersearches/", getUserSearchesRouter);
+app.use("/user/getsearches/", getUserSearchesRouter);
 
 const getFavoriteProducts = require("./routes/GET/user/getFavoriteProducts.js");
 app.use("/user/getfavoriteproducts/", getFavoriteProducts);
-
-const getFavoriteProductsIds = require("./routes/GET/user/getFavoriteProductsIds.js");
-app.use("/user/getfavoriteproductsids/", getFavoriteProductsIds);
 
 //GET METHODS => ACCOUNT
 
@@ -92,8 +112,8 @@ const getValidateSecurityTokens = require("./routes/GET/account/getValidateSecur
 app.use("/account/validatetokens/", getValidateSecurityTokens);
 
 //Validate Register Params
-const getValidateRegisterParams = require("./routes/GET/getValidateRegisterParams.js");
-app.use("/account/validateregisterparams", getValidateRegisterParams);
+const getValidateRegisterParams = require("./routes/GET/account/register/getValidateRegisterParams.js");
+app.use("/account/register/validateparams", getValidateRegisterParams);
 
 //Sign out user
 const getSignOut = require("./routes/GET/account/signOut.js");
@@ -113,8 +133,8 @@ app.use("/user/postsearch/", postSearchRouter);
 
 //POST METHODS => ACCOUNT
 
-const postUserRegister = require("./routes/POST/account/Register/postUserRegister.js");
-app.use("/account/register/", postUserRegister);
+const postAccountRegister = require("./routes/POST/account/Register/postAccountRegister.js");
+app.use("/account/register/", postAccountRegister);
 
 const postSetVerificationEmail = require("./routes/POST/account/Email/postSetVerificationEmail.js");
 app.use("/account/setverificationemail", postSetVerificationEmail);
@@ -125,8 +145,28 @@ app.use("/account/resendverificationemail", postResendVerificationEmail);
 const postVerifyAccount = require("./routes/POST/account/Register/postVerifyAccount.js");
 app.use("/account/verify", postVerifyAccount);
 
-const postUserLogin = require("./routes/POST/account/Login/postUserLogin.js");
-app.use("/account/login", postUserLogin);
+const postAccountLogin = require("./routes/POST/account/Login/postAccountLogin.js");
+app.use("/account/login", postAccountLogin);
+
+//POST METHODS => PRODUCT
+
+const createProduct = require("./routes/POST/product/createProduct.js");
+app.use("/product/create", createProduct);
+
+//POST METHODS => ADS
+
+const createAd = require("./routes/POST/ads/createAd.js");
+app.use("/ads/create", createAd);
+
+//POST METHODS => CATEGORIES
+
+// const postCategory = require("./routes/POST/category/createCategory.js");
+// app.use("/category/create", postCategory);
+
+//POST METHODS => PROMOTIONS
+
+const createPromotion = require("./routes/POST/promotions/createPromotion.js");
+app.use("/promotions/create", createPromotion);
 
 //Host the server on it's port (Default is 3001);
 const server = app.listen(PORT, () => {
