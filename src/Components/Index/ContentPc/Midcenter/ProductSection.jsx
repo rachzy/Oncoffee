@@ -32,7 +32,7 @@ const ProductSection = ({
     const fetchProducts = async () => {
       try {
         const { data } = await Axios.get(
-          `${serverUrl}/getproducts/${category}`
+          `${serverUrl}/products/getmany/${category}`
         );
 
         if (data.isError) return displayError(data.errorCode, data.errno);
@@ -50,15 +50,14 @@ const ProductSection = ({
       <Product
         key={`${product.productId}`}
         productId={product.productId}
-        productName={product.productName}
-        productImgSrc={product.productImgSrc}
-        productImgAlt={product.productImgAlt}
+        productName={product.productTitle}
+        productImage={product.productImage}
         productCategory={product.productCategory}
-        productFinalPrice={product.productFinalPrice}
-        productDiscount={product.productDiscount}
+        productFinalPrice={product.productPrice.finalPrice}
+        productDiscount={product.productPrice.discount}
         productDescription={product.productDescription}
-        productGrade={product.productGrade}
-        productTotalSales={product.productTotalSales}
+        productGrade={product.productRate.finalRate}
+        productTotalSales={product.productTotalOrders}
         setFavoriteProductsIds={setFavoritedProductsIds}
         favoritedProductsIds={favoritedProductsIds}
         handleAddCartProduct={handleAddCartProduct}

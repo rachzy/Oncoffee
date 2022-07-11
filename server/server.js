@@ -47,28 +47,27 @@ app.disable("x-powered-by");
 
 app.use(Express.json());
 
-//GET METHODS
-
-mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true }, (err) => {
-  if (err) {
-    return console.log("Error:" + err);
+const connection = async () => {
+  try {
+    console.log("Connecting to MongoDB server...");
+    await mongoose.connect(process.env.DATABASE_URL);
+    console.log("Successfully connected to MongoDB server");
+  } catch (err) {
+    console.log("Error while trying to connect to MongoDB server: ", err);
+    connection();
   }
-  console.log("Successfully connected to MongoDB server");
-});
+};
+const db = mongoose.connection;
+
+//GET METHODS
 
 //Router to check if the server is online
 app.get("/", async (req, res) => {
-  mongoose.connect(
-    process.env.DATABASE_URL,
-    { useNewUrlParser: true },
-    (err) => {
-      if (err) {
-        return res.sendStatus(500);
-      }
-      return res.sendStatus(200);
-    }
-  );
-  mongoose.disconnect();
+  const { readyState } = db;
+  if (readyState === 1) {
+    return res.sendStatus(200);
+  }
+  return res.sendStatus(500);
 });
 
 //GET METHODS => PRODUCTS
@@ -148,7 +147,7 @@ app.use("/account/login", postAccountLogin);
 
 //POST METHODS => PRODUCT
 
-const createProduct = require("./routes/POST/product/createProduct.js");
+const createProduct = require("./routes/POST/products/createProduct.js");
 app.use("/product/create", createProduct);
 
 //POST METHODS => ADS
@@ -169,4 +168,5 @@ app.use("/promotions/create", createPromotion);
 //Host the server on it's port (Default is 3001);
 const server = app.listen(PORT, () => {
   console.log("Server hosted on http://localhost:" + PORT);
+  connection();
 });

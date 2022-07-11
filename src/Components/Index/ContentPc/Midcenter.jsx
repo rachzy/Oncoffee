@@ -31,7 +31,7 @@ const Midcenter = ({
     const fetchSlides = async () => {
       try {
         const { data } = await Axios.get(
-          `${serverUrl}/getslides/featuredpromotions`
+          `${serverUrl}/ads/getslides/featuredpromotions`
         );
 
         if (data.isError) {
@@ -50,7 +50,7 @@ const Midcenter = ({
       if (!isLogged) return;
       try {
         const { data } = await Axios.get(
-          `${serverUrl}/user/getfavoriteproductsids/`,
+          `${serverUrl}/user/getfavoriteproducts/ids`,
           { withCredentials: true }
         );
 

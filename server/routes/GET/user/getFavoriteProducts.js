@@ -7,22 +7,42 @@ const Users = require("../../../models/users.js");
 const Products = require("../../../models/products.js");
 
 //Get all the favorited products of an user
-router.get("/:userId", async (req, res) => {
-  const { userId } = req.params;
+router.get("/:identifier?", async (req, res) => {
+  const { userId } = req.cookies;
+  const { identifier } = req.params;
 
   if (!userId) return;
 
   try {
-    const { userFavoriteProducts } = await Users.findOne({userId: userId}, {userFavoriteProducts: 1});
+    const { userFavoriteProducts } = await Users.findOne(
+      { userId: userId },
+      { userFavoriteProducts: 1 }
+    );
 
     let getUserFavoriteProducts = [];
-    for(let i = 0; i <= userFavoriteProducts.length - 1; i++) {
-      const getProduct = await Products.findOne({productId: userFavoriteProducts[i].productId});
-      getUserFavoriteProducts.push(getProduct);
+
+    switch (identifier) {
+      case "ids":
+        for (let i = 0; i <= userFavoriteProducts.length - 1; i++) {
+          const getProduct = await Products.findOne(
+            {
+              productId: userFavoriteProducts[i].productId,
+            },
+            { productId: 1 }
+          );
+          getUserFavoriteProducts.push(getProduct);
+        }
+      default:
+        for (let i = 0; i <= userFavoriteProducts.length - 1; i++) {
+          const getProduct = await Products.findOne({
+            productId: userFavoriteProducts[i].productId,
+          });
+          getUserFavoriteProducts.push(getProduct);
+        }
     }
 
     res.send(getUserFavoriteProducts);
-  } catch(err) {
+  } catch (err) {
     return sendError(res, err.message, err.code);
   }
 });

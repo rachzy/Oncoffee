@@ -25,8 +25,8 @@ const SliderMobile = () => {
   useEffect(() => {
     const fetchImgs = async () => {
       try {
-        const { data } = await Axios.get(`${serverUrl}/getslides/ads`);
-        if(!data) fetchImgs();
+        const { data } = await Axios.get(`${serverUrl}/ads/getslides/banners`);
+        if (!data) fetchImgs();
         if (data.isError) {
           displayError(data.errorCode, data.errno);
           return;
@@ -145,7 +145,7 @@ const SliderMobile = () => {
     <main className="slider_center3">
       <div ref={slider} className="slider3">
         {adSlides.map((slide) => {
-          if(slide.isLoading) return null;
+          if (slide.isLoading) return null;
           if (adSlides[0] === slide) {
             return (
               <SlideMobile
@@ -170,23 +170,18 @@ const SliderMobile = () => {
           <i ref={nextBtn} className="fas fa-chevron-right next-btn"></i>
         </div>
         <div className="navigation-visibility3">
-        {adSlides.map((slide) => {
-          if(slide.isLoading) return null;
-          if (adSlides[0] === slide) {
-            return (
-              <SlideIconMobile
-                key={slide.id}
-                className="slide-icon3 active"
-              />
-            );
-          }
-          return (
-            <SlideIconMobile
-              key={slide.id}
-              className="slide-icon3"
-            />
-          );
-        })}
+          {adSlides.map((slide) => {
+            if (slide.isLoading) return null;
+            if (adSlides[0] === slide) {
+              return (
+                <SlideIconMobile
+                  key={slide.id}
+                  className="slide-icon3 active"
+                />
+              );
+            }
+            return <SlideIconMobile key={slide.id} className="slide-icon3" />;
+          })}
         </div>
       </div>
     </main>

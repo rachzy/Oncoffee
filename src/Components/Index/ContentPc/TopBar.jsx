@@ -21,36 +21,47 @@ import SearchBar from "./TopBar/SearchBar/SearchBar";
 import displayError from "../../../globalFunctions/displayErrors";
 
 const TopBar = () => {
-  const [categories, setCategories] = useState();
-  const [categoriesName, setCategoriesName] = useState();
+  const [categories, setCategories] = useState([]);
+  const [categoriesName, setCategoriesName] = useState([]);
 
   const { serverUrl } = require("../../../connection.json");
 
   useEffect(() => {
     const fetchCategories = async () => {
-      const { data } = await Axios.get(`${serverUrl}/getcategories`).catch(
-        () => {
-          return displayError("0", "SERVER_CONN_FAILED");
-        }
-      );
+      try {
+        const { data } = await Axios.get(`${serverUrl}/categories/get`);
 
-      if (data.isError) return displayError(data.errorCode, data.errno);
-      setCategories(data);
+        if (data.isError) return displayError(data.errorCode, data.errno);
+        setCategories(data);
 
-      const allCategoryNames = data
-        .reduce(
-          (previousCategory, currentCategory) =>
-            `${previousCategory},${currentCategory.categoryName}`,
-          ""
-        )
-        .slice(1);
+        const getCategoriesNames = data.map((category) => {
+          return category.categoryName;
+        });
 
-      setCategoriesName(allCategoryNames);
+        setCategoriesName(getCategoriesNames);
+      } catch (err) {
+        return displayError(err.message, err.code);
+      }
     };
     fetchCategories();
   }, [serverUrl]);
 
-  function renderElementsWhenStateIsLoaded() {
+  const defaultCategoryValue = [
+    {
+      categoryId: "discount",
+      categoryName: "Com Desconto",
+    },
+    {
+      categoryId: "combos",
+      categoryName: "Combos",
+    },
+    {
+      categoryId: "freefreight",
+      categoryName: "Frete grátis",
+    },
+  ];
+
+  const renderElementsWhenStateIsLoaded = () => {
     if (!categoriesName) return;
     return (
       <ul>
@@ -71,7 +82,7 @@ const TopBar = () => {
           className="promoçoes"
           category="promotions"
           classId="promo_box"
-          liTitles="Com Desconto,Combos,Frete Grátis"
+          liTitles={defaultCategoryValue}
           imgSrc={Combo_CafesGourmetImg}
           imgAlt="combo-cafesgourmet-oncoffee"
           categories={categories}
@@ -256,7 +267,7 @@ const TopBar = () => {
           className="acesso"
           classId="acesso_box"
           category="acessories"
-          liTitles="Com Desconto,Combos,Frete Grátis"
+          liTitles={defaultCategoryValue}
           imgSrc={Combo_CafesGourmetImg}
           imgAlt="combo-cafesgourmet-oncoffee"
           categories={categories}
@@ -269,7 +280,7 @@ const TopBar = () => {
           className="derivados"
           classId="derivados_box"
           category="derivatives"
-          liTitles="Com Desconto,Combos,Frete Grátis"
+          liTitles={defaultCategoryValue}
           imgSrc={Combo_CafesGourmetImg}
           imgAlt="combo-cafesgourmet-oncoffee"
           categories={categories}
@@ -279,7 +290,7 @@ const TopBar = () => {
         </DatabaseLiSection>
       </ul>
     );
-  }
+  };
 
   return (
     <main className="topbar">

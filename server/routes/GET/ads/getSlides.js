@@ -18,7 +18,7 @@ router.get("/:identifier", async (req, res) => {
 
   try {
     switch (identifier) {
-      case "ads":
+      case "banners":
         const getAds = await Ads.find();
         res.send(getAds);
         break;

@@ -12,8 +12,7 @@ const Product = ({
   productId,
   productName,
   productDiscount,
-  productImgSrc,
-  productImgAlt,
+  productImage,
   productFinalPrice,
   productDescription,
   productGrade,
@@ -217,8 +216,8 @@ const Product = ({
         productId: productId,
         productName: productName,
         productDescription: productDescription,
-        productImgSrc: productImgSrc,
-        productImgAlt: productImgAlt,
+        productImgSrc: productImage,
+        productImgAlt: productName,
         productFinalPrice: productFinalPrice,
       };
       changeProductClass();
@@ -247,8 +246,8 @@ const Product = ({
         productId: productId,
         productName: productName,
         productDescription: productDescription,
-        productImgSrc: productImgSrc,
-        productImgAlt: productImgAlt,
+        productImgSrc: productImage,
+        productImgAlt: productName,
         productFinalPrice: productFinalPrice,
       };
       return handleAddCartProduct(newCartProduct);
@@ -314,8 +313,8 @@ const Product = ({
       </div>
       <div className="produto_img">
         <img
-          src={require(`../../../../../imgs/${productImgSrc}`)}
-          alt={productImgAlt}
+          src={require(`../../../../../imgs/${productImage}`)}
+          alt={productName}
         />
       </div>
       <div className="produto_text1">

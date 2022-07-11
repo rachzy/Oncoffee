@@ -13,7 +13,7 @@ const TopPromo = () => {
   const { serverUrl } = require("../../../../connection.json"); //Import serverUrl (Ex: http://localhost:3001);
   useEffect(() => {
     const fetchProducts = async () => {
-      await Axios.get(`${serverUrl}/getproducts/discount`).then(
+      await Axios.get(`${serverUrl}/products/getmany/discount`).then(
         (response) => {
           const data = response.data;
           if (data.isError) {
@@ -34,11 +34,11 @@ const TopPromo = () => {
             return(
                 <TopPromoProduct 
                 key={product.productId}
-                imgSrc={product.productImgSrc}
-                imgAlt={product.productImgAlt}
-                productName={product.productName}
-                productPrice={product.productPrice}
-                productFinalPrice={product.productFinalPrice}
+                imgSrc={product.productImage}
+                imgAlt={product.productTitle}
+                productName={product.productTitle}
+                productPrice={product.productPrice.realPrice}
+                productFinalPrice={product.productPrice.finalPrice}
                 productId={product.productId}
                 />
             )

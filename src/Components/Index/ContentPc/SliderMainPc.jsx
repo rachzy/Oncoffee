@@ -27,7 +27,7 @@ const SliderMainPc = () => {
   useEffect(() => {
     const fetchImgs = async () => {
       try {
-        const { data } = await Axios.get(`${serverUrl}/getslides/ads`);
+        const { data } = await Axios.get(`${serverUrl}/ads/getslides/banners`);
 
         if (data.isError) {
           displayError(data.errorCode, data.errno);

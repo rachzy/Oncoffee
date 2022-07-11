@@ -19,7 +19,7 @@ const MidcenterMobile = ({ handleFavoritedProductsChange }) => {
     const fetchSlides = async () => {
       try {
         const { data } = await Axios.get(
-          `${serverUrl}/getslides/featuredpromotions`
+          `${serverUrl}/ads/getslides/featuredpromotions`
         );
 
         if (data.isError) {
@@ -36,8 +36,10 @@ const MidcenterMobile = ({ handleFavoritedProductsChange }) => {
     const fetchFavoritedProductsIds = async () => {
       try {
         const { data } = await Axios.get(
-          `${serverUrl}/user/getfavoriteproductsids/`
+          `${serverUrl}/user/getfavoriteproducts/ids`
         );
+
+        console.log(data);
 
         if (data.isError) {
           return displayError(data.errorCode, data.errno);
