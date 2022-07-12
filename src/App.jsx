@@ -42,7 +42,7 @@ const App = () => {
 
         setFavoriteProducts(data);
       } catch (err) {
-        displayError(err, err.response.code);
+        displayError(err.message, err.code);
       }
     };
 
@@ -90,13 +90,17 @@ const App = () => {
       let productAlreadyFavorite = false;
 
       for (let i = 0; i <= favoriteProducts.length - 1; i++) {
-        if (newProduct.productId.toString() === favoriteProducts[i].productId.toString())
+        if (
+          newProduct.productId.toString() ===
+          favoriteProducts[i].productId.toString()
+        )
           productAlreadyFavorite = true;
       }
 
       if (productAlreadyFavorite) {
         const newFavoriteProducts = favoriteProducts.filter(
-          (product) => product.productId.toString() !== newProduct.productId.toString()
+          (product) =>
+            product.productId.toString() !== newProduct.productId.toString()
         );
         setFavoriteProducts(newFavoriteProducts);
         return;
@@ -312,6 +316,7 @@ const App = () => {
                   handleAddCartProduct={handleAddCartProduct}
                   handleRemoveCartProduct={handleRemoveCartProduct}
                   cartProducts={cartProducts}
+                  favoriteProducts={favoriteProducts}
                 />
               }
             />

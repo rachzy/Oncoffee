@@ -16,6 +16,7 @@ const Midcenter = ({
   handleRemoveCartProduct,
   handleSetPopupState,
   cartProducts,
+  favoriteProducts,
 }) => {
   const returnSliderFeaturedPromotions = () => {
     if (slideProductsIds.length === 0) return;
@@ -47,23 +48,10 @@ const Midcenter = ({
     fetchSlides();
 
     const fetchFavoritedProductsIds = async () => {
-      if (!isLogged) return;
-      try {
-        const { data } = await Axios.get(
-          `${serverUrl}/user/getfavoriteproducts/ids`,
-          { withCredentials: true }
-        );
-
-        if (data.isError) {
-          displayError(data.errorCode, data.errno);
-          return;
-        }
-
-        if (!data) return;
-        setFavoritedProductsIds(data);
-      } catch (err) {
-        return displayError(err.message, "SERVER_CONN_FAILED");
-      }
+      const getFavoriteProductsIds = favoriteProducts.map((product) => {
+        return product.productId;
+      });
+      setFavoritedProductsIds(getFavoriteProductsIds);
     };
     fetchFavoritedProductsIds();
   }, [displayError, isLogged, serverUrl]);
