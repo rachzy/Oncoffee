@@ -768,10 +768,7 @@ body {
     margin-left: 50%;
 }
 
-.conteudo {
-    min-height: 1000px;
-    
-}
+
 
 .conteudomobile {
     display: none;
@@ -2398,7 +2395,7 @@ body {
 
 .conteudo {
     width: 100%;
-    
+    margin-bottom: 0px;
     
 }
 
@@ -4716,6 +4713,7 @@ body {
     align-items: center;
     flex-direction: column;
     justify-content: center;
+    margin-bottom: -360px;
 }
 
 .garantias {
