@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 
 import "../../css/Product.css";
 
@@ -28,14 +28,26 @@ const ContentPC = ({
   amount,
   setAmount,
 }) => {
+  const conteudoPc = useRef(null);
   const [productRate, setProductRate] = useState(0);
 
   const handleHeartClick = () => {
     handleFavoriteProductsChange(product);
-  }
+  };
+
+  const showContentPcWhenFullyLoaded = () => {
+    if (!conteudoPc) return;
+    setTimeout(() => {
+      conteudoPc.current.classList.add("active");
+    }, 50);
+  };
 
   return (
-    <section className="conteudo_pc">
+    <section
+      onLoad={showContentPcWhenFullyLoaded}
+      ref={conteudoPc}
+      className="conteudo_pc"
+    >
       <Back />
 
       {/* Top-Area */}

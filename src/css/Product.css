@@ -786,6 +786,13 @@ body {
     width: 100%;
     margin-top: 10px;
     flex-direction: column;
+
+    opacity: 0%;
+    transition: 0.2s all;
+}
+
+.conteudo_pc.active {
+    opacity: 100%;
 }
 
 
@@ -1820,7 +1827,14 @@ button[class*=btn] {
     width: 100%;
     margin-top: 10px;
     flex-direction: column;
+
+    opacity: 0%;
+    transition: 0.2s all;
     
+}
+
+.conteudo_mobile.active {
+    opacity: 100%;
 }
 
 

@@ -75,7 +75,6 @@ const Product = ({
         });
       };
       checkIfProductIsFavorited();
-      console.log(favoritedProductsIds);
     }
   }, [
     cartProducts,
@@ -226,8 +225,12 @@ const Product = ({
   };
 
   const handleBuyClick = () => {
-    navigate(`/product/${productId}`);
-    window.scrollTo(0, 0);
+    const getMainContentDiv = document.querySelector(".conteudo");
+    getMainContentDiv.classList.remove("active");
+    setTimeout(() => {
+      navigate(`/product/${productId}`);
+      window.scrollTo(0, 0);
+    }, 100)
   };
 
   const handleShoppingCartClick = () => {
