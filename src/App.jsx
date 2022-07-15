@@ -97,15 +97,17 @@ const App = () => {
           productAlreadyFavorite = true;
       }
 
+      let newFavoriteProducts = [newProduct, ...favoriteProducts];
+
+      //If the product is already set as favorite, change the default value of newFavoriteProducts
       if (productAlreadyFavorite) {
-        const newFavoriteProducts = favoriteProducts.filter(
+        newFavoriteProducts = favoriteProducts.filter(
           (product) =>
             product.productId.toString() !== newProduct.productId.toString()
         );
-        setFavoriteProducts(newFavoriteProducts);
-        return;
       }
-      const newFavoriteProducts = [newProduct, ...favoriteProducts];
+
+      console.log(newFavoriteProducts);
       setFavoriteProducts(newFavoriteProducts);
     };
 
@@ -166,7 +168,7 @@ const App = () => {
   }, []); //DON'T INCLUDE "cartProducts" HERE, IT BREAKS THE CODE FOR SOME REASON
 
   const handleAddCartProduct = (newProduct) => {
-    if (!newProduct) return;
+    if (!newProduct) return { successful: false };
     if (cartProducts && cartProducts.length !== 0) {
       const checkIfProductIsAlreadyOnCart = cartProducts.filter(
         (product) => product.productId === newProduct.productId
@@ -183,8 +185,13 @@ const App = () => {
     localStorage.setItem("cartProducts", JSON.stringify(newProduct));
   };
 
-  const handleRemoveCartProduct = async (removedProductId) => {
-    if (!removedProductId) return;
+  const handleRemoveCartProduct = async (removedProduct) => {
+    if (!removedProduct) return { successful: false };
+
+    let removedProductId = removedProduct.productId || removedProduct;
+
+    console.log(removedProductId);
+
     const newCartProducts = cartProducts.filter(
       (product) => product.productId !== removedProductId
     );
@@ -246,8 +253,8 @@ const App = () => {
           button: {
             title: "Fazer checkout",
           },
-          removeProduct: async () => {
-            return handleRemoveCartProduct();
+          removeProduct: async (removeProduct) => {
+            return handleRemoveCartProduct(removeProduct);
           },
         };
         break;

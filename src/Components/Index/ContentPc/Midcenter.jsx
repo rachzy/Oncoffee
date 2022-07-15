@@ -26,7 +26,7 @@ const Midcenter = ({
   const { serverUrl, isLogged, displayError } = useContext(GlobalServerContext);
 
   const [slideProductsIds, setSlideProductsIds] = useState([]);
-  const [favoritedProductsIds, setFavoritedProductsIds] = useState();
+  const [favoritedProductsIds, setFavoritedProductsIds] = useState([]);
 
   useEffect(() => {
     const fetchSlides = async () => {
@@ -34,27 +34,32 @@ const Midcenter = ({
         const { data } = await Axios.get(
           `${serverUrl}/ads/getslides/featuredpromotions`
         );
-
+  
         if (data.isError) {
           displayError(data.errorCode, data.errno);
           return;
         }
-
+  
         setSlideProductsIds(data);
       } catch (err) {
         return displayError(err.message, "SERVER_CONN_FAILED");
       }
     };
     fetchSlides();
+  }, [displayError, serverUrl])
 
+  useEffect(() => {
     const fetchFavoritedProductsIds = async () => {
+      if (!favoriteProducts || favoriteProducts.length === 0) return;
       const getFavoriteProductsIds = favoriteProducts.map((product) => {
-        return product.productId;
+        return {
+          productId: product.productId,
+        };
       });
       setFavoritedProductsIds(getFavoriteProductsIds);
     };
     fetchFavoritedProductsIds();
-  }, [displayError, isLogged, serverUrl]);
+  }, [displayError, isLogged, serverUrl, favoriteProducts]);
 
   return (
     <main id="midcenter" className="midcenter">

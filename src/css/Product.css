@@ -1466,15 +1466,6 @@ button[class*=btn] {
 
 
 
-.infos_text {
-    width: 100%;
-    margin-top: 80px;
-    display: flex;
-    
-    align-items: center;
-    justify-content: center;
-}
-
 .redes_sociais {
     width: 30%;
     display: flex;

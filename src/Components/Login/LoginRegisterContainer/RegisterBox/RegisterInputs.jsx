@@ -222,7 +222,7 @@ const RegisterInputs = () => {
   //name: the name of the input where the error will be modified
   //text: the error text that will be set (for custom errors)
   //enabled: boolean, it determines the "enabled" option value of the error
-  const SetErrorObject = (errorType, name, text, enabled) => {
+  const setErrors = (errorType, name, text, enabled) => {
     let newInputData;
 
     switch (errorType) {
@@ -322,10 +322,10 @@ const RegisterInputs = () => {
       const valueLength = input.value.length;
 
       if (valueLength < input.minlength || valueLength > input.maxlength)
-        return SetErrorObject("length", name);
+        return setErrors("length", name);
 
       //Clear the input's error, since the value length is valid
-      return SetErrorObject("clear", name);
+      return setErrors("clear", name);
     });
   };
 
@@ -358,7 +358,7 @@ const RegisterInputs = () => {
           if (checkIfValueHasScore.length === 1) {
             if (isNaN(input.value) || input.value.length !== 11)
               //If the value is not a number or if it doesn't have exactly 11 characters, then it's definitely not a CPF
-              return SetErrorObject("emailcpf");
+              return setErrors("emailcpf");
             return null; //If it does, then it's a valid CPF, so return
           }
 
@@ -366,14 +366,14 @@ const RegisterInputs = () => {
           if (checkIfValueHasScore.length === 2) {
             const cutScore = input.value.replace("-", "");
             if (isNaN(cutScore)) {
-              return SetErrorObject("emailcpf");
+              return setErrors("emailcpf");
             }
             return null; //If every condition returned as false, then the cpf is valid
           }
 
           //If the Array length is more than 2, then the CPF is not valid
           if (checkIfValueHasScore.length > 2)
-            return SetErrorObject("emailcpf");
+            return setErrors("emailcpf");
           return null; //If it's not, then the CPF is valid
         });
         break;
@@ -407,14 +407,14 @@ const RegisterInputs = () => {
     }
 
     if (originalInput.value !== verifyingInput.value) {
-      SetErrorObject("matching", verifyingInput.name); //If the values don't match, set an error
+      setErrors("matching", verifyingInput.name); //If the values don't match, set an error
       return false;
     }
   };
 
   //Function to validate an input by checking it errors
   const validateErrors = (name) => {
-    SetErrorObject("clear", name);
+    setErrors("clear", name);
     verifyLength(name);
     verifyValue(name);
   };
@@ -499,7 +499,7 @@ const RegisterInputs = () => {
       try {
         const { data } = await Axios.post(`${serverUrl}/account/register`, {
           name: name,
-          lastname: lastname,
+          lastName: lastname,
           emailcpf: emailcpf,
           password: password,
         });
@@ -510,7 +510,7 @@ const RegisterInputs = () => {
           const errorCode = data.errorCode;
           switch (errorCode) {
             case "EMAIL_ALREADY_IN_USE":
-              SetErrorObject(
+              setErrors(
                 "custom",
                 "email",
                 "Esse e-mail ou CPF já está em uso!",
@@ -518,7 +518,7 @@ const RegisterInputs = () => {
               );
               break;
             case "INVALID_EMAIL":
-              SetErrorObject(
+              setErrors(
                 "custom",
                 "email",
                 "Esse e-mail ou CPF é inválido",

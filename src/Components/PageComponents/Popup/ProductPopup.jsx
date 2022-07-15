@@ -1,7 +1,7 @@
 import React, { useContext, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
-import {GlobalServerContext} from "../../../App";
+import { GlobalServerContext } from "../../../App";
 
 const ProductPopup = ({
   popupType,
@@ -16,7 +16,7 @@ const ProductPopup = ({
 }) => {
   const productDiv = useRef(null);
   const navigate = useNavigate();
-  const {displayError} = useContext(GlobalServerContext);
+  const { displayError } = useContext(GlobalServerContext);
 
   const handleButtonClick = () => {
     navigate(`/product/${productId}`);
@@ -25,54 +25,22 @@ const ProductPopup = ({
 
   //When the user clicks in the X Button in front of the product
   const handleXClick = async () => {
-    let removeProductBtn;
+    productDiv.current.classList.add("disabled");
+    try {
+      const query = await removeProduct({ productId: productId });
 
-    //Check if there's a button of "Remove Favorite" (Default Heart Icon) for that product loaded in the page
-
-    switch (popupType) {
-      case "cartproducts":
-        removeProductBtn = document.querySelector(
-          `#removeProductBtnshop${productId}`
-        );
-        break;
-      case "favoritedproducts":
-        removeProductBtn = document.querySelector(
-          `#removeProductBtnfav${productId}`
-        );
-        break;
-      default:
-        break;
-    }
-      
-    if (!removeProductBtn || removeProductBtn === null) {
-      productDiv.current.classList.add("disabled");
-      try {
-        const query = await removeProduct({ productId });
-        
-        if(!query.successful) {
-          return productDiv.current.classList.remove("disabled");
-        }
-        productDiv.current.style.display = "none";
-      } catch(err) {
-        displayError(err, err.code);
+      if (!query.successful) {
         return productDiv.current.classList.remove("disabled");
       }
-    } else {
-      removeProductBtn.click();
 
-      productDiv.current.classList.add("disabled");
       setTimeout(() => {
         //When the animation is over, set the product display as none
         productDiv.current.style.display = "none";
       }, 300);
+    } catch (err) {
+      displayError(err, err.code);
+      return productDiv.current.classList.remove("disabled");
     }
-
-    //Add the class "disabled" to trigger the product "disappearing" transition
-
-    setTimeout(() => {
-      //When the animation is over, set the product display as none
-      productDiv.current.style.display = "none";
-    }, 300);
   };
 
   //Return price with ",00" if necessary
