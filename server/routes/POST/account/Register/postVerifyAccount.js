@@ -18,6 +18,7 @@ const cookieParser = require("cookie-parser");
 router.use(cookieParser());
 
 const Accounts = require("../../../../models/accounts");
+const Users = require("../../../../models/users");
 
 router.post("/", async (req, res) => {
   const { userId, registerToken, verificationCode } = req.body;
@@ -36,14 +37,15 @@ router.post("/", async (req, res) => {
       return sendError(res, "ACCOUNT_NOT_FOUND");
     }
 
-    const { verified, securityToken1, securityToken2 } =
-      getAccountData;
+    const { verified, securityToken1, securityToken2 } = getAccountData;
 
     if (verified) {
       return sendError(res, "ACCOUNT_ALREADY_VERIFIED");
     }
 
-    if (verificationCode.toString() !== getAccountData.verificationCode.toString()) {
+    if (
+      verificationCode.toString() !== getAccountData.verificationCode.toString()
+    ) {
       return sendError(res, "INVALID_CODE");
     }
 
@@ -67,8 +69,11 @@ router.post("/", async (req, res) => {
       httpOnly: true,
     });
 
+    const getUserData = await Users.findOne({ userId: userId });
+
     res.send({
       queryStatus: 200,
+      userData: getUserData,
     });
   } catch (err) {
     return sendError(res, err.message, err.code);

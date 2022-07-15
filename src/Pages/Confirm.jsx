@@ -88,7 +88,7 @@ const Confirm = ({ setHeaderPageTitle, pageTitle }) => {
   useEffect(() => {
     const verifyIfSearchParamsAreValid = async () => {
       const validateParamsCon = await Axios.get(
-        `${getGlobalServerContext.serverUrl}/account/validateregisterparams/${userId}/${registerToken}`
+        `${getGlobalServerContext.serverUrl}/account/register/validateparams/${userId}/${registerToken}`
       ).catch((err) => {
         return setErrorMessage(`Ocorreu um erro interno do servidor: ${err}`);
       });
