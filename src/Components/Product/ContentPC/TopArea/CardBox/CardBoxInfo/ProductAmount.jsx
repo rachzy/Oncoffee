@@ -1,8 +1,8 @@
 import React from "react";
 
-const ProductAmount = ({ amount, setAmount, productRemainingAmount }) => {
+const ProductAmount = ({ amount, setAmount, productStockAmount }) => {
   const increaseAmount = () => {
-    if(amount >= productRemainingAmount) return;
+    if(amount >= productStockAmount) return;
 
     if(!amount) {
       return setAmount(1);
@@ -24,7 +24,7 @@ const ProductAmount = ({ amount, setAmount, productRemainingAmount }) => {
     }
 
     if (isNaN(value) || value === "0") return;
-    if(parseInt(value) > productRemainingAmount) return;
+    if(parseInt(value) > productStockAmount) return;
 
     setAmount(parseInt(value));
   };
@@ -60,7 +60,7 @@ const ProductAmount = ({ amount, setAmount, productRemainingAmount }) => {
         </button>
       </div>
 
-      <h3>{productRemainingAmount} Itens disponíveis</h3>
+      <h3>{productStockAmount} Itens disponíveis</h3>
     </div>
   );
 };

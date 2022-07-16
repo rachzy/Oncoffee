@@ -15,13 +15,10 @@ const ContentMobile = ({
   amount,
   setAmount,
   favoriteProducts,
-  handleFavoriteProductsChange,
+  handleAddToCartButtonClick,
+  handleHeartClick,
 }) => {
   const conteudoMobile = useRef(null);
-
-  const handleHeartClick = () => {
-    handleFavoriteProductsChange(product);
-  };
 
   const showContentMobileWhenFullyLoaded = () => {
     if (!conteudoMobile) return;

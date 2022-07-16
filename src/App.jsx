@@ -107,7 +107,6 @@ const App = () => {
         );
       }
 
-      console.log(newFavoriteProducts);
       setFavoriteProducts(newFavoriteProducts);
     };
 
@@ -169,6 +168,7 @@ const App = () => {
 
   const handleAddCartProduct = (newProduct) => {
     if (!newProduct) return { successful: false };
+    
     if (cartProducts && cartProducts.length !== 0) {
       const checkIfProductIsAlreadyOnCart = cartProducts.filter(
         (product) => product.productId === newProduct.productId
@@ -189,8 +189,6 @@ const App = () => {
     if (!removedProduct) return { successful: false };
 
     let removedProductId = removedProduct.productId || removedProduct;
-
-    console.log(removedProductId);
 
     const newCartProducts = cartProducts.filter(
       (product) => product.productId !== removedProductId

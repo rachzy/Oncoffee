@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import Axios from "axios";
 
@@ -16,11 +16,12 @@ const Product = ({
   cartProducts,
   handleAddCartProduct,
 }) => {
+  const navigate = useNavigate();
   useEffect(() => {
     setHeaderPageTitle(pageTitle);
   }, [pageTitle, setHeaderPageTitle]);
 
-  const { serverUrl, displayError } = useContext(GlobalServerContext);
+  const { serverUrl, displayError, isLogged } = useContext(GlobalServerContext);
 
   const params = useParams();
   const { productId } = params;
@@ -50,6 +51,25 @@ const Product = ({
   //State that controls the amount of products that will be bought by the user
   const [amount, setAmount] = useState(1);
 
+  const handleHeartClick = () => {
+    if (!isLogged) {
+      return navigate("/login");
+    }
+    handleFavoriteProductsChange(product);
+  };
+
+  const handleAddToCartButtonClick = () => {
+    const newProduct = {
+      productId: product.productId,
+      productName: product.productTitle,
+      productDescription: product.productDescription,
+      productImgSrc: product.productImage,
+      productImgAlt: product.productTitle,
+      productFinalPrice: product.productPrice.finalPrice,
+    };
+    handleAddCartProduct(newProduct);
+  };
+
   if (!product) {
     return null;
   }
@@ -60,7 +80,8 @@ const Product = ({
         favoriteProducts={favoriteProducts}
         handleFavoriteProductsChange={handleFavoriteProductsChange}
         cartProducts={cartProducts}
-        handleAddCartProduct={handleAddCartProduct}
+        handleAddToCartButtonClick={ handleAddToCartButtonClick}
+        handleHeartClick={handleHeartClick}
         amount={amount}
         setAmount={setAmount}
       />
@@ -69,7 +90,8 @@ const Product = ({
         amount={amount}
         setAmount={setAmount}
         favoriteProducts={favoriteProducts}
-        handleFavoriteProductsChange={handleFavoriteProductsChange}
+        handleAddToCartButtonClick={ handleAddToCartButtonClick}
+        handleHeartClick={handleHeartClick}
       />
     </>
   );

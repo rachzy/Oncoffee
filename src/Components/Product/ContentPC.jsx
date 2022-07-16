@@ -24,16 +24,13 @@ const ContentPC = ({
   favoriteProducts,
   handleFavoriteProductsChange,
   cartProducts,
-  handleAddCartProduct,
+  handleAddToCartButtonClick,
+  handleHeartClick,
   amount,
   setAmount,
 }) => {
   const conteudoPc = useRef(null);
   const [productRate, setProductRate] = useState(0);
-
-  const handleHeartClick = () => {
-    handleFavoriteProductsChange(product);
-  };
 
   const showContentPcWhenFullyLoaded = () => {
     if (!conteudoPc) return;
@@ -71,11 +68,11 @@ const ContentPC = ({
           productPrice={product.productPrice}
           amount={amount}
           setAmount={setAmount}
-          productRemainingAmount={product.productRemainingAmount}
+          productStockAmount={product.productStockAmount}
           freightCost={product.productPrice.freight}
           handleFavoriteProductsChange={handleFavoriteProductsChange}
           cartProducts={cartProducts}
-          handleAddCartProduct={handleAddCartProduct}
+          handleAddToCartButtonClick={handleAddToCartButtonClick}
         />
       </TopArea>
 
