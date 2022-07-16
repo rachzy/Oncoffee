@@ -42,7 +42,7 @@ const App = () => {
 
         setFavoriteProducts(data);
       } catch (err) {
-        displayError(err, err.response.code);
+        displayError(err.message, err.code);
       }
     };
 
@@ -90,18 +90,23 @@ const App = () => {
       let productAlreadyFavorite = false;
 
       for (let i = 0; i <= favoriteProducts.length - 1; i++) {
-        if (newProduct.productId.toString() === favoriteProducts[i].productId.toString())
+        if (
+          newProduct.productId.toString() ===
+          favoriteProducts[i].productId.toString()
+        )
           productAlreadyFavorite = true;
       }
 
+      let newFavoriteProducts = [newProduct, ...favoriteProducts];
+
+      //If the product is already set as favorite, change the default value of newFavoriteProducts
       if (productAlreadyFavorite) {
-        const newFavoriteProducts = favoriteProducts.filter(
-          (product) => product.productId.toString() !== newProduct.productId.toString()
+        newFavoriteProducts = favoriteProducts.filter(
+          (product) =>
+            product.productId.toString() !== newProduct.productId.toString()
         );
-        setFavoriteProducts(newFavoriteProducts);
-        return;
       }
-      const newFavoriteProducts = [newProduct, ...favoriteProducts];
+
       setFavoriteProducts(newFavoriteProducts);
     };
 
@@ -162,7 +167,8 @@ const App = () => {
   }, []); //DON'T INCLUDE "cartProducts" HERE, IT BREAKS THE CODE FOR SOME REASON
 
   const handleAddCartProduct = (newProduct) => {
-    if (!newProduct) return;
+    if (!newProduct) return { successful: false };
+    
     if (cartProducts && cartProducts.length !== 0) {
       const checkIfProductIsAlreadyOnCart = cartProducts.filter(
         (product) => product.productId === newProduct.productId
@@ -179,8 +185,11 @@ const App = () => {
     localStorage.setItem("cartProducts", JSON.stringify(newProduct));
   };
 
-  const handleRemoveCartProduct = async (removedProductId) => {
-    if (!removedProductId) return;
+  const handleRemoveCartProduct = async (removedProduct) => {
+    if (!removedProduct) return { successful: false };
+
+    let removedProductId = removedProduct.productId || removedProduct;
+
     const newCartProducts = cartProducts.filter(
       (product) => product.productId !== removedProductId
     );
@@ -242,8 +251,8 @@ const App = () => {
           button: {
             title: "Fazer checkout",
           },
-          removeProduct: async () => {
-            return handleRemoveCartProduct();
+          removeProduct: async (removeProduct) => {
+            return handleRemoveCartProduct(removeProduct);
           },
         };
         break;
@@ -312,6 +321,7 @@ const App = () => {
                   handleAddCartProduct={handleAddCartProduct}
                   handleRemoveCartProduct={handleRemoveCartProduct}
                   cartProducts={cartProducts}
+                  favoriteProducts={favoriteProducts}
                 />
               }
             />

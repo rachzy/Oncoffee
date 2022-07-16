@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 
 import "../../css/ProductResponsive.css";
 import CardBoxBrand from "./ContentMobile/CardBoxBrand";
@@ -15,14 +15,24 @@ const ContentMobile = ({
   amount,
   setAmount,
   favoriteProducts,
-  handleFavoriteProductsChange,
+  handleAddToCartButtonClick,
+  handleHeartClick,
 }) => {
-  const handleHeartClick = () => {
-    handleFavoriteProductsChange(product);
+  const conteudoMobile = useRef(null);
+
+  const showContentMobileWhenFullyLoaded = () => {
+    if (!conteudoMobile) return;
+    setTimeout(() => {
+      conteudoMobile.current.classList.add("active");
+    }, 50);
   };
 
   return (
-    <section className="conteudo_mobile">
+    <section
+      onLoad={showContentMobileWhenFullyLoaded}
+      ref={conteudoMobile}
+      className="conteudo_mobile"
+    >
       <Back />
 
       <main className="top_mobile">
@@ -54,7 +64,6 @@ const ContentMobile = ({
         />
 
         <Comments productComments={product.productComments} />
-        
       </main>
     </section>
   );

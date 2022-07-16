@@ -8,7 +8,7 @@ const MoreDetails = ({ productDetails }) => {
       {productDetails.map((detail) => {
         return (
           <MoreBox
-            key={detail.id}
+            key={detail["_id"]}
             title={detail.title}
             description={detail.description}
           />

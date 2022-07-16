@@ -6,9 +6,9 @@ const sendError = require("../../../globalFunctions/sendError.js");
 const Searches = require("../../../models/searches");
 
 //Get just a single product from the database by it's id
-router.get("/:userId", async (req, res) => {
+router.get("/", async (req, res) => {
   // const { userId } = req.cookies;
-  const { userId } = req.params;
+  const { userId } = req.cookies;
 
   if (!userId) return;
 

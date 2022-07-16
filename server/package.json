@@ -28,7 +28,6 @@
     "hpp": "^0.2.3",
     "jest": "^27.5.1",
     "morgan": "^1.10.0",
-    "mysql2": "^2.3.3",
     "nodemailer": "^6.7.3",
     "nodemon": "^2.0.15",
     "rate-limiter-flexible": "^2.3.6",

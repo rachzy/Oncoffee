@@ -50,10 +50,10 @@ const FavoritedProducts = ({
                 key={p.productId}
                 classPrefix="fav"
                 productId={p.productId}
-                productName={p.productName}
-                productImgSrc={p.productImgSrc}
-                productImgAlt={p.productImgAlt}
-                productFinalPrice={p.productFinalPrice}
+                productName={p.productTitle}
+                productImgSrc={p.productImage}
+                productImgAlt={p.productTitle}
+                productFinalPrice={p.productPrice.finalPrice}
                 handleFavoritedProductsChange={handleFavoritedProductsChange}
               />
             );

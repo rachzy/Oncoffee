@@ -12,8 +12,7 @@ const Product = ({
   productId,
   productName,
   productDiscount,
-  productImgSrc,
-  productImgAlt,
+  productImage,
   productFinalPrice,
   productDescription,
   productGrade,
@@ -61,34 +60,19 @@ const Product = ({
       //and display a "favorited heart" icon instead of a default one if it is
       if (!isLogged) return;
       const checkIfProductIsFavorited = async () => {
-        if (!favoritedProductsIds) return;
-        //Each value of this Array corresponds to a single productId
-        const splitProductIds = favoritedProductsIds.toString().split(",");
+        if (!favoritedProductsIds || favoritedProductsIds.length === 0) return;
 
-        //If "splitProductIds" is not null, that means that there are more than one product
-        if (splitProductIds) {
-          splitProductIds.forEach((pId) => {
-            if (!pId || pId === null || pId === "") return;
-            if (pId === productId.toString()) {
-              if (
-                favHeartIcon.current === null ||
-                defaultHeartIcon.current === null
-              )
-                return;
-              //If the product is already favorited, display a favorited heart instead of a default one
-              favHeartIcon.current.classList.add("active");
-              defaultHeartIcon.current.classList.remove("active");
-            }
-          });
-          return;
-        }
-
-        //If the program did not return, that means that there's just a single product (that will correspond to "data" value)
-        if (favoritedProductsIds === productId.toString()) {
+        favoritedProductsIds.forEach((product) => {
+          if (product.productId.toString() !== productId.toString()) return;
+          if (
+            favHeartIcon.current === null ||
+            defaultHeartIcon.current === null
+          )
+            return;
           //If the product is already favorited, display a favorited heart instead of a default one
           favHeartIcon.current.classList.add("active");
           defaultHeartIcon.current.classList.remove("active");
-        }
+        });
       };
       checkIfProductIsFavorited();
     }
@@ -193,7 +177,12 @@ const Product = ({
               element.classList.remove("active");
             });
 
-            const newFavoritedProductsIds = `${favoritedProductsIds},${productId}`;
+            let newFavoritedProductsIds = [
+              ...favoritedProductsIds,
+              {
+                productId: productId,
+              },
+            ];
             setFavoriteProductsIds(newFavoritedProductsIds);
           } else {
             defaultHeartIconElements.forEach((element) => {
@@ -203,9 +192,10 @@ const Product = ({
               element.classList.add("active");
             });
 
-            const newFavoritedProductsIds = favoritedProductsIds.replace(
-              `${productId}`,
-              ""
+            const newFavoritedProductsIds = favoritedProductsIds.filter(
+              (product) => {
+                return product.productId !== productId;
+              }
             );
             setFavoriteProductsIds(newFavoritedProductsIds);
           }
@@ -215,17 +205,17 @@ const Product = ({
 
       const newProduct = {
         productId: productId,
-        productName: productName,
+        productTitle: productName,
         productDescription: productDescription,
-        productImgSrc: productImgSrc,
-        productImgAlt: productImgAlt,
-        productFinalPrice: productFinalPrice,
+        productImage: productImage,
+        productImgAlt: productName,
+        productPrice: { finalPrice: productFinalPrice },
       };
       changeProductClass();
       try {
-        const query = await handleFavoritedProductsChange(newProduct);
+        const { successful } = await handleFavoritedProductsChange(newProduct);
 
-        if (!query.successful) return changeProductClass();
+        if (!successful) return changeProductClass();
       } catch (err) {
         displayError(err, err.code);
         changeProductClass();
@@ -235,8 +225,12 @@ const Product = ({
   };
 
   const handleBuyClick = () => {
-    navigate(`/product/${productId}`);
-    window.scrollTo(0, 0);
+    const getMainContentDiv = document.querySelector(".conteudo");
+    getMainContentDiv.classList.remove("active");
+    setTimeout(() => {
+      navigate(`/product/${productId}`);
+      window.scrollTo(0, 0);
+    }, 100)
   };
 
   const handleShoppingCartClick = () => {
@@ -247,8 +241,8 @@ const Product = ({
         productId: productId,
         productName: productName,
         productDescription: productDescription,
-        productImgSrc: productImgSrc,
-        productImgAlt: productImgAlt,
+        productImgSrc: productImage,
+        productImgAlt: productName,
         productFinalPrice: productFinalPrice,
       };
       return handleAddCartProduct(newCartProduct);
@@ -314,8 +308,8 @@ const Product = ({
       </div>
       <div className="produto_img">
         <img
-          src={require(`../../../../../imgs/${productImgSrc}`)}
-          alt={productImgAlt}
+          src={require(`../../../../../imgs/${productImage}`)}
+          alt={productName}
         />
       </div>
       <div className="produto_text1">

@@ -26,7 +26,7 @@ router.get("/", async (req, res) => {
 
   try {
     const account = await Accounts.findOne({ accountId: userId });
-    if (account.length !== 1) return errorCallback("ACCOUNT_NOT_FOUND", "");
+    if (!account) return errorCallback("ACCOUNT_NOT_FOUND", "");
 
     const { securityToken1, securityToken2 } = account;
 
@@ -36,12 +36,12 @@ router.get("/", async (req, res) => {
 
     const user = await Users.findOne({ userId: userId });
     res.send({
-      queryStatus: 200,
+      queryStatus: 200, 
       isLoggedIn: true,
       userData: user,
     });
   } catch (err) {
-    return errorCallback(err.code, err.errno);
+    return errorCallback(err.message, err.code);
   }
 });
 

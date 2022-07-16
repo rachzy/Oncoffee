@@ -9,23 +9,23 @@ const DatabaseLiLine = ({
   function loadCategoriesOrSubcategories() {
     let finalReturn;
     if (loadSubcategories && category && category.length !== 0) {
-      const splitSubCategories = category.categorySubcategories.split(",");
+      const { categorySubcategories } = category;
 
       finalReturn = () => {
-        const mapSplitSubCategories = splitSubCategories.map((subcategory) => {
-          const sliceSubcategoryName = subcategory
-            .replace("[", "")
-            .replace("]", "");
-          return (
-            <li key={category.categoryId + sliceSubcategoryName}>
-              <a href={category.categoryId}>{sliceSubcategoryName}</a>
-            </li>
-          );
-        });
-        return mapSplitSubCategories;
+        const mapCategorySubcategories = categorySubcategories.map(
+          (subcategory) => {
+            return (
+              <li key={subcategory["_id"]}>
+                <a href={category.categoryId}>{subcategory.name}</a>
+              </li>
+            );
+          }
+        );
+        return mapCategorySubcategories;
       };
     } else {
       finalReturn = () => {
+        if (!category) return;
         const categoryMap = category.map((c) => {
           return (
             <li key={c.categoryId}>
@@ -39,7 +39,7 @@ const DatabaseLiLine = ({
     return finalReturn();
   }
   return (
-    <ul key={elementKey}>
+    <ul key={`${elementKey}`}>
       <a href="/">{children}</a>
       {loadCategoriesOrSubcategories()}
     </ul>

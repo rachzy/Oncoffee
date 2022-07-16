@@ -25,7 +25,7 @@ router.post("/", async (req, res) => {
     const getUserWithThatEmail = await Accounts.findOne({ emailcpf: emailcpf });
 
     if (!getUserWithThatEmail) {
-      return sendError(res, "INVALID_CREDENTIALS", "EMAIL_NOT_FOUND");
+      return sendError(res, "INVALID_CREDENTIALS");
     }
 
     if (!getUserWithThatEmail.verified) {
@@ -38,7 +38,7 @@ router.post("/", async (req, res) => {
     );
 
     if (!comparePasswords) {
-      return sendError(res, "INALID_CREDENTIALS", "WRONG_PASSWORD");
+      return sendError(res, "INVALID_CREDENTIALS");
     }
 
     const { accountId, securityToken1, securityToken2 } = getUserWithThatEmail;

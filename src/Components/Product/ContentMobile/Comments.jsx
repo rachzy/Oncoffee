@@ -44,6 +44,7 @@ const Comments = ({ productComments }) => {
     setComments(filterCommentsByStar);
     setAmountOfComments(5);
   };
+  
   return (
     <main className="comentarios">
       <main className="stars_mobile">

@@ -25,13 +25,13 @@ const Comment = ({title, description, rate, pfp, level}) => {
     
           //If the number is not integer
           return (
-            <>
+            <div style={{display: "inline-block"}} key={number}>
               {/* Return the full star by itself */}
-              <i key={number} className="fa fa-star" aria-hidden="true"></i>
+              <i className="fa fa-star" aria-hidden="true" />
     
               {/* Return a half star to represent the 0.5 */}
-              <i key={`${number}-half`} className="fa fa-star-half" aria-hidden="true"></i>
-            </>
+              <i className="fa fa-star-half" aria-hidden="true" />
+            </div>
           );
         });
       };

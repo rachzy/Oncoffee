@@ -129,11 +129,11 @@ const Popup = ({ popupContent }) => {
                 key={product.productId}
                 popupType={popupContent.type}
                 productId={product.productId}
-                productName={product.productName}
+                productName={product.productName || product.productTitle}
                 productDescription={product.productDescription}
-                productFinalPrice={product.productFinalPrice}
-                productImgSrc={product.productImgSrc}
-                productImgAlt={product.productImgAlt}
+                productFinalPrice={product.productFinalPrice || product.productPrice.finalPrice}
+                productImgSrc={product.productImgSrc || product.productImage}
+                productImgAlt={product.productImgAlt || product.productTitle}
                 closePopupBox={handleCloseIconClick}
                 removeProduct={popupContent.removeProduct}
               />

@@ -12,11 +12,11 @@ const FeaturedPromotions = ({slideProductsIds}) => {
           return (
             <ProductCard
               key={product.productId}
-              productName={product.productName}
-              imgSrc={product.productImgSrc}
-              imgAlt={product.productImgAlt}
-              realPrice={product.productPrice}
-              discountPercentage={product.productDiscount}
+              productName={product.productTitle}
+              imgSrc={product.productImage}
+              imgAlt={product.productTitle}
+              realPrice={product.productPrice.realPrice}
+              discountPercentage={product.productPrice.discount}
               endDate={product.slideEndDate}
               hrefPage={`./product/${product.productId}`}
             />

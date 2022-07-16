@@ -12,8 +12,8 @@ router.post("/", async (req, res) => {
   // const { userId } = req.body;
   const { searchValue } = req.body;
 
-  if (!userId || !searchValue || userId === "" || searchValue === "") {
-    return sendError(res, "INVAID_PARAMS");
+  if (!userId || !searchValue) {
+    return sendError(res, "INVALID_PARAMS");
   }
 
   const newSearch = new Searches({

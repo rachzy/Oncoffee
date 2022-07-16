@@ -59,7 +59,7 @@ const ConteudoSearch = () => {
     //Get all the search results according to what the user typed from the database
     try {
       const { data } = await Axios.get(
-        `${serverUrl}/getproductsforsearches/${InputSearchProductValue.searchValue}`
+        `${serverUrl}/products/getsearches/${InputSearchProductValue.searchValue}`
       );
 
       if (data.isError) return displayError(data.errorCode, data.errno);
@@ -97,9 +97,9 @@ const ConteudoSearch = () => {
         }
         return finalProductsReturn;
       });
-  
+
       if (!finalProductsReturn || finalProductsReturn === "") return;
-  
+
       //Set the final state value
       setAutocompleteShow(finalProductsReturn);
     } catch (err) {
@@ -163,7 +163,7 @@ const ConteudoSearch = () => {
       if (!isLogged) return;
 
       try {
-        const { data } = await Axios.get(`${serverUrl}/getusersearches`);
+        const { data } = await Axios.get(`${serverUrl}/user/getsearches`);
 
         if (data.isError) displayError(data.errorCode, data.errno);
 
@@ -215,7 +215,7 @@ const ConteudoSearch = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const { data } = await Axios.get(`${serverUrl}/getcategories/`);
+        const { data } = await Axios.get(`${serverUrl}/categories/get`);
 
         if (data.isError) return displayError(data.errorCode, data.errno);
 

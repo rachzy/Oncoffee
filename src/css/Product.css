@@ -786,6 +786,13 @@ body {
     width: 100%;
     margin-top: 10px;
     flex-direction: column;
+
+    opacity: 0%;
+    transition: 0.2s all;
+}
+
+.conteudo_pc.active {
+    opacity: 100%;
 }
 
 
@@ -1466,15 +1473,6 @@ button[class*=btn] {
 
 
 
-.infos_text {
-    width: 100%;
-    margin-top: 80px;
-    display: flex;
-    
-    align-items: center;
-    justify-content: center;
-}
-
 .redes_sociais {
     width: 30%;
     display: flex;
@@ -1829,7 +1827,14 @@ button[class*=btn] {
     width: 100%;
     margin-top: 10px;
     flex-direction: column;
+
+    opacity: 0%;
+    transition: 0.2s all;
     
+}
+
+.conteudo_mobile.active {
+    opacity: 100%;
 }
 
 

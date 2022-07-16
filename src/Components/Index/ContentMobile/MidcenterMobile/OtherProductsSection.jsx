@@ -22,7 +22,7 @@ const OtherProductsSection = ({
     const fetchProducts = async () => {
       try {
         const { data } = await Axios.get(
-          `${serverUrl}/getproducts/otherproducts`
+          `${serverUrl}/products/getmany/otherproducts`
         );
 
         if (data.isError) return displayError(data.errorCode, data.errno);
@@ -41,11 +41,11 @@ const OtherProductsSection = ({
       <Product
         key={`${product.productId}-${generateRandomElementId}`}
         productId={product.productId}
-        productName={product.productName}
-        productImgSrc={product.productImgSrc}
-        productImgAlt={product.productImgAlt}
-        productFinalPrice={product.productFinalPrice}
-        productDiscount={product.productDiscount}
+        productName={product.productTitle}
+        productImgSrc={product.productImage}
+        productImgAlt={product.productTitle}
+        productFinalPrice={product.productPrice.finalPrice}
+        productDiscount={product.productPrice.discount}
         setFavoriteProductsIds={setFavoritedProductsIds}
         handleFavoritedProductsChange={handleFavoritedProductsChange}
         favoritedProductsIds={favoritedProductsIds}

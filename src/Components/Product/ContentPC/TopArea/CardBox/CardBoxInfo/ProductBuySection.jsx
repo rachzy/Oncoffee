@@ -1,17 +1,12 @@
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-
-import Axios from "axios";
-
-import { GlobalServerContext } from "../../../../../../App";
 
 const ProductBuySection = ({
   productId,
   cartProducts,
-  handleAddCartProduct,
+  handleAddToCartButtonClick,
 }) => {
   const navigate = useNavigate();
-  const { serverUrl, displayError } = useContext(GlobalServerContext);
 
   const addToCartBtn = useRef(null);
 
@@ -40,21 +35,6 @@ const ProductBuySection = ({
 
   const handleBuyButtonClick = () => {
     navigate(`/purchase/${productId}`);
-  };
-
-  const handleAddToCartButtonClick = async () => {
-    try {
-      const { data } = await Axios.get(`${serverUrl}/getproduct/${productId}`);
-
-      if (data.isError) {
-        return displayError(data.errorCode, data.errno);
-      }
-
-      handleAddCartProduct(data);
-      enableCartProductButton();
-    } catch (err) {
-      displayError(err, err.code);
-    }
   };
 
   return (

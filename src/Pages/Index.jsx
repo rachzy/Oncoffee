@@ -25,6 +25,7 @@ const Index = ({
   handleAddCartProduct,
   handleRemoveCartProduct,
   cartProducts,
+  favoriteProducts,
   handleFavoritedProductsChange,
   handleSetPopupState,
   serverStatus,
@@ -50,6 +51,7 @@ const Index = ({
           handleAddCartProduct={handleAddCartProduct}
           handleRemoveCartProduct={handleRemoveCartProduct}
           cartProducts={cartProducts}
+          favoriteProducts={favoriteProducts}
         />
       </ContentPc>
       <ContentMobile

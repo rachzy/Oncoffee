@@ -16,6 +16,7 @@ const Midcenter = ({
   handleRemoveCartProduct,
   handleSetPopupState,
   cartProducts,
+  favoriteProducts,
 }) => {
   const returnSliderFeaturedPromotions = () => {
     if (slideProductsIds.length === 0) return;
@@ -25,48 +26,40 @@ const Midcenter = ({
   const { serverUrl, isLogged, displayError } = useContext(GlobalServerContext);
 
   const [slideProductsIds, setSlideProductsIds] = useState([]);
-  const [favoritedProductsIds, setFavoritedProductsIds] = useState();
+  const [favoritedProductsIds, setFavoritedProductsIds] = useState([]);
 
   useEffect(() => {
     const fetchSlides = async () => {
       try {
         const { data } = await Axios.get(
-          `${serverUrl}/getslides/featuredpromotions`
+          `${serverUrl}/ads/getslides/featuredpromotions`
         );
-
+  
         if (data.isError) {
           displayError(data.errorCode, data.errno);
           return;
         }
-
+  
         setSlideProductsIds(data);
       } catch (err) {
         return displayError(err.message, "SERVER_CONN_FAILED");
       }
     };
     fetchSlides();
+  }, [displayError, serverUrl])
 
+  useEffect(() => {
     const fetchFavoritedProductsIds = async () => {
-      if (!isLogged) return;
-      try {
-        const { data } = await Axios.get(
-          `${serverUrl}/user/getfavoriteproductsids/`,
-          { withCredentials: true }
-        );
-
-        if (data.isError) {
-          displayError(data.errorCode, data.errno);
-          return;
-        }
-
-        if (!data) return;
-        setFavoritedProductsIds(data);
-      } catch (err) {
-        return displayError(err.message, "SERVER_CONN_FAILED");
-      }
+      if (!favoriteProducts || favoriteProducts.length === 0) return;
+      const getFavoriteProductsIds = favoriteProducts.map((product) => {
+        return {
+          productId: product.productId,
+        };
+      });
+      setFavoritedProductsIds(getFavoriteProductsIds);
     };
     fetchFavoritedProductsIds();
-  }, [displayError, isLogged, serverUrl]);
+  }, [displayError, isLogged, serverUrl, favoriteProducts]);
 
   return (
     <main id="midcenter" className="midcenter">

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 
 import "../../css/Product.css";
 
@@ -24,18 +24,27 @@ const ContentPC = ({
   favoriteProducts,
   handleFavoriteProductsChange,
   cartProducts,
-  handleAddCartProduct,
+  handleAddToCartButtonClick,
+  handleHeartClick,
   amount,
   setAmount,
 }) => {
+  const conteudoPc = useRef(null);
   const [productRate, setProductRate] = useState(0);
 
-  const handleHeartClick = () => {
-    handleFavoriteProductsChange(product);
-  }
+  const showContentPcWhenFullyLoaded = () => {
+    if (!conteudoPc) return;
+    setTimeout(() => {
+      conteudoPc.current.classList.add("active");
+    }, 50);
+  };
 
   return (
-    <section className="conteudo_pc">
+    <section
+      onLoad={showContentPcWhenFullyLoaded}
+      ref={conteudoPc}
+      className="conteudo_pc"
+    >
       <Back />
 
       {/* Top-Area */}
@@ -59,11 +68,11 @@ const ContentPC = ({
           productPrice={product.productPrice}
           amount={amount}
           setAmount={setAmount}
-          productRemainingAmount={product.productRemainingAmount}
+          productStockAmount={product.productStockAmount}
           freightCost={product.productPrice.freight}
           handleFavoriteProductsChange={handleFavoriteProductsChange}
           cartProducts={cartProducts}
-          handleAddCartProduct={handleAddCartProduct}
+          handleAddToCartButtonClick={handleAddToCartButtonClick}
         />
       </TopArea>
 

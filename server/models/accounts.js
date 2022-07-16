@@ -3,44 +3,49 @@ const mongoose = require("mongoose");
 const accountsSchema = new mongoose.Schema({
   accountId: {
     type: Number,
-    required: true
+    required: true,
   },
   emailcpf: {
     type: String,
-    required: true
+    required: true,
   },
   password: {
     type: String,
-    required: true
+    required: true,
   },
   registerToken: {
     type: String,
-    required: true
+    required: true,
   },
   securityToken1: {
     type: String,
-    required: true
+    required: true,
   },
   securityToken2: {
     type: String,
-    required: true
+    required: true,
   },
   verificationEmail: {
     type: String,
-    required: false
+    required: false,
   },
   verificationCode: {
     type: Number,
-    required: true
+    required: true,
   },
   lastSentEmailTimestamp: {
     type: String,
-    required: false
+    required: false,
   },
   verified: {
     type: Boolean,
     required: true,
-    default: false
+    default: false,
+  },
+  dateOfCreation: {
+    type: Date,
+    required: true,
+    default: Date(),
   },
 });
 

@@ -3726,8 +3726,7 @@ body {
 
 .infos_text {
   width: 100%;
-  margin-top: 80px;
-  display: flex;
+  display: none;
 }
 
 .redes_sociais {

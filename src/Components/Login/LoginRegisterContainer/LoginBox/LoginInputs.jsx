@@ -9,7 +9,8 @@ import Error from "../../Error";
 import { GlobalServerContext } from "../../../../App";
 
 const LoginInputs = () => {
-  const {serverUrl, setUserSessionState, setIsLogged} = useContext(GlobalServerContext);
+  const { serverUrl, setUserSessionState, setIsLogged } =
+    useContext(GlobalServerContext);
 
   const navigate = useNavigate();
 
@@ -124,7 +125,7 @@ const LoginInputs = () => {
     const validateInputs = () => {
       const { user, password } = inputValues;
 
-      if (user === "") {
+      if (!user) {
         const options = {
           name: "user",
         };
@@ -132,7 +133,7 @@ const LoginInputs = () => {
         return manageErrorValues("empty", options);
       }
 
-      if (password === "") {
+      if (!password) {
         const options = {
           name: "password",
         };

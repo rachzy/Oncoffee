@@ -67,22 +67,32 @@ const productRate = {
   oneStars: {
     type: Number,
     required: true,
+    default: 0,
   },
   twoStars: {
     type: Number,
     required: true,
+    default: 0,
   },
   threeStars: {
     type: Number,
     required: true,
+    default: 0,
   },
   fourStars: {
     type: Number,
     required: true,
+    default: 0,
   },
   fiveStars: {
     type: Number,
     required: true,
+    default: 0,
+  },
+  finalRate: {
+    type: Number,
+    required: true,
+    default: 0,
   },
 };
 
