@@ -230,7 +230,7 @@ const Product = ({
     setTimeout(() => {
       navigate(`/product/${productId}`);
       window.scrollTo(0, 0);
-    }, 100)
+    }, 100);
   };
 
   const handleShoppingCartClick = () => {
