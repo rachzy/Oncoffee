@@ -26,7 +26,8 @@ const Index = ({
   handleRemoveCartProduct,
   cartProducts,
   favoriteProducts,
-  handleFavoritedProductsChange,
+  handleAddFavoriteProduct,
+  handleRemoveFavoriteProduct,
   handleSetPopupState,
   serverStatus,
 }) => {
@@ -47,7 +48,8 @@ const Index = ({
         <Midcenter
           serverStatus={serverStatus}
           handleSetPopupState={handleSetPopupState}
-          handleFavoritedProductsChange={handleFavoritedProductsChange}
+          handleAddFavoriteProduct={handleAddFavoriteProduct}
+          handleRemoveFavoriteProduct={handleRemoveFavoriteProduct}
           handleAddCartProduct={handleAddCartProduct}
           handleRemoveCartProduct={handleRemoveCartProduct}
           cartProducts={cartProducts}
@@ -64,7 +66,8 @@ const Index = ({
           serverStatus={serverStatus}
           isIndexAlreadyLoaded={isIndexAlreadyLoaded}
           setIndexAlreadyLoaded={setIndexAlreadyLoaded}
-          handleFavoritedProductsChange={handleFavoritedProductsChange}
+          handleAddFavoriteProduct={handleAddFavoriteProduct}
+          handleRemoveFavoriteProduct={handleRemoveFavoriteProduct}
           handleAddCartProduct={handleAddCartProduct}
           handleRemoveCartProduct={handleRemoveCartProduct}
           cartProducts={cartProducts}

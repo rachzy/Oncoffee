@@ -83,38 +83,58 @@ const App = () => {
     let checkConnectionInterval = setInterval(checkServerConnection, 5000);
   }, [serverUrl, serverStatus]);
 
-  const handleFavoriteProductsChange = async (newProduct) => {
-    if (!newProduct || !newProduct.productId) return;
+  //Set as product as favorite
+  const handleAddFavoriteProduct = async (
+    newProduct = {
+      productId: "",
+      productTitle: "",
+      productDescription: "",
+      productImage: "",
+      productPrice: "",
+    }
+  ) => {
+    const {
+      productId,
+      productTitle,
+      productDescription,
+      productImage,
+      productPrice,
+    } = newProduct;
 
-    const changeFavoriteProductsState = () => {
-      let productAlreadyFavorite = false;
+    if (
+      !productId ||
+      !productTitle ||
+      !productDescription ||
+      !productImage ||
+      !productPrice
+    ) {
+      throw "Missing params";
+    }
 
-      for (let i = 0; i <= favoriteProducts.length - 1; i++) {
-        if (
-          newProduct.productId.toString() ===
-          favoriteProducts[i].productId.toString()
-        )
-          productAlreadyFavorite = true;
-      }
+    //Check if the product is not already set as favorite
+    let productAlreadyFavorite = false;
 
-      let newFavoriteProducts = [newProduct, ...favoriteProducts];
+    for (let i = 0; i <= favoriteProducts.length - 1; i++) {
+      if (
+        newProduct.productId.toString() ===
+        favoriteProducts[i].productId.toString()
+      )
+        return (productAlreadyFavorite = true);
+    }
 
-      //If the product is already set as favorite, change the default value of newFavoriteProducts
-      if (productAlreadyFavorite) {
-        newFavoriteProducts = favoriteProducts.filter(
-          (product) =>
-            product.productId.toString() !== newProduct.productId.toString()
-        );
-      }
+    if (productAlreadyFavorite) throw "Esse produto já está favoritado!";
 
+    //Add the product into the state of Favorite Products
+    const changeState = () => {
+      const newFavoriteProducts = [newProduct, ...favoriteProducts];
       setFavoriteProducts(newFavoriteProducts);
     };
 
-    //Post the new product on the database
+    //Query the new product to the database
     const postNewFavoriteProduct = async () => {
       try {
         const { data } = await Axios.post(
-          `${serverUrl}/user/postfavoriteproduct`,
+          `${serverUrl}/user/addfavoriteproduct`,
           {
             productId: newProduct.productId,
           },
@@ -122,7 +142,7 @@ const App = () => {
         );
 
         if (!data.isError && data.queryStatus === 200) {
-          changeFavoriteProductsState();
+          changeState();
           return { successful: true };
         }
 
@@ -142,6 +162,61 @@ const App = () => {
       }
     };
     return postNewFavoriteProduct();
+  };
+
+  //Remove a product from favorite products by its ID
+  const handleRemoveFavoriteProduct = async (removedProduct) => {
+    let productId = removedProduct.productId || removedProduct;
+    console.log(productId)
+    if (!productId) throw "Missing params";
+
+    //Check if there's already a product with that ID set as favorite
+    let productAlreadyFavorite = false;
+
+    for (let i = 0; i <= favoriteProducts.length - 1; i++) {
+      if (productId.toString() === favoriteProducts[i].productId.toString())
+        productAlreadyFavorite = true;
+    }
+
+    if (!productAlreadyFavorite) throw "Esse produto não está favoritado!";
+
+    const changeState = () => {
+      const newFavoriteProducts = favoriteProducts.filter(
+        (product) => product.productId.toString() !== productId.toString()
+      );
+
+      setFavoriteProducts(newFavoriteProducts);
+    };
+
+    //Query the product to the database
+    const deleteFavoriteProduct = async () => {
+      try {
+        const { data } = await Axios.delete(
+          `${serverUrl}/user/removefavoriteproduct/${productId}`,
+          { withCredentials: true }
+        );
+
+        if (!data.isError && data.queryStatus === 200) {
+          changeState();
+          return { successful: true };
+        }
+
+        displayError(
+          "",
+          "",
+          "Um erro interno do servidor ocorreu ao tentar executar essa ação"
+        );
+        return { successful: false };
+      } catch (err) {
+        displayError(
+          "",
+          "",
+          "Um erro interno do servidor ocorreu ao tentar executar essa ação"
+        );
+        return { successful: false };
+      }
+    };
+    return deleteFavoriteProduct();
   };
 
   const [cartProducts, setCartProducts] = useState([]);
@@ -168,7 +243,7 @@ const App = () => {
 
   const handleAddCartProduct = (newProduct) => {
     if (!newProduct) return { successful: false };
-    
+
     if (cartProducts && cartProducts.length !== 0) {
       const checkIfProductIsAlreadyOnCart = cartProducts.filter(
         (product) => product.productId === newProduct.productId
@@ -233,8 +308,8 @@ const App = () => {
           type: "favoriteproducts",
           products: favoriteProducts,
           button: false,
-          removeProduct: async (product) => {
-            return handleFavoriteProductsChange(product);
+          removeProduct: async (productId) => {
+            return handleRemoveFavoriteProduct(productId);
           },
         };
         break;
@@ -301,7 +376,8 @@ const App = () => {
             cartProductsState={cartProducts}
             handleSetPopupState={handleSetPopupState}
             handleRemoveCartProduct={handleRemoveCartProduct}
-            handleFavoritedProductsChange={handleFavoriteProductsChange}
+            handleAddFavoriteProduct={handleAddFavoriteProduct}
+            handleRemoveFavoriteProduct={handleRemoveFavoriteProduct}
           >
             {headerPageTitle}
           </Header>
@@ -316,7 +392,8 @@ const App = () => {
                   serverStatus={serverStatus}
                   isIndexAlreadyLoaded={isIndexAlreadyLoaded}
                   setIndexAlreadyLoaded={setIndexAlreadyLoaded}
-                  handleFavoritedProductsChange={handleFavoriteProductsChange}
+                  handleAddFavoriteProduct={handleAddFavoriteProduct}
+                  handleRemoveFavoriteProduct={handleRemoveFavoriteProduct}
                   handleSetPopupState={handleSetPopupState}
                   handleAddCartProduct={handleAddCartProduct}
                   handleRemoveCartProduct={handleRemoveCartProduct}
@@ -354,7 +431,8 @@ const App = () => {
                   pageTitle="Produto"
                   setHeaderPageTitle={setHeaderPageTitle}
                   favoriteProducts={favoriteProducts}
-                  handleFavoriteProductsChange={handleFavoriteProductsChange}
+                  handleAddFavoriteProduct={handleAddFavoriteProduct}
+                  handleRemoveFavoriteProduct={handleRemoveFavoriteProduct}
                   cartProducts={cartProducts}
                   handleAddCartProduct={handleAddCartProduct}
                 />

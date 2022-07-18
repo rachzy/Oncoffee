@@ -14,11 +14,11 @@ const ProductSection = ({
   hrefPage,
   productLineTitle,
   bottomBtn,
-  favoritedProductsIds,
-  setFavoritedProductsIds,
+  favoriteProducts,
   handleAddCartProduct,
   handleRemoveCartProduct,
-  handleFavoritedProductsChange,
+  handleAddFavoriteProduct,
+  handleRemoveFavoriteProduct,
   handleSetPopupState,
   cartProducts,
 }) => {
@@ -58,12 +58,12 @@ const ProductSection = ({
         productDescription={product.productDescription}
         productGrade={product.productRate.finalRate}
         productTotalSales={product.productTotalOrders}
-        setFavoriteProductsIds={setFavoritedProductsIds}
-        favoritedProductsIds={favoritedProductsIds}
+        favoriteProducts={favoriteProducts}
         handleAddCartProduct={handleAddCartProduct}
         handleRemoveCartProduct={handleRemoveCartProduct}
         handleSetPopupState={handleSetPopupState}
-        handleFavoritedProductsChange={handleFavoritedProductsChange}
+        handleAddFavoriteProduct={handleAddFavoriteProduct}
+        handleRemoveFavoriteProduct={handleRemoveFavoriteProduct}
         cartProducts={cartProducts}
       />
     );
