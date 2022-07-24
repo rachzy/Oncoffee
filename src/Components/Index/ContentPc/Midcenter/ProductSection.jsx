@@ -48,7 +48,7 @@ const ProductSection = ({
   const renderProduct = (product) => {
     return (
       <Product
-        key={`${product.productId}`}
+        key={product.productId}
         productId={product.productId}
         productName={product.productTitle}
         productImage={product.productImage}
@@ -71,91 +71,71 @@ const ProductSection = ({
 
   //Function that will be triggered when bottomBtn is clicked
   const returnMoreProducts = (lastLoadedProduct) => {
-    let productsThatNeedToBeLoaded;
+    let productsThatNeedToBeLoaded = [];
     //The first product that need to be loaded will always be the product number 6.
     //The last product that need to be loaded is the number of the last product that have already been loaded
     //+ 5 (because it will load other 5 products);
     for (let i = 6; i <= lastLoadedProduct + 5; i++) {
-      //This part of the code will create a string inside of "productsThatNeedToBeLoaded" that will be numbers
-      //Separated by comas (Ex: 12,13,14,15,16). The program will read every number that is between comas as
-      //a product number (by splitting it)
-      if (productsThatNeedToBeLoaded) {
-        productsThatNeedToBeLoaded += `,${i}`;
-      } else {
-        productsThatNeedToBeLoaded = `${i}`;
-      }
+      productsThatNeedToBeLoaded.push(i);
     }
-    return (
-      <>
-        {products.map((product) => {
-          //Split the final string by comas
-          const splitProductsThatNeedToBeLoaded =
-            productsThatNeedToBeLoaded.split(",");
+    return products.map((product) => {
+      //Map the split that had been made and now each productId is separated
+      const returnProducts = productsThatNeedToBeLoaded.map((productNumber) => {
+        //If the product that corresponds to that fd doesn't exist, stop the execution
+        if (!products[productNumber - 1] || product !== products[productNumber])
+          return null;
 
-          //Map the split that had been made and now each productId is separated
-          const returnProducts = splitProductsThatNeedToBeLoaded.map(
-            (productNumber) => {
-              //If the product that corresponds to that fd doesn't exist, stop the execution
-              if (
-                !products[productNumber - 1] ||
-                product !== products[productNumber]
-              )
-                return null;
+        //If the product is divisible by 5, that means that 5 products have already been loaded, and
+        //that a new column need to be rendered
+        const checkIfProductIdIsDivisibleBy5 = (productNumber - 1) % 5;
 
-              //If the product is divisible by 5, that means that 5 products have already been loaded, and
-              //that a new column need to be rendered
-              const checkIfProductIdIsDivisibleBy5 = (productNumber - 1) % 5;
+        if (checkIfProductIdIsDivisibleBy5 !== 0) return null;
 
-              if (checkIfProductIdIsDivisibleBy5 !== 0) return null;
+        return (
+          //Load the new column
+          <ProductLine
+            key={`${product.productId}${productNumber}`}
+            category={category}
+          >
+            {/* Load the product by itself */}
+            {renderProduct(product)}
+            {/* Load other 4 products */}
+            {products.map((insideProduct) => {
+              // const productIdPlus3 = parseInt(productNumber) + 3;
 
-              return (
-                //Load the new column
-                <ProductLine
-                  key={`${product.productId}${productNumber}`}
-                  category={category}
-                >
-                  {/* Load the product by itself */}
-                  {renderProduct(product)}
-                  {/* Load other 4 products */}
-                  {products.map((insideProduct) => {
-                    // const productIdPlus3 = parseInt(productNumber) + 3;
+              // for (let i = productNumber; i <= productIdPlus3; i++) {
+              //   if(insideProduct !== products[i]) return null;
+              //   return <>{renderProduct(insideProduct)}</>;
+              // }
+              // return null;
 
-                    // for (let i = productNumber; i <= productIdPlus3; i++) {
-                    //   if(insideProduct !== products[i]) return null;
-                    //   return <>{renderProduct(insideProduct)}</>;
-                    // }
-                    // return null;
+              // I WANNA CLARIFY THAT WHAT I DID HERE WAS 100% AGAINST MY WANT! FOR SOME REASON THE FOR LOOP
+              // WASN'T WORKING, I TRIED DOING IT WITH WHILE AND IT DIDN'T WORK AS WELL, THE NUMBERS WEREN'T INCREASING
+              //AS THEY SHOULD, SO MY ONLY OPTIONS WAS CODE THIS SHIT THAT YOU'RE ABOUT TO SEE
+              //IF SOMEONE IS EVER READING THAT, PLEASE NOW THAT THIS WASN'T MY FAULT AND I HAD NO CHOICE!!!!!!
 
-                    // I WANNA CLARIFY THAT WHAT I DID HERE WAS 100% AGAINST MY WANT! FOR SOME REASON THE FOR LOOP
-                    // WASN'T WORKING, I TRIED DOING IT WITH WHILE AND IT DIDN'T WORK AS WELL, THE NUMBERS WEREN'T INCREASING
-                    //AS THEY SHOULD, SO MY ONLY OPTIONS WAS CODE THIS SHIT THAT YOU'RE ABOUT TO SEE
-                    //IF SOMEONE IS EVER READING THAT, PLEASE NOW THAT THIS WASN'T MY FAULT AND I HAD NO CHOICE!!!!!!
+              const productNumberInt = parseInt(productNumber);
+              const productNumbersThatShouldBeRendered = [
+                productNumberInt,
+                productNumberInt + 1,
+                productNumberInt + 2,
+                productNumberInt + 3,
+              ];
 
-                    const productNumberInt = parseInt(productNumber);
-                    const productNumbersThatShouldBeRendered = [
-                      productNumberInt,
-                      productNumberInt + 1,
-                      productNumberInt + 2,
-                      productNumberInt + 3,
-                    ];
-
-                    return productNumbersThatShouldBeRendered.map(
-                      (productInsideNumber) => {
-                        if (insideProduct === products[productInsideNumber]) {
-                          return renderProduct(insideProduct);
-                        }
-                        return null;
-                      }
-                    );
-                  })}
-                </ProductLine>
+              return productNumbersThatShouldBeRendered.map(
+                (productInsideNumber) => {
+                  if (insideProduct === products[productInsideNumber]) {
+                    return renderProduct(insideProduct);
+                  }
+                  return null;
+                }
               );
-            }
-          );
-          return returnProducts;
-        })}
-      </>
-    );
+            })}
+          </ProductLine>
+        );
+      });
+      return returnProducts;
+    });
   };
 
   //If bottomBtn is not undefined, that means that it exists and it needs to be rendered

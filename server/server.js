@@ -122,9 +122,6 @@ app.use("/account/signout", getSignOut);
 
 //POST METHODS => USER
 
-const postFavoriteProduct = require("./routes/POST/user/postFavoriteProduct.js");
-app.use("/user/postfavoriteproduct/", postFavoriteProduct);
-
 const addFavoriteProduct = require("./routes/POST/user/addFavoriteProduct.js");
 app.use("/user/addfavoriteproduct/", addFavoriteProduct);
 

@@ -19,6 +19,14 @@ const Popup = ({ popupContent }) => {
     }, 200);
   };
 
+  const handleRemoveProduct = async (productId) => {
+    const { products, removeProduct } = popupContent;
+    const newProducts = products.filter(
+      (product) => product.productId !== productId
+    );
+    return await removeProduct(productId, newProducts);
+  };
+
   if (popup.current) {
     //Close the popup if the user clicked outside of the "popup-box"
     popup.current.addEventListener("click", function (e) {
@@ -131,11 +139,13 @@ const Popup = ({ popupContent }) => {
                 productId={product.productId}
                 productName={product.productName || product.productTitle}
                 productDescription={product.productDescription}
-                productFinalPrice={product.productFinalPrice || product.productPrice.finalPrice}
+                productFinalPrice={
+                  product.productFinalPrice || product.productPrice.finalPrice
+                }
                 productImgSrc={product.productImgSrc || product.productImage}
                 productImgAlt={product.productImgAlt || product.productTitle}
                 closePopupBox={handleCloseIconClick}
-                removeProduct={popupContent.removeProduct}
+                handleRemoveProduct={handleRemoveProduct}
               />
             );
           })}
@@ -144,6 +154,7 @@ const Popup = ({ popupContent }) => {
       </>
     );
   }
+
   return (
     <div ref={popup} className="popup">
       <div ref={popupBox} className="popup-box">

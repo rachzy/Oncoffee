@@ -205,7 +205,6 @@ const Product = ({
               productTitle: productName,
               productDescription: productDescription,
               productImage: productImage,
-              productImgAlt: productName,
               productPrice: { finalPrice: productFinalPrice },
             };
             const { successful } = await handleAddFavoriteProduct(newProduct);
@@ -236,7 +235,7 @@ const Product = ({
     }, 100);
   };
 
-  const handleShoppingCartClick = () => {
+  const handleShoppingCartClick = async () => {
     const { classList } = shoppingCartIcon.current;
 
     if (!classList.contains("active")) {

@@ -111,23 +111,11 @@ const App = () => {
       throw "Missing params";
     }
 
-    //Check if the product is not already set as favorite
-    let productAlreadyFavorite = false;
 
-    for (let i = 0; i <= favoriteProducts.length - 1; i++) {
-      if (
-        newProduct.productId.toString() ===
-        favoriteProducts[i].productId.toString()
-      )
-        return (productAlreadyFavorite = true);
-    }
-
-    if (productAlreadyFavorite) throw "Esse produto já está favoritado!";
 
     //Add the product into the state of Favorite Products
     const changeState = () => {
-      const newFavoriteProducts = [newProduct, ...favoriteProducts];
-      setFavoriteProducts(newFavoriteProducts);
+      setFavoriteProducts((oldArray) => [...oldArray, newProduct]);
     };
 
     //Query the new product to the database
@@ -167,25 +155,15 @@ const App = () => {
   //Remove a product from favorite products by its ID
   const handleRemoveFavoriteProduct = async (removedProduct) => {
     let productId = removedProduct.productId || removedProduct;
-    console.log(productId)
     if (!productId) throw "Missing params";
 
-    //Check if there's already a product with that ID set as favorite
-    let productAlreadyFavorite = false;
-
-    for (let i = 0; i <= favoriteProducts.length - 1; i++) {
-      if (productId.toString() === favoriteProducts[i].productId.toString())
-        productAlreadyFavorite = true;
-    }
-
-    if (!productAlreadyFavorite) throw "Esse produto não está favoritado!";
-
-    const changeState = () => {
-      const newFavoriteProducts = favoriteProducts.filter(
-        (product) => product.productId.toString() !== productId.toString()
+    const changeState = async () => {
+      setFavoriteProducts((oldArray) =>
+        oldArray.filter(
+          (product) => product.productId.toString() !== productId.toString()
+        )
       );
-
-      setFavoriteProducts(newFavoriteProducts);
+      return { successful: true };
     };
 
     //Query the product to the database
@@ -197,8 +175,7 @@ const App = () => {
         );
 
         if (!data.isError && data.queryStatus === 200) {
-          changeState();
-          return { successful: true };
+          return await changeState();
         }
 
         displayError(
@@ -225,8 +202,7 @@ const App = () => {
     let cartProductsSavedOnLocalStorage =
       window.localStorage.getItem("cartProducts");
 
-    if (!cartProductsSavedOnLocalStorage || cartProducts === "undefined")
-      return;
+    if (!cartProductsSavedOnLocalStorage) return;
 
     const parseCartProducts = () => {
       return JSON.parse(cartProductsSavedOnLocalStorage);
@@ -248,16 +224,20 @@ const App = () => {
       const checkIfProductIsAlreadyOnCart = cartProducts.filter(
         (product) => product.productId === newProduct.productId
       );
-      if (checkIfProductIsAlreadyOnCart.length !== 0) return;
+
+      if (checkIfProductIsAlreadyOnCart.length !== 0)
+        return { successful: false };
+
+      setCartProducts((oldArray) => [...oldArray, newProduct]);
 
       const newCartProducts = [newProduct, ...cartProducts];
-      setCartProducts(newCartProducts);
-
       localStorage.setItem("cartProducts", JSON.stringify(newCartProducts));
-      return;
+      return { successful: true };
     }
     setCartProducts([newProduct]);
     localStorage.setItem("cartProducts", JSON.stringify(newProduct));
+
+    return { successful: true };
   };
 
   const handleRemoveCartProduct = async (removedProduct) => {
@@ -300,15 +280,19 @@ const App = () => {
     });
     if (!popupType) return;
 
-    let PopupContentArray;
+    let popupContentObject;
     switch (popupType) {
       case "favoriteproducts":
-        PopupContentArray = {
+        popupContentObject = {
           title: "Seus favoritos",
           type: "favoriteproducts",
           products: favoriteProducts,
           button: false,
-          removeProduct: async (productId) => {
+          removeProduct: async (productId, otherProducts) => {
+            setPopupContent({
+              ...popupContentObject,
+              products: otherProducts,
+            });
             return handleRemoveFavoriteProduct(productId);
           },
         };
@@ -319,21 +303,26 @@ const App = () => {
         //   if (!product || !product.productId) return;
         //   return `${product.productId}`;
         // });
-        PopupContentArray = {
+        popupContentObject = {
           title: "Seu Carrinho",
           type: "cartproducts",
           products: cartProducts,
           button: {
             title: "Fazer checkout",
           },
-          removeProduct: async (removeProduct) => {
+          removeProduct: async (removeProduct, otherProducts) => {
+            setPopupContent({
+              ...popupContentObject,
+
+              products: otherProducts,
+            });
             return handleRemoveCartProduct(removeProduct);
           },
         };
         break;
       case "singleproduct":
         if (!productObject) return;
-        PopupContentArray = {
+        popupContentObject = {
           title: productObject.productName,
           type: "singleproduct",
           product: productObject,
@@ -346,7 +335,7 @@ const App = () => {
       default:
         break;
     }
-    setPopupContent(PopupContentArray);
+    setPopupContent(popupContentObject);
   };
 
   //State that controls the Header title

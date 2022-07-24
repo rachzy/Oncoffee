@@ -11,7 +11,7 @@ const ProductPopup = ({
   productImgSrc,
   productImgAlt,
   productFinalPrice,
-  removeProduct,
+  handleRemoveProduct,
   closePopupBox,
 }) => {
   const productDiv = useRef(null);
@@ -25,18 +25,20 @@ const ProductPopup = ({
 
   //When the user clicks in the X Button in front of the product
   const handleXClick = async () => {
+    if (!productDiv) return;
     productDiv.current.classList.add("disabled");
+
     try {
-      const query = await removeProduct({ productId: productId });
+      const { successful } = await handleRemoveProduct(productId);
 
-      if (!query.successful) {
-        return productDiv.current.classList.remove("disabled");
+      if (!successful) {
+        productDiv.current.classList.remove("disabled");
+        setTimeout(() => {
+          //When the animation is over, set the product display as none
+          productDiv.current.style.display = "none";
+        }, 300);
+        return;
       }
-
-      setTimeout(() => {
-        //When the animation is over, set the product display as none
-        productDiv.current.style.display = "none";
-      }, 300);
     } catch (err) {
       displayError(err, err.code);
       return productDiv.current.classList.remove("disabled");

@@ -34,9 +34,19 @@ router.get("/:identifier?", async (req, res) => {
         }
       default:
         for (let i = 0; i <= userFavoriteProducts.length - 1; i++) {
-          const getProduct = await Products.findOne({
-            productId: userFavoriteProducts[i].productId,
-          });
+          const getProduct = await Products.findOne(
+            {
+              productId: userFavoriteProducts[i].productId,
+            },
+            {
+              _id: 0,
+              productId: 1,
+              productTitle: 1,
+              productDescription: 1,
+              productImage: 1,
+              "productPrice.finalPrice": 1,
+            }
+          );
           getUserFavoriteProducts.push(getProduct);
         }
     }
