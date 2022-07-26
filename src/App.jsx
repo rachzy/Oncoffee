@@ -83,38 +83,46 @@ const App = () => {
     let checkConnectionInterval = setInterval(checkServerConnection, 5000);
   }, [serverUrl, serverStatus]);
 
-  const handleFavoriteProductsChange = async (newProduct) => {
-    if (!newProduct || !newProduct.productId) return;
+  //Set as product as favorite
+  const handleAddFavoriteProduct = async (
+    newProduct = {
+      productId: "",
+      productTitle: "",
+      productDescription: "",
+      productImage: "",
+      productPrice: "",
+    }
+  ) => {
+    const {
+      productId,
+      productTitle,
+      productDescription,
+      productImage,
+      productPrice,
+    } = newProduct;
 
-    const changeFavoriteProductsState = () => {
-      let productAlreadyFavorite = false;
+    if (
+      !productId ||
+      !productTitle ||
+      !productDescription ||
+      !productImage ||
+      !productPrice
+    ) {
+      throw "Missing params";
+    }
 
-      for (let i = 0; i <= favoriteProducts.length - 1; i++) {
-        if (
-          newProduct.productId.toString() ===
-          favoriteProducts[i].productId.toString()
-        )
-          productAlreadyFavorite = true;
-      }
 
-      let newFavoriteProducts = [newProduct, ...favoriteProducts];
 
-      //If the product is already set as favorite, change the default value of newFavoriteProducts
-      if (productAlreadyFavorite) {
-        newFavoriteProducts = favoriteProducts.filter(
-          (product) =>
-            product.productId.toString() !== newProduct.productId.toString()
-        );
-      }
-
-      setFavoriteProducts(newFavoriteProducts);
+    //Add the product into the state of Favorite Products
+    const changeState = () => {
+      setFavoriteProducts((oldArray) => [...oldArray, newProduct]);
     };
 
-    //Post the new product on the database
+    //Query the new product to the database
     const postNewFavoriteProduct = async () => {
       try {
         const { data } = await Axios.post(
-          `${serverUrl}/user/postfavoriteproduct`,
+          `${serverUrl}/user/addfavoriteproduct`,
           {
             productId: newProduct.productId,
           },
@@ -122,7 +130,7 @@ const App = () => {
         );
 
         if (!data.isError && data.queryStatus === 200) {
-          changeFavoriteProductsState();
+          changeState();
           return { successful: true };
         }
 
@@ -144,14 +152,57 @@ const App = () => {
     return postNewFavoriteProduct();
   };
 
+  //Remove a product from favorite products by its ID
+  const handleRemoveFavoriteProduct = async (removedProduct) => {
+    let productId = removedProduct.productId || removedProduct;
+    if (!productId) throw "Missing params";
+
+    const changeState = async () => {
+      setFavoriteProducts((oldArray) =>
+        oldArray.filter(
+          (product) => product.productId.toString() !== productId.toString()
+        )
+      );
+      return { successful: true };
+    };
+
+    //Query the product to the database
+    const deleteFavoriteProduct = async () => {
+      try {
+        const { data } = await Axios.delete(
+          `${serverUrl}/user/removefavoriteproduct/${productId}`,
+          { withCredentials: true }
+        );
+
+        if (!data.isError && data.queryStatus === 200) {
+          return await changeState();
+        }
+
+        displayError(
+          "",
+          "",
+          "Um erro interno do servidor ocorreu ao tentar executar essa ação"
+        );
+        return { successful: false };
+      } catch (err) {
+        displayError(
+          "",
+          "",
+          "Um erro interno do servidor ocorreu ao tentar executar essa ação"
+        );
+        return { successful: false };
+      }
+    };
+    return deleteFavoriteProduct();
+  };
+
   const [cartProducts, setCartProducts] = useState([]);
 
   useEffect(() => {
     let cartProductsSavedOnLocalStorage =
       window.localStorage.getItem("cartProducts");
 
-    if (!cartProductsSavedOnLocalStorage || cartProducts === "undefined")
-      return;
+    if (!cartProductsSavedOnLocalStorage) return;
 
     const parseCartProducts = () => {
       return JSON.parse(cartProductsSavedOnLocalStorage);
@@ -168,21 +219,25 @@ const App = () => {
 
   const handleAddCartProduct = (newProduct) => {
     if (!newProduct) return { successful: false };
-    
+
     if (cartProducts && cartProducts.length !== 0) {
       const checkIfProductIsAlreadyOnCart = cartProducts.filter(
-        (product) => product.productId === newProduct.productId
+        (product) => product.productId.toString() === newProduct.productId.toString()
       );
-      if (checkIfProductIsAlreadyOnCart.length !== 0) return;
+
+      if (checkIfProductIsAlreadyOnCart.length !== 0)
+        return { successful: false };
+
+      setCartProducts((oldArray) => [newProduct, ...oldArray]);
 
       const newCartProducts = [newProduct, ...cartProducts];
-      setCartProducts(newCartProducts);
-
       localStorage.setItem("cartProducts", JSON.stringify(newCartProducts));
-      return;
+      return { successful: true };
     }
     setCartProducts([newProduct]);
     localStorage.setItem("cartProducts", JSON.stringify(newProduct));
+
+    return { successful: true };
   };
 
   const handleRemoveCartProduct = async (removedProduct) => {
@@ -191,7 +246,7 @@ const App = () => {
     let removedProductId = removedProduct.productId || removedProduct;
 
     const newCartProducts = cartProducts.filter(
-      (product) => product.productId !== removedProductId
+      (product) => product.productId.toString() !== removedProductId.toString()
     );
 
     setCartProducts(newCartProducts);
@@ -225,16 +280,20 @@ const App = () => {
     });
     if (!popupType) return;
 
-    let PopupContentArray;
+    let popupContentObject;
     switch (popupType) {
       case "favoriteproducts":
-        PopupContentArray = {
+        popupContentObject = {
           title: "Seus favoritos",
           type: "favoriteproducts",
           products: favoriteProducts,
           button: false,
-          removeProduct: async (product) => {
-            return handleFavoriteProductsChange(product);
+          removeProduct: async (productId, otherProducts) => {
+            setPopupContent({
+              ...popupContentObject,
+              products: otherProducts,
+            });
+            return handleRemoveFavoriteProduct(productId);
           },
         };
         break;
@@ -244,21 +303,26 @@ const App = () => {
         //   if (!product || !product.productId) return;
         //   return `${product.productId}`;
         // });
-        PopupContentArray = {
+        popupContentObject = {
           title: "Seu Carrinho",
           type: "cartproducts",
           products: cartProducts,
           button: {
             title: "Fazer checkout",
           },
-          removeProduct: async (removeProduct) => {
+          removeProduct: async (removeProduct, otherProducts) => {
+            setPopupContent({
+              ...popupContentObject,
+
+              products: otherProducts,
+            });
             return handleRemoveCartProduct(removeProduct);
           },
         };
         break;
       case "singleproduct":
         if (!productObject) return;
-        PopupContentArray = {
+        popupContentObject = {
           title: productObject.productName,
           type: "singleproduct",
           product: productObject,
@@ -271,7 +335,7 @@ const App = () => {
       default:
         break;
     }
-    setPopupContent(PopupContentArray);
+    setPopupContent(popupContentObject);
   };
 
   //State that controls the Header title
@@ -301,7 +365,8 @@ const App = () => {
             cartProductsState={cartProducts}
             handleSetPopupState={handleSetPopupState}
             handleRemoveCartProduct={handleRemoveCartProduct}
-            handleFavoritedProductsChange={handleFavoriteProductsChange}
+            handleAddFavoriteProduct={handleAddFavoriteProduct}
+            handleRemoveFavoriteProduct={handleRemoveFavoriteProduct}
           >
             {headerPageTitle}
           </Header>
@@ -316,7 +381,8 @@ const App = () => {
                   serverStatus={serverStatus}
                   isIndexAlreadyLoaded={isIndexAlreadyLoaded}
                   setIndexAlreadyLoaded={setIndexAlreadyLoaded}
-                  handleFavoritedProductsChange={handleFavoriteProductsChange}
+                  handleAddFavoriteProduct={handleAddFavoriteProduct}
+                  handleRemoveFavoriteProduct={handleRemoveFavoriteProduct}
                   handleSetPopupState={handleSetPopupState}
                   handleAddCartProduct={handleAddCartProduct}
                   handleRemoveCartProduct={handleRemoveCartProduct}
@@ -354,7 +420,8 @@ const App = () => {
                   pageTitle="Produto"
                   setHeaderPageTitle={setHeaderPageTitle}
                   favoriteProducts={favoriteProducts}
-                  handleFavoriteProductsChange={handleFavoriteProductsChange}
+                  handleAddFavoriteProduct={handleAddFavoriteProduct}
+                  handleRemoveFavoriteProduct={handleRemoveFavoriteProduct}
                   cartProducts={cartProducts}
                   handleAddCartProduct={handleAddCartProduct}
                 />

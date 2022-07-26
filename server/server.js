@@ -122,8 +122,8 @@ app.use("/account/signout", getSignOut);
 
 //POST METHODS => USER
 
-const postFavoriteProduct = require("./routes/POST/user/postFavoriteProduct.js");
-app.use("/user/postfavoriteproduct/", postFavoriteProduct);
+const addFavoriteProduct = require("./routes/POST/user/addFavoriteProduct.js");
+app.use("/user/addfavoriteproduct/", addFavoriteProduct);
 
 const postSearchRouter = require("./routes/POST/user/postSearch.js");
 app.use("/user/postsearch/", postSearchRouter);
@@ -164,6 +164,15 @@ app.use("/ads/create", createAd);
 
 const createPromotion = require("./routes/POST/promotions/createPromotion.js");
 app.use("/promotions/create", createPromotion);
+
+//
+
+//DELETE METHODS
+
+//DELETE METHODS => USER
+
+const removeFavoriteProduct = require("./routes/DELETE/user/removeFavoriteProduct.js");
+app.use("/user/removefavoriteproduct", removeFavoriteProduct);
 
 //Host the server on it's port (Default is 3001);
 const server = app.listen(PORT, () => {

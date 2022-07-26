@@ -17,11 +17,11 @@ const Product = ({
   productDescription,
   productGrade,
   productTotalSales,
-  setFavoriteProductsIds,
-  favoritedProductsIds,
+  favoriteProducts,
   handleAddCartProduct,
   handleRemoveCartProduct,
-  handleFavoritedProductsChange,
+  handleAddFavoriteProduct,
+  handleRemoveFavoriteProduct,
   cartProducts,
 }) => {
   const navigate = useNavigate();
@@ -59,20 +59,26 @@ const Product = ({
       //Simple function that will check if the product is already favorited by the user
       //and display a "favorited heart" icon instead of a default one if it is
       if (!isLogged) return;
-      const checkIfProductIsFavorited = async () => {
-        if (!favoritedProductsIds || favoritedProductsIds.length === 0) return;
+      const checkIfProductIsFavorited = () => {
 
-        favoritedProductsIds.forEach((product) => {
+        let isProductSetAsFavorite = false;
+
+        favoriteProducts.forEach((product) => {
           if (product.productId.toString() !== productId.toString()) return;
-          if (
-            favHeartIcon.current === null ||
-            defaultHeartIcon.current === null
-          )
-            return;
-          //If the product is already favorited, display a favorited heart instead of a default one
+          return (isProductSetAsFavorite = true);
+        });
+
+        if (favHeartIcon.current === null || defaultHeartIcon.current === null)
+          return;
+
+        //If the product is already favorited, display a favorited heart instead of a default one
+        if (isProductSetAsFavorite) {
           favHeartIcon.current.classList.add("active");
           defaultHeartIcon.current.classList.remove("active");
-        });
+          return;
+        }
+        favHeartIcon.current.classList.remove("active");
+        defaultHeartIcon.current.classList.add("active");
       };
       checkIfProductIsFavorited();
     }
@@ -80,7 +86,7 @@ const Product = ({
     cartProducts,
     defaultHeartIcon,
     favHeartIcon,
-    favoritedProductsIds,
+    favoriteProducts,
     isLoaded,
     isLogged,
     productId,
@@ -159,67 +165,62 @@ const Product = ({
     //Change the FavoriteedProducts state with the new value
     const addNewProductToFavoriteProductsState = async () => {
       //CLASS SECTION
-      const changeProductClass = () => {
-        const DefaultHeartClassList = defaultHeartIcon.current.classList;
-        const defaultHeartIconElements = document.querySelectorAll(
-          `#productDefaultHeart${productId}`
-        );
-        const favHeartIconElements = document.querySelectorAll(
-          `#productFavHeart${productId}`
-        );
+      const DefaultHeartClassList = defaultHeartIcon.current.classList;
+      const defaultHeartIconElements = document.querySelectorAll(
+        `#productDefaultHeart${productId}`
+      );
+      const favHeartIconElements = document.querySelectorAll(
+        `#productFavHeart${productId}`
+      );
 
-        const changeHeartIconClass = () => {
-          if (DefaultHeartClassList[1] === "active") {
-            defaultHeartIconElements.forEach((element) => {
-              element.classList.add("active");
-            });
-            favHeartIconElements.forEach((element) => {
-              element.classList.remove("active");
-            });
+      let isProductSetAsFavorite = DefaultHeartClassList[1];
 
-            let newFavoritedProductsIds = [
-              ...favoritedProductsIds,
-              {
-                productId: productId,
-              },
-            ];
-            setFavoriteProductsIds(newFavoritedProductsIds);
-          } else {
-            defaultHeartIconElements.forEach((element) => {
-              element.classList.remove("active");
-            });
-            favHeartIconElements.forEach((element) => {
-              element.classList.add("active");
-            });
+      const changeHeartIconClass = () => {
+        if (isProductSetAsFavorite) {
+          //Change the class of every single heart of products with that ID
+          defaultHeartIconElements.forEach((element) => {
+            element.classList.add("active");
+          });
+          favHeartIconElements.forEach((element) => {
+            element.classList.remove("active");
+          });
+          return;
+        }
+        //Change the class of every single heart of products with that ID
+        defaultHeartIconElements.forEach((element) => {
+          element.classList.remove("active");
+        });
+        favHeartIconElements.forEach((element) => {
+          element.classList.add("active");
+        });
+      };
+      changeHeartIconClass();
 
-            const newFavoritedProductsIds = favoritedProductsIds.filter(
-              (product) => {
-                return product.productId !== productId;
-              }
-            );
-            setFavoriteProductsIds(newFavoritedProductsIds);
+      const queryFavoriteProduct = async () => {
+        try {
+          if (isProductSetAsFavorite) {
+            const newProduct = {
+              productId: productId,
+              productTitle: productName,
+              productDescription: productDescription,
+              productImage: productImage,
+              productPrice: { finalPrice: productFinalPrice },
+            };
+            const { successful } = await handleAddFavoriteProduct(newProduct);
+            if (!successful) {
+              changeHeartIconClass();
+            }
+            return;
           }
-        };
-        changeHeartIconClass();
-      };
 
-      const newProduct = {
-        productId: productId,
-        productTitle: productName,
-        productDescription: productDescription,
-        productImage: productImage,
-        productImgAlt: productName,
-        productPrice: { finalPrice: productFinalPrice },
+          const { successful } = await handleRemoveFavoriteProduct(productId);
+          if (!successful) return changeHeartIconClass();
+        } catch (err) {
+          displayError(err, err.code);
+          changeHeartIconClass();
+        }
       };
-      changeProductClass();
-      try {
-        const { successful } = await handleFavoritedProductsChange(newProduct);
-
-        if (!successful) return changeProductClass();
-      } catch (err) {
-        displayError(err, err.code);
-        changeProductClass();
-      }
+      queryFavoriteProduct();
     };
     addNewProductToFavoriteProductsState();
   };
@@ -230,10 +231,10 @@ const Product = ({
     setTimeout(() => {
       navigate(`/product/${productId}`);
       window.scrollTo(0, 0);
-    }, 100)
+    }, 100);
   };
 
-  const handleShoppingCartClick = () => {
+  const handleShoppingCartClick = async () => {
     const { classList } = shoppingCartIcon.current;
 
     if (!classList.contains("active")) {

@@ -8,7 +8,7 @@ const TabProduct = ({
   productImgAlt,
   productFinalPrice,
   handleRemoveCartProduct,
-  handleFavoritedProductsChange,
+  handleRemoveFavoriteProduct,
 }) => {
   //Return the price with ",00";
   const returnFinalPrice = () => {
@@ -45,15 +45,8 @@ const TabProduct = ({
     }
 
     //For "Favorited Products" Tab
-    if (handleFavoritedProductsChange) {
-      const productCardHeartIcon = document.querySelector(
-        `#productFavHeart${productId}`
-      );
-      if (productCardHeartIcon) return productCardHeartIcon.click();
-      const product = {
-        productId: productId,
-      };
-      handleFavoritedProductsChange(product);
+    if (handleRemoveFavoriteProduct) {
+      handleRemoveFavoriteProduct(productId);
     }
   };
 

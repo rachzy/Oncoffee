@@ -31,7 +31,7 @@ const Header = ({
   cartProductsState,
   handleSetPopupState,
   handleRemoveCartProduct,
-  handleFavoritedProductsChange,
+  handleRemoveFavoriteProduct,
   serverStatus,
 }) => {
   const navigate = useNavigate();
@@ -65,7 +65,7 @@ const Header = ({
       <FavoritedProducts
         handleSetPopupState={handleSetPopupState}
         favoritedProducts={favoritedProductsState}
-        handleFavoritedProductsChange={handleFavoritedProductsChange}
+        handleRemoveFavoriteProduct={handleRemoveFavoriteProduct}
       />
     );
   };

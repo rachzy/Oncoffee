@@ -15,7 +15,6 @@ const ContentMobile = ({
   amount,
   setAmount,
   favoriteProducts,
-  handleAddToCartButtonClick,
   handleHeartClick,
 }) => {
   const conteudoMobile = useRef(null);
@@ -53,7 +52,7 @@ const ContentMobile = ({
           amount={amount}
           setAmount={setAmount}
           productPrice={product.productPrice}
-          productRemainingAmount={product.productRemainingAmount}
+          productRemainingAmount={product.productStockAmount}
         />
 
         <ProductFreight freightCost={product.productPrice.freight} />
