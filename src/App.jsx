@@ -222,13 +222,13 @@ const App = () => {
 
     if (cartProducts && cartProducts.length !== 0) {
       const checkIfProductIsAlreadyOnCart = cartProducts.filter(
-        (product) => product.productId === newProduct.productId
+        (product) => product.productId.toString() === newProduct.productId.toString()
       );
 
       if (checkIfProductIsAlreadyOnCart.length !== 0)
         return { successful: false };
 
-      setCartProducts((oldArray) => [...oldArray, newProduct]);
+      setCartProducts((oldArray) => [newProduct, ...oldArray]);
 
       const newCartProducts = [newProduct, ...cartProducts];
       localStorage.setItem("cartProducts", JSON.stringify(newCartProducts));
@@ -246,7 +246,7 @@ const App = () => {
     let removedProductId = removedProduct.productId || removedProduct;
 
     const newCartProducts = cartProducts.filter(
-      (product) => product.productId !== removedProductId
+      (product) => product.productId.toString() !== removedProductId.toString()
     );
 
     setCartProducts(newCartProducts);
