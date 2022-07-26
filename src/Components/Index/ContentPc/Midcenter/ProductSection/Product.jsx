@@ -60,7 +60,6 @@ const Product = ({
       //and display a "favorited heart" icon instead of a default one if it is
       if (!isLogged) return;
       const checkIfProductIsFavorited = () => {
-        if (!favoriteProducts || favoriteProducts.length === 0) return;
 
         let isProductSetAsFavorite = false;
 
