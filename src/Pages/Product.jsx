@@ -12,8 +12,9 @@ const Product = ({
   pageTitle,
   setHeaderPageTitle,
   favoriteProducts,
-  handleFavoriteProductsChange,
   cartProducts,
+  handleAddFavoriteProduct,
+  handleRemoveFavoriteProduct,
   handleAddCartProduct,
 }) => {
   const navigate = useNavigate();
@@ -51,11 +52,24 @@ const Product = ({
   //State that controls the amount of products that will be bought by the user
   const [amount, setAmount] = useState(1);
 
-  const handleHeartClick = () => {
+  const handleHeartClick = (e) => {
     if (!isLogged) {
       return navigate("/login");
     }
-    handleFavoriteProductsChange(product);
+
+    const { id } = e.target;
+
+    let isFavorited = false;
+
+    if (id.startsWith("checkheart")) {
+      isFavorited = true;
+    }
+
+    if (isFavorited) {
+      console.log("removing");
+      return handleRemoveFavoriteProduct(product);
+    }
+    handleAddFavoriteProduct(product);
   };
 
   const handleAddToCartButtonClick = () => {
@@ -78,9 +92,9 @@ const Product = ({
       <ContentPC
         product={product}
         favoriteProducts={favoriteProducts}
-        handleFavoriteProductsChange={handleFavoriteProductsChange}
+        handleAddFavoriteProduct={handleAddFavoriteProduct}
         cartProducts={cartProducts}
-        handleAddToCartButtonClick={ handleAddToCartButtonClick}
+        handleAddToCartButtonClick={handleAddToCartButtonClick}
         handleHeartClick={handleHeartClick}
         amount={amount}
         setAmount={setAmount}
@@ -90,7 +104,8 @@ const Product = ({
         amount={amount}
         setAmount={setAmount}
         favoriteProducts={favoriteProducts}
-        handleAddToCartButtonClick={ handleAddToCartButtonClick}
+        handleAddToCartButtonClick={handleAddToCartButtonClick}
+        handleRemoveFavoriteProduct={handleRemoveFavoriteProduct}
         handleHeartClick={handleHeartClick}
       />
     </>

@@ -111,8 +111,6 @@ const App = () => {
       throw "Missing params";
     }
 
-
-
     //Add the product into the state of Favorite Products
     const changeState = () => {
       setFavoriteProducts((oldArray) => [...oldArray, newProduct]);
@@ -222,7 +220,8 @@ const App = () => {
 
     if (cartProducts && cartProducts.length !== 0) {
       const checkIfProductIsAlreadyOnCart = cartProducts.filter(
-        (product) => product.productId.toString() === newProduct.productId.toString()
+        (product) =>
+          product.productId.toString() === newProduct.productId.toString()
       );
 
       if (checkIfProductIsAlreadyOnCart.length !== 0)
