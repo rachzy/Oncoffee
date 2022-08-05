@@ -74,8 +74,6 @@ const SearchBar = () => {
             finalProductsReturn.push(additionalData);
           });
 
-          console.log(finalProductsReturn);
-
           //Set the final state value
           setAutocompleteShow(finalProductsReturn);
         } catch (err) {
@@ -133,7 +131,9 @@ const SearchBar = () => {
       if (!isLogged) return;
 
       try {
-        const { data } = await Axios.get(`${serverUrl}/user/getsearches/`);
+        const { data } = await Axios.get(`${serverUrl}/user/getsearches/`, {
+          withCredentials: true,
+        });
 
         if (data.isError) {
           return displayError(data.errorCode, data.errno);
