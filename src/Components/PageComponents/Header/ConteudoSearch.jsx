@@ -37,7 +37,9 @@ const ConteudoSearch = () => {
       if (!isLogged) return;
 
       try {
-        const { data } = await Axios.get(`${serverUrl}/user/getsearches`);
+        const { data } = await Axios.get(`${serverUrl}/user/getsearches`, {
+          withCredentials: true,
+        });
 
         if (data.isError) displayError(data.errorCode, data.errno);
 
