@@ -3,13 +3,17 @@ import React from "react";
 import RecentSearch from "./AutocompleteSectionMobile/RecentSearch";
 import NormalSearch from "./AutocompleteSectionMobile/NormalSearch";
 
-const AutocompleteSectionMobile = ({ autocompleteShow, setInputValue, postInputSearchProductValue }) => {
+const AutocompleteSectionMobile = ({
+  autocompleteShow,
+  setInputValue,
+  postInputSearchProductValue,
+}) => {
   return (
     <div className="input-search-autocomplete">
       <ul>
         <div name="recent-search">
           {autocompleteShow.map((search) => {
-            if(!search.searchValue || search.searchValue === "")  return;
+            if (!search.searchValue) return null;
             if (search.notRecent) {
               return (
                 <NormalSearch
@@ -21,13 +25,13 @@ const AutocompleteSectionMobile = ({ autocompleteShow, setInputValue, postInputS
               );
             }
             return (
-                <RecentSearch
-                  key={search.searchId}
-                  value={search.searchValue}
-                  setInputValue={setInputValue}
-                  postInputSearchProductValue={postInputSearchProductValue}
-                />
-              );
+              <RecentSearch
+                key={search.searchId}
+                value={search.searchValue}
+                setInputValue={setInputValue}
+                postInputSearchProductValue={postInputSearchProductValue}
+              />
+            );
           })}
         </div>
       </ul>

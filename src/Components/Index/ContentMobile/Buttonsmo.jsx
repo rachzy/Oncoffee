@@ -60,7 +60,7 @@ const Buttonsmo = () => {
           </label>
         </div>
         <div className="linearea">
-          <div ref={switchLine} className="switchLine"></div>
+          <div ref={switchLine} className="swichline"></div>
         </div>
       </main>
     </main>

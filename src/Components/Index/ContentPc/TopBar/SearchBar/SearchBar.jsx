@@ -41,7 +41,7 @@ const SearchBar = () => {
       return;
     }
 
-    if (!inputValue.value || inputValue.value === "") return;
+    if (!inputValue.value) return;
 
     clearTimeout(debounce);
     setDebounce(
