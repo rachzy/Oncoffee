@@ -80,7 +80,11 @@ const ConteudoSearch = () => {
       [name]: value,
     });
 
-    if (!value) return;
+    if (!value && name === "product") {
+      setAutocompleteShow(autocompleteData);
+    }
+
+    if (!value) return clearTimeout(debounce);
 
     //Set the "InputSearchProductValue" state every time that the input get changed
     if (name === "product") {
@@ -163,11 +167,18 @@ const ConteudoSearch = () => {
 
   //Post user search on the database
   const postInputSearchProductValue = (searchValue) => {
+    if (!searchValue) {
+      throw Error("Search value can't be empty!");
+    }
     const postData = async () => {
       try {
-        const { data } = await Axios.post(`${serverUrl}/user/postsearch`, {
-          searchValue: searchValue,
-        });
+        const { data } = await Axios.post(
+          `${serverUrl}/user/postsearch`,
+          {
+            searchValue: searchValue,
+          },
+          { withCredentials: true }
+        );
 
         if (data.isError) {
           displayError(data.errorCode, data.errno);
@@ -202,7 +213,7 @@ const ConteudoSearch = () => {
 
     if (!inputValues[name]) return;
 
-    if (name === "products") {
+    if (name === "product") {
       navigate(`/search/${inputValues.product}`);
       contentSearch.current.classList.remove("active");
       return postInputSearchProductValue(inputValues.product);
