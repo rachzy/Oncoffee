@@ -8,9 +8,9 @@ import SeeMoreCard from "./SeeMoreCard";
 import { GlobalServerContext } from "../../../../App";
 
 const OtherProductsSection = ({
-  setFavoritedProductsIds,
-  handleFavoritedProductsChange,
-  favoritedProductsIds,
+  handleAddFavoriteProduct,
+  handleRemoveFavoriteProduct,
+  favoriteProducts,
 }) => {
   const [products, setProducts] = useState([]);
 
@@ -39,16 +39,17 @@ const OtherProductsSection = ({
     const generateRandomElementId = Math.floor(Math.random() * 10000);
     return (
       <Product
-        key={`${product.productId}-${generateRandomElementId}`}
+        key={product.productId}
         productId={product.productId}
         productName={product.productTitle}
+        productDescription={product.productDescription}
         productImgSrc={product.productImage}
         productImgAlt={product.productTitle}
         productFinalPrice={product.productPrice.finalPrice}
         productDiscount={product.productPrice.discount}
-        setFavoriteProductsIds={setFavoritedProductsIds}
-        handleFavoritedProductsChange={handleFavoritedProductsChange}
-        favoritedProductsIds={favoritedProductsIds}
+        handleAddFavoriteProduct={handleAddFavoriteProduct}
+        handleRemoveFavoriteProduct={handleRemoveFavoriteProduct}
+        favoriteProducts={favoriteProducts}
       />
     );
   };
