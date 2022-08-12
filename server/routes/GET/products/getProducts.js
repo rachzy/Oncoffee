@@ -47,7 +47,21 @@ router.get("/:identifier/", async (req, res) => {
         res.send(getProductsWithGreatestDiscounts);
         break;
       default:
-        return sendError(res, "INVALID_IDENTIFIER");
+        const getProductsAccordingToIdentifier = await Products.find(
+          {
+            productCategory: identifier.toUpperCase(),
+            productEnabled: true,
+          },
+          {
+            productId: 1,
+            productTitle: 1,
+            productImage: 1,
+            productPrice: 1,
+          }
+        )
+          .sort({ "productRate.finalRate": -1 })
+          .limit(3);
+        res.send(getProductsAccordingToIdentifier);
     }
   } catch (err) {
     return sendError(res, err.message, err.code);

@@ -21,6 +21,7 @@ import CardBoxText from "./ContentPC/TopArea/CardBox/CardBoxText";
 
 const ContentPC = ({
   product,
+  otherProducts,
   favoriteProducts,
   handleFavoriteProductsChange,
   cartProducts,
@@ -79,9 +80,15 @@ const ContentPC = ({
       {/* Mid-Area */}
       <MidArea>
         <MoreProducts>
-          <MoreCard />
-          <MoreCard />
-          <MoreCard />
+          {otherProducts.map((product) => {
+            return (
+              <MoreCard
+                productId={product.productId}
+                productImage={product.productImage}
+                productFinalPrice={product.productPrice.finalPrice}
+              />
+            );
+          })}
         </MoreProducts>
         <MidGrid>
           <ProductDesc

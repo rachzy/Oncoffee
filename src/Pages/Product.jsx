@@ -29,8 +29,24 @@ const Product = ({
 
   //Product State
   const [product, setProduct] = useState();
+  const [otherProducts, setOtherProducts] = useState([]);
 
   useEffect(() => {
+    const fetchOtherProducts = async (category) => {
+      try {
+        const { data } = await Axios.get(
+          `${serverUrl}/products/getmany/${category}`
+        );
+
+        if (data.isError) {
+          return displayError(data.errorCode, data.errno);
+        }
+
+        setOtherProducts(data);
+      } catch (err) {
+        displayError(err.message, err.code);
+      }
+    };
     const fetchProductData = async () => {
       try {
         const { data } = await Axios.get(
@@ -42,6 +58,7 @@ const Product = ({
         }
 
         setProduct(data);
+        fetchOtherProducts(data.productCategory);
       } catch (err) {
         displayError(err.message, err.code);
       }
@@ -66,7 +83,6 @@ const Product = ({
     }
 
     if (isFavorited) {
-      console.log("removing");
       return handleRemoveFavoriteProduct(product);
     }
     handleAddFavoriteProduct(product);
@@ -91,6 +107,7 @@ const Product = ({
     <>
       <ContentPC
         product={product}
+        otherProducts={otherProducts}
         favoriteProducts={favoriteProducts}
         handleAddFavoriteProduct={handleAddFavoriteProduct}
         cartProducts={cartProducts}
