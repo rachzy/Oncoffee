@@ -9,13 +9,16 @@ import Back from "./RComponents/Back";
 import ProductFreight from "./ContentMobile/ProductFreight";
 import Description from "./ContentMobile/Description";
 import Comments from "./ContentMobile/Comments";
+import BotoesBuy from "./ContentMobile/BotoesBuy";
 
 const ContentMobile = ({
   product,
   amount,
   setAmount,
   favoriteProducts,
+  cartProducts,
   handleHeartClick,
+  handleAddToCartButtonClick,
 }) => {
   const conteudoMobile = useRef(null);
 
@@ -64,6 +67,12 @@ const ContentMobile = ({
 
         <Comments productComments={product.productComments} />
       </main>
+
+      <BotoesBuy
+        productId={product.productId}
+        handleAddToCartButtonClick={handleAddToCartButtonClick}
+        cartProducts={cartProducts}
+      />
     </section>
   );
 };

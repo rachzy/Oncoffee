@@ -694,7 +694,8 @@ body {
     border: 1px solid rgb(45, 45, 45);
     border-bottom: 1px solid rgb(35, 35, 35);
     border-radius: 100% 100% 0% 0% / 100% 100% 100% 100%;
-    z-index: 9999;
+    display: none;
+    z-index: 900;
 
 }
 
@@ -789,13 +790,6 @@ body {
     width: 100%;
     margin-top: 10px;
     flex-direction: column;
-
-    opacity: 0%;
-    transition: 0.2s all;
-}
-
-.conteudo_pc.active {
-    opacity: 100%;
 }
 
 
@@ -1479,6 +1473,15 @@ button[class*=btn] {
 
 
 
+.infos_text {
+    width: 100%;
+    margin-top: 80px;
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+}
+
 .redes_sociais {
     width: 30%;
     display: flex;
@@ -1834,13 +1837,6 @@ button[class*=btn] {
     margin-top: 10px;
     flex-direction: column;
 
-    opacity: 0%;
-    transition: 0.2s all;
-
-}
-
-.conteudo_mobile.active {
-    opacity: 100%;
 }
 
 
@@ -1849,13 +1845,10 @@ button[class*=btn] {
     justify-content: center;
     align-items: flex-start;
     width: 100%;
-    height: 140px;
     background: transparent;
     position: fixed;
     bottom: 0;
-    margin-bottom: 5px;
     background: rgba(32, 32, 32);
-    border-radius: 45px;
     z-index: 899;
 
 }
@@ -1870,9 +1863,9 @@ button[class*=btn] {
     justify-content: space-around;
 }
 
-@media screen and (max-width: 460px) {
+@media screen and (max-width: 850px) {
     .botoes_buy {
-        height: 125px;
+        display: flex;
     }
 }
 
@@ -2628,4 +2621,19 @@ button[class*=btn] {
     100% {
         transform: rotate(360deg);
     }
+}
+
+
+.erros {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.erros h2 {
+    font-family: Poppins, sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.8);
 }

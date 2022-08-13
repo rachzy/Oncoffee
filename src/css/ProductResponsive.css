@@ -1,23 +1,24 @@
 @media screen and (max-width: 1380px) {
     .card_img img {
         width: 480px;
-        
+
     }
 
     .card_img {
         width: 60%;
         height: 500px;
     }
+
     .fav_hearth {
         margin-left: 20px;
     }
-    
+
     .fav_hearth img {
         width: 40px;
         cursor: pointer;
-        
+
     }
-    
+
     .fav_hearth input {
         display: none;
     }
@@ -26,7 +27,7 @@
         width: 40%;
         max-height: 500px;
     }
-    
+
     .card_box_text h4 {
         font-size: 28px;
         padding: 0px 5px;
@@ -36,7 +37,7 @@
     .card_info {
         width: 50%;
         height: 500px;
-        
+
     }
 
 
@@ -46,45 +47,45 @@
     .product_name h2 {
         font-size: 18px;
     }
-    
+
     .more_card button {
-    
-    font-size: 15px;
-    
-    width: 80%;
+
+        font-size: 15px;
+
+        width: 80%;
     }
 
 
 
-    
+
     .product_price h2 {
         font-size: 32px;
         letter-spacing: 1px;
     }
-    
+
     .product_price h3 {
         font-size: 15px;
         letter-spacing: 5px;
         margin-bottom: -10px;
     }
-    
+
     .product_price h4 {
         font-size: 18px;
         letter-spacing: 3px;
         margin-top: -10px;
     }
-    
+
     .product_price h5 {
-        font-size: 13px; 
+        font-size: 13px;
     }
 
     .product_avaliacao h2 {
         font-size: 16px;
         letter-spacing: 2px;
-        
+
     }
-    
-    
+
+
     .product_avaliacao h3 {
         font-size: 16px;
         letter-spacing: 2px;
@@ -93,60 +94,60 @@
 
 
     .product_quant h2 {
-        font-size: 16px; 
+        font-size: 16px;
     }
-    
-    .product_quant h3 { 
+
+    .product_quant h3 {
         font-size: 11px;
-        margin-top: 5px;   
+        margin-top: 5px;
     }
-    
+
     .quantity input {
-        
+
         width: 27px;
         font-size: 14px;
-        
+
     }
-    
+
     button[class*=btn] {
         width: 25px;
         height: 25px;
-        
+
     }
-    
+
 
     .product_frete h2 {
         font-size: 16px;
     }
-    
-    
+
+
     .product_frete a {
         font-size: 12px;
     }
-    
-   
-    
-    
-    
+
+
+
+
+
     .frete {
         padding: 5px;
         font-size: 14px;
         border-radius: 10px;
         width: 85px;
     }
-    
+
     .calcular {
         padding: 5px;
         font-size: 14px;
         border-radius: 10px;
     }
-    
+
     .calcular:hover {
         border: 1px solid rgb(65, 65, 65);
         cursor: pointer;
     }
-    
-    
+
+
     .product_comprar {
         width: 95%;
         margin-top: 20px;
@@ -155,7 +156,7 @@
         flex-direction: row;
         align-items: center;
     }
-    
+
     .product_comprar input {
         background: rgb(167, 89, 45);
         color: rgba(255, 255, 255, 0.8);
@@ -168,19 +169,19 @@
         border: 1px solid transparent;
         transition: 0.3s ease all;
     }
-    
+
     .product_comprar input:hover {
         cursor: pointer;
         letter-spacing: 1px;
     }
-    
+
     .product_comprar input:last-child {
         background: transparent;
         border: 2px solid rgb(45, 45, 45);
-        
+
     }
-    
-    
+
+
     .product_comprar input:last-child:hover {
         border: 2px solid rgb(95, 95, 95);
         background: rgb(45, 45, 45);
@@ -190,7 +191,7 @@
         position: relative;
         height: 60px;
         margin-top: 40px;
-    }   
+    }
 
 
     .mored_box {
@@ -202,16 +203,16 @@
         padding-bottom: 10px;
         width: 90%;
     }
-    
+
     .mored_box h2 {
-        font-family: Poppins,sans-serif;
+        font-family: Poppins, sans-serif;
         font-size: 18px;
         color: rgba(255, 255, 255, 0.7);
         font-weight: 500;
     }
-    
+
     .mored_box h3 {
-        font-family: Poppins,sans-serif;
+        font-family: Poppins, sans-serif;
         font-size: 12px;
         color: rgba(255, 255, 255, 0.6);
         font-weight: 400;
@@ -278,23 +279,24 @@
 @media screen and (max-width: 1250px) {
     .card_img img {
         width: 480px;
-        
+
     }
 
     .card_img {
         width: 60%;
         height: 500px;
     }
+
     .fav_hearth {
         margin-left: 20px;
     }
-    
+
     .fav_hearth img {
         width: 40px;
         cursor: pointer;
-        
+
     }
-    
+
     .fav_hearth input {
         display: none;
     }
@@ -303,7 +305,7 @@
         width: 40%;
         max-height: 500px;
     }
-    
+
     .card_box_text h4 {
         font-size: 28px;
         padding: 0px 5px;
@@ -313,44 +315,44 @@
     .card_info {
         width: 50%;
         height: 500px;
-        
+
     }
 
 
     .product_name h2 {
         font-size: 18px;
     }
-    
-    
-    
+
+
+
     .product_price h2 {
         font-size: 32px;
         letter-spacing: 1px;
     }
-    
+
     .product_price h3 {
         font-size: 15px;
         letter-spacing: 5px;
         margin-bottom: -10px;
     }
-    
+
     .product_price h4 {
         font-size: 18px;
         letter-spacing: 3px;
         margin-top: -10px;
     }
-    
+
     .product_price h5 {
-        font-size: 13px; 
+        font-size: 13px;
     }
 
     .product_avaliacao h2 {
         font-size: 16px;
         letter-spacing: 2px;
-        
+
     }
-    
-    
+
+
     .product_avaliacao h3 {
         font-size: 16px;
         letter-spacing: 2px;
@@ -359,60 +361,60 @@
 
 
     .product_quant h2 {
-        font-size: 16px; 
+        font-size: 16px;
     }
-    
-    .product_quant h3 { 
+
+    .product_quant h3 {
         font-size: 11px;
-        margin-top: 5px;   
+        margin-top: 5px;
     }
-    
+
     .quantity input {
-        
+
         width: 27px;
         font-size: 14px;
-        
+
     }
-    
+
     button[class*=btn] {
         width: 25px;
         height: 25px;
-        
+
     }
-    
+
 
     .product_frete h2 {
         font-size: 16px;
     }
-    
-    
+
+
     .product_frete a {
         font-size: 12px;
     }
-    
-   
-    
-    
-    
+
+
+
+
+
     .frete {
         padding: 5px;
         font-size: 14px;
         border-radius: 10px;
         width: 85px;
     }
-    
+
     .calcular {
         padding: 5px;
         font-size: 14px;
         border-radius: 10px;
     }
-    
+
     .calcular:hover {
         border: 1px solid rgb(65, 65, 65);
         cursor: pointer;
     }
-    
-    
+
+
     .product_comprar {
         width: 95%;
         margin-top: 20px;
@@ -421,7 +423,7 @@
         flex-direction: row;
         align-items: center;
     }
-    
+
     .product_comprar input {
         background: rgb(167, 89, 45);
         color: rgba(255, 255, 255, 0.8);
@@ -434,19 +436,19 @@
         border: 1px solid transparent;
         transition: 0.3s ease all;
     }
-    
+
     .product_comprar input:hover {
         cursor: pointer;
         letter-spacing: 1px;
     }
-    
+
     .product_comprar input:last-child {
         background: transparent;
         border: 2px solid rgb(45, 45, 45);
-        
+
     }
-    
-    
+
+
     .product_comprar input:last-child:hover {
         border: 2px solid rgb(95, 95, 95);
         background: rgb(45, 45, 45);
@@ -460,15 +462,15 @@
 
     .desc h2 {
         font-size: 25px;
-        font-family: Poppins,sans-serif;
+        font-family: Poppins, sans-serif;
         color: rgba(255, 255, 255, 0.8);
         font-weight: 500;
     }
-    
+
     .product_desc p {
         margin-top: 10px;
         font-size: 15.5px;
-        font-family: Poppins,sans-serif;
+        font-family: Poppins, sans-serif;
         color: rgba(255, 255, 255, 0.7);
         font-weight: 300;
         width: 90%;
@@ -483,7 +485,7 @@
         position: relative;
         height: 60px;
         margin-top: 60px;
-    }   
+    }
 
 
     .mored_box {
@@ -495,16 +497,16 @@
         padding-bottom: 10px;
         width: 90%;
     }
-    
+
     .mored_box h2 {
-        font-family: Poppins,sans-serif;
+        font-family: Poppins, sans-serif;
         font-size: 18px;
         color: rgba(255, 255, 255, 0.7);
         font-weight: 500;
     }
-    
+
     .mored_box h3 {
-        font-family: Poppins,sans-serif;
+        font-family: Poppins, sans-serif;
         font-size: 12px;
         color: rgba(255, 255, 255, 0.6);
         font-weight: 400;
@@ -515,7 +517,7 @@
         font-size: 16px;
         width: 10%;
         height: 40px;
-        
+
     }
 
 
@@ -547,14 +549,14 @@
         flex-direction: column;
         justify-content: center;
     }
-    
-    
+
+
     .more_products {
         width: 100%;
         display: flex;
         flex-direction: row;
         align-items: center;
-        
+
         overflow-y: hidden;
         overflow-x: scroll;
         direction: ltr;
@@ -572,7 +574,7 @@
         min-width: 150px;
         margin-top: 100px;
         margin-left: 15px;
-        
+
     }
 
 
@@ -582,24 +584,24 @@
         flex-direction: row;
         flex-wrap: wrap;
         margin-top: 40px;
-        
-        
+
+
     }
 
 
     .more_imgs {
         width: 100%;
-       
+
         height: max-content;
         display: flex;
         align-items: center;
         flex-direction: row;
         justify-content: space-between;
-        
-        
+
+
     }
-    
-    
+
+
     .more_imgs img {
         width: 30%;
         border-radius: 15px;
@@ -607,10 +609,10 @@
 
     .star_box {
         font-size: 15px;
-        font-family: Poppins,sans-serif;
-        
+        font-family: Poppins, sans-serif;
+
         width: 12%;
-        
+
         height: 40px;
         transition: 0.2s ease all;
     }
@@ -622,7 +624,7 @@
         margin-top: 160px;
         width: 90%;
         display: flex;
-        
+
         justify-content: center;
     }
 
@@ -640,7 +642,7 @@
 
     .card_box {
         width: 90%;
-        
+
         display: flex;
         align-items: center;
         justify-content: end;
@@ -650,7 +652,7 @@
 
     .card_img img {
         width: 560px;
-        
+
         margin-right: 35%;
     }
 
@@ -658,16 +660,17 @@
         width: 60%;
         height: 600px;
     }
+
     .fav_hearth {
         margin-left: -40px;
     }
-    
+
     .fav_hearth img {
         width: 40px;
         cursor: pointer;
-        
+
     }
-    
+
     .fav_hearth input {
         display: none;
     }
@@ -676,7 +679,7 @@
         width: 40%;
         max-height: 600px;
     }
-    
+
     .card_box_text h4 {
         font-size: 33px;
         padding: 0px 5px;
@@ -686,44 +689,44 @@
     .card_info {
         width: 100%;
         margin-top: 20px;
-        
+
     }
 
 
     .product_name h2 {
         font-size: 28px;
     }
-    
-    
-    
+
+
+
     .product_price h2 {
         font-size: 48px;
         letter-spacing: 1px;
     }
-    
+
     .product_price h3 {
         font-size: 25px;
         letter-spacing: 5px;
         margin-bottom: -10px;
     }
-    
+
     .product_price h4 {
         font-size: 28px;
         letter-spacing: 3px;
         margin-top: -10px;
     }
-    
+
     .product_price h5 {
-        font-size: 15px; 
+        font-size: 15px;
     }
 
     .product_avaliacao h2 {
         font-size: 20px;
         letter-spacing: 2px;
-        
+
     }
-    
-    
+
+
     .product_avaliacao h3 {
         font-size: 16px;
         letter-spacing: 2px;
@@ -732,61 +735,61 @@
 
 
     .product_quant h2 {
-        font-size: 18px; 
+        font-size: 18px;
     }
-    
-    .product_quant h3 { 
+
+    .product_quant h3 {
         font-size: 14px;
-        margin-top: 5px;   
+        margin-top: 5px;
     }
-    
+
     .quantity input {
-        
+
         width: 27px;
         font-size: 18px;
-        
+
     }
-    
+
     button[class*=btn] {
         width: 35px;
         height: 35px;
-        
+
     }
-    
+
 
     .product_frete h2 {
         font-size: 18px;
     }
-    
-    
+
+
     .product_frete a {
         font-size: 15px;
         width: max-content;
     }
-    
-   
-    
-    
-    
+
+
+
+
+
     .frete {
         padding: 5px;
         font-size: 16px;
         border-radius: 10px;
         width: 95px;
     }
-    
+
     .calcular {
         padding: 5px;
         font-size: 16px;
         border-radius: 10px;
     }
-    
+
     .calcular:hover {
         border: 1px solid rgb(65, 65, 65);
         cursor: pointer;
     }
-    
-    
+
+
     .product_comprar {
         width: 95%;
         margin-top: 20px;
@@ -795,7 +798,7 @@
         flex-direction: row;
         align-items: center;
     }
-    
+
     .product_comprar input {
         background: rgb(167, 89, 45);
         color: rgba(255, 255, 255, 0.8);
@@ -808,19 +811,19 @@
         border: 1px solid transparent;
         transition: 0.3s ease all;
     }
-    
+
     .product_comprar input:hover {
         cursor: pointer;
         letter-spacing: 1px;
     }
-    
+
     .product_comprar input:last-child {
         background: transparent;
         border: 2px solid rgb(45, 45, 45);
-        
+
     }
-    
-    
+
+
     .product_comprar input:last-child:hover {
         border: 2px solid rgb(95, 95, 95);
         background: rgb(45, 45, 45);
@@ -893,7 +896,7 @@
         margin-left: -270px;
     }
 
-    
+
 
 
 }
@@ -919,23 +922,23 @@
         min-width: 20%;
         display: flex;
         align-items: center;
-        
+
         flex-direction: column;
-        
+
     }
-    
+
     .comment_left img {
         width: 60px;
         height: 60px;
         border-radius: 100%;
     }
-    
+
     .comment_right {
         max-width: 76%;
         display: flex;
         flex-direction: column;
         margin-left: 2%;
-        
+
     }
 }
 
@@ -957,11 +960,11 @@
 
 
     .preco_area {
-        
+
         flex-direction: column;
         align-items: flex-start;
         justify-content: flex-start;
-        
+
     }
 
 
@@ -969,12 +972,12 @@
     .descontopreco h2 {
         font-size: 28px;
     }
-    
+
     .descontopreco h3 {
         font-size: 14px;
-        
+
     }
-    
+
     .preco h4 {
         font-size: 28px;
     }
@@ -982,47 +985,48 @@
     .quantity {
         margin-top: 5px;
     }
+
     .quantity input {
         width: 25px;
         font-size: 14px;
     }
-    
+
     button[class*=btn] {
         width: 25px;
         height: 25px;
     }
-    
+
     .quant_mobile h2 {
-        font-family: Poppins,sans-serif;
+        font-family: Poppins, sans-serif;
         color: rgba(255, 255, 255, 0.8);
         font-weight: 500;
         font-size: 16px;
         margin-top: 10px;
     }
-    
-    
+
+
     .quant_mobile h3 {
-        font-family: Poppins,sans-serif;
+        font-family: Poppins, sans-serif;
         color: rgba(255, 255, 255, 0.4);
         font-weight: 400;
         font-size: 10px;
     }
 
-    
+
     .calc_frete h2 {
         font-size: 16px;
     }
-    
+
     .calc_frete h3 {
         font-size: 15px;
         margin-top: 5px;
     }
-    
+
     .calc_frete input {
         font-size: 14px;
         max-width: 80px;
     }
-    
+
     .calc_frete button {
         font-size: 16px;
         margin-left: 10px;
@@ -1051,23 +1055,23 @@
         min-width: 27%;
         display: flex;
         align-items: center;
-        
+
         flex-direction: column;
-        
+
     }
-    
+
     .comment_left img {
         width: 60px;
         height: 60px;
         border-radius: 100%;
     }
-    
+
     .comment_right {
         max-width: 68%;
         display: flex;
         flex-direction: column;
         margin-left: 2%;
-        
+
     }
 
 }
@@ -1088,30 +1092,3 @@
         height: 280px;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
