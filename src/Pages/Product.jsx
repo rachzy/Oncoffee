@@ -12,11 +12,24 @@ const Product = ({
   pageTitle,
   setHeaderPageTitle,
   favoriteProducts,
-  handleFavoriteProductsChange,
   cartProducts,
+  handleAddFavoriteProduct,
+  handleRemoveFavoriteProduct,
   handleAddCartProduct,
 }) => {
   const navigate = useNavigate();
+
+  //Product State
+  const [product, setProduct] = useState();
+  const [productNotFound, setProductNotFound] = useState(false);
+  const [otherProducts, setOtherProducts] = useState([]);
+
+  //State that controls the amount of products that will be bought by the user
+  const [amount, setAmount] = useState(1);
+  const [productFinalPrice, setProductFinalPrice] = useState(
+    product?.productPrice.finalPrice || 0
+  );
+
   useEffect(() => {
     setHeaderPageTitle(pageTitle);
   }, [pageTitle, setHeaderPageTitle]);
@@ -26,36 +39,70 @@ const Product = ({
   const params = useParams();
   const { productId } = params;
 
-  //Product State
-  const [product, setProduct] = useState();
-
   useEffect(() => {
-    const fetchProductData = async () => {
+    const fetchOtherProducts = async (category) => {
       try {
         const { data } = await Axios.get(
-          `${serverUrl}/products/getsingle/${productId}`
+          `${serverUrl}/products/getmany/${category}`
         );
 
         if (data.isError) {
           return displayError(data.errorCode, data.errno);
         }
 
-        setProduct(data);
+        setOtherProducts(data);
       } catch (err) {
+        displayError(err.message, err.code);
+      }
+    };
+    const fetchProductData = async () => {
+      try {
+        const { data } = await Axios.get(
+          `${serverUrl}/products/getsingle/${productId}`
+        );
+
+        if (!data || data.length === 0) {
+          return setProductNotFound(true);
+        }
+
+        if (data.isError) {
+          switch (data.errorCode) {
+            case "PRODUCT_NOT_FOUND":
+              setProductNotFound(true);
+              break;
+            default:
+              displayError(data.errorCode, data.errno);
+          }
+          return;
+        }
+
+        setProduct(data);
+        fetchOtherProducts(data.productCategory);
+      } catch (err) {
+        setProductNotFound(true);
         displayError(err.message, err.code);
       }
     };
     fetchProductData();
   }, [displayError, productId, serverUrl]);
 
-  //State that controls the amount of products that will be bought by the user
-  const [amount, setAmount] = useState(1);
-
-  const handleHeartClick = () => {
+  const handleHeartClick = (e) => {
     if (!isLogged) {
       return navigate("/login");
     }
-    handleFavoriteProductsChange(product);
+
+    const { id } = e.target;
+
+    let isFavorited = false;
+
+    if (id.startsWith("checkheart")) {
+      isFavorited = true;
+    }
+
+    if (isFavorited) {
+      return handleRemoveFavoriteProduct(product);
+    }
+    handleAddFavoriteProduct(product);
   };
 
   const handleAddToCartButtonClick = () => {
@@ -70,17 +117,27 @@ const Product = ({
     handleAddCartProduct(newProduct);
   };
 
+  if (productNotFound) {
+    return (
+      <main class="erros">
+        <h2 class="404">ERRO! Produto não encontrado</h2>
+      </main>
+    );
+  }
+
   if (!product) {
     return null;
   }
+
   return (
     <>
       <ContentPC
         product={product}
+        otherProducts={otherProducts}
         favoriteProducts={favoriteProducts}
-        handleFavoriteProductsChange={handleFavoriteProductsChange}
+        handleAddFavoriteProduct={handleAddFavoriteProduct}
         cartProducts={cartProducts}
-        handleAddToCartButtonClick={ handleAddToCartButtonClick}
+        handleAddToCartButtonClick={handleAddToCartButtonClick}
         handleHeartClick={handleHeartClick}
         amount={amount}
         setAmount={setAmount}
@@ -89,8 +146,10 @@ const Product = ({
         product={product}
         amount={amount}
         setAmount={setAmount}
+        cartProducts={cartProducts}
         favoriteProducts={favoriteProducts}
-        handleAddToCartButtonClick={ handleAddToCartButtonClick}
+        handleAddToCartButtonClick={handleAddToCartButtonClick}
+        handleRemoveFavoriteProduct={handleRemoveFavoriteProduct}
         handleHeartClick={handleHeartClick}
       />
     </>

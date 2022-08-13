@@ -13,9 +13,11 @@ router.get("/", async (req, res) => {
   if (!userId) return;
 
   try {
-    const getUserSearches = await Searches.find({searchUserId: userId}).sort({searchTime: 1});
+    const getUserSearches = await Searches.find({ searchUserId: userId }).sort({
+      searchTime: 1,
+    });
     res.send(getUserSearches);
-  } catch(err) {
+  } catch (err) {
     return sendError(res, err.message, err.code);
   }
 });

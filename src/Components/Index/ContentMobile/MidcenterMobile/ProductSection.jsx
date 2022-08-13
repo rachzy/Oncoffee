@@ -10,9 +10,9 @@ import Product from "./ProductSection/Product";
 const ProductSection = ({
   title,
   category,
-  handleFavoritedProductsChange,
-  favoritedProductsIds,
-  setFavoritedProductsIds,
+  handleAddFavoriteProduct,
+  handleRemoveFavoriteProduct,
+  favoriteProducts,
 }) => {
   const [products, setProducts] = useState([]);
 
@@ -45,13 +45,14 @@ const ProductSection = ({
             key={product.productId}
             productId={product.productId}
             productName={product.productTitle}
+            productDescription={product.productDescription}
             productImgSrc={product.productImage}
             productImgAlt={product.productTitle}
             productFinalPrice={product.productPrice.finalPrice}
             productDiscount={product.productPrice.discount}
-            setFavoriteProductsIds={setFavoritedProductsIds}
-            handleFavoritedProductsChange={handleFavoritedProductsChange}
-            favoritedProductsIds={favoritedProductsIds}
+            handleAddFavoriteProduct={handleAddFavoriteProduct}
+            handleRemoveFavoriteProduct={handleRemoveFavoriteProduct}
+            favoriteProducts={favoriteProducts}
           />
         );
       })}

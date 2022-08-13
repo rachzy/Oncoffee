@@ -12,7 +12,6 @@ const Autocomplete = ({
       <ul>
         {autocompleteShow.map((v) => {
           if (!v || !v.searchValue) return null;
-          console.log(v);
           return (
             <AutocompleteValue
               key={`${v.searchId}${v.searchValue}`}

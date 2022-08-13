@@ -1,9 +1,9 @@
 import React from "react";
 
-const ProductPrice = ({ productPrice }) => {
+const ProductPrice = ({ productPrice, amount }) => {
   const calculateInterest = () => {
     const calculateMonthlyPayment = Math.floor(
-      ((productPrice.realPrice / productPrice.installments) *
+      (((productPrice.realPrice * amount) / productPrice.installments) *
         (100 + productPrice.interestRate)) /
         100
     );
@@ -28,8 +28,8 @@ const ProductPrice = ({ productPrice }) => {
 
   return (
     <div className="product_price">
-      <h3>R$ {productPrice.realPrice.toFixed(2)}</h3>
-      <h2>R$ {productPrice.finalPrice.toFixed(2)}</h2>
+      <h3>R$ {(productPrice.realPrice * amount).toFixed(2)}</h3>
+      <h2>R$ {(productPrice.finalPrice * amount).toFixed(2)}</h2>
       <h4>-${productPrice.discount}% OFF</h4>
       {returnInstallments()}
     </div>

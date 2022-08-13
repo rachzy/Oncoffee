@@ -32,7 +32,11 @@ const CommentOverflow = ({ currentPage, setCurrentPage, comments }) => {
       return (
         <CommentBox key={comment.id}>
           <CommentProfile pfp={comment.pfp} level={comment.level} />
-          <CommentText name={comment.name} rate={comment.rateGiven} />
+          <CommentText
+            title={comment.title}
+            rate={comment.rateGiven}
+            description={comment.description}
+          />
         </CommentBox>
       );
     });

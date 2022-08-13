@@ -71,6 +71,7 @@ const Index = ({
           handleAddCartProduct={handleAddCartProduct}
           handleRemoveCartProduct={handleRemoveCartProduct}
           cartProducts={cartProducts}
+          favoriteProducts={favoriteProducts}
         />
         <Buttonsmo />
       </ContentMobile>

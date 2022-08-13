@@ -1,9 +1,39 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+
+import Axios from "axios";
+
 import Comment from "./Comments/Comment";
 
+import { GlobalServerContext } from "../../../App";
+
 const Comments = ({ productComments }) => {
+  const { serverUrl, displayError } = useContext(GlobalServerContext);
+  const navigate = useNavigate();
+
   const [comments, setComments] = useState(productComments);
   const [amountOfComments, setAmountOfComments] = useState(5);
+  const [otherProducts, setOtherProducts] = useState([]);
+  const [lastRenderedProduct, setLastRenderedProduct] = useState(0);
+
+  useEffect(() => {
+    const fetchOtherProducts = async () => {
+      try {
+        const { data } = await Axios.get(
+          `${serverUrl}/products/getmany/otherproducts`
+        );
+
+        if (data.isError) {
+          return displayError(data.errorCode, data.errno);
+        }
+
+        setOtherProducts(data);
+      } catch (err) {
+        displayError(err.message, err.code);
+      }
+    };
+    fetchOtherProducts();
+  }, [displayError, serverUrl]);
 
   const handleShowMoreBtnClick = () => {
     setAmountOfComments((currentState) => currentState + 10);
@@ -37,14 +67,49 @@ const Comments = ({ productComments }) => {
     let { value } = e.target;
     value = parseInt(value);
 
-    const filterCommentsByStar = productComments.map((comment) => {
-      if (Math.floor(comment.rateGiven) !== value) return null;
-      return comment;
-    });
+    const filterCommentsByStar = productComments.filter(
+      (comment) => Math.floor(comment.rateGiven) === value
+    );
+
     setComments(filterCommentsByStar);
     setAmountOfComments(5);
   };
-  
+
+  const renderOtherProducts = () => {
+    return otherProducts.map((product, pos) => {
+      if (pos > lastRenderedProduct) return null;
+      return (
+        <main key={product.productId} className="mobile_pcard">
+          <div className="card_mimg">
+            <img
+              src={require(`../../../imgs/${product.productImage}`)}
+              alt={product.productTitle}
+            />
+          </div>
+
+          <h2>R$ {product.productPrice.finalPrice.toFixed(2)}</h2>
+          <button
+            onClick={() => {
+              navigate(`/product/${product.productId}`);
+              window.scrollTo(0, 0);
+            }}
+          >
+            Comprar
+          </button>
+        </main>
+      );
+    });
+  };
+
+  useEffect(() => {
+    document.addEventListener("scroll", () => {
+      const { scrollTop, scrollHeight } = document.documentElement;
+
+      if (scrollTop <= scrollHeight - 800) return;
+      setLastRenderedProduct((currentValue) => currentValue + 10);
+    });
+  }, []);
+
   return (
     <main className="comentarios">
       <main className="stars_mobile">
@@ -80,139 +145,7 @@ const Comments = ({ productComments }) => {
       </main>
 
       <main className="products_overflow">
-        <main className="mobile_pcard">
-          <div className="card_mimg">
-            <img
-              src={require(`../../../imgs/cafegourmet.png`)}
-              alt="cafe-gourmet"
-            />
-          </div>
-
-          <h2>R$999,99</h2>
-          <button>Comprar</button>
-        </main>
-        <main className="mobile_pcard">
-          <div className="card_mimg">
-            <img
-              src={require(`../../../imgs/cafegourmet.png`)}
-              alt="cafe-gourmet"
-            />
-          </div>
-
-          <h2>R$999,99</h2>
-          <button>Comprar</button>
-        </main>
-        <main className="mobile_pcard">
-          <div className="card_mimg">
-            <img
-              src={require(`../../../imgs/cafegourmet.png`)}
-              alt="cafe-gourmet"
-            />
-          </div>
-
-          <h2>R$999,99</h2>
-          <button>Comprar</button>
-        </main>
-        <main className="mobile_pcard">
-          <div className="card_mimg">
-            <img
-              src={require(`../../../imgs/cafegourmet.png`)}
-              alt="cafe-gourmet"
-            />
-          </div>
-
-          <h2>R$999,99</h2>
-          <button>Comprar</button>
-        </main>
-        <main className="mobile_pcard">
-          <div className="card_mimg">
-            <img
-              src={require(`../../../imgs/cafegourmet.png`)}
-              alt="cafe-gourmet"
-            />
-          </div>
-
-          <h2>R$999,99</h2>
-          <button>Comprar</button>
-        </main>
-        <main className="mobile_pcard">
-          <div className="card_mimg">
-            <img
-              src={require(`../../../imgs/cafegourmet.png`)}
-              alt="cafe-gourmet"
-            />
-          </div>
-
-          <h2>R$999,99</h2>
-          <button>Comprar</button>
-        </main>
-        <main className="mobile_pcard">
-          <div className="card_mimg">
-            <img
-              src={require(`../../../imgs/cafegourmet.png`)}
-              alt="cafe-gourmet"
-            />
-          </div>
-
-          <h2>R$999,99</h2>
-          <button>Comprar</button>
-        </main>
-        <main className="mobile_pcard">
-          <div className="card_mimg">
-            <img
-              src={require(`../../../imgs/cafegourmet.png`)}
-              alt="cafe-gourmet"
-            />
-          </div>
-
-          <h2>R$999,99</h2>
-          <button>Comprar</button>
-        </main>
-        <main className="mobile_pcard">
-          <div className="card_mimg">
-            <img
-              src={require(`../../../imgs/cafegourmet.png`)}
-              alt="cafe-gourmet"
-            />
-          </div>
-
-          <h2>R$999,99</h2>
-          <button>Comprar</button>
-        </main>
-        <main className="mobile_pcard">
-          <div className="card_mimg">
-            <img
-              src={require(`../../../imgs/cafegourmet.png`)}
-              alt="cafe-gourmet"
-            />
-          </div>
-
-          <h2>R$999,99</h2>
-          <button>Comprar</button>
-        </main>
-        <main className="mobile_pcard">
-          <div className="card_mimg">
-            <img
-              src={require(`../../../imgs/cafegourmet.png`)}
-              alt="cafe-gourmet"
-            />
-          </div>
-
-          <h2>R$999,99</h2>
-          <button>Comprar</button>
-        </main>
-        <main className="mobile_pcard">
-          <div className="card_mimg">
-            <img
-              src={require(`../../../imgs/cafegourmet.png`)}
-              alt="cafe-gourmet"
-            />
-          </div>
-
-          <h2>R$999,99</h2>
-          <button>Comprar</button>
-        </main>
-
+        {renderOtherProducts()}
         <div className="loading">
           <div className="loading_box"></div>
         </div>

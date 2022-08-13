@@ -4,6 +4,7 @@ const router = express.Router();
 const Searches = require("../../../models/searches");
 
 const sendError = require("../../../globalFunctions/sendError.js");
+const generateRandomCode = require("../../../globalFunctions/generateRandomCode");
 
 //Post user search on the search table
 router.post("/", async (req, res) => {
@@ -17,6 +18,7 @@ router.post("/", async (req, res) => {
   }
 
   const newSearch = new Searches({
+    searchId: generateRandomCode("number", 15),
     searchValue: searchValue,
     searchUserId: userId,
   });

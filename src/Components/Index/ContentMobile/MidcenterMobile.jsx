@@ -9,11 +9,14 @@ import TopPromo from "./MidcenterMobile/TopPromo";
 
 import { GlobalServerContext } from "../../../App";
 
-const MidcenterMobile = ({ handleFavoritedProductsChange }) => {
+const MidcenterMobile = ({
+  handleAddFavoriteProduct,
+  handleRemoveFavoriteProduct,
+  favoriteProducts,
+}) => {
   const { serverUrl, displayError } = useContext(GlobalServerContext);
 
   const [slideProductsIds, setSlideProductsIds] = useState([]);
-  const [favoritedProductsIds, setFavoritedProductsIds] = useState();
 
   useEffect(() => {
     const fetchSlides = async () => {
@@ -32,27 +35,7 @@ const MidcenterMobile = ({ handleFavoritedProductsChange }) => {
       }
     };
     fetchSlides();
-
-    const fetchFavoritedProductsIds = async () => {
-      try {
-        const { data } = await Axios.get(
-          `${serverUrl}/user/getfavoriteproducts/ids`
-        );
-
-        console.log(data);
-
-        if (data.isError) {
-          return displayError(data.errorCode, data.errno);
-        }
-
-        if (!data) return;
-        setFavoritedProductsIds(data);
-      } catch (err) {
-        displayError(err);
-      }
-    };
-    fetchFavoritedProductsIds();
-  }, [serverUrl]);
+  }, [serverUrl, displayError]);
 
   return (
     <>
@@ -60,25 +43,25 @@ const MidcenterMobile = ({ handleFavoritedProductsChange }) => {
       <ProductSection
         title="Com Desconto"
         category="discount"
-        favoritedProductsIds={favoritedProductsIds}
-        setFavoritedProductsIds={setFavoritedProductsIds}
-        handleFavoritedProductsChange={handleFavoritedProductsChange}
+        favoriteProducts={favoriteProducts}
+        handleAddFavoriteProduct={handleAddFavoriteProduct}
+        handleRemoveFavoriteProduct={handleRemoveFavoriteProduct}
       />
 
       <ProductSection
         title="Mais Vendidos"
         category="mostsolds"
-        favoritedProductsIds={favoritedProductsIds}
-        setFavoritedProductsIds={setFavoritedProductsIds}
-        handleFavoritedProductsChange={handleFavoritedProductsChange}
+        favoriteProducts={favoriteProducts}
+        handleAddFavoriteProduct={handleAddFavoriteProduct}
+        handleRemoveFavoriteProduct={handleRemoveFavoriteProduct}
       />
 
       <FeaturedPromotions slideProductsIds={slideProductsIds} />
 
       <OtherProductsSection
-        favoritedProductsIds={favoritedProductsIds}
-        setFavoritedProductsIds={setFavoritedProductsIds}
-        handleFavoritedProductsChange={handleFavoritedProductsChange}
+        favoriteProducts={favoriteProducts}
+        handleAddFavoriteProduct={handleAddFavoriteProduct}
+        handleRemoveFavoriteProduct={handleRemoveFavoriteProduct}
       />
     </>
   );

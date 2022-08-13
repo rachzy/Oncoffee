@@ -28,7 +28,7 @@ const CardBoxInfo = ({
         setProductRate={setProductRate}
         productTotalOrders={productTotalOrders}
       />
-      <ProductPrice productPrice={productPrice} />
+      <ProductPrice productPrice={productPrice} amount={amount} />
       <ProductAmount
         amount={amount}
         setAmount={setAmount}

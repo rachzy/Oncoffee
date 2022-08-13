@@ -60,7 +60,6 @@ const Product = ({
       //and display a "favorited heart" icon instead of a default one if it is
       if (!isLogged) return;
       const checkIfProductIsFavorited = () => {
-
         let isProductSetAsFavorite = false;
 
         favoriteProducts.forEach((product) => {
@@ -95,14 +94,13 @@ const Product = ({
 
   //Return a discount div if there's discount
   const returnDiscount = () => {
-    if (productDiscount) {
-      return (
-        <div className="produto_desconto">
-          <h3>{productDiscount}%</h3>
-          <h3>OFF</h3>
-        </div>
-      );
-    }
+    if (!productDiscount) return;
+    return (
+      <div className="produto_desconto">
+        <h3>{productDiscount}%</h3>
+        <h3>OFF</h3>
+      </div>
+    );
   };
 
   const returnDescriptionWithDots = (lengthType) => {

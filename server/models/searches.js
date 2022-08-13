@@ -4,7 +4,6 @@ const searchesSchema = new mongoose.Schema({
   searchId: {
     type: Number,
     required: true,
-    default: Math.floor(Math.random() * 10000000),
   },
   searchValue: {
     type: String,
