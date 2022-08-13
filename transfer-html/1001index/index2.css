@@ -16,67 +16,6 @@
 
 }
 
-@keyframes navcolor {
-    0%{
-        border-bottom: 1px solid rgba(7, 120, 250, 0.568);
-    }
-    50%{
-        border-bottom: 1px solid rgba(7, 61, 250, 0.63);
-    }
-    100%{
-        border-bottom: 1px solid rgba(7, 120, 250, 0.568); 
-    }
-}
-
-
-@keyframes headerblur {
-    0%{
-        background:  rgba(7, 120, 250, 0.568);
-    }
-    50%{
-      background:   rgba(7, 61, 250, 0.63);
-    }
-    100%{
-       background:  rgba(7, 120, 250, 0.568); 
-    }
-}
-
-
-@keyframes bttscolor {
-    0%{
-        border-top: 1px solid rgba(7, 120, 250, 0.568);
-    }
-    50%{
-        border-top: 1px solid rgba(7, 61, 250, 0.63);
-    }
-    100%{
-        border-top: 1px solid rgba(7, 120, 250, 0.568); 
-    }
-}
-
-@keyframes searchcolor {
-    0%{
-        border: 1px solid rgb(7, 120, 250);
-    }
-    50%{
-        border: 1px solid rgb(7, 61, 250);
-    }
-    100%{
-        border: 1px solid rgb(7, 120, 250); 
-    }
-}
-
-@keyframes iboxcolor {
-    0%{
-        background: rgb(7, 120, 250);
-    }
-    50%{
-        background: rgb(7, 61, 250);
-    }
-    100%{
-        background: rgb(7, 120, 250); 
-    }
-}
 
 textarea:focus, input:focus, select:focus {
     box-shadow: 0 0 0 0;
@@ -829,10 +768,7 @@ body {
     margin-left: 50%;
 }
 
-.conteudo {
-    min-height: 1000px;
-    
-}
+
 
 .conteudomobile {
     display: none;
@@ -2459,7 +2395,7 @@ body {
 
 .conteudo {
     width: 100%;
-    
+    margin-bottom: 0px;
     
 }
 
@@ -4777,6 +4713,7 @@ body {
     align-items: center;
     flex-direction: column;
     justify-content: center;
+    margin-bottom: -360px;
 }
 
 .garantias {
