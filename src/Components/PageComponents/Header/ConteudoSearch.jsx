@@ -24,96 +24,161 @@ const ConteudoSearch = () => {
 
   const contentSearch = useRef(null);
 
-  //Function to set the inital value and structure of the "InputSearchProductValue" state
-  function initialState() {
-    return { searchValue: "" };
-  }
-
-  //State that will save the value of the input for searching Products
-  const [InputSearchProductValue, setInputSearchProductValue] = useState(
-    initialState()
-  );
-  //State that will control exactly what will be displayed on the "autocomplete" div
+  //Autocomplete states
   const [autocompleteShow, setAutocompleteShow] = useState([]);
-  //State to set the "autocomplete" values
   const [autocompleteData, setAutocompleteData] = useState([]);
 
-  //Function that will set the "InputSearchProductValue" state every time that the input get changed
-  const handleInputProductChange = async (e) => {
-    const { value, name } = e.target;
-    setInputSearchProductValue({
+  //Categories states
+  const [categoriesData, setCategoriesData] = useState([]);
+  const [categoriesShow, setCategoriesShow] = useState([]);
+
+  useEffect(() => {
+    const fetchSearches = async () => {
+      if (!isLogged) return;
+
+      try {
+        const { data } = await Axios.get(`${serverUrl}/user/getsearches`, {
+          withCredentials: true,
+        });
+
+        if (data.isError) displayError(data.errorCode, data.errno);
+
+        setAutocompleteData(data);
+        setAutocompleteShow(data);
+      } catch (err) {
+        return displayError(err.message, "COULDNT_FETCH_SEARCHES");
+      }
+    };
+    fetchSearches();
+
+    const fetchCategories = async () => {
+      try {
+        const { data } = await Axios.get(`${serverUrl}/categories/get`);
+
+        if (data.isError) return displayError(data.errorCode, data.errno);
+
+        setCategoriesData(data);
+        setCategoriesShow(data);
+      } catch (err) {
+        displayError(err.message, "COULDNT_FETCH_CATEGORIES");
+      }
+    };
+    fetchCategories();
+  }, [serverUrl, displayError, isLogged]);
+
+  const [inputValues, setInputValues] = useState({
+    product: "",
+    category: "",
+  });
+
+  const [debounce, setDebounce] = useState(); //Debounce to delay server queries
+  const handleInputsChange = (e) => {
+    const { name, value } = e.target;
+
+    setInputValues({
+      ...inputValues,
       [name]: value,
     });
 
-    if (value === "") {
+    if (!value && name === "product") {
       setAutocompleteShow(autocompleteData);
-      return;
     }
 
-    if (
-      !InputSearchProductValue.searchValue ||
-      InputSearchProductValue.searchValue === ""
-    )
-      return;
+    if (!value) return clearTimeout(debounce);
 
-    //Get all the search results according to what the user typed from the database
-    try {
-      const { data } = await Axios.get(
-        `${serverUrl}/getproductsforsearches/${InputSearchProductValue.searchValue}`
+    //Set the "InputSearchProductValue" state every time that the input get changed
+    if (name === "product") {
+      clearTimeout(debounce);
+      return setDebounce(
+        setTimeout(async () => {
+          try {
+            const { data } = await Axios.get(
+              `${serverUrl}/products/getsearches/${value}`
+            );
+
+            if (data.isError) return displayError(data.errorCode, data.errno);
+
+            let finalProductsReturn;
+
+            if (data.length === 0) {
+              return setAutocompleteShow([
+                {
+                  searchId: value,
+                  searchValue: value,
+                  notRecent: true,
+                },
+              ]);
+            }
+
+            data.forEach((d) => {
+              if (!d) return null;
+              if (finalProductsReturn) {
+                return (finalProductsReturn = [
+                  ...finalProductsReturn,
+                  {
+                    searchId: d.productId,
+                    searchValue: d.productTitle,
+                    notRecent: true,
+                  },
+                ]);
+              }
+              finalProductsReturn = [
+                {
+                  searchId: d.productId,
+                  searchValue: d.productTitle,
+                  notRecent: true,
+                },
+              ];
+            });
+
+            if (!finalProductsReturn) return;
+
+            //Set the final state value
+            setAutocompleteShow(finalProductsReturn);
+          } catch (err) {
+            displayError(err.message, "COULDNT_GET_INPUT_SEARCHES");
+          }
+        }, 400)
+      );
+    }
+
+    if (name === "category") {
+      const getSimilarProductsAccordingToInputValue = categoriesData.map(
+        (category) => {
+          const inputValue = value
+            .toLowerCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "");
+          const categoryName = category.categoryName
+            .toLowerCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "");
+          const differencePercentage =
+            similarity(inputValue, categoryName) * -1;
+          if (differencePercentage < 20) return category;
+          if (categoryName.startsWith(inputValue)) return category;
+          return undefined;
+        }
       );
 
-      if (data.isError) return displayError(data.errorCode, data.errno);
-
-      let finalProductsReturn;
-      if (data.length === 0) {
-        setAutocompleteShow([
-          {
-            searchId: InputSearchProductValue.searchValue,
-            searchValue: InputSearchProductValue.searchValue,
-            notRecent: true,
-          },
-        ]);
-        return;
-      }
-      data.map((d) => {
-        if (!d || d.productName === "") return null;
-        if (finalProductsReturn) {
-          finalProductsReturn = [
-            ...finalProductsReturn,
-            {
-              searchId: d.productId,
-              searchValue: d.productName,
-              notRecent: true,
-            },
-          ];
-        } else {
-          finalProductsReturn = [
-            {
-              searchId: d.productId,
-              searchValue: d.productName,
-              notRecent: true,
-            },
-          ];
-        }
-        return finalProductsReturn;
-      });
-  
-      if (!finalProductsReturn || finalProductsReturn === "") return;
-  
-      //Set the final state value
-      setAutocompleteShow(finalProductsReturn);
-    } catch (err) {
-      displayError(err.message, "COULDNT_GET_INPUT_SEARCHES");
+      setCategoriesShow(getSimilarProductsAccordingToInputValue);
     }
   };
 
   //Post user search on the database
   const postInputSearchProductValue = (searchValue) => {
+    if (!searchValue) {
+      throw Error("Search value can't be empty!");
+    }
     const postData = async () => {
       try {
-        const { data } = await Axios.post(`${serverUrl}/user/postsearch`, {
-          searchValue: searchValue,
-        });
+        const { data } = await Axios.post(
+          `${serverUrl}/user/postsearch`,
+          {
+            searchValue: searchValue,
+          },
+          { withCredentials: true }
+        );
 
         if (data.isError) {
           displayError(data.errorCode, data.errno);
@@ -129,7 +194,7 @@ const ConteudoSearch = () => {
       if (!isLogged) return;
 
       try {
-        const { data } = await Axios.get(`${serverUrl}/user/getusersearches/`);
+        const { data } = await Axios.get(`${serverUrl}/user/getsearches/`);
 
         if (data.isError) return displayError(data.errorCode, data.errno);
 
@@ -142,107 +207,34 @@ const ConteudoSearch = () => {
     setTimeout(fetchNewSearches, 1000);
   };
 
-  //Function that will post the "InputSearchProductValue" to the server and redirect the user to the
-  //Search page when the "SearchIcon" get clicked
-  const handleInputProductEnterKeyPress = (e) => {
+  const handleInputKeyPress = (e) => {
     if (e.key !== "Enter") return;
-    if (
-      !InputSearchProductValue.searchValue ||
-      InputSearchProductValue.searchValue === ""
-    )
-      return;
+    const { name } = e.target;
 
-    navigate(`/search/${InputSearchProductValue.searchValue}`);
-    contentSearch.current.classList.remove("active");
+    if (!inputValues[name]) return;
 
-    postInputSearchProductValue(InputSearchProductValue.searchValue);
+    if (name === "product") {
+      navigate(`/search/${inputValues.product}`);
+      contentSearch.current.classList.remove("active");
+      return postInputSearchProductValue(inputValues.product);
+    }
   };
-
-  useEffect(() => {
-    const fetchSearches = async () => {
-      if (!isLogged) return;
-
-      try {
-        const { data } = await Axios.get(`${serverUrl}/getusersearches`);
-
-        if (data.isError) displayError(data.errorCode, data.errno);
-
-        setAutocompleteData(data);
-        setAutocompleteShow(data);
-      } catch (err) {
-        return displayError(err.message, "COULDNT_FETCH_SEARCHES");
-      }
-    };
-    fetchSearches();
-  }, [serverUrl, displayError, isLogged]);
-
-  //State that will save the value of the input for searching Categories
-  const [InputSearchCategoryValue, setInputCategoryValue] = useState(
-    initialState()
-  );
-
-  const handleInputCategoryChange = async (e) => {
-    const { value, name } = e.target;
-    setInputCategoryValue({
-      [name]: value,
-    });
-
-    if (!value || value === "") return setCategoriesShow(categoriesData);
-
-    const getSimilarProductsAccordingToInputValue = categoriesData.map(
-      (category) => {
-        const inputValue = value
-          .toLowerCase()
-          .normalize("NFD")
-          .replace(/[\u0300-\u036f]/g, "");
-        const categoryName = category.categoryName
-          .toLowerCase()
-          .normalize("NFD")
-          .replace(/[\u0300-\u036f]/g, "");
-        const differencePercentage = similarity(inputValue, categoryName) * -1;
-        if (differencePercentage < 20) return category;
-        if (categoryName.startsWith(inputValue)) return category;
-        return undefined;
-      }
-    );
-
-    setCategoriesShow(getSimilarProductsAccordingToInputValue);
-  };
-
-  const [categoriesData, setCategoriesData] = useState();
-  const [categoriesShow, setCategoriesShow] = useState();
-
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const { data } = await Axios.get(`${serverUrl}/getcategories/`);
-
-        if (data.isError) return displayError(data.errorCode, data.errno);
-
-        setCategoriesData(data);
-        setCategoriesShow(data);
-      } catch (err) {
-        displayError(err.message, "COULDNT_FETCH_CATEGORIES");
-      }
-    };
-    fetchCategories();
-  }, [serverUrl, displayError]);
 
   return (
     <main ref={contentSearch} id="content-search" className="conteudosearch">
       <InputSearchSection className="input-search">
         <InputSearchMobile
           type="text"
-          name="searchValue"
+          name="product"
           placeholder="Buscar um produto..."
-          value={InputSearchProductValue.searchValue}
-          onChange={handleInputProductChange}
-          onKeyPress={handleInputProductEnterKeyPress}
+          value={inputValues.product}
+          onChange={handleInputsChange}
+          onKeyPress={handleInputKeyPress}
         />
       </InputSearchSection>
       <AutocompleteSectionMobile
         autocompleteShow={autocompleteShow}
-        setInputValue={setInputSearchProductValue}
+        setInputValue={setInputValues}
         postInputSearchProductValue={postInputSearchProductValue}
       />
 
@@ -255,10 +247,10 @@ const ConteudoSearch = () => {
       <InputSearchSection className="input-search2">
         <InputSearchMobile
           type="text"
-          name="searchValue"
+          name="category"
           placeholder="Buscar uma categoria..."
-          onChange={handleInputCategoryChange}
-          value={InputSearchCategoryValue.searchValue}
+          onChange={handleInputsChange}
+          value={inputValues.category}
         />
       </InputSearchSection>
 

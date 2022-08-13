@@ -1,23 +1,25 @@
 import React, { useState } from "react";
 
-const ProductFreight = ({freightCost}) => {
+const ProductFreight = ({ freightCost }) => {
   const [inputValue, setInputValue] = useState("");
-  const [freightFinalValue, setFreightFinalValue] = useState(`R$ ${freightCost.toFixed(2)}`);
+  const [freightFinalValue, setFreightFinalValue] = useState(
+    `R$ ${freightCost.toFixed(2)}`
+  );
 
   const handleInputChange = (e) => {
     const { value } = e.target;
     setInputValue(value);
 
-    if(!value) return;
+    if (!value) return;
     calculatePrice();
   };
 
   const calculatePrice = () => {
     setFreightFinalValue("Calculando...");
     setTimeout(() => {
-        setFreightFinalValue(`R$ ${freightCost.toFixed(2)}`)
-    }, 2000)
-  }
+      setFreightFinalValue(`R$ ${freightCost.toFixed(2)}`);
+    }, 2000);
+  };
   return (
     <div className="product_frete">
       <h2>Calcule o frete através do seu CEP</h2>
@@ -30,7 +32,11 @@ const ProductFreight = ({freightCost}) => {
           value={inputValue}
         />
       </div>
-      <a href="https://buscacepinter.correios.com.br/app/endereco/index.php">
+      <a
+        href="https://buscacepinter.correios.com.br/app/endereco/index.php"
+        target="_blank"
+        rel="noreferrer"
+      >
         Não sei o meu CEP
       </a>
       <h2>Valor do Frete: {freightFinalValue}</h2>

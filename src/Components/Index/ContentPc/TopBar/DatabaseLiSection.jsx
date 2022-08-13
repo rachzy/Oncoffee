@@ -13,7 +13,6 @@ const DatabaseLiSection = ({
   categories,
   loadSubcategories,
 }) => {
-  const splitLiTitles = liTitles.split(",");
   let nextCategory = 0;
 
   function renderElementsIfCategoriesIsNotUndefined() {
@@ -24,7 +23,7 @@ const DatabaseLiSection = ({
 
         <div id={classId} className="consult_box">
           <div className="consult_boxul">
-            {splitLiTitles.map((element) => {
+            {liTitles.map((element) => {
               if (loadSubcategories) {
                 switch (category) {
                   case "acessories":
@@ -33,12 +32,12 @@ const DatabaseLiSection = ({
                     )[0];
                     return (
                       <DatabaseLiLine
-                        key={element}
-                        elementKey={element}
+                        key={element.categoryId}
+                        elementKey={element.categoryId}
                         category={filterAccessoriesCategory}
                         loadSubcategories={loadSubcategories}
                       >
-                        {element}
+                        {element.categoryName}
                       </DatabaseLiLine>
                     );
                   case "derivatives":
@@ -47,12 +46,12 @@ const DatabaseLiSection = ({
                     )[0];
                     return (
                       <DatabaseLiLine
-                        key={element}
-                        elementKey={element}
+                        key={element.categoryId}
+                        elementKey={element.categoryId}
                         category={filterDerivativesCategory}
                         loadSubcategories={loadSubcategories}
                       >
-                        {element}
+                        {element.categoryName}
                       </DatabaseLiLine>
                     );
                   default:
@@ -74,12 +73,12 @@ const DatabaseLiSection = ({
               }
               return (
                 <DatabaseLiLine
-                  key={element}
-                  elementKey={element}
+                  key={element.categoryId}
+                  elementKey={element.categoryId}
                   category={categories}
                   loadSubcategories={loadSubcategories}
                 >
-                  {element}
+                  {element.categoryName}
                 </DatabaseLiLine>
               );
             })}

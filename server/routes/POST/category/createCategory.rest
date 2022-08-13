@@ -1,0 +1,19 @@
+POST http://localhost:8000/category/create
+Content-Type: application/json
+
+{
+  "categoryId": 5,
+  "categoryName": "Derivados",
+  "categoryImg": "nespresso.png",
+  "categorySubcategories": [
+    {
+      "name": "Derivado Tipo 1"
+    },
+    {
+      "name": "Derivado Tipo 2"
+    },
+    {
+      "name": "Derivado Tipo 3"
+    }
+  ]
+}

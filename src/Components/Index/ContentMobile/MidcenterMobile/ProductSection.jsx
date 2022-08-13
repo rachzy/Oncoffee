@@ -10,9 +10,9 @@ import Product from "./ProductSection/Product";
 const ProductSection = ({
   title,
   category,
-  handleFavoritedProductsChange,
-  favoritedProductsIds,
-  setFavoritedProductsIds,
+  handleAddFavoriteProduct,
+  handleRemoveFavoriteProduct,
+  favoriteProducts,
 }) => {
   const [products, setProducts] = useState([]);
 
@@ -20,34 +20,39 @@ const ProductSection = ({
   const { serverUrl } = require("../../../../connection.json"); //Import serverUrl (Ex: http://localhost:3001);
   useEffect(() => {
     const fetchProducts = async () => {
-      await Axios.get(`${serverUrl}/getproducts/${category}`).then(
-        (response) => {
-          const data = response.data;
-          if (data.isError) {
-            displayError(data.errorCode, data.errno);
-            return;
-          }
-          setProducts(data);
+      try {
+        const { data } = await Axios.get(
+          `${serverUrl}/products/getmany/${category}`
+        );
+
+        if (data.isError) {
+          return displayError(data.errorCode, data.errno);
         }
-      );
+
+        setProducts(data);
+      } catch (err) {
+        return displayError(err.message, err.code);
+      }
     };
     fetchProducts();
   }, [serverUrl, category]);
   return (
     <ProductLine title={title} category={category}>
       {products.map((product) => {
+        if (!products) return null;
         return (
           <Product
             key={product.productId}
             productId={product.productId}
-            productName={product.productName}
-            productImgSrc={product.productImgSrc}
-            productImgAlt={product.productImgAlt}
-            productFinalPrice={product.productFinalPrice}
-            productDiscount={product.productDiscount}
-            setFavoriteProductsIds={setFavoritedProductsIds}
-            handleFavoritedProductsChange={handleFavoritedProductsChange}
-            favoritedProductsIds={favoritedProductsIds}
+            productName={product.productTitle}
+            productDescription={product.productDescription}
+            productImgSrc={product.productImage}
+            productImgAlt={product.productTitle}
+            productFinalPrice={product.productPrice.finalPrice}
+            productDiscount={product.productPrice.discount}
+            handleAddFavoriteProduct={handleAddFavoriteProduct}
+            handleRemoveFavoriteProduct={handleRemoveFavoriteProduct}
+            favoriteProducts={favoriteProducts}
           />
         );
       })}

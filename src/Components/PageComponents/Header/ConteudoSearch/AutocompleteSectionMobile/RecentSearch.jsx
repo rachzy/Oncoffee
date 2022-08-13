@@ -1,18 +1,25 @@
-import React from "react";    
+import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const RecentSearch = ({ setInputValue, value, postInputSearchProductValue }) => {
+const RecentSearch = ({
+  setInputValue,
+  value,
+  postInputSearchProductValue,
+}) => {
   const navigate = useNavigate();
   const handleAutocompleteClick = () => {
-    setInputValue({
-      searchValue: value
+    setInputValue((currentState) => {
+      return {
+        ...currentState,
+        product: value,
+      };
     });
     navigate(`/search/${value}`);
     document.querySelector("#content-search").classList.remove("active");
-    document.querySelector(".swichline").style.marginLeft = '3%'
+    document.querySelector(".swichline").style.marginLeft = "3%";
     window.scrollTo(0, 0);
     postInputSearchProductValue(value);
-  }
+  };
   return (
     <li name="recent-search">
       <input id="recentsearch" type="button" style={{ display: "flex" }} />

@@ -5,7 +5,7 @@ import TabProduct from "./TabProduct";
 const FavoritedProducts = ({
   favoritedProducts,
   handleSetPopupState,
-  handleFavoritedProductsChange,
+  handleRemoveFavoriteProduct,
 }) => {
   //Open the "Popup" when the main button get clicked
   const handleButtonClick = async () => {
@@ -50,11 +50,11 @@ const FavoritedProducts = ({
                 key={p.productId}
                 classPrefix="fav"
                 productId={p.productId}
-                productName={p.productName}
-                productImgSrc={p.productImgSrc}
-                productImgAlt={p.productImgAlt}
-                productFinalPrice={p.productFinalPrice}
-                handleFavoritedProductsChange={handleFavoritedProductsChange}
+                productName={p.productTitle}
+                productImgSrc={p.productImage}
+                productImgAlt={p.productTitle}
+                productFinalPrice={p.productPrice.finalPrice}
+                handleRemoveFavoriteProduct={handleRemoveFavoriteProduct}
               />
             );
           })}

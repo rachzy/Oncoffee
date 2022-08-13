@@ -1,257 +1,118 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import React, { useEffect, useState, useContext } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+
+import Axios from "axios";
 
 import ContentPC from "../Components/Product/ContentPC";
 import ContentMobile from "../Components/Product/ContentMobile";
+
+import { GlobalServerContext } from "../App";
 
 const Product = ({
   pageTitle,
   setHeaderPageTitle,
   favoriteProducts,
-  handleFavoriteProductsChange,
   cartProducts,
+  handleAddFavoriteProduct,
+  handleRemoveFavoriteProduct,
   handleAddCartProduct,
 }) => {
+  const navigate = useNavigate();
   useEffect(() => {
     setHeaderPageTitle(pageTitle);
   }, [pageTitle, setHeaderPageTitle]);
 
+  const { serverUrl, displayError, isLogged } = useContext(GlobalServerContext);
+
   const params = useParams();
   const { productId } = params;
 
-  const randomId = () => {
-    return Math.floor(Math.random() * 999999999 + 10000000);
-  };
-
   //Product State
-  const [product, setProduct] = useState({
-    productId: productId,
-    productTitle: "Café 3 corações",
-    productBrand: "3Corações",
-    productImage: "cafegourmet.png",
-    productDescription:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident odio sequi mollitia quo ipsa, cum corporis expedita eveniet cupiditate voluptates, recusandae ab itaque assumenda minima. Iure ratione cumque non aspernatur.",
-    productRemainingAmount: 21,
-    productTotalOrders: 150,
-    productPrice: {
-      realPrice: 120,
-      discount: 50,
-      installments: 12,
-      interestRate: 5,
-      freight: 120,
-    },
-    productDetails: [
-      {
-        id: randomId(),
-        title: "Grãos",
-        description: "Bla bla bla",
-      },
-      {
-        id: randomId(),
-        title: "Sementes",
-        description: "Bla bla bla",
-      },
-      {
-        id: randomId(),
-        title: "Torradeiras",
-        description: "Bla bla bla",
-      },
-      {
-        id: randomId(),
-        title: "Alguma coisa",
-        description: "Bla bla bla",
-      },
-      {
-        id: randomId(),
-        title: "Coisa alguma",
-        description: "Bla bla bla",
-      },
-    ],
-    productImages: [
-      {
-        src: "cafegourmet.png",
-        alt: "cafe-gourmet",
-      },
-      {
-        src: "Combo_CafesGourmet.png",
-        alt: "combo-cafesgourmet",
-      },
-      {
-        src: "capsula-de-cafe-espresso-pimpinela-gourmet-tres-01.png",
-        alt: "capsula-cafe",
-      },
-    ],
-    productRate: {
-      oneStars: 100,
-      twoStars: 350,
-      threeStars: 175,
-      fourStars: 394,
-      fiveStars: 498,
-    },
-    productComments: [
-      {
-        id: randomId(),
-        name: "Jorgin do Pneu",
-        pfp: "1629903043818.jpg",
-        level: 4,
-        title: "Produto da China",
-        description:
-          "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae pariatur quisquam, modi debitis deleniti harum! Sequi doloribus possimus natus consequuntur optio labore dolore? Rem, tempore molestias minus odit voluptates nobis?",
-        rateGiven: 4,
-      },
-      {
-        id: randomId(),
-        name: "Jorgin do Pneu",
-        pfp: "1629903043818.jpg",
-        level: 4,
-        title: "Produto da China",
-        description:
-          "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae pariatur quisquam, modi debitis deleniti harum! Sequi doloribus possimus natus consequuntur optio labore dolore? Rem, tempore molestias minus odit voluptates nobis?",
-        rateGiven: 4,
-      },
-      {
-        id: randomId(),
-        name: "Jorgin do Pneu",
-        pfp: "1629903043818.jpg",
-        level: 4,
-        title: "Produto da China",
-        description:
-          "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae pariatur quisquam, modi debitis deleniti harum! Sequi doloribus possimus natus consequuntur optio labore dolore? Rem, tempore molestias minus odit voluptates nobis?",
-        rateGiven: 4,
-      },
-      {
-        id: randomId(),
-        name: "Jorgin do Pneu",
-        pfp: "1629903043818.jpg",
-        level: 4,
-        title: "Produto da China",
-        description:
-          "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae pariatur quisquam, modi debitis deleniti harum! Sequi doloribus possimus natus consequuntur optio labore dolore? Rem, tempore molestias minus odit voluptates nobis?",
-        rateGiven: 4,
-      },
-      {
-        id: randomId(),
-        name: "Jorgin do Pneu",
-        pfp: "1629903043818.jpg",
-        level: 4,
-        title: "Produto da China",
-        description:
-          "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae pariatur quisquam, modi debitis deleniti harum! Sequi doloribus possimus natus consequuntur optio labore dolore? Rem, tempore molestias minus odit voluptates nobis?",
-        rateGiven: 4,
-      },
-      {
-        id: randomId(),
-        name: "Jorgin do Pneu",
-        pfp: "1629903043818.jpg",
-        level: 5,
-        title: "Produto da China",
-        description:
-          "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae pariatur quisquam, modi debitis deleniti harum! Sequi doloribus possimus natus consequuntur optio labore dolore? Rem, tempore molestias minus odit voluptates nobis?",
-        rateGiven: 4,
-      },
-      {
-        id: randomId(),
-        name: "Jorgin do Pneu",
-        pfp: "1629903043818.jpg",
-        level: 5,
-        title: "Produto da China",
-        description:
-          "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae pariatur quisquam, modi debitis deleniti harum! Sequi doloribus possimus natus consequuntur optio labore dolore? Rem, tempore molestias minus odit voluptates nobis?",
-        rateGiven: 4,
-      },
-      {
-        id: randomId(),
-        name: "Jorgin do Pneu",
-        pfp: "1629903043818.jpg",
-        level: 5,
-        title: "Produto da China",
-        description:
-          "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae pariatur quisquam, modi debitis deleniti harum! Sequi doloribus possimus natus consequuntur optio labore dolore? Rem, tempore molestias minus odit voluptates nobis?",
-        rateGiven: 4,
-      },
-      {
-        id: randomId(),
-        name: "Jorgin do Pneu",
-        pfp: "1629903043818.jpg",
-        level: 5,
-        title: "Produto da China",
-        description:
-          "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae pariatur quisquam, modi debitis deleniti harum! Sequi doloribus possimus natus consequuntur optio labore dolore? Rem, tempore molestias minus odit voluptates nobis?",
-        rateGiven: 4,
-      },
-      {
-        id: randomId(),
-        name: "Jorgin do Pneu",
-        pfp: "1629903043818.jpg",
-        level: 5,
-        title: "Produto da China",
-        description:
-          "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae pariatur quisquam, modi debitis deleniti harum! Sequi doloribus possimus natus consequuntur optio labore dolore? Rem, tempore molestias minus odit voluptates nobis?",
-        rateGiven: 4,
-      },
-      {
-        id: randomId(),
-        name: "Jorgin do Pneu",
-        pfp: "1629903043818.jpg",
-        level: 5,
-        title: "Produto da China",
-        description:
-          "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae pariatur quisquam, modi debitis deleniti harum! Sequi doloribus possimus natus consequuntur optio labore dolore? Rem, tempore molestias minus odit voluptates nobis?",
-        rateGiven: 4,
-      },
-      {
-        id: randomId(),
-        name: "Jorgin do Pneu",
-        pfp: "1629903043818.jpg",
-        level: 5,
-        title: "Produto da China",
-        description:
-          "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae pariatur quisquam, modi debitis deleniti harum! Sequi doloribus possimus natus consequuntur optio labore dolore? Rem, tempore molestias minus odit voluptates nobis?",
-        rateGiven: 4,
-      },
-      {
-        id: randomId(),
-        name: "Jorgin do Pneu",
-        pfp: "1629903043818.jpg",
-        level: 5,
-        title: "Produto da China",
-        description:
-          "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae pariatur quisquam, modi debitis deleniti harum! Sequi doloribus possimus natus consequuntur optio labore dolore? Rem, tempore molestias minus odit voluptates nobis?",
-        rateGiven: 4,
-      },
-      {
-        id: randomId(),
-        name: "Jorgin do Pneu",
-        pfp: "1629903043818.jpg",
-        level: 5,
-        title: "Produto da China",
-        description:
-          "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae pariatur quisquam, modi debitis deleniti harum! Sequi doloribus possimus natus consequuntur optio labore dolore? Rem, tempore molestias minus odit voluptates nobis?",
-        rateGiven: 5,
-      },
-      {
-        id: randomId(),
-        name: "Jorgin do Pneu",
-        pfp: "1629903043818.jpg",
-        level: 5,
-        title: "Produto da China",
-        description:
-          "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae pariatur quisquam, modi debitis deleniti harum! Sequi doloribus possimus natus consequuntur optio labore dolore? Rem, tempore molestias minus odit voluptates nobis?",
-        rateGiven: 3,
-      },
-    ],
-  });
+  const [product, setProduct] = useState();
+  const [otherProducts, setOtherProducts] = useState([]);
+
+  useEffect(() => {
+    const fetchOtherProducts = async (category) => {
+      try {
+        const { data } = await Axios.get(
+          `${serverUrl}/products/getmany/${category}`
+        );
+
+        if (data.isError) {
+          return displayError(data.errorCode, data.errno);
+        }
+
+        setOtherProducts(data);
+      } catch (err) {
+        displayError(err.message, err.code);
+      }
+    };
+    const fetchProductData = async () => {
+      try {
+        const { data } = await Axios.get(
+          `${serverUrl}/products/getsingle/${productId}`
+        );
+
+        if (data.isError) {
+          return displayError(data.errorCode, data.errno);
+        }
+
+        setProduct(data);
+        fetchOtherProducts(data.productCategory);
+      } catch (err) {
+        displayError(err.message, err.code);
+      }
+    };
+    fetchProductData();
+  }, [displayError, productId, serverUrl]);
 
   //State that controls the amount of products that will be bought by the user
   const [amount, setAmount] = useState(1);
+
+  const handleHeartClick = (e) => {
+    if (!isLogged) {
+      return navigate("/login");
+    }
+
+    const { id } = e.target;
+
+    let isFavorited = false;
+
+    if (id.startsWith("checkheart")) {
+      isFavorited = true;
+    }
+
+    if (isFavorited) {
+      return handleRemoveFavoriteProduct(product);
+    }
+    handleAddFavoriteProduct(product);
+  };
+
+  const handleAddToCartButtonClick = () => {
+    const newProduct = {
+      productId: product.productId,
+      productName: product.productTitle,
+      productDescription: product.productDescription,
+      productImgSrc: product.productImage,
+      productImgAlt: product.productTitle,
+      productFinalPrice: product.productPrice.finalPrice,
+    };
+    handleAddCartProduct(newProduct);
+  };
+
+  if (!product) {
+    return null;
+  }
   return (
     <>
       <ContentPC
         product={product}
+        otherProducts={otherProducts}
         favoriteProducts={favoriteProducts}
-        handleFavoriteProductsChange={handleFavoriteProductsChange}
+        handleAddFavoriteProduct={handleAddFavoriteProduct}
         cartProducts={cartProducts}
-        handleAddCartProduct={handleAddCartProduct}
+        handleAddToCartButtonClick={handleAddToCartButtonClick}
+        handleHeartClick={handleHeartClick}
         amount={amount}
         setAmount={setAmount}
       />
@@ -260,7 +121,9 @@ const Product = ({
         amount={amount}
         setAmount={setAmount}
         favoriteProducts={favoriteProducts}
-        handleFavoriteProductsChange={handleFavoriteProductsChange}
+        handleAddToCartButtonClick={handleAddToCartButtonClick}
+        handleRemoveFavoriteProduct={handleRemoveFavoriteProduct}
+        handleHeartClick={handleHeartClick}
       />
     </>
   );

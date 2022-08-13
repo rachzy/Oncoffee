@@ -13,17 +13,17 @@ const Input = ({
   onChange,
   value,
   form,
-  isLastInput
+  isLastInput,
 }) => {
   const handleKeyPress = (e) => {
     const { key } = e;
-    if(key !== "Enter") return;
+    if (key !== "Enter") return;
 
-    if(!isLastInput) return;
+    if (!isLastInput) return;
 
     let targetBtn;
 
-    switch(form) {
+    switch (form) {
       case "login":
         targetBtn = document.querySelector("#loginBtn");
         break;
@@ -35,7 +35,7 @@ const Input = ({
     }
 
     targetBtn.click();
-  }
+  };
   return (
     <input
       autoComplete="off"

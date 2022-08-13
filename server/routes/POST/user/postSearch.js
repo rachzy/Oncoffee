@@ -1,29 +1,34 @@
 const express = require("express");
 const router = express.Router();
 
+const Searches = require("../../../models/searches");
+
 const sendError = require("../../../globalFunctions/sendError.js");
+const generateRandomCode = require("../../../globalFunctions/generateRandomCode");
 
-const server = require("../../../server.js");
 //Post user search on the search table
-router.post("/", (req, res) => {
+router.post("/", async (req, res) => {
   //Get parameters
-  const {userId} = req.cookies;
-  const searchValue = req.body.searchValue;
+  const { userId } = req.cookies;
+  // const { userId } = req.body;
+  const { searchValue } = req.body;
 
-  if (!userId || !searchValue || userId === "" || searchValue === "") return;
+  if (!userId || !searchValue) {
+    return sendError(res, "INVALID_PARAMS");
+  }
 
-  //Create a date timestamp and get currently milliseconds
-  const currentTime = new Date().getTime();
+  const newSearch = new Searches({
+    searchId: generateRandomCode("number", 15),
+    searchValue: searchValue,
+    searchUserId: userId,
+  });
 
-  //Insert data
-  server.db.query(
-    "INSERT INTO searches (searchValue, searchUserId, searchTimeMs) VALUES (?, ?, ?)",
-    [searchValue, userId, currentTime],
-    (err) => {
-      if (err) return sendError(res, err.code, err.errno);
-    }
-  );
-  res.end();
+  try {
+    await newSearch.save();
+    res.send({ queryStatus: 200 });
+  } catch (err) {
+    sendError(res, err.message, err.code);
+  }
 });
 
 module.exports = router;

@@ -15,10 +15,10 @@ const CardBoxInfo = ({
   productPrice,
   amount,
   setAmount,
-  productRemainingAmount,
+  productStockAmount,
   freightCost,
   cartProducts,
-  handleAddCartProduct,
+  handleAddToCartButtonClick,
 }) => {
   return (
     <main className="card_info">
@@ -32,13 +32,13 @@ const CardBoxInfo = ({
       <ProductAmount
         amount={amount}
         setAmount={setAmount}
-        productRemainingAmount={productRemainingAmount}
+        productStockAmount={productStockAmount}
       />
       <ProductFreight freightCost={freightCost} />
       <ProductBuySection
         productId={productId}
         cartProducts={cartProducts}
-        handleAddCartProduct={handleAddCartProduct}
+        handleAddToCartButtonClick={handleAddToCartButtonClick}
       />
     </main>
   );

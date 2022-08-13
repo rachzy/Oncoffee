@@ -8,9 +8,9 @@ import SeeMoreCard from "./SeeMoreCard";
 import { GlobalServerContext } from "../../../../App";
 
 const OtherProductsSection = ({
-  setFavoritedProductsIds,
-  handleFavoritedProductsChange,
-  favoritedProductsIds,
+  handleAddFavoriteProduct,
+  handleRemoveFavoriteProduct,
+  favoriteProducts,
 }) => {
   const [products, setProducts] = useState([]);
 
@@ -22,7 +22,7 @@ const OtherProductsSection = ({
     const fetchProducts = async () => {
       try {
         const { data } = await Axios.get(
-          `${serverUrl}/getproducts/otherproducts`
+          `${serverUrl}/products/getmany/otherproducts`
         );
 
         if (data.isError) return displayError(data.errorCode, data.errno);
@@ -39,16 +39,17 @@ const OtherProductsSection = ({
     const generateRandomElementId = Math.floor(Math.random() * 10000);
     return (
       <Product
-        key={`${product.productId}-${generateRandomElementId}`}
+        key={product.productId}
         productId={product.productId}
-        productName={product.productName}
-        productImgSrc={product.productImgSrc}
-        productImgAlt={product.productImgAlt}
-        productFinalPrice={product.productFinalPrice}
-        productDiscount={product.productDiscount}
-        setFavoriteProductsIds={setFavoritedProductsIds}
-        handleFavoritedProductsChange={handleFavoritedProductsChange}
-        favoritedProductsIds={favoritedProductsIds}
+        productName={product.productTitle}
+        productDescription={product.productDescription}
+        productImgSrc={product.productImage}
+        productImgAlt={product.productTitle}
+        productFinalPrice={product.productPrice.finalPrice}
+        productDiscount={product.productPrice.discount}
+        handleAddFavoriteProduct={handleAddFavoriteProduct}
+        handleRemoveFavoriteProduct={handleRemoveFavoriteProduct}
+        favoriteProducts={favoriteProducts}
       />
     );
   };

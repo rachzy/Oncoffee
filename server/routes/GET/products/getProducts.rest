@@ -1,0 +1,13 @@
+GET http://localhost:8000/products/getmany/otherproducts
+
+###
+GET http://localhost:8000/products/getmany/capsules
+
+###
+GET http://localhost:8000/products/getmany/mostsolds
+
+###
+GET http://localhost:8000/products/getmany/discount
+
+###
+GET http://localhost:8000/products/getmany/CAPSULAS

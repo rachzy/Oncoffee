@@ -1,6 +1,6 @@
 import React from "react";
 
-const CommentText = ({ name, rate, description }) => {
+const CommentText = ({ title, rate, description }) => {
   const returnStarsBasedOnRate = () => {
     if (isNaN(rate) || rate < 0 || rate > 5) return;
     //Since for and while loops weren't working with returns, I had to code this in a different and dirty way
@@ -25,20 +25,23 @@ const CommentText = ({ name, rate, description }) => {
 
       //If the number is not integer
       return (
-        <>
+        <div
+          style={{ display: "inline-block", marginLeft: "5px" }}
+          key={number}
+        >
           {/* Return the full star by itself */}
-          <i key={number} className="fa fa-star" aria-hidden="true"></i>
+          <i className="fa fa-star" aria-hidden="true"></i>
 
           {/* Return a half star to represent the 0.5 */}
-          <i key={`${number}-half`} className="fa fa-star-half" aria-hidden="true"></i>
-        </>
+          <i className="fa fa-star-half" aria-hidden="true"></i>
+        </div>
       );
     });
   };
 
   return (
     <div className="coment_text">
-      <h2>{name}</h2>
+      <h2>{title}</h2>
       <div className="coment_nota">{returnStarsBasedOnRate()}</div>
       <p>{description}</p>
     </div>

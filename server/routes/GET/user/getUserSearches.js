@@ -3,22 +3,23 @@ const router = express.Router();
 
 const sendError = require("../../../globalFunctions/sendError.js");
 
-const server = require("../../../server.js");
+const Searches = require("../../../models/searches");
 
 //Get just a single product from the database by it's id
-router.get("/", (req, res) => {
+router.get("/", async (req, res) => {
+  // const { userId } = req.cookies;
   const { userId } = req.cookies;
 
   if (!userId) return;
-  server.db.query(
-    "SELECT DISTINCT searchValue searchId, searchValue searchValue FROM searches WHERE searchUserId = ? and searchValue != '' ORDER BY searchTimeMs DESC LIMIT 10",
-    [userId],
-    (err, result) => {
-      if (err) return sendError(res, err.code, err.errno);
 
-      res.send(result);
-    }
-  );
+  try {
+    const getUserSearches = await Searches.find({ searchUserId: userId }).sort({
+      searchTime: 1,
+    });
+    res.send(getUserSearches);
+  } catch (err) {
+    return sendError(res, err.message, err.code);
+  }
 });
 
 module.exports = router;

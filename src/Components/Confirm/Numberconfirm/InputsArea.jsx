@@ -24,7 +24,8 @@ const InputsArea = () => {
   const sendBtn = useRef(null);
   const bttCenter = useRef(null);
 
-  const getGlobalServerContext = useContext(GlobalServerContext);
+  const { serverUrl, setUserSessionState, setIsLogged } =
+    useContext(GlobalServerContext);
 
   const [inputValues, setInputValues] = useState([
     {
@@ -168,13 +169,10 @@ const InputsArea = () => {
     });
 
     const resendEmail = async () => {
-      Axios.post(
-        `${getGlobalServerContext.serverUrl}/account/resendverificationemail`,
-        {
-          userId: userId,
-          registerToken: registerToken,
-        }
-      )
+      Axios.post(`${serverUrl}/account/resendverificationemail`, {
+        userId: userId,
+        registerToken: registerToken,
+      })
         .catch((err) => {
           setBottomMessage({
             text: `Ocorreu um erro ao tentar re-enviar o código: ${err}`,
@@ -233,7 +231,7 @@ const InputsArea = () => {
     const validateCode = async () => {
       try {
         const { data } = await Axios.post(
-          `${getGlobalServerContext.serverUrl}/account/verify`,
+          `${serverUrl}/account/verify`,
           {
             userId: userId,
             registerToken: registerToken,
@@ -274,8 +272,13 @@ const InputsArea = () => {
         }
 
         if (data.queryStatus === 200) {
-          if (!nextPage || nextPage === null || nextPage === "")
+          setUserSessionState(data.userData);
+          setIsLogged(true);
+
+          if (!nextPage) {
             return navigate("/");
+          }
+
           navigate(`/${nextPage}`);
         }
       } catch (err) {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 
 import "../../css/Product.css";
 
@@ -21,21 +21,31 @@ import CardBoxText from "./ContentPC/TopArea/CardBox/CardBoxText";
 
 const ContentPC = ({
   product,
+  otherProducts,
   favoriteProducts,
   handleFavoriteProductsChange,
   cartProducts,
-  handleAddCartProduct,
+  handleAddToCartButtonClick,
+  handleHeartClick,
   amount,
   setAmount,
 }) => {
+  const conteudoPc = useRef(null);
   const [productRate, setProductRate] = useState(0);
 
-  const handleHeartClick = () => {
-    handleFavoriteProductsChange(product);
-  }
+  const showContentPcWhenFullyLoaded = () => {
+    if (!conteudoPc) return;
+    setTimeout(() => {
+      conteudoPc.current.classList.add("active");
+    }, 50);
+  };
 
   return (
-    <section className="conteudo_pc">
+    <section
+      onLoad={showContentPcWhenFullyLoaded}
+      ref={conteudoPc}
+      className="conteudo_pc"
+    >
       <Back />
 
       {/* Top-Area */}
@@ -53,26 +63,32 @@ const ContentPC = ({
           productId={product.productId}
           productTitle={product.productTitle}
           productDescription={product.productDescription}
+          productPrice={product.productPrice}
           productRate={product.productRate}
           productTotalOrders={product.productTotalOrders}
           setProductRate={setProductRate}
-          productPrice={product.productPrice}
           amount={amount}
           setAmount={setAmount}
-          productRemainingAmount={product.productRemainingAmount}
+          productStockAmount={product.productStockAmount}
           freightCost={product.productPrice.freight}
           handleFavoriteProductsChange={handleFavoriteProductsChange}
           cartProducts={cartProducts}
-          handleAddCartProduct={handleAddCartProduct}
+          handleAddToCartButtonClick={handleAddToCartButtonClick}
         />
       </TopArea>
 
       {/* Mid-Area */}
       <MidArea>
         <MoreProducts>
-          <MoreCard />
-          <MoreCard />
-          <MoreCard />
+          {otherProducts.map((product) => {
+            return (
+              <MoreCard
+                productId={product.productId}
+                productImage={product.productImage}
+                productFinalPrice={product.productPrice.finalPrice}
+              />
+            );
+          })}
         </MoreProducts>
         <MidGrid>
           <ProductDesc

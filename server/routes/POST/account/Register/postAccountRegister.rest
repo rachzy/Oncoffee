@@ -1,0 +1,9 @@
+POST http://localhost:8000/account/register
+Content-Type: application/json
+
+{
+    "name": "Test",
+    "lastName": "Account",
+    "emailcpf": "test@oncoffee.com",
+    "password": "123123123"
+}

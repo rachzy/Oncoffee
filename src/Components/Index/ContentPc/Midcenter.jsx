@@ -11,27 +11,28 @@ import Warranty from "./Midcenter/Warranty";
 import { GlobalServerContext } from "../../../App";
 
 const Midcenter = ({
-  handleFavoritedProductsChange,
+  handleAddFavoriteProduct,
+  handleRemoveFavoriteProduct,
   handleAddCartProduct,
   handleRemoveCartProduct,
   handleSetPopupState,
   cartProducts,
+  favoriteProducts,
 }) => {
   const returnSliderFeaturedPromotions = () => {
     if (slideProductsIds.length === 0) return;
     return <SliderFeaturedPc slidesProductsIds={slideProductsIds} />;
   };
 
-  const { serverUrl, isLogged, displayError } = useContext(GlobalServerContext);
+  const { serverUrl, displayError } = useContext(GlobalServerContext);
 
   const [slideProductsIds, setSlideProductsIds] = useState([]);
-  const [favoritedProductsIds, setFavoritedProductsIds] = useState();
 
   useEffect(() => {
     const fetchSlides = async () => {
       try {
         const { data } = await Axios.get(
-          `${serverUrl}/getslides/featuredpromotions`
+          `${serverUrl}/ads/getslides/featuredpromotions`
         );
 
         if (data.isError) {
@@ -45,28 +46,7 @@ const Midcenter = ({
       }
     };
     fetchSlides();
-
-    const fetchFavoritedProductsIds = async () => {
-      if (!isLogged) return;
-      try {
-        const { data } = await Axios.get(
-          `${serverUrl}/user/getfavoriteproductsids/`,
-          { withCredentials: true }
-        );
-
-        if (data.isError) {
-          displayError(data.errorCode, data.errno);
-          return;
-        }
-
-        if (!data) return;
-        setFavoritedProductsIds(data);
-      } catch (err) {
-        return displayError(err.message, "SERVER_CONN_FAILED");
-      }
-    };
-    fetchFavoritedProductsIds();
-  }, [displayError, isLogged, serverUrl]);
+  }, [displayError, serverUrl]);
 
   return (
     <main id="midcenter" className="midcenter">
@@ -74,9 +54,9 @@ const Midcenter = ({
         category="mostsolds"
         hrefPage="/"
         productLineTitle="Mais Vendidos"
-        favoritedProductsIds={favoritedProductsIds}
-        setFavoritedProductsIds={setFavoritedProductsIds}
-        handleFavoritedProductsChange={handleFavoritedProductsChange}
+        favoriteProducts={favoriteProducts}
+        handleAddFavoriteProduct={handleAddFavoriteProduct}
+        handleRemoveFavoriteProduct={handleRemoveFavoriteProduct}
         handleSetPopupState={handleSetPopupState}
         handleAddCartProduct={handleAddCartProduct}
         handleRemoveCartProduct={handleRemoveCartProduct}
@@ -87,9 +67,9 @@ const Midcenter = ({
           category="discount"
           hrefPage="/"
           productLineTitle="Com Desconto"
-          favoritedProductsIds={favoritedProductsIds}
-          setFavoritedProductsIds={setFavoritedProductsIds}
-          handleFavoritedProductsChange={handleFavoritedProductsChange}
+          favoriteProducts={favoriteProducts}
+          handleAddFavoriteProduct={handleAddFavoriteProduct}
+          handleRemoveFavoriteProduct={handleRemoveFavoriteProduct}
           handleSetPopupState={handleSetPopupState}
           handleAddCartProduct={handleAddCartProduct}
           handleRemoveCartProduct={handleRemoveCartProduct}
@@ -102,9 +82,9 @@ const Midcenter = ({
             category="capsules"
             hrefPage="/"
             productLineTitle="Cápsulas"
-            favoritedProductsIds={favoritedProductsIds}
-            setFavoritedProductsIds={setFavoritedProductsIds}
-            handleFavoritedProductsChange={handleFavoritedProductsChange}
+            favoriteProducts={favoriteProducts}
+            handleAddFavoriteProduct={handleAddFavoriteProduct}
+            handleRemoveFavoriteProduct={handleRemoveFavoriteProduct}
             handleSetPopupState={handleSetPopupState}
             handleAddCartProduct={handleAddCartProduct}
             handleRemoveCartProduct={handleRemoveCartProduct}
@@ -117,9 +97,9 @@ const Midcenter = ({
               hrefPage="/"
               productLineTitle="Outros Produtos"
               bottomBtn="Carregar Mais"
-              favoritedProductsIds={favoritedProductsIds}
-              setFavoritedProductsIds={setFavoritedProductsIds}
-              handleFavoritedProductsChange={handleFavoritedProductsChange}
+              favoriteProducts={favoriteProducts}
+              handleAddFavoriteProduct={handleAddFavoriteProduct}
+              handleRemoveFavoriteProduct={handleRemoveFavoriteProduct}
               handleSetPopupState={handleSetPopupState}
               handleAddCartProduct={handleAddCartProduct}
               handleRemoveCartProduct={handleRemoveCartProduct}

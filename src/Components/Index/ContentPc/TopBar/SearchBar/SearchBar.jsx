@@ -7,7 +7,7 @@ import Input from "./Input";
 import SearchIcon from "./SearchIcon";
 import Autocomplete from "./Autocomplete";
 
-import {GlobalServerContext} from "../../../../../App";
+import { GlobalServerContext } from "../../../../../App";
 
 const SearchBar = () => {
   //Get "serverUrl" from "connection.json";
@@ -24,10 +24,11 @@ const SearchBar = () => {
 
   //State that will save the value of the search input
   const [inputValue, setInputValue] = useState({
-    value: ""
+    value: "",
   });
 
   //Function that will set the "inputValue" state every time that the input get changed
+  const [debounce, setDebounce] = useState();
   const handleInputChange = async (e) => {
     const { name, value } = e.target;
     setInputValue({
@@ -35,55 +36,51 @@ const SearchBar = () => {
     });
 
     //If the input is empty, don't show anything on the autocomplete
-    if (value === "") {
+    if (!value) {
       setAutocompleteShow(autocompleteData);
       return;
     }
 
-    if (!inputValue.value || inputValue.value === "") return;
+    if (!inputValue.value) return;
 
-    //Get all the search results according to what the user typed from the database
-    const { data } = await Axios.get(
-      `${serverUrl}/getproductsforsearches/${value}`
-    );
-    if (data.isError) {
-      displayError(data.errorCode, data.errno);
-    } else {
-      if (data.length === 0) {
-        setAutocompleteShow([
-          {
-            searchId: "none",
-            searchValue: value,
-          },
-        ]);
-        return;
-      }
-      let finalProductsReturn;
-      data.map((d) => {
-        if (finalProductsReturn) {
-          finalProductsReturn = [
-            ...finalProductsReturn,
-            {
+    clearTimeout(debounce);
+    setDebounce(
+      setTimeout(async () => {
+        //Get all the search results according to what the user typed from the database
+        try {
+          const { data } = await Axios.get(
+            `${serverUrl}/products/getsearches/${value}`
+          );
+          if (data.isError) {
+            return displayError(data.errorCode, data.errno);
+          }
+
+          if (data.length === 0) {
+            setAutocompleteShow([
+              {
+                searchId: "none",
+                searchValue: value,
+              },
+            ]);
+            return;
+          }
+
+          let finalProductsReturn = [];
+          data.forEach((d) => {
+            const additionalData = {
               searchId: d.productId,
-              searchValue: d.productName,
-            },
-          ];
-        } else {
-          finalProductsReturn = [
-            {
-              searchId: d.productId,
-              searchValue: d.productName,
-            },
-          ];
+              searchValue: d.productTitle,
+            };
+            finalProductsReturn.push(additionalData);
+          });
+
+          //Set the final state value
+          setAutocompleteShow(finalProductsReturn);
+        } catch (err) {
+          displayError(err.message, err.code);
         }
-        return finalProductsReturn;
-      });
-
-      if (!finalProductsReturn || finalProductsReturn === "") return;
-
-      //Set the final state value
-      setAutocompleteShow(finalProductsReturn);
-    }
+      }, 400)
+    );
   };
 
   //Function that will post the "inputValue" to the server and redirect the user to the
@@ -97,9 +94,13 @@ const SearchBar = () => {
 
     //Post Data
     const postInputValue = async () => {
-      const { data } = await Axios.post(`${serverUrl}/postsearch`, {
-        searchValue: inputValue.value,
-      });
+      const { data } = await Axios.post(
+        `${serverUrl}/user/postsearch`,
+        {
+          searchValue: inputValue.value,
+        },
+        { withCredentials: true }
+      );
       if (data.isError) {
         displayError(data.errorCode, data.errno);
       }
@@ -109,20 +110,17 @@ const SearchBar = () => {
     //Get new data after insert
     const fetchNewSearches = async () => {
       try {
-        const { data } = await Axios.get(
-          `${serverUrl}/getusersearches/`
-        );
-        
+        const { data } = await Axios.get(`${serverUrl}/user/getsearches/`);
+
         if (data.isError) {
           return displayError(data.errorCode, data.errno);
         }
-  
+
         setAutocompleteData(data);
         setAutocompleteShow(data);
-      } catch(err) {
+      } catch (err) {
         displayError(err.message, "CANT_GET_USER_SEARCHES");
       }
-
     };
     setTimeout(fetchNewSearches, 1000);
   };
@@ -133,9 +131,9 @@ const SearchBar = () => {
       if (!isLogged) return;
 
       try {
-        const { data } = await Axios.get(
-          `${serverUrl}/getusersearches/`
-        );
+        const { data } = await Axios.get(`${serverUrl}/user/getsearches/`, {
+          withCredentials: true,
+        });
 
         if (data.isError) {
           return displayError(data.errorCode, data.errno);
@@ -143,8 +141,8 @@ const SearchBar = () => {
 
         setAutocompleteData(data);
         setAutocompleteShow(data);
-      } catch(err) {
-        displayError(err.message, "CANT_FETCH_DATA")
+      } catch (err) {
+        displayError(err.message, "CANT_FETCH_DATA");
       }
     };
     fetchData();

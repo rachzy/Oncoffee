@@ -17,68 +17,67 @@ router.use(limiter);
 const cookieParser = require("cookie-parser");
 router.use(cookieParser());
 
-const server = require("../../../../server.js");
+const Accounts = require("../../../../models/accounts");
+const Users = require("../../../../models/users");
 
-router.post("/", (req, res) => {
+router.post("/", async (req, res) => {
   const { userId, registerToken, verificationCode } = req.body;
 
   if (!userId || !registerToken || !verificationCode) {
-    return sendError(res, "INVALID_PARAMS", "");
+    return sendError(res, "INVALID_PARAMS");
   }
 
-  server.db.query(
-    "SELECT accountId, securityToken1, securityToken2, verificationCode, verified FROM accounts WHERE accountId = ? and registerToken = ?",
-    [userId, registerToken],
-    (err, result) => {
-      if (err) return sendError(res, err.code, err.errno);
-      if (result.length !== 1) return sendError(res, "ACCOUNT_NOT_FOUND", "");
+  try {
+    const getAccountData = await Accounts.findOne({
+      accountId: userId,
+      registerToken: registerToken,
+    });
 
-      const {
-        verified,
-        resultVerificationCode,
-        securityToken1,
-        securityToken2,
-      } = result[0];
-
-      if (verified === 1) {
-        return sendError(res, "ACCOUNT_ALREADY_VERIFIED", "");
-      }
-
-      if (verificationCode.toString() !== resultVerificationCode.toString()) {
-        return sendError(res, "INVALID_CODE", "");
-      }
-
-      server.db.query(
-        "UPDATE accounts SET verified = 1 WHERE accountId = ?",
-        [userId],
-        (err2, result2) => {
-          if (err2) return sendError(res, err2.code, err2.errno);
-          if (result2.affectedRows !== 1) {
-            return sendError(res, "UNEXPECTED_INSERTION_ERROR", "");
-          }
-
-          const cookieMaxAge = 1000 * 60 * 60 * 24 * 30 * 2; // 2 months
-
-          res.cookie("userId", userId, {
-            maxAge: cookieMaxAge,
-            httpOnly: true,
-          });
-          res.cookie("stoken1", securityToken1, {
-            maxAge: cookieMaxAge,
-            httpOnly: true,
-          });
-          res.cookie("stoken2", securityToken2, {
-            maxAge: cookieMaxAge,
-            httpOnly: true,
-          });
-
-          res.send({
-            queryStatus: 200,
-          });
-        }
-      );
+    if (!getAccountData) {
+      return sendError(res, "ACCOUNT_NOT_FOUND");
     }
-  );
+
+    const { verified, securityToken1, securityToken2 } = getAccountData;
+
+    if (verified) {
+      return sendError(res, "ACCOUNT_ALREADY_VERIFIED");
+    }
+
+    if (
+      verificationCode.toString() !== getAccountData.verificationCode.toString()
+    ) {
+      return sendError(res, "INVALID_CODE");
+    }
+
+    await Accounts.updateOne(
+      { accountId: userId },
+      { $set: { verified: true } }
+    );
+
+    const cookieMaxAge = 1000 * 60 * 60 * 24 * 30 * 2; // 2 months
+
+    res.cookie("userId", userId, {
+      maxAge: cookieMaxAge,
+      httpOnly: true,
+    });
+    res.cookie("stoken1", securityToken1, {
+      maxAge: cookieMaxAge,
+      httpOnly: true,
+    });
+    res.cookie("stoken2", securityToken2, {
+      maxAge: cookieMaxAge,
+      httpOnly: true,
+    });
+
+    const getUserData = await Users.findOne({ userId: userId });
+
+    res.send({
+      queryStatus: 200,
+      userData: getUserData,
+    });
+  } catch (err) {
+    return sendError(res, err.message, err.code);
+  }
 });
 
 module.exports = router;
