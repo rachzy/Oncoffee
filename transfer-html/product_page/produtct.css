@@ -2613,3 +2613,18 @@ button[class*=btn] {
         transform: rotate(360deg);
     }
 }
+
+
+.erros {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.erros h2 {
+    font-family: Poppins,sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.8);
+}
