@@ -6,12 +6,6 @@ const ProductPrice = ({
   productPrice,
   productRemainingAmount,
 }) => {
-  const calculateDiscount = () => {
-    const priceWithDiscount =
-      (productPrice.realPrice * productPrice.discount) / 100;
-    return priceWithDiscount.toFixed(2);
-  };
-
   const increaseAmount = () => {
     if (amount >= productRemainingAmount) return;
 
@@ -44,8 +38,8 @@ const ProductPrice = ({
     <div className="preco_area">
       <div className="preco">
         <div className="descontopreco">
-          <h3>R$ {productPrice.realPrice.toFixed(2)}</h3>
-          <h2>R$ {calculateDiscount()}</h2>
+          <h3>R$ {(productPrice.realPrice * amount).toFixed(2)}</h3>
+          <h2>R$ {(productPrice.finalPrice * amount).toFixed(2)}</h2>
         </div>
         <h4>{productPrice.discount}%OFF</h4>
       </div>
