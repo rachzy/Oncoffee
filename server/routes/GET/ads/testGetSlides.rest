@@ -1,4 +1,0 @@
-GET http://localhost:8000/ads/getslides/ads
-
-###
-GET http://localhost:8000/ads/getslides/featuredpromotions

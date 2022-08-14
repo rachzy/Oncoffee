@@ -1,1 +1,0 @@
-GET http://localhost:8000/user/getfavoriteproducts/8551191358

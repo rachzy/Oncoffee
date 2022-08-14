@@ -1,7 +1,0 @@
-POST http://localhost:8000/user/postsearch
-Content-Type: application/json
-
-{
-    "userId": 8551191358,
-    "searchValue": "test"
-}

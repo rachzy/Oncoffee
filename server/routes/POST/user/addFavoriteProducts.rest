@@ -1,7 +1,0 @@
-POST http://localhost:8000/user/addfavoriteproduct
-Content-Type: application/json
-
-{
-    "userId": 6890828848,
-    "productId": 147207721
-}

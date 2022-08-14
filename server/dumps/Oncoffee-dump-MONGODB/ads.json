@@ -1,3 +1,0 @@
-{"_id":{"$oid":"62c1ba813fe185f92e234241"},"id":2723469,"name":"Smartwatches Banner","imgSrc":"anuncio.jpg","imgAlt":"smartwatches-banner-ad","enabled":true,"createdAt":{"$date":"2022-07-03T15:47:50Z"},"__v":0}
-{"_id":{"$oid":"62c1d5a63fe185f92e234243"},"id":2723469,"name":"Banner 2","imgSrc":"anuncio2.jpg","imgAlt":"banner-2-ad","enabled":true,"createdAt":{"$date":"2022-07-03T15:47:50Z"},"__v":0}
-{"_id":{"$oid":"62c1d5b33fe185f92e234245"},"id":2723469,"name":"Banner 3","imgSrc":"anuncio3.jpg","imgAlt":"banner-3-ad","enabled":true,"createdAt":{"$date":"2022-07-03T15:47:50Z"},"__v":0}
