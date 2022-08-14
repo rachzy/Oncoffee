@@ -1,8 +1,0 @@
-POST http://localhost:8000/account/verify
-Content-Type: application/json
-
-{
-    "userId": 8551191358,
-    "registerToken": "324F0C891516C46998433008961DF06C",
-    "verificationCode": 659427
-}
