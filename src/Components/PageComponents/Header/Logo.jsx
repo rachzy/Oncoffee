@@ -12,11 +12,11 @@ const Logo = ({ logo }) => {
     if (swichline) swichline.style.marginLeft = "3%";
     contentSearch.classList.remove("active");
 
-    navigate("/");
+    navigate("/Oncoffee");
   };
   return (
     <div className="nav_mid">
-      <a style={{cursor: "pointer"}} onClick={handleLogoClick}>
+      <a style={{ cursor: "pointer" }} onClick={handleLogoClick}>
         <img src={logo} alt="" />
       </a>
     </div>

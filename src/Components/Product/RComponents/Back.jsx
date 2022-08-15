@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 const Back = () => {
   const navigate = useNavigate();
   const redirectBack = () => {
-    navigate('/');
-  }
+    navigate("/Oncoffee");
+  };
   return (
     <div className="back">
       <button onClick={redirectBack}>
