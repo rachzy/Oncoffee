@@ -276,7 +276,7 @@ const InputsArea = () => {
           setIsLogged(true);
 
           if (!nextPage) {
-            return navigate("/");
+            return navigate("/Oncoffee");
           }
 
           navigate(`/${nextPage}`);

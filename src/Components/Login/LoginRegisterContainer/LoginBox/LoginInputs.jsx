@@ -174,8 +174,8 @@ const LoginInputs = () => {
           setUserSessionState(data.userData); //Set UserSession with user's data
           setIsLogged(true);
 
-          if (!nextPage || nextPage === null || nextPage === "") {
-            return navigate("/");
+          if (!nextPage) {
+            return navigate("/Oncoffee");
           }
           return navigate(`/${nextPage}`);
         }
