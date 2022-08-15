@@ -1,7 +1,7 @@
 {
-  "name": "client",
+  "name": "oncoffee",
   "version": "0.1.0",
-  "homepage": "https://rachzy.github.io",
+  "homepage": "https://rachzy.github.io/Oncoffee",
   "private": true,
   "dependencies": {
     "@hcaptcha/react-hcaptcha": "^1.1.1",
