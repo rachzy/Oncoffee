@@ -371,7 +371,7 @@ const App = () => {
           </Header>
           <Routes>
             <Route
-              path="/Oncoffee"
+              path="/"
               exact
               element={
                 <Index
