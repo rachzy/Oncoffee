@@ -6,7 +6,7 @@ import displayError from "../../../../.././globalFunctions/displayErrors";
 import HeartImg from "../../../../../imgs/newhearth.png";
 import favHeartImg from "../../../../../imgs/favhearth.png";
 
-import { GlobalServerContext } from "../../../../../App";
+import { GlobalServerContext, UserSession } from "../../../../../App";
 
 const Product = ({
   productId,
@@ -17,12 +17,13 @@ const Product = ({
   productDescription,
   productGrade,
   productTotalSales,
-  favoriteProducts,
   handleAddCartProduct,
   handleRemoveCartProduct,
   handleAddFavoriteProduct,
   handleRemoveFavoriteProduct,
   cartProducts,
+  favoriteProducts,
+  customStyle,
 }) => {
   const navigate = useNavigate();
 
@@ -273,6 +274,7 @@ const Product = ({
         setIsLoaded(true);
       }}
       className="produto_box"
+      style={customStyle}
     >
       {returnDiscount()}
       <div className="produto_favorito">

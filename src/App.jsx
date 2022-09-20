@@ -17,6 +17,7 @@ import Login from "./Pages/Login";
 import Confirm from "./Pages/Confirm";
 import Product from "./Pages/Product";
 import Footer from "./Components/PageComponents/Footer";
+import Search from "./Pages/Search";
 
 export const GlobalServerContext = createContext();
 export const UserSession = createContext();
@@ -108,7 +109,7 @@ const App = () => {
       !productImage ||
       !productPrice
     ) {
-      throw "Missing params";
+      throw Error("Missing params");
     }
 
     //Add the product into the state of Favorite Products
@@ -426,11 +427,15 @@ const App = () => {
                 />
               }
             />
+            <Route
+              path="/search"
+              exact
+              element={<Search setHeaderPageTitle={setHeaderPageTitle} />}
+            />
           </Routes>
         </UserSession.Provider>
       </GlobalServerContext.Provider>
       <Error />
-      <Footer />
     </Router>
   );
 };
