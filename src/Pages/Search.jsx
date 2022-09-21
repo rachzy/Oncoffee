@@ -1,3 +1,4 @@
+import Axios from "axios";
 import React, { useState, useEffect, useRef } from "react";
 import { useSearchParams } from "react-router-dom";
 import Product from "../Components/Index/ContentPc/Midcenter/ProductSection/Product";
@@ -5,12 +6,28 @@ import FilterItem from "../Components/Search/FilterItem";
 import FilterMethod from "../Components/Search/FilterMethod";
 import "../css/SearchPage.css";
 
-const Search = ({ setHeaderPageTitle }) => {
+import { GlobalServerContext } from "../App";
+import { useContext } from "react";
+import displayError from "../globalFunctions/displayErrors";
+
+const Search = ({
+  setHeaderPageTitle,
+  favoriteProducts,
+  cartProducts,
+  handleAddCartProduct,
+  handleRemoveCartProduct,
+  handleAddFavoriteProduct,
+  handleRemoveFavoriteProduct,
+}) => {
+  //Get Global Server Context
+  const {serverUrl} = useContext(GlobalServerContext);
+
   //Config the page and Header title
   useEffect(() => {
     setHeaderPageTitle("Pesquisar");
   }, [setHeaderPageTitle]);
 
+  //State that will get every search param
   const [searchParams, setSearchParams] = useSearchParams();
 
   //Search states
@@ -20,6 +37,7 @@ const Search = ({ setHeaderPageTitle }) => {
     types: [],
   });
 
+  //Get all search params and save them into the SearchQueryData state
   useEffect(() => {
     const getAllSearchParams = {};
     searchParams.forEach((value, key) => {
@@ -27,6 +45,27 @@ const Search = ({ setHeaderPageTitle }) => {
     });
     setSearchQueryData(getAllSearchParams);
   }, [searchParams]);
+
+  //Products state
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const fetchProductsAccordingToUserSearch = async () => {
+      if(!searchQueryData.v) return;
+      try {
+        const { data } = await Axios.get(`${serverUrl}/search/${searchQueryData.v}`);
+
+        if(data.isError) {
+          return displayError(data.errorCode, data.errno);
+        }
+
+        setProducts(data);
+      } catch(err) {
+        displayError(err.message, err.code);
+      }
+    }
+    fetchProductsAccordingToUserSearch();
+  }, [searchQueryData, serverUrl])
 
   //Show the content when the page is done loading
   const contentMain = useRef(null);
@@ -39,27 +78,35 @@ const Search = ({ setHeaderPageTitle }) => {
   const methods = [
     {
       title: "Grão",
+      selected: true,
     },
     {
       title: "Moído",
+      selected: true,
     },
     {
       title: "Cápsulas",
+      selected: true,
     },
     {
       title: "Solúveis",
+      selected: true,
     },
     {
       title: "Sachês",
+      selected: true,
     },
     {
       title: "Drip coffee",
+      selected: true,
     },
     {
       title: "Cold Brew",
+      selected: true,
     },
     {
       title: "Infusor",
+      selected: true,
     },
   ];
 
@@ -67,15 +114,19 @@ const Search = ({ setHeaderPageTitle }) => {
   const types = [
     {
       title: "Aromatizado",
+      selected: true,
     },
     {
       title: "Orgânicos",
+      selected: true,
     },
     {
       title: "Microlote",
+      selected: true,
     },
     {
       title: "Descafeinados",
+      selected: true,
     },
   ];
 
@@ -83,42 +134,103 @@ const Search = ({ setHeaderPageTitle }) => {
   const intensities = [
     {
       title: "Suave",
+      selected: true,
     },
     {
       title: "Média",
+      selected: true,
     },
     {
       title: "Intensa",
+      selected: true,
     },
   ];
 
   //Array that will englobe every filtering method
-  const filteringMethods = [
+  const [filteringMethods, setFilteringMethods] = useState([
     {
+      id: "methods",
       title: "Método",
       items: methods,
     },
     {
+      id: "types",
       title: "Tipos",
       items: types,
     },
     {
+      id: "intensitites",
       title: "Intensidade",
       items: intensities,
     },
-  ];
+  ]);
 
+  //Function that will be triggered when the user clicks in an option
+  const handleItemClick = (title, methodId) => {
+    setFilteringMethods((currentValue) => {
+      return currentValue.map((method) => {
+        if (method.id !== methodId) return method;
+        return {
+          ...method,
+          items: method.items.map((item) => {
+            if (item.title !== title) return item;
+            return {
+              ...item,
+              selected: !item.selected,
+            };
+          }),
+        };
+      });
+    });
+  };
+
+  //Function to return properly every Filter Method according to the state data
   const returnFilteringMethods = () => {
     return filteringMethods.map((filterMethod) => {
       return (
         <FilterMethod key={filterMethod.title} title={filterMethod.title}>
           {filterMethod.items.map((item) => {
-            return <FilterItem key={item.title} methodTitle={item.title} />;
+            return (
+              <FilterItem
+                key={item.title}
+                itemTitle={item.title}
+                itemSelected={item.selected}
+                methodType={filterMethod.id}
+                handleItemClick={handleItemClick}
+              />
+            );
           })}
         </FilterMethod>
       );
     });
   };
+
+  //Function to return properly every single product from the Products state
+  const returnProducts = () => {
+    return products.map((product) => {
+      return <Product
+      key={product.productId}
+      productId={product.productId}
+      productName={product.productTitle}
+      productImage={product.productImage}
+      productCategory={product.productCategory}
+      productFinalPrice={product.productPrice.finalPrice}
+      productDiscount={product.productPrice.discount}
+      productDescription={product.productDescription}
+      productGrade={product.productRate.finalRate}
+      productTotalSales={product.productTotalOrders}
+      favoriteProducts={favoriteProducts}
+      handleAddCartProduct={handleAddCartProduct}
+      handleRemoveCartProduct={handleRemoveCartProduct}
+      handleAddFavoriteProduct={handleAddFavoriteProduct}
+      handleRemoveFavoriteProduct={handleRemoveFavoriteProduct}
+      cartProducts={cartProducts}
+      customStyle={{ width: "fit-content", margin: "2vh" }}
+    />
+    })
+  }
+
+
 
   return (
     <section ref={contentMain} className="conteudo-search">
@@ -160,184 +272,7 @@ const Search = ({ setHeaderPageTitle }) => {
           </div>
         </main>
         <main className="products">
-          <Product
-            productId={123}
-            productName="Teste"
-            productImage={"cafegourmet.png"}
-            productTotalSales={123}
-            productGrade={2.5}
-            productFinalPrice={123.32}
-            productDescription="Lorem ipsum bla bla bla"
-            productDiscount={20}
-            favoriteProducts={[]}
-            cartProducts={[]}
-            handleAddCartProduct={() => {}}
-            handleAddFavoriteProduct={() => {}}
-            handleRemoveCartProduct={() => {}}
-            handleRemoveFavoriteProduct={() => {}}
-            customStyle={{ width: "fit-content", margin: "2vh" }}
-          />
-          <Product
-            productId={123}
-            productName="Teste"
-            productImage={"cafegourmet.png"}
-            productTotalSales={123}
-            productGrade={2.5}
-            productFinalPrice={123.32}
-            productDescription="Lorem ipsum bla bla bla"
-            productDiscount={20}
-            favoriteProducts={[]}
-            cartProducts={[]}
-            handleAddCartProduct={() => {}}
-            handleAddFavoriteProduct={() => {}}
-            handleRemoveCartProduct={() => {}}
-            handleRemoveFavoriteProduct={() => {}}
-            customStyle={{ width: "fit-content", margin: "2vh" }}
-          />
-          <Product
-            productId={123}
-            productName="Teste"
-            productImage={"cafegourmet.png"}
-            productTotalSales={123}
-            productGrade={2.5}
-            productFinalPrice={123.32}
-            productDescription="Lorem ipsum bla bla bla"
-            productDiscount={20}
-            favoriteProducts={[]}
-            cartProducts={[]}
-            handleAddCartProduct={() => {}}
-            handleAddFavoriteProduct={() => {}}
-            handleRemoveCartProduct={() => {}}
-            handleRemoveFavoriteProduct={() => {}}
-            customStyle={{ width: "fit-content", margin: "2vh" }}
-          />
-          <Product
-            productId={123}
-            productName="Teste"
-            productImage={"cafegourmet.png"}
-            productTotalSales={123}
-            productGrade={2.5}
-            productFinalPrice={123.32}
-            productDescription="Lorem ipsum bla bla bla"
-            productDiscount={20}
-            favoriteProducts={[]}
-            cartProducts={[]}
-            handleAddCartProduct={() => {}}
-            handleAddFavoriteProduct={() => {}}
-            handleRemoveCartProduct={() => {}}
-            handleRemoveFavoriteProduct={() => {}}
-            customStyle={{ width: "fit-content", margin: "2vh" }}
-          />
-          <Product
-            productId={123}
-            productName="Teste"
-            productImage={"cafegourmet.png"}
-            productTotalSales={123}
-            productGrade={2.5}
-            productFinalPrice={123.32}
-            productDescription="Lorem ipsum bla bla bla"
-            productDiscount={20}
-            favoriteProducts={[]}
-            cartProducts={[]}
-            handleAddCartProduct={() => {}}
-            handleAddFavoriteProduct={() => {}}
-            handleRemoveCartProduct={() => {}}
-            handleRemoveFavoriteProduct={() => {}}
-            customStyle={{ width: "fit-content", margin: "2vh" }}
-          />
-          <Product
-            productId={123}
-            productName="Teste"
-            productImage={"cafegourmet.png"}
-            productTotalSales={123}
-            productGrade={2.5}
-            productFinalPrice={123.32}
-            productDescription="Lorem ipsum bla bla bla"
-            productDiscount={20}
-            favoriteProducts={[]}
-            cartProducts={[]}
-            handleAddCartProduct={() => {}}
-            handleAddFavoriteProduct={() => {}}
-            handleRemoveCartProduct={() => {}}
-            handleRemoveFavoriteProduct={() => {}}
-            customStyle={{ width: "fit-content", margin: "2vh" }}
-          />
-          <Product
-            productId={123}
-            productName="Teste"
-            productImage={"cafegourmet.png"}
-            productTotalSales={123}
-            productGrade={2.5}
-            productFinalPrice={123.32}
-            productDescription="Lorem ipsum bla bla bla"
-            productDiscount={20}
-            favoriteProducts={[]}
-            cartProducts={[]}
-            handleAddCartProduct={() => {}}
-            handleAddFavoriteProduct={() => {}}
-            handleRemoveCartProduct={() => {}}
-            handleRemoveFavoriteProduct={() => {}}
-            customStyle={{ width: "fit-content", margin: "2vh" }}
-          />
-          <Product
-            productId={123}
-            productName="Teste"
-            productImage={"cafegourmet.png"}
-            productTotalSales={123}
-            productGrade={2.5}
-            productFinalPrice={123.32}
-            productDescription="Lorem ipsum bla bla bla"
-            productDiscount={20}
-            favoriteProducts={[]}
-            cartProducts={[]}
-            handleAddCartProduct={() => {}}
-            handleAddFavoriteProduct={() => {}}
-            handleRemoveCartProduct={() => {}}
-            handleRemoveFavoriteProduct={() => {}}
-            customStyle={{ width: "fit-content", margin: "2vh" }}
-          />
-
-          <div className="produto_box">
-            <div className="produto_desconto">
-              <h3>55%</h3>
-              <h3>OFF</h3>
-            </div>
-            <div className="produto_favorito">
-              <input type="checkbox" id="favproduct" />
-              <label htmlFor="favproduct">
-                <img width={25} src={require("../imgs/newhearth.png")} alt="" />
-              </label>
-            </div>
-            <div className="produto_img">
-              <img src={require("../imgs/cafegourmet.png")} alt="" />
-            </div>
-            <div className="produto_text1">
-              <h2 className="nome">Nome Exemplo</h2>
-              <h3 className="preco">R$999,99</h3>
-            </div>
-            <div className="produto_text2">
-              <p>
-                O café tem notas de chocolate com canela, uma torra clara
-                achocolatada, Alta Qualidade.{" "}
-                <a className="readmore" href="#">
-                  Ler Mais...
-                </a>
-              </p>
-              <div className="avaliacao">
-                <div className="nota">
-                  <i className="far fa-star"></i>
-                  <p>4,9</p>
-                </div>
-                <div className="quant_venda">
-                  <p>900 Vendidos</p>
-                </div>
-              </div>
-            </div>
-
-            <a href="#" className="comprar">
-              Comprar
-            </a>
-          </div>
+          {returnProducts()}
 
           <div className="load_btt">
             <input type="button" value="Carregar Mais" className="load_more" />
