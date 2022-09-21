@@ -1975,8 +1975,14 @@ body {
 }
 
 .topbar {
+  position: sticky;
+  top: 0;
+  background-color: rgb(25, 25, 25);
   width: 100%;
   display: flex;
+  z-index: 999999;
+  padding: 1vh;
+  align-items: center;
 }
 
 .consult_bar {
@@ -1988,6 +1994,7 @@ body {
 .consult_bar ul {
   display: flex;
   justify-content: space-around;
+  align-items: center;
   width: 100%;
 }
 
@@ -2174,18 +2181,6 @@ body {
 
 .consult_box ul img {
   width: 250px;
-}
-
-.novidades {
-  padding-bottom: 15px;
-}
-
-.promoçoes {
-  padding-bottom: 15px;
-}
-
-.cafes {
-  padding-bottom: 15px;
 }
 
 .novidades:hover #novidades_box {

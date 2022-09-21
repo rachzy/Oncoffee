@@ -51,7 +51,7 @@ const AutocompleteValue = ({
 
   return (
     <li>
-      <a ref={getAnchor} href="#top" id={id}>
+      <a ref={getAnchor} id={id}>
         {value}
       </a>
     </li>
