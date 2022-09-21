@@ -280,78 +280,6 @@
   transition: 0.2s ease all;
 }
 
-.buttonsmo {
-  width: 100%;
-  height: 75px;
-  background: rgb(35, 35, 35);
-  position: fixed;
-  bottom: 0;
-  border: 1px solid rgb(45, 45, 45);
-  border-bottom: 1px solid rgb(35, 35, 35);
-  border-radius: 100% 100% 0% 0% / 100% 100% 100% 100%;
-  display: none;
-  z-index: 900;
-}
-
-.buttonsmo input {
-  display: none;
-}
-
-.switcher {
-  height: 100%;
-  display: flex;
-  align-items: center;
-  margin-top: 0px;
-  flex-direction: column;
-}
-
-.linearea {
-  width: 100%;
-}
-
-.swichline {
-  width: 20%;
-  height: 5px;
-  background: rgb(167, 89, 45);
-  position: absolute;
-  border-radius: 5px;
-  margin-bottom: 5px;
-  margin-left: 4%;
-  bottom: 0;
-  transition: all 0.5s ease;
-  display: none;
-}
-
-.buttonsarea {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-}
-
-.buttonsarea label:first-child {
-  margin-left: 12%;
-  margin-top: 30px;
-}
-
-.buttonsarea label:nth-child(2) {
-  margin-top: 20px;
-}
-
-.buttonsarea label:last-child {
-  margin-right: 12%;
-  margin-top: 30px;
-}
-
-.sbtt img {
-  width: 30px;
-  color: rgba(255, 255, 255, 0.7);
-  transition: all 0.5s ease;
-}
-
-.sbtt:nth-child(1) img {
-  width: 25px;
-}
-
 .conteudo-search {
   width: 100%;
   height: 100vh;
@@ -445,107 +373,16 @@
   transition: 0.3s ease all;
 }
 
-#metodo1:checked ~ #metodo1box {
+.method_box.checked {
   background: rgba(45, 45, 45);
   border: 1px solid rgb(167, 89, 45);
 }
 
-#metodo1:checked ~ #metodo1box h3 {
+.method_box.checked h3 {
   color: rgba(255, 255, 255, 0.5);
 }
 
-#metodo1:checked ~ #metodo1box h3::before {
-  width: 115%;
-}
-
-#metodo2:checked ~ #metodo2box {
-  background: rgba(45, 45, 45);
-  border: 1px solid rgb(167, 89, 45);
-}
-
-#metodo2:checked ~ #metodo2box h3 {
-  color: rgba(255, 255, 255, 0.5);
-}
-
-#metodo2:checked ~ #metodo2box h3::before {
-  width: 115%;
-}
-
-#metodo3:checked ~ #metodo3box {
-  background: rgba(45, 45, 45);
-  border: 1px solid rgb(167, 89, 45);
-}
-
-#metodo3:checked ~ #metodo3box h3 {
-  color: rgba(255, 255, 255, 0.5);
-}
-
-#metodo3:checked ~ #metodo3box h3::before {
-  width: 115%;
-}
-
-#metodo4:checked ~ #metodo4box {
-  background: rgba(45, 45, 45);
-  border: 1px solid rgb(167, 89, 45);
-}
-
-#metodo4:checked ~ #metodo4box h3 {
-  color: rgba(255, 255, 255, 0.5);
-}
-
-#metodo4:checked ~ #metodo4box h3::before {
-  width: 115%;
-}
-
-#metodo5:checked ~ #metodo5box {
-  background: rgba(45, 45, 45);
-  border: 1px solid rgb(167, 89, 45);
-}
-
-#metodo5:checked ~ #metodo5box h3 {
-  color: rgba(255, 255, 255, 0.5);
-}
-
-#metodo5:checked ~ #metodo5box h3::before {
-  width: 115%;
-}
-
-#metodo6:checked ~ #metodo6box {
-  background: rgba(45, 45, 45);
-  border: 1px solid rgb(167, 89, 45);
-}
-
-#metodo6:checked ~ #metodo6box h3 {
-  color: rgba(255, 255, 255, 0.5);
-}
-
-#metodo6:checked ~ #metodo6box h3::before {
-  width: 115%;
-}
-
-#metodo7:checked ~ #metodo7box {
-  background: rgba(45, 45, 45);
-  border: 1px solid rgb(167, 89, 45);
-}
-
-#metodo7:checked ~ #metodo7box h3 {
-  color: rgba(255, 255, 255, 0.5);
-}
-
-#metodo7:checked ~ #metodo7box h3::before {
-  width: 115%;
-}
-
-#metodo8:checked ~ #metodo8box {
-  background: rgba(45, 45, 45);
-  border: 1px solid rgb(167, 89, 45);
-}
-
-#metodo8:checked ~ #metodo8box h3 {
-  color: rgba(255, 255, 255, 0.5);
-}
-
-#metodo8:checked ~ #metodo8box h3::before {
+.method_box.checked h3::before {
   width: 115%;
 }
 
@@ -585,97 +422,6 @@
 
 .check_int {
   display: none;
-}
-
-#tipo1:checked ~ #tipo1box {
-  background: rgba(45, 45, 45);
-  border: 1px solid rgb(167, 89, 45);
-}
-
-#tipo1:checked ~ #tipo1box h3 {
-  color: rgba(255, 255, 255, 0.5);
-}
-
-#tipo1:checked ~ #tipo1box h3::before {
-  width: 115%;
-}
-
-#tipo2:checked ~ #tipo2box {
-  background: rgba(45, 45, 45);
-  border: 1px solid rgb(167, 89, 45);
-}
-
-#tipo2:checked ~ #tipo2box h3 {
-  color: rgba(255, 255, 255, 0.5);
-}
-
-#tipo2:checked ~ #tipo2box h3::before {
-  width: 115%;
-}
-
-#tipo3:checked ~ #tipo3box {
-  background: rgba(45, 45, 45);
-  border: 1px solid rgb(167, 89, 45);
-}
-
-#tipo3:checked ~ #tipo3box h3 {
-  color: rgba(255, 255, 255, 0.5);
-}
-
-#tipo3:checked ~ #tipo3box h3::before {
-  width: 115%;
-}
-
-#tipo4:checked ~ #tipo4box {
-  background: rgba(45, 45, 45);
-  border: 1px solid rgb(167, 89, 45);
-}
-
-#tipo4:checked ~ #tipo4box h3 {
-  color: rgba(255, 255, 255, 0.5);
-}
-
-#tipo4:checked ~ #tipo4box h3::before {
-  width: 115%;
-}
-
-#int1:checked ~ #int1box {
-  background: rgba(45, 45, 45);
-  border: 1px solid rgb(167, 89, 45);
-}
-
-#int1:checked ~ #int1box h3 {
-  color: rgba(255, 255, 255, 0.5);
-}
-
-#int1:checked ~ #int1box h3::before {
-  width: 115%;
-}
-
-#int2:checked ~ #int2box {
-  background: rgba(45, 45, 45);
-  border: 1px solid rgb(167, 89, 45);
-}
-
-#int2:checked ~ #int2box h3 {
-  color: rgba(255, 255, 255, 0.5);
-}
-
-#int2:checked ~ #int2box h3::before {
-  width: 115%;
-}
-
-#int3:checked ~ #int3box {
-  background: rgba(45, 45, 45);
-  border: 1px solid rgb(167, 89, 45);
-}
-
-#int3:checked ~ #int3box h3 {
-  color: rgba(255, 255, 255, 0.5);
-}
-
-#int3:checked ~ #int3box h3::before {
-  width: 115%;
 }
 
 .inputs_price {
