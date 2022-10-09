@@ -420,17 +420,26 @@ const App = () => {
                   pageTitle="Produto"
                   setHeaderPageTitle={setHeaderPageTitle}
                   favoriteProducts={favoriteProducts}
-                  handleAddFavoriteProduct={handleAddFavoriteProduct}
-                  handleRemoveFavoriteProduct={handleRemoveFavoriteProduct}
                   cartProducts={cartProducts}
+                  handleAddFavoriteProduct={handleAddFavoriteProduct}
                   handleAddCartProduct={handleAddCartProduct}
+                  handleRemoveFavoriteProduct={handleRemoveFavoriteProduct}
                 />
               }
             />
             <Route
               path="/search"
               exact
-              element={<Search setHeaderPageTitle={setHeaderPageTitle} />}
+              element={
+                <Search
+                  setHeaderPageTitle={setHeaderPageTitle}
+                  favoriteProducts={favoriteProducts}
+                  cartProducts={cartProducts}
+                  handleAddFavoriteProduct={handleAddFavoriteProduct}
+                  handleAddCartProduct={handleAddCartProduct}
+                  handleRemoveFavoriteProduct={handleRemoveFavoriteProduct}
+                />
+              }
             />
           </Routes>
         </UserSession.Provider>

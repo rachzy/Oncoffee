@@ -214,7 +214,7 @@ const ConteudoSearch = () => {
     if (!inputValues[name]) return;
 
     if (name === "product") {
-      navigate(`/search/${inputValues.product}`);
+      navigate(`/search?v=${inputValues.product}`);
       contentSearch.current.classList.remove("active");
       return postInputSearchProductValue(inputValues.product);
     }

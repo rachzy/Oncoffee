@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import displayError from "../../../../.././globalFunctions/displayErrors";
+import displayError from "../../globalFunctions/displayErrors";
 
-import HeartImg from "../../../../../imgs/newhearth.png";
-import favHeartImg from "../../../../../imgs/favhearth.png";
+import HeartImg from "../../imgs/newhearth.png";
+import favHeartImg from "../../imgs/favhearth.png";
 
-import { GlobalServerContext, UserSession } from "../../../../../App";
+import { GlobalServerContext, UserSession } from "../../App";
 
 const Product = ({
   productId,
@@ -308,10 +308,7 @@ const Product = ({
         ></i>
       </div>
       <div className="produto_img">
-        <img
-          src={require(`../../../../../imgs/${productImage}`)}
-          alt={productName}
-        />
+        <img src={require(`../../imgs/${productImage}`)} alt={productName} />
       </div>
       <div className="produto_text1">
         <h2 className="nome">{productName}</h2>

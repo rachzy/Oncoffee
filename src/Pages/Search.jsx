@@ -1,7 +1,7 @@
 import Axios from "axios";
 import React, { useState, useEffect, useRef } from "react";
 import { useSearchParams } from "react-router-dom";
-import Product from "../Components/Index/ContentPc/Midcenter/ProductSection/Product";
+import Product from "../Components/PageComponents/Product";
 import FilterItem from "../Components/Search/FilterItem";
 import FilterMethod from "../Components/Search/FilterMethod";
 import "../css/SearchPage.css";
@@ -20,7 +20,7 @@ const Search = ({
   handleRemoveFavoriteProduct,
 }) => {
   //Get Global Server Context
-  const {serverUrl} = useContext(GlobalServerContext);
+  const { serverUrl } = useContext(GlobalServerContext);
 
   //Config the page and Header title
   useEffect(() => {
@@ -51,21 +51,23 @@ const Search = ({
 
   useEffect(() => {
     const fetchProductsAccordingToUserSearch = async () => {
-      if(!searchQueryData.v) return;
+      if (!searchQueryData.v) return;
       try {
-        const { data } = await Axios.get(`${serverUrl}/search/${searchQueryData.v}`);
+        const { data } = await Axios.get(
+          `${serverUrl}/search/${searchQueryData.v}`
+        );
 
-        if(data.isError) {
+        if (data.isError) {
           return displayError(data.errorCode, data.errno);
         }
 
         setProducts(data);
-      } catch(err) {
+      } catch (err) {
         displayError(err.message, err.code);
       }
-    }
+    };
     fetchProductsAccordingToUserSearch();
-  }, [searchQueryData, serverUrl])
+  }, [searchQueryData, serverUrl]);
 
   //Show the content when the page is done loading
   const contentMain = useRef(null);
@@ -208,32 +210,36 @@ const Search = ({
   //Function to return properly every single product from the Products state
   const returnProducts = () => {
     return products.map((product) => {
-      return <Product
-      key={product.productId}
-      productId={product.productId}
-      productName={product.productTitle}
-      productImage={product.productImage}
-      productCategory={product.productCategory}
-      productFinalPrice={product.productPrice.finalPrice}
-      productDiscount={product.productPrice.discount}
-      productDescription={product.productDescription}
-      productGrade={product.productRate.finalRate}
-      productTotalSales={product.productTotalOrders}
-      favoriteProducts={favoriteProducts}
-      handleAddCartProduct={handleAddCartProduct}
-      handleRemoveCartProduct={handleRemoveCartProduct}
-      handleAddFavoriteProduct={handleAddFavoriteProduct}
-      handleRemoveFavoriteProduct={handleRemoveFavoriteProduct}
-      cartProducts={cartProducts}
-      customStyle={{ width: "fit-content", margin: "2vh" }}
-    />
-    })
-  }
-
-
+      return (
+        <Product
+          key={product.productId}
+          productId={product.productId}
+          productName={product.productTitle}
+          productImage={product.productImage}
+          productCategory={product.productCategory}
+          productFinalPrice={product.productPrice.finalPrice}
+          productDiscount={product.productPrice.discount}
+          productDescription={product.productDescription}
+          productGrade={product.productRate.finalRate}
+          productTotalSales={product.productTotalOrders}
+          favoriteProducts={favoriteProducts}
+          handleAddCartProduct={handleAddCartProduct}
+          handleRemoveCartProduct={handleRemoveCartProduct}
+          handleAddFavoriteProduct={handleAddFavoriteProduct}
+          handleRemoveFavoriteProduct={handleRemoveFavoriteProduct}
+          cartProducts={cartProducts}
+          customStyle={{
+            width: "fit-content",
+            maxWidth: "200px",
+            margin: "2vh",
+          }}
+        />
+      );
+    });
+  };
 
   return (
-    <section ref={contentMain} className="conteudo-search">
+    <section ref={contentMain} className="conteudo conteudo-search">
       <main className="config_area">
         <h2 className="filtrar">Filtrar Por:</h2>
         {returnFilteringMethods()}

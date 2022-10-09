@@ -6,16 +6,17 @@ import Axios from "axios";
 import ContentPC from "../Components/Product/ContentPC";
 import ContentMobile from "../Components/Product/ContentMobile";
 
-import { GlobalServerContext, UserSession } from "../App";
+import { GlobalServerContext } from "../App";
 
-const Product = ({ pageTitle, setHeaderPageTitle }) => {
-  const {
-    favoriteProducts,
-    cartProducts,
-    handleAddFavoriteProduct,
-    handleRemoveFavoriteProduct,
-    handleAddCartProduct,
-  } = useContext(UserSession);
+const Product = ({
+  pageTitle,
+  setHeaderPageTitle,
+  favoriteProducts,
+  cartProducts,
+  handleAddFavoriteProduct,
+  handleRemoveFavoriteProduct,
+  handleAddCartProduct,
+}) => {
   const navigate = useNavigate();
 
   //Product State

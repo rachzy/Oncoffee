@@ -3,11 +3,11 @@ import { useNavigate } from "react-router-dom";
 
 import Axios from "axios";
 
-import Input from "./Input";
-import SearchIcon from "./SearchIcon";
-import Autocomplete from "./Autocomplete";
+import Input from "./SearchBar/Input";
+import SearchIcon from "./SearchBar/SearchIcon";
+import Autocomplete from "./SearchBar/Autocomplete";
 
-import { GlobalServerContext } from "../../../../../App";
+import { GlobalServerContext } from "../../../../App";
 
 const SearchBar = () => {
   //Get "serverUrl" from "connection.json";
@@ -90,7 +90,8 @@ const SearchBar = () => {
     if (getSearchValue === undefined || getSearchValue === "") return;
 
     //Redirect the user
-    navigate(`/search/${getSearchValue}`);
+    window.scrollTo(0, 0);
+    navigate(`/search?v=${getSearchValue}`);
 
     //Post Data
     const postInputValue = async () => {
