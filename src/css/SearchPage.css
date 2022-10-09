@@ -28,73 +28,6 @@
   transition: 0.4s ease all;
 }
 
-.shopkartmo3:hover .user_box {
-  display: flex;
-}
-
-.user_box {
-  position: absolute;
-  background: rgb(40, 40, 40);
-  padding: 15px;
-  padding-top: 12px;
-  border-radius: 5px;
-  margin-left: -85px;
-  z-index: 999;
-  display: none;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.user_box li a {
-  font-size: 15px;
-
-  font-family: Ubuntu, sans-serif;
-  transition: 0.2s ease all;
-}
-
-.lia {
-  color: rgba(255, 255, 255, 0.7);
-}
-
-.lia:hover {
-  color: rgba(255, 255, 255, 0.8);
-}
-
-.login {
-  color: white;
-  padding: 5px 20px;
-
-  border-radius: 5px;
-  font-family: Ubuntu, sans-serif;
-}
-
-.login:hover {
-  background: rgba(255, 255, 255, 0.1);
-}
-
-.register {
-  border: 1px solid rgb(255, 255, 255, 0.8);
-  color: rgba(255, 255, 255, 0.8);
-  padding: 5px 8px;
-  border-radius: 5px;
-  font-family: Ubuntu, sans-serif;
-  margin-left: 15px;
-}
-
-.register:hover {
-  color: rgb(167, 89, 45);
-  background: rgba(255, 255, 255, 0.8);
-}
-
-.user_box li {
-  margin-top: 5px;
-}
-
-.user_box li:nth-child(2) {
-  margin-top: 20px;
-}
-
 .fav_box {
   position: absolute;
   background: rgb(40, 40, 40);
@@ -480,6 +413,7 @@
   font-size: 25px;
   color: rgba(255, 255, 255, 0.8);
   font-weight: 400;
+  width: 70%;
 }
 
 .top_info span {
