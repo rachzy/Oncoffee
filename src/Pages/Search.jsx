@@ -9,6 +9,7 @@ import "../css/SearchPage.css";
 import { GlobalServerContext } from "../App";
 import { useContext } from "react";
 import displayError from "../globalFunctions/displayErrors";
+import FilterBySelectBox from "../Components/Search/FilterBySelectBox";
 
 const Search = ({
   setHeaderPageTitle,
@@ -265,17 +266,7 @@ const Search = ({
           <h2>
             Resultados de busca para <span>"{searchQueryData.v}"</span>
           </h2>
-          <div className="SelectBox">
-            <select>
-              <option>Mais Comprado</option>
-              <option>Mais Barato</option>
-              <option>Mais Caro</option>
-              <option>Melhor Avaliação</option>
-            </select>
-            <div className="chevron">
-              <i className="fas fa-sort-down"></i>
-            </div>
-          </div>
+          <FilterBySelectBox products={products} setProducts={setProducts} />
         </main>
         <main className="products">
           {returnProducts()}
