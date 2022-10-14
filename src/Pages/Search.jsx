@@ -1,16 +1,20 @@
+import React, { useState, useEffect, useRef, useContext } from "react";
+import { useSearchParams, useNavigate } from "react-router-dom";
+
 import Axios from "axios";
-import React, { useState, useEffect, useRef } from "react";
-import { useSearchParams } from "react-router-dom";
+
+import "../css/SearchPage.css";
+
 import Product from "../Components/PageComponents/Product";
 import FilterItem from "../Components/Search/FilterItem";
 import FilterMethod from "../Components/Search/FilterMethod";
-import "../css/SearchPage.css";
-
-import { GlobalServerContext } from "../App";
-import { useContext } from "react";
 import displayError from "../globalFunctions/displayErrors";
 import FilterBySelectBox from "../Components/Search/FilterBySelectBox";
 import Loading from "../Components/PageComponents/Loading";
+
+import { GlobalServerContext } from "../App";
+import SearchProducts from "../Components/Search/RenderComponents/SearchProducts";
+import SearchFilteringMethods from "../Components/Search/RenderComponents/SearchFilteringMethods";
 
 const Search = ({
   setHeaderPageTitle,
@@ -21,16 +25,25 @@ const Search = ({
   handleAddFavoriteProduct,
   handleRemoveFavoriteProduct,
 }) => {
-  //Get Global Server Context
-  const { serverUrl } = useContext(GlobalServerContext);
-
   //Config the page and Header title
   useEffect(() => {
     setHeaderPageTitle("Pesquisar");
   }, [setHeaderPageTitle]);
 
+  //Get Global Server Context
+  const { serverUrl } = useContext(GlobalServerContext);
+
+  const navigate = useNavigate();
+
   //State that will get every search param
   const [searchParams, setSearchParams] = useSearchParams();
+
+  //Show the content when the page is done loading
+  const contentMain = useRef(null);
+  useEffect(() => {
+    if (!contentMain || !contentMain.current) return;
+    contentMain.current.classList.add("active");
+  }, [contentMain]);
 
   //Search states
   const [searchQueryData, setSearchQueryData] = useState({
@@ -41,8 +54,8 @@ const Search = ({
       "CAPSULAS",
       "SOLUVEIS",
       "SACHES",
-      "DRIP COFFEE",
-      "COLD BREW",
+      "DRIP_COFFEE",
+      "COLD_BREW",
       "INFUSOR",
     ],
     types: ["AROMATIZADO", "ORGANICOS", "MICROLOTE", "DESCAFEINADOS"],
@@ -55,7 +68,10 @@ const Search = ({
   useEffect(() => {
     const getAllSearchParams = {};
     searchParams.forEach((value, key) => {
-      getAllSearchParams[key] = value.trim();
+      if (key === "v") {
+        return (getAllSearchParams[key] = value.trim());
+      }
+      return (getAllSearchParams[key] = value.split(" "));
     });
     setSearchQueryData((currentValue) => ({
       ...currentValue,
@@ -91,125 +107,115 @@ const Search = ({
     fetchProductsAccordingToUserSearch();
   }, [searchQueryData, serverUrl]);
 
-  //Show the content when the page is done loading
-  const contentMain = useRef(null);
-  useEffect(() => {
-    if (!contentMain || !contentMain.current) return;
-    contentMain.current.classList.add("active");
-  }, [contentMain]);
-
-  //FILTERING METHOD => Methods
-  const methods = [
-    {
-      id: "GRAO",
-      title: "Grão",
-      selected: true,
-    },
-    {
-      id: "MOIDO",
-      title: "Moído",
-      selected: true,
-    },
-    {
-      id: "CAPSULAS",
-      title: "Cápsulas",
-      selected: true,
-    },
-    {
-      id: "SOLUVEIS",
-      title: "Solúveis",
-      selected: true,
-    },
-    {
-      id: "SACHES",
-      title: "Sachês",
-      selected: true,
-    },
-    {
-      id: "DRIP COFFEE",
-      title: "Drip coffee",
-      selected: true,
-    },
-    {
-      id: "COLD BREW",
-      title: "Cold Brew",
-      selected: true,
-    },
-    {
-      id: "INFUSOR",
-      title: "Infusor",
-      selected: true,
-    },
-  ];
-
-  //FILTERING METHOD => Types
-  const types = [
-    {
-      id: "AROMATIZADO",
-      title: "Aromatizado",
-      selected: true,
-    },
-    {
-      id: "ORGANICOS",
-      title: "Orgânicos",
-      selected: true,
-    },
-    {
-      id: "MICROLOTE",
-      title: "Microlote",
-      selected: true,
-    },
-    {
-      id: "DESCAFEINADOS",
-      title: "Descafeinados",
-      selected: true,
-    },
-  ];
-
-  //FILTERING METHOD => Intensities
-  const intensities = [
-    {
-      id: "SUAVE",
-      title: "Suave",
-      selected: true,
-    },
-    {
-      id: "MEDIA",
-      title: "Média",
-      selected: true,
-    },
-    {
-      id: "INTENSA",
-      title: "Intensa",
-      selected: true,
-    },
-  ];
-
   //Array that will englobe every filtering method
   const [filteringMethods, setFilteringMethods] = useState([
+    //FILTERING METHOD => Methods
     {
       id: "methods",
       title: "Método",
-      items: methods,
+      items: [
+        {
+          id: "GRAO",
+          title: "Grão",
+          selected: true,
+        },
+        {
+          id: "MOIDO",
+          title: "Moído",
+          selected: true,
+        },
+        {
+          id: "CAPSULAS",
+          title: "Cápsulas",
+          selected: true,
+        },
+        {
+          id: "SOLUVEIS",
+          title: "Solúveis",
+          selected: true,
+        },
+        {
+          id: "SACHES",
+          title: "Sachês",
+          selected: true,
+        },
+        {
+          id: "DRIP_COFFEE",
+          title: "Drip coffee",
+          selected: true,
+        },
+        {
+          id: "COLD_BREW",
+          title: "Cold Brew",
+          selected: true,
+        },
+        {
+          id: "INFUSOR",
+          title: "Infusor",
+          selected: true,
+        },
+      ],
     },
+    //FILTERING METHOD => Types
     {
       id: "types",
       title: "Tipos",
-      items: types,
+      items: [
+        {
+          id: "AROMATIZADO",
+          title: "Aromatizado",
+          selected: true,
+        },
+        {
+          id: "ORGANICOS",
+          title: "Orgânicos",
+          selected: true,
+        },
+        {
+          id: "MICROLOTE",
+          title: "Microlote",
+          selected: true,
+        },
+        {
+          id: "DESCAFEINADOS",
+          title: "Descafeinados",
+          selected: true,
+        },
+      ],
     },
+    //FILTERING METHOD => Intensities
     {
       id: "intensities",
       title: "Intensidade",
-      items: intensities,
+      items: [
+        {
+          id: "SUAVE",
+          title: "Suave",
+          selected: true,
+        },
+        {
+          id: "MEDIA",
+          title: "Média",
+          selected: true,
+        },
+        {
+          id: "INTENSA",
+          title: "Intensa",
+          selected: true,
+        },
+      ],
     },
   ]);
 
+  //Fetch methods items according to searchQuery data
   useEffect(() => {
     setFilteringMethods((currentValue) => {
       return currentValue.map((method) => {
         return {
           ...method,
           items: method.items.map((item) => {
+            //If the item ID is not selected,
+            //return the item with the property "selected" set as false
             if (!searchQueryData[method.id].includes(item.id))
               return {
                 ...item,
@@ -222,15 +228,28 @@ const Search = ({
     });
   }, [searchQueryData]);
 
+  const [clicked, setClicked] = useState(false);
+  useEffect(() => {
+    if (!clicked) return;
+
+    navigate(
+      `/search?v=${searchQueryData.v}&methods=${filteringMethods[0].items.join(
+        " "
+      )}&types=${filteringMethods[1].items.join(
+        " "
+      )}&intensities=${filteringMethods[2].items.join(" ")}`
+    );
+  }, [clicked, filteringMethods, searchQueryData, navigate]);
+
   //Function that will be triggered when the user clicks in an option
-  const handleItemClick = (title, methodId) => {
+  const handleItemClick = (itemId, methodId) => {
     setFilteringMethods((currentValue) => {
       return currentValue.map((method) => {
         if (method.id !== methodId) return method;
         return {
           ...method,
           items: method.items.map((item) => {
-            if (item.title !== title) return item;
+            if (item.id !== itemId) return item;
             return {
               ...item,
               selected: !item.selected,
@@ -239,78 +258,20 @@ const Search = ({
         };
       });
     });
+    setClicked(true);
   };
 
   //Function to return properly every Filter Method according to the state data
-  const returnFilteringMethods = () => {
-    return filteringMethods.map((filterMethod) => {
-      return (
-        <FilterMethod key={filterMethod.title} title={filterMethod.title}>
-          {filterMethod.items.map((item) => {
-            return (
-              <FilterItem
-                key={item.title}
-                itemTitle={item.title}
-                itemSelected={item.selected}
-                methodType={filterMethod.id}
-                handleItemClick={handleItemClick}
-              />
-            );
-          })}
-        </FilterMethod>
-      );
-    });
-  };
-
-  //Function to return properly every single product from the Products state
-  const returnProducts = () => {
-    if (products.length === 0) {
-      return <Loading />;
-    }
-    if (products.message) {
-      return <p className="callback-message">{products.message}</p>;
-    }
-    return products.map((product) => {
-      return (
-        <Product
-          key={product.productId}
-          productId={product.productId}
-          productName={product.productTitle}
-          productImage={product.productImage}
-          productCategory={product.productCategory}
-          productFinalPrice={product.productPrice.finalPrice}
-          productDiscount={product.productPrice.discount}
-          productDescription={product.productDescription}
-          productGrade={product.productRate.finalRate}
-          productTotalSales={product.productTotalOrders}
-          favoriteProducts={favoriteProducts}
-          handleAddCartProduct={handleAddCartProduct}
-          handleRemoveCartProduct={handleRemoveCartProduct}
-          handleAddFavoriteProduct={handleAddFavoriteProduct}
-          handleRemoveFavoriteProduct={handleRemoveFavoriteProduct}
-          cartProducts={cartProducts}
-          customStyle={{
-            width: "fit-content",
-            maxWidth: "200px",
-            margin: "2vh",
-          }}
-        />
-      );
-    });
-  };
+  const returnFilteringMethods = () => {};
 
   return (
     <section ref={contentMain} className="conteudo conteudo-search">
       <main className="config_area">
         <h2 className="filtrar">Filtrar Por:</h2>
-        {returnFilteringMethods()}
-        <FilterMethod title="Preço">
-          <div className="inputs_price">
-            <input type="text" placeholder="Min." className="input_price" />
-            <input type="text" placeholder="Max." className="input_price" />
-          </div>
-          <input type="button" className="aplicar" value="Aplicar" />
-        </FilterMethod>
+        <SearchFilteringMethods
+          filteringMethods={filteringMethods}
+          handleItemClick={handleItemClick}
+        />
       </main>
 
       <main className="bigline">
@@ -325,7 +286,15 @@ const Search = ({
           <FilterBySelectBox products={products} setProducts={setProducts} />
         </main>
         <main className="products">
-          {returnProducts()}
+          <SearchProducts
+            products={products}
+            favoriteProducts={favoriteProducts}
+            cartProducts={cartProducts}
+            handleAddCartProduct={handleAddCartProduct}
+            handleRemoveCartProduct={handleRemoveCartProduct}
+            handleAddFavoriteProduct={handleAddFavoriteProduct}
+            handleRemoveFavoriteProduct={handleRemoveCartProduct}
+          />
 
           {products.length !== 0 && !products.message && (
             <div className="load_btt">

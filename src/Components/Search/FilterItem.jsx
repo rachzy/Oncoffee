@@ -3,6 +3,7 @@ import { Fragment } from "react/cjs/react.production.min";
 
 const FilterItem = ({
   itemTitle,
+  itemId,
   itemSelected,
   methodType,
   handleItemClick,
@@ -11,7 +12,7 @@ const FilterItem = ({
     <Fragment>
       <label
         className={`method_box ${itemSelected || "checked"}`}
-        onClick={handleItemClick.bind(this, itemTitle, methodType)}
+        onClick={handleItemClick.bind(this, itemId, methodType)}
         htmlFor={itemTitle}
       >
         <h3>
