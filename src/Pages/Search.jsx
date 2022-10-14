@@ -10,6 +10,7 @@ import { GlobalServerContext } from "../App";
 import { useContext } from "react";
 import displayError from "../globalFunctions/displayErrors";
 import FilterBySelectBox from "../Components/Search/FilterBySelectBox";
+import Loading from "../Components/PageComponents/Loading";
 
 const Search = ({
   setHeaderPageTitle,
@@ -62,6 +63,11 @@ const Search = ({
           return displayError(data.errorCode, data.errno);
         }
 
+        if (data.length === 0) {
+          return setProducts({
+            message: "Nenhum produto com esse nome/filtro foi encontrado...",
+          });
+        }
         setProducts(data);
       } catch (err) {
         displayError(err.message, err.code);
@@ -210,6 +216,12 @@ const Search = ({
 
   //Function to return properly every single product from the Products state
   const returnProducts = () => {
+    if (products.length === 0) {
+      return <Loading />;
+    }
+    if (products.message) {
+      return <p className="callback-message">{products.message}</p>;
+    }
     return products.map((product) => {
       return (
         <Product
@@ -271,9 +283,15 @@ const Search = ({
         <main className="products">
           {returnProducts()}
 
-          <div className="load_btt">
-            <input type="button" value="Carregar Mais" className="load_more" />
-          </div>
+          {products.length !== 0 && !products.message && (
+            <div className="load_btt">
+              <input
+                type="button"
+                value="Carregar Mais"
+                className="load_more"
+              />
+            </div>
+          )}
         </main>
       </main>
     </section>
