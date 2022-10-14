@@ -43,7 +43,7 @@ const Search = ({
   useEffect(() => {
     const getAllSearchParams = {};
     searchParams.forEach((value, key) => {
-      getAllSearchParams[key] = value;
+      getAllSearchParams[key] = value.trim();
     });
     setSearchQueryData(getAllSearchParams);
   }, [searchParams]);
