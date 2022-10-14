@@ -35,8 +35,20 @@ const Search = ({
   //Search states
   const [searchQueryData, setSearchQueryData] = useState({
     v: "",
-    methods: [],
-    types: [],
+    methods: [
+      "GRAO",
+      "MOIDO",
+      "CAPSULAS",
+      "SOLUVEIS",
+      "SACHES",
+      "DRIP COFFEE",
+      "COLD BREW",
+      "INFUSOR",
+    ],
+    types: ["AROMATIZADO", "ORGANICOS", "MICROLOTE", "DESCAFEINADOS"],
+    intensities: ["SUAVE", "MEDIA", "INTENSA"],
+    minPrice: 0,
+    maxPrice: 0,
   });
 
   //Get all search params and save them into the SearchQueryData state
@@ -45,7 +57,10 @@ const Search = ({
     searchParams.forEach((value, key) => {
       getAllSearchParams[key] = value.trim();
     });
-    setSearchQueryData(getAllSearchParams);
+    setSearchQueryData((currentValue) => ({
+      ...currentValue,
+      ...getAllSearchParams,
+    }));
   }, [searchParams]);
 
   //Products state
@@ -86,34 +101,42 @@ const Search = ({
   //FILTERING METHOD => Methods
   const methods = [
     {
+      id: "GRAO",
       title: "Grão",
       selected: true,
     },
     {
+      id: "MOIDO",
       title: "Moído",
       selected: true,
     },
     {
+      id: "CAPSULAS",
       title: "Cápsulas",
       selected: true,
     },
     {
+      id: "SOLUVEIS",
       title: "Solúveis",
       selected: true,
     },
     {
+      id: "SACHES",
       title: "Sachês",
       selected: true,
     },
     {
+      id: "DRIP COFFEE",
       title: "Drip coffee",
       selected: true,
     },
     {
+      id: "COLD BREW",
       title: "Cold Brew",
       selected: true,
     },
     {
+      id: "INFUSOR",
       title: "Infusor",
       selected: true,
     },
@@ -122,18 +145,22 @@ const Search = ({
   //FILTERING METHOD => Types
   const types = [
     {
+      id: "AROMATIZADO",
       title: "Aromatizado",
       selected: true,
     },
     {
+      id: "ORGANICOS",
       title: "Orgânicos",
       selected: true,
     },
     {
+      id: "MICROLOTE",
       title: "Microlote",
       selected: true,
     },
     {
+      id: "DESCAFEINADOS",
       title: "Descafeinados",
       selected: true,
     },
@@ -142,14 +169,17 @@ const Search = ({
   //FILTERING METHOD => Intensities
   const intensities = [
     {
+      id: "SUAVE",
       title: "Suave",
       selected: true,
     },
     {
+      id: "MEDIA",
       title: "Média",
       selected: true,
     },
     {
+      id: "INTENSA",
       title: "Intensa",
       selected: true,
     },
@@ -168,11 +198,29 @@ const Search = ({
       items: types,
     },
     {
-      id: "intensitites",
+      id: "intensities",
       title: "Intensidade",
       items: intensities,
     },
   ]);
+
+  useEffect(() => {
+    setFilteringMethods((currentValue) => {
+      return currentValue.map((method) => {
+        return {
+          ...method,
+          items: method.items.map((item) => {
+            if (!searchQueryData[method.id].includes(item.id))
+              return {
+                ...item,
+                selected: false,
+              };
+            return item;
+          }),
+        };
+      });
+    });
+  }, [searchQueryData]);
 
   //Function that will be triggered when the user clicks in an option
   const handleItemClick = (title, methodId) => {
@@ -263,10 +311,6 @@ const Search = ({
           </div>
           <input type="button" className="aplicar" value="Aplicar" />
         </FilterMethod>
-
-        <section className="metodo">
-          <h2>Preço</h2>
-        </section>
       </main>
 
       <main className="bigline">
