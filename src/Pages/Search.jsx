@@ -231,20 +231,13 @@ const Search = ({
   const [clicked, setClicked] = useState(false);
   useEffect(() => {
     if (!clicked) return;
-
-    navigate(
-      `/search?v=${searchQueryData.v}&methods=${filteringMethods[0].items.join(
-        " "
-      )}&types=${filteringMethods[1].items.join(
-        " "
-      )}&intensities=${filteringMethods[2].items.join(" ")}`
-    );
   }, [clicked, filteringMethods, searchQueryData, navigate]);
 
   //Function that will be triggered when the user clicks in an option
   const handleItemClick = (itemId, methodId) => {
     setFilteringMethods((currentValue) => {
-      return currentValue.map((method) => {
+      //Constant that will save the new value of the state
+      const newFilteringMethods = currentValue.map((method) => {
         if (method.id !== methodId) return method;
         return {
           ...method,
@@ -257,12 +250,23 @@ const Search = ({
           }),
         };
       });
+
+      //Redirect the user to a new page using the new state value
+      navigate(
+        `/search?v=${searchQueryData.v}&methods=${newFilteringMethods[0].items
+          .map((method) => (method.selected ? method.id : ""))
+          .join(" ")}&types=${newFilteringMethods[1].items
+          .map((method) => (method.selected ? method.id : ""))
+          .join(" ")}&intensities=${newFilteringMethods[2].items
+          .map((method) => (method.selected ? method.id : ""))
+          .join(" ")}`
+      );
+
+      //Set the new state value
+      return newFilteringMethods;
     });
     setClicked(true);
   };
-
-  //Function to return properly every Filter Method according to the state data
-  const returnFilteringMethods = () => {};
 
   return (
     <section ref={contentMain} className="conteudo conteudo-search">
