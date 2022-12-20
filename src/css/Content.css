@@ -131,11 +131,9 @@ body {
 
   flex-direction: row;
   position: relative;
-  z-index: 999;
+  z-index: 99999;
   top: 0;
-
 }
-
 
 .nav_left {
   display: flex;
@@ -158,9 +156,7 @@ body {
   margin-right: 25%;
 
   width: 40%;
-
 }
-
 
 .nav_mid {
   display: flex;
@@ -180,7 +176,6 @@ body {
   width: 30%;
 }
 
-
 .center_nav_right {
   display: flex;
   flex-direction: row;
@@ -188,12 +183,10 @@ body {
   justify-content: space-between;
   margin-right: 25%;
   width: 40%;
-
 }
 
 .nav_mid img {
   width: 100px;
-
 }
 
 .navbar3 .navlogo3 {
@@ -210,9 +203,7 @@ body {
   font-family: Poppins, sans-serif;
   font-weight: 500;
   letter-spacing: 0.7px;
-
 }
-
 
 .hunderline3 {
   width: 60px;
@@ -222,17 +213,13 @@ body {
   background: rgb(167, 89, 45);
   top: 0;
   margin-top: -6px;
-
 }
 
 .shopkartmo3 {
   margin-right: 4%;
   margin-top: -15px;
   display: inline-block;
-
 }
-
-
 
 .shopkartmo3 label img {
   width: 25px;
@@ -246,15 +233,12 @@ body {
 }
 
 #userbtt {
-
   transition: 0.4s ease all;
 }
 
 .shopkartmo3:hover .user_box {
   display: flex;
 }
-
-
 
 .user_box {
   position: absolute;
@@ -268,9 +252,9 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  z-index: 99999;
 }
-
-
 
 .user_box img {
   width: 15vh;
@@ -288,33 +272,27 @@ body {
 
   font-family: Ubuntu, sans-serif;
   transition: 0.2s ease all;
-
 }
 
 .lia {
   color: rgba(255, 255, 255, 0.7);
 }
 
-
 .lia:hover {
   color: rgba(255, 255, 255, 0.8);
 }
 
 .login {
-
   color: white;
   padding: 5px 20px;
 
   border-radius: 5px;
   font-family: Ubuntu, sans-serif;
-
 }
 
 .login:hover {
   background: rgba(255, 255, 255, 0.1);
 }
-
-
 
 .register {
   border: 1px solid rgb(255, 255, 255, 0.8);
@@ -338,8 +316,6 @@ body {
   margin-top: 20px;
 }
 
-
-
 .sign-out {
   margin-top: 20px;
   width: 100%;
@@ -358,11 +334,6 @@ body {
   background-color: rgba(226, 11, 11, 0.8);
   color: white;
 }
-
-
-
-
-
 
 .fav_box {
   position: absolute;
@@ -389,7 +360,6 @@ body {
 }
 
 .fav_box_overflow {
-
   height: max-content;
   max-height: 150px;
   display: flex;
@@ -401,26 +371,16 @@ body {
 }
 
 .fav_box_overflow::-webkit-scrollbar {
-
   width: 5px;
-
 }
 
 .fav_box_overflow::-webkit-scrollbar-track {
   background: rgba(35, 35, 35, 1);
-
-
 }
 
 .fav_box_overflow::-webkit-scrollbar-thumb {
   background-color: rgb(167, 89, 45);
-
-
-
-
 }
-
-
 
 .shopkartmo3:hover .fav_box {
   display: flex;
@@ -435,15 +395,12 @@ body {
   margin-bottom: 8px;
 }
 
-
 .fav_img_line {
   width: 25%;
-
 }
 
 .fav_img_line img {
   width: 100%;
-
 }
 
 .fav_text_line {
@@ -469,7 +426,6 @@ body {
 }
 
 .fav_remove_line {
-
   width: 15%;
   display: flex;
   align-items: center;
@@ -517,7 +473,6 @@ body {
   transition: 0.2s ease all;
 }
 
-
 .shop_box {
   position: absolute;
   background: rgb(40, 40, 40);
@@ -543,7 +498,6 @@ body {
 }
 
 .shop_box_overflow {
-
   height: max-content;
   max-height: 250px;
   display: flex;
@@ -555,26 +509,16 @@ body {
 }
 
 .shop_box_overflow::-webkit-scrollbar {
-
   width: 5px;
-
 }
 
 .shop_box_overflow::-webkit-scrollbar-track {
   background: rgba(35, 35, 35, 1);
-
-
 }
 
 .shop_box_overflow::-webkit-scrollbar-thumb {
   background-color: rgb(167, 89, 45);
-
-
-
-
 }
-
-
 
 .shopkartmo3:hover .shop_box {
   display: flex;
@@ -589,16 +533,12 @@ body {
   margin-bottom: 8px;
 }
 
-
-
 .shop_img_line {
   width: 25%;
-
 }
 
 .shop_img_line img {
   width: 100%;
-
 }
 
 .shop_text_line {
@@ -624,7 +564,6 @@ body {
 }
 
 .shop_remove_line {
-
   width: 15%;
   display: flex;
   align-items: center;
@@ -672,15 +611,6 @@ body {
   transition: 0.2s ease all;
 }
 
-
-
-
-
-
-
-
-
-
 .navbar2 {
   width: 100%;
 
@@ -693,14 +623,7 @@ body {
   position: relative;
   z-index: 999;
   top: 0;
-
 }
-
-
-
-
-
-
 
 .nav_mobile_left {
   display: flex;
@@ -718,9 +641,7 @@ body {
   justify-content: center;
   margin-right: 25%;
   width: 40%;
-
 }
-
 
 .nav_mobile_left h1 {
   color: white;
@@ -728,7 +649,6 @@ body {
   font-family: Poppins, sans-serif;
   font-weight: 500;
   letter-spacing: 0.7px;
-
 }
 
 .hunderline2 {
@@ -738,9 +658,7 @@ body {
   background: rgb(167, 89, 45);
   top: 0;
   margin-top: -6px;
-
 }
-
 
 .nav_mobile_mid {
   display: flex;
@@ -764,13 +682,11 @@ body {
   display: flex;
   justify-content: space-between;
   margin-top: 35px;
-
 }
 
 .nav_mobile_mid img {
   width: 100px;
 }
-
 
 .center_nav_right {
   display: flex;
@@ -779,15 +695,12 @@ body {
   justify-content: space-between;
   margin-right: 25%;
   width: 40%;
-
 }
-
 
 .shopkartmo {
   margin-right: 4%;
   margin-top: -15px;
   display: inline-block;
-
 }
 
 .shopkartmo label img {
@@ -870,7 +783,7 @@ body {
 
 /*search area*/
 
-#searchcheck:checked~.swichline {
+#searchcheck:checked ~ .swichline {
   margin-left: 50%;
 }
 
@@ -944,7 +857,7 @@ body {
   font-family: Roboto, sans-serif;
 }
 
-.input-search input:focus~.input-search-autocomplete {
+.input-search input:focus ~ .input-search-autocomplete {
   display: flex;
 }
 
@@ -1701,7 +1614,7 @@ body {
   display: none;
 }
 
-#favbtt:checked~#imgpressed {
+#favbtt:checked ~ #imgpressed {
   display: block;
 }
 
@@ -1938,7 +1851,7 @@ body {
   display: none;
 }
 
-#favbtt2:checked~#imgpressed2 {
+#favbtt2:checked ~ #imgpressed2 {
   display: block;
 }
 
@@ -1975,8 +1888,14 @@ body {
 }
 
 .topbar {
+  position: sticky;
+  top: 0;
+  background-color: rgb(25, 25, 25);
   width: 100%;
   display: flex;
+  z-index: 1000;
+  padding: 1vh;
+  align-items: center;
 }
 
 .consult_bar {
@@ -1988,6 +1907,7 @@ body {
 .consult_bar ul {
   display: flex;
   justify-content: space-around;
+  align-items: center;
   width: 100%;
 }
 
@@ -2174,18 +2094,6 @@ body {
 
 .consult_box ul img {
   width: 250px;
-}
-
-.novidades {
-  padding-bottom: 15px;
-}
-
-.promoçoes {
-  padding-bottom: 15px;
-}
-
-.cafes {
-  padding-bottom: 15px;
 }
 
 .novidades:hover #novidades_box {

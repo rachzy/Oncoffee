@@ -128,7 +128,7 @@ const Header = ({
         if (data.queryStatus !== 200) return;
 
         window.location.reload();
-        localStorage.removeItem("cartProducts")
+        localStorage.removeItem("cartProducts");
       } catch (err) {
         displayError(err, err.code);
       }

@@ -4,7 +4,7 @@ import Axios from "axios";
 
 import ProductLineTitle from "./ProductSection/ProductLineTitle";
 import ProductLine from "./ProductSection/ProductLine";
-import Product from "./ProductSection/Product";
+import Product from "../../../PageComponents/Product";
 import BottomBtn from "./BottomBtn";
 
 import { GlobalServerContext } from "../../../../App";
@@ -32,16 +32,16 @@ const ProductSection = ({
   useEffect(() => {
     //Simple function that will set the first 5 products received through an array given in params as the first values of productsRendered state
     const setProductsRenderedInitialValue = (products) => {
-      if(!products || products.length === 0) return;
-      let initialProducts = []
+      if (!products || products.length === 0) return;
+      let initialProducts = [];
 
       for (let i = 0; i <= 4; i++) {
         if (!products[i]) return;
-        initialProducts.push(products[i])
+        initialProducts.push(products[i]);
       }
 
       setProductsRendered(initialProducts);
-    }
+    };
 
     //Fetch products from database
     const fetchProducts = async () => {
@@ -127,9 +127,8 @@ const ProductSection = ({
       //If mayRender is false, no product lines will be rendered
       if (!mayRender) return null;
 
-
       let productsThatWillBeRendered = []; //Array that will save all the products that will be rendered in that specific product line
-      
+
       //Get every product that have to be rendered, starting from the position value saved in productPosition + 4, since we need to render that product plus 4 other ones
       for (let j = productPosition; j <= productPosition + 4; j++) {
         if (products[j]) {

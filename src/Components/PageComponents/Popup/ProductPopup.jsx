@@ -75,7 +75,11 @@ const ProductPopup = ({
         <p>{productDescription}</p>
         <h3>R$ {returnFinalPrice()}</h3>
       </div>
-      <button onClick={handleButtonClick} className="default-btn">
+      <button
+        onClick={handleButtonClick}
+        className="default-btn"
+        style={{ backgroundColor: "rgb(167, 89, 45)", height: "30px" }}
+      >
         Ver
       </button>
       <button onClick={handleXClick} className="popup-remove-btn">

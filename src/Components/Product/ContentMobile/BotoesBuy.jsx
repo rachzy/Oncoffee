@@ -1,23 +1,20 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
+import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
-const ProductBuySection = ({
-  productId,
-  cartProducts,
-  handleAddToCartButtonClick,
-}) => {
+const BotoesBuy = ({ cartProducts, productId, handleAddToCartButtonClick }) => {
   const navigate = useNavigate();
 
   const addToCartBtn = useRef(null);
 
   const enableCartProductButton = () => {
     addToCartBtn.current.style.background = "rgb(4, 128, 185)";
-    addToCartBtn.current.value = "Adicionado ao Carrinho";
+    addToCartBtn.current.textContent = "Adicionado ao Carrinho";
   };
 
   const disableCartProductButton = () => {
     addToCartBtn.current.style.background = "transparent";
-    addToCartBtn.current.value = "Adicionar ao Carrinho";
+    addToCartBtn.current.textContent = "Adicionar ao Carrinho";
   };
 
   useEffect(() => {
@@ -34,20 +31,22 @@ const ProductBuySection = ({
     checkIfProductIsAlreadyOnCart();
   }, [cartProducts, productId]);
 
-  const handleBuyButtonClick = () => {
-    navigate(`/checkout/products=${productId}`);
-  };
-
   return (
-    <div className="product_comprar">
-      <input onClick={handleBuyButtonClick} type="button" value="Comprar" />
-      <input
-        ref={addToCartBtn}
-        onClick={handleAddToCartButtonClick}
-        type="button"
-      />
-    </div>
+    <main className="botoes_buy">
+      <div className="buttons_area">
+        <button
+          onClick={() => {
+            navigate(`/checkout/products=${productId}`);
+          }}
+        >
+          Comprar
+        </button>
+        <button ref={addToCartBtn} onClick={handleAddToCartButtonClick}>
+          Adicionar ao Carrinho
+        </button>
+      </div>
+    </main>
   );
 };
 
-export default ProductBuySection;
+export default BotoesBuy;

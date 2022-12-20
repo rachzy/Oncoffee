@@ -18,6 +18,18 @@ const Product = ({
   handleAddCartProduct,
 }) => {
   const navigate = useNavigate();
+
+  //Product State
+  const [product, setProduct] = useState();
+  const [productNotFound, setProductNotFound] = useState(false);
+  const [otherProducts, setOtherProducts] = useState([]);
+
+  //State that controls the amount of products that will be bought by the user
+  const [amount, setAmount] = useState(1);
+  const [productFinalPrice, setProductFinalPrice] = useState(
+    product?.productPrice.finalPrice || 0
+  );
+
   useEffect(() => {
     setHeaderPageTitle(pageTitle);
   }, [pageTitle, setHeaderPageTitle]);
@@ -26,10 +38,6 @@ const Product = ({
 
   const params = useParams();
   const { productId } = params;
-
-  //Product State
-  const [product, setProduct] = useState();
-  const [otherProducts, setOtherProducts] = useState([]);
 
   useEffect(() => {
     const fetchOtherProducts = async (category) => {
@@ -53,21 +61,30 @@ const Product = ({
           `${serverUrl}/products/getsingle/${productId}`
         );
 
+        if (!data || data.length === 0) {
+          return setProductNotFound(true);
+        }
+
         if (data.isError) {
-          return displayError(data.errorCode, data.errno);
+          switch (data.errorCode) {
+            case "PRODUCT_NOT_FOUND":
+              setProductNotFound(true);
+              break;
+            default:
+              displayError(data.errorCode, data.errno);
+          }
+          return;
         }
 
         setProduct(data);
         fetchOtherProducts(data.productCategory);
       } catch (err) {
+        setProductNotFound(true);
         displayError(err.message, err.code);
       }
     };
     fetchProductData();
   }, [displayError, productId, serverUrl]);
-
-  //State that controls the amount of products that will be bought by the user
-  const [amount, setAmount] = useState(1);
 
   const handleHeartClick = (e) => {
     if (!isLogged) {
@@ -100,9 +117,18 @@ const Product = ({
     handleAddCartProduct(newProduct);
   };
 
+  if (productNotFound) {
+    return (
+      <main class="erros">
+        <h2 class="404">ERRO! Produto não encontrado</h2>
+      </main>
+    );
+  }
+
   if (!product) {
     return null;
   }
+
   return (
     <>
       <ContentPC
@@ -120,6 +146,7 @@ const Product = ({
         product={product}
         amount={amount}
         setAmount={setAmount}
+        cartProducts={cartProducts}
         favoriteProducts={favoriteProducts}
         handleAddToCartButtonClick={handleAddToCartButtonClick}
         handleRemoveFavoriteProduct={handleRemoveFavoriteProduct}

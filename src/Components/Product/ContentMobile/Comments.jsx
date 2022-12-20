@@ -91,6 +91,7 @@ const Comments = ({ productComments }) => {
           <button
             onClick={() => {
               navigate(`/product/${product.productId}`);
+              window.scrollTo(0, 0);
             }}
           >
             Comprar

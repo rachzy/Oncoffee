@@ -17,7 +17,7 @@ import CafeteiraImg from "../../../imgs/cafeteira.png";
 
 import DatabaseLiSection from "./TopBar/DatabaseLiSection";
 import ManualLilSection from "./TopBar/ManualLiSection";
-import SearchBar from "./TopBar/SearchBar/SearchBar";
+import SearchBar from "./TopBar/SearchBar";
 import displayError from "../../../globalFunctions/displayErrors";
 
 const TopBar = () => {

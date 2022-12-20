@@ -1,19 +1,19 @@
 import React, { useContext, useEffect } from "react";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import setPageTitle from "../globalFunctions/setPageTitle";
 import LoginRegisterContainer from "../Components/Login/LoginRegisterContainer";
 
 import "../css/login.css";
 
-import {GlobalServerContext} from "../App";
+import { GlobalServerContext } from "../App";
 
 const Login = ({ pageTitle, setHeaderPageTitle }) => {
   const navigate = useNavigate();
-  const {isLogged} = useContext(GlobalServerContext);
+  const { isLogged } = useContext(GlobalServerContext);
 
   useEffect(() => {
-    if(isLogged) return navigate("/");
+    if (isLogged) return navigate("/");
     setPageTitle(pageTitle);
     setHeaderPageTitle(pageTitle);
   }, [pageTitle, setHeaderPageTitle, isLogged, navigate]);

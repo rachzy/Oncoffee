@@ -324,7 +324,7 @@
 
 .error-msg {
   font-size: 14px;
-  font-family: Roboto,sans-serif;
+  font-family: Roboto, sans-serif;
   color: rgb(182, 74, 74);
   margin-left: 5px;
   text-align: center;
@@ -332,8 +332,17 @@
 
 .callback-msg {
   font-size: 14px;
-  font-family: Roboto,sans-serif;
+  font-family: Roboto, sans-serif;
   color: rgba(255, 255, 255, 0.8);
   margin-left: 5px;
   text-align: center;
+}
+
+/* CALLBACK MESSAGE */
+
+p.callback-message {
+  text-align: center;
+  color: gray;
+  font-size: 2.5vh;
+  font-family: "Poppins", sans-serif;
 }

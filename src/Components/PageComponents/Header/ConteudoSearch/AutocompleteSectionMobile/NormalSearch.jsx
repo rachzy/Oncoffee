@@ -16,7 +16,7 @@ const NormalSearch = ({
         product: value,
       };
     });
-    navigate(`/search/${value}`);
+    navigate(`/search?v=${value}`);
     document.querySelector("#content-search").classList.remove("active");
     document.querySelector(".swichline").style.marginLeft = "3%";
     window.scrollTo(0, 0);
