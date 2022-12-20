@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta 
+        name='viewport' 
+        content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' />
+    <script src="https://kit.fontawesome.com/3f3417947e.js" crossorigin="anonymous"></script>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/6ae09aab11.js" crossorigin="anonymous"></script>
+    <link rel="shortcut icon" href="/transfer-html/img/favicon-32x32.png" type="image/x-icon">
+    <link rel="stylesheet" href="shop_pay.css">
+    <title>OnCoffee - Pagamento</title>
+</head>
+
+<body>
+    <header>
+        <nav class="nav_pay">
+
+            <div class="nav_logo">
+                <img src="/transfer-html/img/OnCoffee.png" alt="">
+            </div>
+            <h2>Pagamento</h2>
+            
+        </nav>
+    </header>
+<!--aparecer "endereço_box" somente se for a primeira compra, e/ou não tiver um endereço salvo!-->
+    <main class="endereco_box">
+        <h2>Adicione Um Novo Endereço</h2>
+        <h3>Para efetuar o pagamento Adicione Um <span>Endereço de Entrega</span></h3>
+        <div class="input_box" id="input_nome">
+            <input type="text" class="input_endereço"  placeholder="Nome Completo">
+            <div class="placeholder_box">
+                <h2>Nome Completo</h2>
+            </div>
+        </div>
+       
+        <div class="input_box" id="input_tel">
+            <input type="text" class="input_endereço"  placeholder="Número de Telefone">
+            <div class="placeholder_box">
+                <h2>Número de Telefone</h2>
+            </div>
+        </div>
+        <div class="input_box" id="input_cep">
+            <input type="text" class="input_endereço"  placeholder="CEP">
+            <div class="placeholder_box">
+                <h2>CEP</h2>
+            </div>
+        </div>
+        <div class="input_box" id="input_cidade" >
+            <input type="text" class="input_endereço" placeholder="Cidade/Estado">
+            <div class="placeholder_box">
+                <h2>Cidade/Estado</h2>
+            </div>
+        </div>
+        <div class="input_box" id="input_rua">
+            <input type="text" class="input_endereço"  placeholder="Rua">
+            <div class="placeholder_box">
+                <h2>Rua</h2>
+            </div>
+        </div>
+        <div class="input_box" id="input_number">
+            <input type="text" class="input_endereço"  placeholder="Número">
+            <div class="placeholder_box">
+                <h2>Número</h2>
+            </div>
+        </div>
+        <div class="input_box" id="input_bairro">
+            <input type="text" class="input_endereço"  placeholder="Bairro">
+            <div class="placeholder_box">
+                <h2>Bairro</h2>
+            </div>
+        </div>
+        <div class="input_box" id="input_comp">
+            <input type="text" class="input_endereço"  placeholder="Complemento">
+            <div class="placeholder_box">
+                <h2>Complemento</h2>
+            </div>
+        </div>
+        
+        
+        
+        
+        <div class="input_box" id="input_save">
+            <input type="text" class="input_endereço" placeholder="Salvar Como:">
+            <div class="placeholder_box">
+                <h2>Salvar Como:</h2>
+            </div>
+        </div>
+        <h3>Ao salvar o endereço, ele ficará salvo em sua conta, facilitando o processo de futuras compras. Caso precise você pode adicionar mais de um endereço</h3>
+
+        <div class="save_area"><button>Salvar</button></div>
+    </main>
+    <script>
+        $(':input').on('focus', function() {
+        this.dataset.placeholder = this.placeholder;
+        this.placeholder = '';
+    }).on('blur', function(){
+        this.placeholder = this.dataset.placeholder;
+    });
+    </script>
+    <section class="conteudo_pc">
+        <main class="endereco_entrega">
+            <h2><i class="fa fa-map-marker" aria-hidden="true"></i>Selecionar Endereço de Entrega:</h2>
+            <div class="endereco_area">
+                <input type="radio" class="radio_endereco" id="endereco_1">
+
+
+                <label for="endereco_1" class="select_endereco_box">
+                    <div class="endselect_left">
+                        <div class="radio_check">
+                            <div class="radio_circle"></div>
+                        </div>    
+                    </div>
+                    <div class="endselect_right">
+                        <!--max 30 caracteres exibidos, se ultrapassar mostrar ...-->
+                        <h2>"Resultado para (Salvar Como")</h2>
+                        <!--max 100 caracteres exibidos, se ultrapassar mostrar ...-->
+                        <h3>Rua exemplo exemplo exemploaskljdlaksjdas,99999</h3>
+                    </div>
+                </label>
+            </div>
+            <div class="endereco_area">
+                <input type="radio" class="radio_endereco" id="endereco_1">
+
+
+                <label for="endereco_1" class="select_endereco_box">
+                    <div class="endselect_left">
+                        <div class="radio_check">
+                            <div class="radio_circle"></div>
+                        </div>    
+                    </div>
+                    <div class="endselect_right">
+                        <!--max 30 caracteres exibidos, se ultrapassar mostrar ...-->
+                        <h2>"Resultado para (Salvar Como")</h2>
+                        <!--max 100 caracteres exibidos, se ultrapassar mostrar ...-->
+                        <h3>Rua exemplo exemplo exemploaskljdlaksjdas,99999</h3>
+                    </div>
+                </label>
+            </div>
+            <div class="endereco_area">
+                <input type="radio" class="radio_endereco" id="endereco_1">
+
+
+                <label for="endereco_1" class="select_endereco_box">
+                    <div class="endselect_left">
+                        <div class="radio_check">
+                            <div class="radio_circle"></div>
+                        </div>    
+                    </div>
+                    <div class="endselect_right">
+                        <!--max 30 caracteres exibidos, se ultrapassar mostrar ...-->
+                        <h2>"Resultado para (Salvar Como")</h2>
+                        <!--max 100 caracteres exibidos, se ultrapassar mostrar ...-->
+                        <h3>Rua exemplo exemplo exemploaskljdlaksjdas,99999</h3>
+                    </div>
+                </label>
+            </div>
+            <div class="endereco_area">
+                <input type="radio" class="radio_endereco" id="endereco_1">
+
+
+                <label for="endereco_1" class="select_endereco_box">
+                    <div class="endselect_left">
+                        <div class="radio_check">
+                            <div class="radio_circle"></div>
+                        </div>    
+                    </div>
+                    <div class="endselect_right">
+                        <!--max 30 caracteres exibidos, se ultrapassar mostrar ...-->
+                        <h2>"Resultado para (Salvar Como")</h2>
+                        <!--max 100 caracteres exibidos, se ultrapassar mostrar ...-->
+                        <h3>Rua exemplo exemplo exemploaskljdlaksjdas,99999</h3>
+                    </div>
+                </label>
+            </div>
+            <div class="endereco_area">
+                <input type="radio" class="radio_endereco" id="endereco_1">
+
+
+                <label for="endereco_1" class="select_endereco_box">
+                    <div class="endselect_left">
+                        <div class="radio_check">
+                            <div class="radio_circle"></div>
+                        </div>    
+                    </div>
+                    <div class="endselect_right">
+                        <!--max 30 caracteres exibidos, se ultrapassar mostrar ...-->
+                        <h2>"Resultado para (Salvar Como")</h2>
+                        <!--max 100 caracteres exibidos, se ultrapassar mostrar ...-->
+                        <h3>Rua exemplo exemplo exemploaskljdlaksjdas,99999</h3>
+                    </div>
+                </label>
+            </div>
+            <div class="endereco_area">
+                <input type="radio" class="radio_endereco" id="endereco_1">
+
+
+                <label for="endereco_1" class="select_endereco_box">
+                    <div class="endselect_left">
+                        <div class="radio_check">
+                            <div class="radio_circle"></div>
+                        </div>    
+                    </div>
+                    <div class="endselect_right">
+                        <!--max 30 caracteres exibidos, se ultrapassar mostrar ...-->
+                        <h2>"Resultado para (Salvar Como")</h2>
+                        <!--max 100 caracteres exibidos, se ultrapassar mostrar ...-->
+                        <h3>Rua exemplo exemplo exemploaskljdlaksjdas,99999</h3>
+                    </div>
+                </label>
+            </div>
+        </main>
+
+        <main class="frete_area">
+            <h2>Selecione o Frete</h2>
+            
+            <div class="frete_box">
+                <input type="radio" id="radio_frete">
+                <label for="radio_frete" class="frete_box_in">
+                    <div class="frete_left">
+                        <div class="radio_check">
+                            <div class="radio_circle"></div>
+                        </div> 
+                    </div>
+                    <div class="frete_right">
+                        <h2>Nome Do Serviço</h2>
+                        <h3>R$999,99</h3>
+                        <h4>Chega entre 99/99 e 99/99</h4>
+                    </div>
+                    
+                </label>
+            </div>
+            <div class="frete_box">
+                <input type="radio" id="radio_frete">
+                <label for="radio_frete" class="frete_box_in">
+                    <div class="frete_left">
+                        <div class="radio_check">
+                            <div class="radio_circle"></div>
+                        </div> 
+                    </div>
+                    <div class="frete_right">
+                        <h2>Nome Do Serviço</h2>
+                        <h3>R$999,99</h3>
+                        <h4>Chega entre 99/99 e 99/99</h4>
+                    </div>
+                    
+                </label>
+            </div>
+            <div class="frete_box">
+                <input type="radio" id="radio_frete">
+                <label for="radio_frete" class="frete_box_in">
+                    <div class="frete_left">
+                        <div class="radio_check">
+                            <div class="radio_circle"></div>
+                        </div> 
+                    </div>
+                    <div class="frete_right">
+                        <h2>Nome Do Serviço</h2>
+                        <h3>R$999,99</h3>
+                        <h4>Chega entre 99/99 e 99/99</h4>
+                    </div>
+                    
+                </label>
+            </div>
+            
+
+        </main>
+
+        <main class="pagamento">
+            
+
+            <section class="dados_area">
+                <h2>Dados Pessoais</h2>
+                <!--Exibir os dados da conta ja no input, e permitir alteração caso o cliente queira, exemplo, na criaçao de conta colocou o cpf, o cpf do usuario deve aparecer no input-->
+                <div class="input_box" id="input_nome2">
+                    <input type="text" class="input_endereço2"  placeholder="Nome Completo">
+                    <div class="placeholder_box2">
+                        <h2>Nome Completo</h2>
+                    </div>
+                </div>
+                <div class="input_box" id="input_email">
+                    <input type="text" class="input_endereço2"  placeholder="E-mail">
+                    <div class="placeholder_box2">
+                        <h2>E-mail</h2>
+                    </div>
+                </div>
+                <div class="input_box" id="input_nome2">
+                    <input type="text" class="input_endereço2"  placeholder="Número de Celular">
+                    <div class="placeholder_box2">
+                        <h2>Número de Celular</h2>
+                    </div>
+                </div>
+                <div class="input_box" id="input_nome2">
+                    <input type="text" class="input_endereço2"  placeholder="CPF/CNPJ">
+                    <div class="placeholder_box2">
+                        <h2>CPF/CNPJ</h2>
+                    </div>
+                </div>
+
+
+
+
+                <main class="salvos">
+                    <h2>Salvos</h2>
+                    <button class="pagamento_salvo">
+                        <img src="/transfer-html/img/Visa branco.png" alt="">
+                        <h2>#### #### #### 5555</h2>
+                    </button>
+                    <button class="pagamento_salvo">
+                        <img src="/transfer-html/img/mastercard certo.png" alt="">
+                        <h2>#### #### #### 5555</h2>
+                    </button>
+                    <button class="pagamento_salvo">
+                        <img src="/transfer-html/img/elo certo.png" alt="">
+                        <h2>#### #### #### 5555</h2>
+                    </button>
+                </main>
+            </section>
+            <script>
+                $(':input').on('focus', function() {
+                this.dataset.placeholder = this.placeholder;
+                this.placeholder = '';
+            }).on('blur', function(){
+                this.placeholder = this.dataset.placeholder;
+            });
+            </script>
+            <section class="payment_area">
+                <h2>Método de Pagamento</h2>
+                <form>
+                    <input type="radio" class="radio_pay" id="visa">
+                    <input type="radio" class="radio_pay" id="master">
+                    <input type="radio" class="radio_pay" id="elo">
+                    <input type="radio" class="radio_pay" id="paypal">
+                    <input type="radio" class="radio_pay" id="mercado">
+                    <input type="radio" class="radio_pay" id="picpay">
+                    <input type="radio" class="radio_pay" id="pix">
+                    <input type="radio" class="radio_pay" id="boleto">
+
+
+
+                    <label for="" class="label_pay">
+                        <img src="/transfer-html/img/visa.jpg" alt="">
+                    </label>
+                    <label for="" class="label_pay">
+                        <img src="/transfer-html/img/MasterCard-Logo-1990-1996.png" alt="">
+                    </label>
+                    <label for="" class="label_pay">
+                        <img src="/transfer-html/img/elo-logo-1-1.png" alt="">
+                    </label>
+                    <label for="" class="label_pay">
+                        <img src="/transfer-html/img/paypal-logo.png" alt="">
+                    </label>
+                    <label for="" class="label_pay">
+                        <img src="/transfer-html/img/mercado-pago-logo.png" alt="">
+                    </label>
+                    <label for="" class="label_pay">
+                        <img src="/transfer-html/img/picpay-44.png" alt="">
+                    </label>
+                    <label for="" class="label_pay">
+                        <img src="/transfer-html/img/pix-106.png" alt="">
+                    </label>
+                    <label for="" class="label_pay">
+                        <img src="/transfer-html/img/boleto-logo.png" alt="">
+                    </label>
+                </form>
+                <!--Cada main Corresponde a uma label pressionada diferente para efetuar o pagamento corretamente-->
+                <main class="visapay">
+                    <main class="creditcard">
+                        <div class="credit_card">
+                            <div class="credit_back">
+                                <img src="/transfer-html/img/1636654850975.png" alt="">
+                            </div>
+                            <div class="card_top">
+                                <div class="chip_img">
+                                    <img src="/transfer-html/img/chip cartap.png" alt="">
+                                </div>
+                                <div class="bandeira_img">
+                                    <img src="/transfer-html/img/Visa branco.png" alt="">
+                                </div>
+                            </div>
+                            <div class="card_mid">
+                                <h2>#### #### #### ####</h2>
+                            </div>
+                            <div class="card_mid2">
+                                <div class="cvv">
+                                    <h2>CVV</h2>
+                                    <h3>789</h3>
+                                </div>
+                                <div class="cvv">
+                                    <h2>Validade</h2>
+                                    <h3>09/99</h3>
+                                </div>
+                            </div>
+                            <div class="card_bott">
+                                <h2>Joao Silva Sobrenome Aleatorio</h2>
+                            </div>
+
+
+                        </div>
+                        
+                    </main>
+                    <form>
+                        <div class="input_box" id="input_nome3">
+                            <input type="text" class="input_endereço3"  placeholder="Número do Cartão">
+                            <div class="placeholder_box3">
+                                <h2>Número do Cartão</h2>
+                            </div>
+                        </div>
+                        <div class="input_box" id="input_nome3">
+                            <input type="text" class="input_endereço3"  placeholder="Nome do Titular">
+                            <div class="placeholder_box3">
+                                <h2>Nome do Titular</h2>
+                            </div>
+                        </div>
+                        <div class="input_box" id="input_validade">
+                            <input type="text" class="input_endereço3"  placeholder="Validade do Cartão">
+                            <div class="placeholder_box3">
+                                <h2>Validade do Cartão</h2>
+                            </div>
+                        </div>
+                        <div class="input_box"  id="input_codseguranca">
+                            <input type="text" class="input_endereço3"  placeholder="Código de Segurança">
+                            <div class="placeholder_box3">
+                                <h2>Código de Segurança</h2>
+                            </div>
+                        </div>
+                        <script>
+                            $(':input').on('focus', function() {
+                            this.dataset.placeholder = this.placeholder;
+                            this.placeholder = '';
+                        }).on('blur', function(){
+                            this.placeholder = this.dataset.placeholder;
+                        });
+                        </script>
+                    </form>
+                </main>
+                <!--pagamento Mastercard-->
+                <main class="visapay">
+                    <main class="creditcard">
+                        <div class="credit_card">
+                            <div class="credit_back">
+                                <img src="/transfer-html/img/1636654850975.png" alt="">
+                            </div>
+                            <div class="card_top">
+                                <div class="chip_img">
+                                    <img src="/transfer-html/img/chip cartap.png" alt="">
+                                </div>
+                                <div class="bandeira_img">
+                                    <img src="/transfer-html/img/mastercard certo.png" alt="">
+                                </div>
+                            </div>
+                            <div class="card_mid">
+                                <h2>#### #### #### ####</h2>
+                            </div>
+                            <div class="card_mid2">
+                                <div class="cvv">
+                                    <h2>CVV</h2>
+                                    <h3>789</h3>
+                                </div>
+                                <div class="cvv">
+                                    <h2>Validade</h2>
+                                    <h3>09/99</h3>
+                                </div>
+                            </div>
+                            <div class="card_bott">
+                                <h2>Joao Silva Sobrenome Aleatorio</h2>
+                            </div>
+
+
+                        </div>
+                        
+                    </main>
+                    <form>
+                        <div class="input_box" id="input_nome3">
+                            <input type="text" class="input_endereço3"  placeholder="Número do Cartão">
+                            <div class="placeholder_box3">
+                                <h2>Número do Cartão</h2>
+                            </div>
+                        </div>
+                        <div class="input_box" id="input_nome3">
+                            <input type="text" class="input_endereço3"  placeholder="Nome do Titular">
+                            <div class="placeholder_box3">
+                                <h2>Nome do Titular</h2>
+                            </div>
+                        </div>
+                        <div class="input_box" id="input_validade">
+                            <input type="text" class="input_endereço3"  placeholder="Validade do Cartão">
+                            <div class="placeholder_box3">
+                                <h2>Validade do Cartão</h2>
+                            </div>
+                        </div>
+                        <div class="input_box"  id="input_codseguranca">
+                            <input type="text" class="input_endereço3"  placeholder="Código de Segurança">
+                            <div class="placeholder_box3">
+                                <h2>Código de Segurança</h2>
+                            </div>
+                        </div>
+                        <script>
+                            $(':input').on('focus', function() {
+                            this.dataset.placeholder = this.placeholder;
+                            this.placeholder = '';
+                        }).on('blur', function(){
+                            this.placeholder = this.dataset.placeholder;
+                        });
+                        </script>
+                    </form>
+                </main>
+                <!--Pagamento elo-->
+                <main class="visapay">
+                    <main class="creditcard">
+                        <div class="credit_card">
+                            <div class="credit_back">
+                                <img src="/transfer-html/img/1636654850975.png" alt="">
+                            </div>
+                            <div class="card_top">
+                                <div class="chip_img">
+                                    <img src="/transfer-html/img/chip cartap.png" alt="">
+                                </div>
+                                <div class="bandeira_img">
+                                    <img src="/transfer-html/img/elo certo.png" alt="">
+                                </div>
+                            </div>
+                            <div class="card_mid">
+                                <h2>#### #### #### ####</h2>
+                            </div>
+                            <div class="card_mid2">
+                                <div class="cvv">
+                                    <h2>CVV</h2>
+                                    <h3>789</h3>
+                                </div>
+                                <div class="cvv">
+                                    <h2>Validade</h2>
+                                    <h3>09/99</h3>
+                                </div>
+                            </div>
+                            <div class="card_bott">
+                                <h2>Joao Silva Sobrenome Aleatorio</h2>
+                            </div>
+
+
+                        </div>
+                        
+                    </main>
+                    <form>
+                        <div class="input_box" id="input_nome3">
+                            <input type="text" class="input_endereço3"  placeholder="Número do Cartão">
+                            <div class="placeholder_box3">
+                                <h2>Número do Cartão</h2>
+                            </div>
+                        </div>
+                        <div class="input_box" id="input_nome3">
+                            <input type="text" class="input_endereço3"  placeholder="Nome do Titular">
+                            <div class="placeholder_box3">
+                                <h2>Nome do Titular</h2>
+                            </div>
+                        </div>
+                        <div class="input_box" id="input_validade">
+                            <input type="text" class="input_endereço3"  placeholder="Validade do Cartão">
+                            <div class="placeholder_box3">
+                                <h2>Validade do Cartão</h2>
+                            </div>
+                        </div>
+                        <div class="input_box"  id="input_codseguranca">
+                            <input type="text" class="input_endereço3"  placeholder="Código de Segurança">
+                            <div class="placeholder_box3">
+                                <h2>Código de Segurança</h2>
+                            </div>
+                        </div>
+                        <script>
+                            $(':input').on('focus', function() {
+                            this.dataset.placeholder = this.placeholder;
+                            this.placeholder = '';
+                        }).on('blur', function(){
+                            this.placeholder = this.dataset.placeholder;
+                        });
+                        
+                        </script>
+                    </form>
+                </main>
+
+
+
+                <div class="salvar">
+                    <h4 class="">Salvar Cartão</h4>
+                    <input type="checkbox" class="option-input checkbox">
+                </div>
+                <main class="total">
+                    <h2>Total</h2>
+                    <h3>Nome Produto - R$###,##</h3>
+                    <h3>Nome Produto - R$###,##</h3>
+                    <h3>Nome Produto - R$###,##</h3>
+                    <h3>Frete - R$###,##</h3>
+                    <h3>Taxa(Caso tenha) - R$###,##</h3>
+                </main>
+                
+                <main class="paypalpay">
+                    <button>Page com <img src="/transfer-html/img/paypal certo.png" alt=""></button>
+                </main>
+
+                <main class="finalizar_compra">
+                    <button>Finalizar Compra</button>
+                </main>
+
+            </section>
+        </main>
+
+
+    </section>
+
+
+
+</body>

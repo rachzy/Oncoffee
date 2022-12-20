@@ -1,0 +1,905 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+
+* {
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-style: initial;
+    box-shadow: 0 0 0 0;
+    border: 0 none;
+    outline: none;
+    
+
+}
+
+
+textarea:focus, input:focus, select:focus {
+    box-shadow: 0 0 0 0;
+    border: 0 none;
+    outline: 0;
+}
+
+body {
+    overflow-x: hidden;
+    background: rgb(25, 25, 25);
+    min-height: 100vh;
+    position: relative;
+}
+
+header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 0px;
+}
+
+.nav_pay {
+    width: 88%;
+    display: flex;
+    align-items: center;
+}
+
+.nav_logo img {
+    width: 80px;
+}
+
+.nav_pay h2 {
+    font-size: 25px;
+    font-family: Poppins,sans-serif;
+    font-weight: 500;
+    margin-left: 20px;
+    color: rgba(255, 255, 255, 0.8);
+    cursor: default;
+}
+
+
+.endereco_box {
+    width: 30%;
+    position: absolute;
+    display: none;
+    flex-direction: flex;
+    flex-wrap: wrap;
+    background: rgb(35, 35, 35);
+    box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.521);
+    padding: 25px;
+    border-radius: 15px;
+    margin-left: 35%;
+    margin-top: -70px;
+    
+}
+
+.endereco_box h2 {
+    font-size: 18px;
+    font-family: Poppins,sans-serif;
+    font-weight: 500;
+    
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.endereco_box h3 {
+    font-size: 13px;
+    font-family: Poppins,sans-serif;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.5);
+    margin-top: 10px;
+}
+
+.input_box {
+    margin-top: 10px;
+    margin-right: 10px;
+    position: relative;
+    width: 100%;
+}
+
+.input_endereço {
+    background: transparent;
+    font-family: Poppins,sans-serif;
+    padding: 8px 5px;
+    font-size: 15px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.8);
+    border: 1px solid transparent;
+    border-radius: 5px;
+    transition: 0.3s ease all;
+    margin-top: 10px;
+    margin-right: 10px;
+    width: 95%;
+}
+
+.input_endereço:focus ~ .placeholder_box {
+    display: block;
+}
+
+.placeholder_box {
+    background: rgb(35, 35, 35);
+    position: absolute;
+    font-size: 10px;
+    top: 0;
+    padding: 0px 5px;
+    margin-left: 15px;
+    margin-top: 2.5px;
+    display: none;
+}
+
+.placeholder_box h2 {
+    color: rgb(167, 89, 45);
+    font-size: 10px;
+    font-weight: 400;
+
+}
+
+#input_nome {
+    width: 45%;
+}
+
+#input_tel {
+    width: 45%;
+}
+
+#input_rua {
+    width: 60%;
+}
+
+#input_number {
+    width: 30%;
+}
+
+
+
+.input_endereço:focus {
+    border: 1px solid rgb(167, 89, 45);
+}
+
+
+
+
+.endereco_box h3 span {
+    
+    color: rgb(167, 89, 45);
+}
+
+.save_area {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+}
+
+.save_area button {
+    background: rgb(167, 89, 45);
+    font-size: 18px;
+    border-radius: 8px;
+    font-family: Poppins,sans-serif;
+    font-weight: 500;
+    padding: 5px 25px;
+    color: rgba(0, 0, 0, 0.8);
+    border: 2px solid rgb(167, 89, 45);
+    transition: 0.3s ease all;
+}
+
+.save_area button:hover {
+    background: transparent;
+    cursor: pointer;
+    border: 2px solid rgb(167, 89, 45);
+    color: rgba(255, 255, 255, 0.8);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.conteudo_pc {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.endereco_entrega {
+    width: 88%;
+    background: rgb(35, 35, 35);
+    padding: 15px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.endereco_entrega h2 {
+    font-family: Poppins,sans-serif;
+    font-weight: 400;
+    font-size: 22px;
+    color: rgba(255, 255, 255, 0.8);
+    cursor: default;
+    min-width: 100%;
+}
+
+.endereco_entrega i {
+    color: rgb(167, 89, 45);
+    margin-right: 15px;
+}
+
+.endereco_area {
+    background: rgb(45, 45, 45);
+    padding: 15px;
+    border-radius: 15px;
+    max-width: 350px;
+    border: 1px solid transparent;
+    /*border: 1px solid rgb(167, 89, 45);exbir caso esteja selecionado*/
+    transition: 0.3s ease all;
+    z-index: 999;
+    margin-top: 40px;
+}
+.endereco_area:hover {
+    border: 1px solid rgb(95, 95, 95);
+    cursor: pointer;
+}
+
+
+
+
+.endereco_area input {
+    display: none;
+}
+
+.select_endereco_box {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+/*se select_endereco_box estiver selecionado ativar o circulo .radio_circle e adicionar borda marrom */
+
+.endselect_right {
+    width: 80%;
+}
+
+.endselect_left {
+    width: 20%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.radio_check {
+    width: 30px;
+    height: 30px;
+    background: rgb(55, 55, 55);
+    border-radius: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.radio_circle {
+    width: 50%;
+    height: 50%;
+    border-radius: 200px;
+    background: rgba(255, 255, 255, 0.8);
+    
+}
+
+/*max 30 caracteres*/
+.select_endereco_box h2 {
+    font-family: Poppins,sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.8);
+    cursor: default;
+    
+}
+
+.select_endereco_box h3 {
+    font-family: Poppins,sans-serif;
+    font-weight: 400;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.4);
+    cursor: default;
+    
+}
+
+
+
+
+
+
+
+
+
+.frete_area {
+    width: 88%;
+    padding: 15px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.frete_area h2 {
+    font-family: Poppins,sans-serif;
+    font-weight: 400;
+    font-size: 22px;
+    color: rgba(255, 255, 255, 0.8);
+    cursor: default;
+    min-width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.frete_box {
+    width: max-content;
+    margin-top: 20px;
+    margin-right: 20px;
+}
+
+.frete_box_in {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    background: rgb(45, 45, 45);
+    padding: 15px;
+    border-radius: 15px;
+}
+
+.frete_right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-left: 20px;
+}
+
+.frete_box h2 {
+    font-family: Poppins,sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.8);
+    min-width: auto;
+}
+
+.frete_box h3 {
+    font-family: Poppins,sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.frete_box h4 {
+    font-family: Poppins,sans-serif;
+    font-weight: 300;
+    font-size: 13px;
+    color: rgb(167, 89, 45);
+}
+
+#radio_frete {
+    display: none;
+}
+
+
+
+.pagamento {
+    width: 88%;
+    padding: 15px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.dados_area {
+    width: 49%;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+}
+
+
+.dados_area h2 {
+    font-family: Poppins,sans-serif;
+    font-weight: 400;
+    font-size: 22px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+
+
+.input_endereço2 {
+    background: transparent;
+    font-family: Poppins,sans-serif;
+    padding: 8px 5px;
+    font-size: 15px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.8);
+    border: 1px solid transparent;
+    border-radius: 5px;
+    transition: 0.3s ease all;
+    margin-top: 10px;
+    margin-right: 10px;
+    width: 95%;
+}
+
+.input_endereço2:focus ~ .placeholder_box2 {
+    display: block;
+}
+
+.placeholder_box2 {
+    background: rgb(25, 25, 25);
+    position: absolute;
+    font-size: 10px;
+    top: 0;
+    padding: 0px 5px;
+    margin-left: 15px;
+    margin-top: 0px;
+    display: none;
+}
+
+.placeholder_box2 h2 {
+    color: rgb(167, 89, 45);
+    font-size: 13px;
+    font-weight: 400;
+
+}
+
+
+.input_endereço2:focus {
+    border: 1px solid rgb(167, 89, 45);
+}
+
+
+
+
+
+
+
+.payment_area {
+    width: 49%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.payment_area h2 {
+    font-family: Poppins,sans-serif;
+    font-weight: 400;
+    font-size: 22px;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 10px;
+}
+
+.radio_pay {
+    display: none;
+}
+
+
+.label_pay {
+    background: transparent;
+    background: rgb(45, 45, 45);
+    border: 1px solid rgb(55, 55, 55);
+    width: 70px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+/*Caso esteja Selecionado no caso exemplo o label 2 (contagem das labels começa a partir de 8(por conta das inputs))*/
+
+.label_pay:nth-child(10) {
+    border: 1px solid rgb(167, 89, 45);
+}
+
+.label_pay img {
+    width: 60px;
+}
+
+.payment_area form {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+
+.visapay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background: rgb(35, 35, 35);
+    width: 100%;
+    border-radius: 15px;
+    margin-top: 190px;
+}
+
+.creditcard {
+    width: 100%;
+    height: 160px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.credit_card {
+    width: 67%;
+    background: linear-gradient(45deg,rgb(15,15,15),rgb(15, 15, 15));
+    border-radius: 15px;
+    padding: 30px;
+    height: 220px;
+    position: absolute;
+    margin-top: -170px;
+    overflow: hidden;
+}
+
+.credit_back {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 1;
+    
+}
+
+
+
+
+.credit_card img {
+    width: 100px;
+}
+
+.credit_back img {
+    width: 300px;
+    transform: rotate(-45deg);
+    opacity: 0.05;
+    margin-right: -80px;
+    margin-bottom: -80px;
+}
+
+.card_top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 999;
+}
+
+.card_mid {
+    margin-top: 15px;
+    z-index: 999;
+}
+
+.card_mid h2 {
+    width: 100%;
+    font-family: Poppins,sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.8);
+    letter-spacing: 8px;
+}
+
+.card_mid2 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 15px;
+    z-index: 999;
+}
+
+.card_mid2 h2 {
+    font-family: Poppins,sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.card_mid2 h3 {
+    font-family: Poppins,sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.8);
+    margin-top: -10px;
+}
+
+.card_bott {
+    margin-top: 15px;
+    z-index: 999;
+}
+
+.card_bott h2 {
+    width: 100%;
+    font-family: Poppins,sans-serif;
+    font-weight: 400;
+    font-size: 22px;
+    color: rgba(255, 255, 255, 0.8);
+    letter-spacing: 1px;
+}
+
+
+
+.visapay form {
+    width: 85%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding-bottom: 30px;
+}
+
+.input_endereço3 {
+    background: transparent;
+    font-family: Poppins,sans-serif;
+    padding: 8px 5px;
+    font-size: 15px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.8);
+    border: 1px solid transparent;
+    border-radius: 5px;
+    transition: 0.3s ease all;
+    margin-top: 10px;
+    margin-right: 10px;
+    width: 95%;
+}
+
+.placeholder_box3 {
+    background: rgb(35, 35, 35);
+    position: absolute;
+    height: 18px;
+    top: 0;
+    padding: 0px 5px;
+    margin-left: 15px;
+    margin-top: 0px;
+    display: none;
+}
+
+.input_endereço3:focus ~ .placeholder_box3 {
+    display: block;
+}
+
+.placeholder_box3 h2 {
+    color: rgb(167, 89, 45);
+    font-size: 13px;
+    font-weight: 400;
+
+}
+
+
+
+.input_endereço3:focus {
+    border: 1px solid rgb(167, 89, 45);
+}
+
+
+#input_validade {
+    width: 40%;
+}
+
+#input_codseguranca {
+    width: 40%;
+}
+
+
+.total {
+    width: 98%;
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.total h2 {
+    font-family: Poppins,sans-serif;
+    font-weight: 500;
+    font-size: 26px;
+    color: rgba(255, 255, 255, 0.8);
+    letter-spacing: 1px;
+}
+
+.total h3 {
+    font-family: Poppins,sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.paypalpay {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    flex-direction: column;
+}
+
+.paypalpay button {
+    background: transparent;
+    border: 2px solid rgb(45, 45, 45);
+    font-family: Poppins,sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.8);
+    width: 90%;
+    border-radius: 8px;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.3s ease all;
+}
+
+.paypalpay button:hover {
+    letter-spacing: 2px;
+    border: 2px solid rgb(95, 95, 95);
+}
+
+.paypalpay button img {
+    width: 80px;
+    margin-left: 15px;
+}
+
+.finalizar_compra {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    flex-direction: column;
+}
+
+.finalizar_compra button {
+    background: transparent;
+    border: 2px solid rgb(167, 89, 45);
+    font-family: Poppins,sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.8);
+    width: 90%;
+    border-radius: 8px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.3s ease all;
+}
+
+.finalizar_compra button:hover {
+    letter-spacing: 2px;
+    background: rgb(167, 89, 45);
+}
+
+
+
+
+.salvos {
+    display: flex;
+    
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 50px;
+}
+
+.salvos h2 {
+    font-family: Poppins,sans-serif;
+    font-weight: 400;
+    font-size: 24px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.pagamento_salvo {
+    width: 100%;
+    border-top: 1px solid rgb(30, 30, 30);
+    
+    display: flex;
+    align-items: center;
+    background: transparent;
+    height: 50px;
+    cursor: pointer;
+    transition: 0.3s ease all;
+}
+
+.pagamento_salvo:hover {
+    border-top: 1px solid rgb(50, 50, 50);
+    background: rgb(30, 30, 30);
+}
+
+.pagamento_salvo img {
+    width: 50px;
+    padding-left: 20px;
+}
+
+.pagamento_salvo h2 {
+    font-family: Poppins,sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.8);
+    margin-left: 30px;
+}
+
+
+.option-input {
+    appearance: none;
+    position: relative;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    transition: all 0.15s ease-out 0s;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    outline: none;
+    position: relative;
+    z-index: 1000;
+    border-radius: 3px;
+  }
+  .option-input:hover {
+    background: rgba(255, 255, 255, 0.4);
+  }
+  .option-input:checked {
+    background: rgb(167, 89, 45);
+  }
+  .option-input:checked::before {
+    width: 20px;
+    height: 20px;
+    display:flex;
+    content: '\f00c';
+    font-size: 12.5px;
+    font-weight:bold;
+    position: absolute;
+    align-items:center;
+    justify-content:center;
+    font-family:'Font Awesome 5 Free';
+  }
+  .option-input:checked::after {
+    -webkit-animation: click-wave 0.65s;
+    -moz-animation: click-wave 0.65s;
+    animation: click-wave 0.65s;
+    background: rgb(167, 89, 45);
+    content: '';
+    display: block;
+    position: relative;
+    z-index: 100;
+  }
+
+  
+.salvar {
+    width: 100%;
+    display: flex;
+    margin-top: 30px;
+    align-items: center;
+    
+}
+
+.salvar h4 {
+    font-family: Poppins,sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.8);
+    margin-right: 10px;
+}
