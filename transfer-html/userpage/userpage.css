@@ -1906,15 +1906,16 @@ ul button {
 
 
 .menu_lines2 {
-  width: 30px;
-  height: 30px;
-  margin-top: 25px;
+  width: 20px;
+  height: 20px;
+  margin-top: 18px;
   margin-left: 15px;
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  opacity: 0.7;
 }
 
 
@@ -1998,13 +1999,15 @@ ul button {
   flex-direction: row;
   align-items: center;
   width: max-content;
+  opacity: 0.7;
+  padding-top: 6px;
 }
 
 .check_menu h2 {
   font-family: Poppins,sans-serif;
   color: rgba(255, 255, 255, 0.8);
   font-weight: 500;
-  font-size: 18px;
+  font-size: 16px;
   margin-left: 10px;
 }
 
@@ -2087,18 +2090,49 @@ ul button {
   justify-content: center;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .conteudo_mobile {
-  display: flex;
+  display: none;
   flex-direction: column;
   align-items: center;
   margin-bottom: 200px;
 }
+
+@media screen and (max-width: 850px) {
+  .conteudo_mobile {
+    display: flex;
+  }
+
+  .conteudo_pc {
+    display: none;
+  }
+}
+  
+
 
 .mid_area {
   display: flex;
   width: 95%;
   flex-direction: row;
   flex-wrap: wrap;
+}
+
+
+#acompanhar_produto {
+  margin-top: 10px;
 }
 
 .input_box2 {
@@ -2379,7 +2413,7 @@ ul button {
   flex-wrap: wrap;
   margin-top: 5px;
   border-radius: 8px;
-  padding: 8px 0px;
+  padding: 15px 0px;
 }
 
 .status_top h2 {
