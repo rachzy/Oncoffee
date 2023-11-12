@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/Oncoffee/static/css/main.f151068a.css",
-    "main.js": "/Oncoffee/static/js/main.ae685be1.js",
+    "main.js": "/Oncoffee/static/js/main.e23b85ac.js",
     "static/media/camiseta1.png": "/Oncoffee/static/media/camiseta1.2f693bc26c344a1df2ee.png",
     "static/media/roupa.png": "/Oncoffee/static/media/roupa.79c0190806e51f01af3b.png",
     "static/media/1629904844934.jpg": "/Oncoffee/static/media/1629904844934.2ca65c8f579210ff99b3.jpg",
@@ -79,10 +79,10 @@
     "index.html": "/Oncoffee/index.html",
     "static/media/site.webmanifest": "/Oncoffee/static/media/site.1c337fa2fa1515591f8d.webmanifest",
     "main.f151068a.css.map": "/Oncoffee/static/css/main.f151068a.css.map",
-    "main.ae685be1.js.map": "/Oncoffee/static/js/main.ae685be1.js.map"
+    "main.e23b85ac.js.map": "/Oncoffee/static/js/main.e23b85ac.js.map"
   },
   "entrypoints": [
     "static/css/main.f151068a.css",
-    "static/js/main.ae685be1.js"
+    "static/js/main.e23b85ac.js"
   ]
 }
